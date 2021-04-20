@@ -1,0 +1,6 @@
+module Pods_messanger {
+  umbrella header "Pods-messanger-umbrella.h"
+
+  export *
+  module * { export * }
+}
