@@ -1,0 +1,7 @@
+{
+  "name": "corporate-messenger",
+  "description": "mono repo root",
+  "version": "0.0.1",
+  "repository": "git@github.com:phantom-patrick/corporate-messenger.git",
+  "private": true
+}
