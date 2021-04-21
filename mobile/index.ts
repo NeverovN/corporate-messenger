@@ -1,3 +1,3 @@
-import { initApp } from '@/app';
+import { initApp } from './src/app/index';
 
 initApp();
