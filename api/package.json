@@ -1,0 +1,19 @@
+{
+  "name": "corporate-messenger-api",
+  "description": "server app",
+  "version": "0.0.1",
+  "repository": "git@github.com:phantom-patrick/corporate-messenger.git",
+  "private": true,
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "2.2.1"
+  },
+  "scripts": {
+    "prettier-format": "prettier --config .prettierrc '.' --write",
+    "lint": "eslint . --ext .ts --fix"
+  }
+}
