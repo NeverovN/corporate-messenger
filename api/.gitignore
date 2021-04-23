@@ -1,0 +1,11 @@
+# Node.js
+
+node_modules/
+yarn-error.log
+
+
+# MacOS
+
+.DS_Store
+
+
