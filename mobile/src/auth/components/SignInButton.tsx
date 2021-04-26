@@ -2,10 +2,10 @@ import React, { memo } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 interface CustomButtonProps {
-  title: string;
+  title?: string;
   textStyle: object;
   viewStyle: object;
-  onPress: (param: any) => any;
+  onPress?: (param: any) => any;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = memo((props) => {

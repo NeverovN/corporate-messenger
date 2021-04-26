@@ -4,8 +4,9 @@ export default StyleSheet.create({
   input: {
     width: 300,
     height: 20,
-    borderRadius: 1,
+    borderBottomWidth: 1,
     borderColor: '#000',
+    margin: 10,
   },
   viewStyle: {
     overflow: 'hidden',
@@ -14,6 +15,8 @@ export default StyleSheet.create({
     paddingVertical: 7,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'green',
+    margin: 10,
   },
   textStyle: {
     textAlign: 'center',
