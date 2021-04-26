@@ -5,7 +5,7 @@ interface CustomButtonProps {
   title?: string;
   textStyle: object;
   viewStyle: object;
-  onPress?: (param: any) => any;
+  onPress?(): void;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = memo((props) => {

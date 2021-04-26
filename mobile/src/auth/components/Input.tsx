@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
-import { TextInput } from 'react-native';
+import { StyleProp, TextInput, ViewStyle } from 'react-native';
 
 interface CustomInput {
-  styles: object;
+  containerStyle: StyleProp<ViewStyle>;
 }
 
 const Input: React.FC<CustomInput> = memo((props) => {
