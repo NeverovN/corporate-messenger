@@ -1,9 +1,10 @@
 import React, { FC, memo, useState } from 'react';
 // components
-import LoginView from '@/auth/components/Login';
+import LoginView from '../../../auth/components/Login';
 
 // hooks
-import { useHandleLogin } from '@/auth/hooks/useHandleLogin';
+import { useHandleLogin } from '../../../auth/hooks/useHandleLogin';
+import { Alert } from 'react-native';
 
 interface ILoginContainerProps {}
 
@@ -14,7 +15,7 @@ const LoginContainer: FC<ILoginContainerProps> = () => {
   const handleLogin = useHandleLogin({ email, password });
 
   // const onLoginPress = () => {
-  //   handleLogin(email, password);
+  //   handleLogin();
   // };
 
   return (

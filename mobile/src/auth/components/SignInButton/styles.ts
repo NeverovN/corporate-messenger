@@ -11,7 +11,9 @@ export default StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 15,
     backgroundColor: 'green',
-    margin: 20
+    margin: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   touchStyle: {
 

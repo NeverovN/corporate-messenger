@@ -4,6 +4,6 @@ export default StyleSheet.create({
   loginStyle: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });

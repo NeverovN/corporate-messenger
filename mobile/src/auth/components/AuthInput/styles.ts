@@ -5,6 +5,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: 'black',
     height: 30,
-    margin: 15
-  }
+    margin: 15,
+    width: 200,
+  },
 });

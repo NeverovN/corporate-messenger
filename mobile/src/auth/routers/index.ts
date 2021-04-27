@@ -19,6 +19,11 @@ type RootStackParamList = {
   Register: undefined;
 };
 
+export type LoginScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Login'
+>;
+
 const Screens = createStackNavigator<RootStackParamList>();
 
 export default Screens;
