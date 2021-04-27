@@ -1,8 +1,12 @@
-import React, { memo } from 'react';
-import AppScreen from '../../../auth';
+import React, { FC, memo } from 'react';
 
-const App = () => {
-  return AppScreen();
+// routers
+import AppNavigator from '../../routers/index';
+
+interface IApp {}
+
+const App: FC<IApp> = () => {
+  return <AppNavigator />;
 };
 
 export default memo(App);

@@ -6,20 +6,36 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react",
-    "lib": ["es6"],
+    "lib": [
+      "es6"
+    ],
     "moduleResolution": "node",
     "noEmit": true,
     "strict": true,
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "root/*": ["./*"],
-      "@/*": ["./src/*"],
-      "common/*": ["./src/common/*"],
-      "app/*": ["./src/app/*"],
-      "auth/*": ["./src/auth/*"],
-      "chat/*": ["./src/chat/*"],
-      "settings/*": ["./src/settings/*"]
+      "root/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "common/*": [
+        "./src/common/*"
+      ],
+      "app/*": [
+        "./src/app/*"
+      ],
+      "auth/*": [
+        "./src/auth/*"
+      ],
+      "chat/*": [
+        "./src/chat/*"
+      ],
+      "settings/*": [
+        "./src/settings/*"
+      ]
     }
   },
   "exclude": [

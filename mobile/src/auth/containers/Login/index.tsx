@@ -19,7 +19,7 @@ const LoginContainer: FC<ILoginContainerProps> = () => {
 
   return (
     <LoginView
-      emailValue={email}
+      email={email}
       onChangeEmail={setEmail}
       password={password}
       onChangePassword={setPassword}

@@ -160,7 +160,6 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				6120E7B0E35F257AE4C9AD18 /* [CP] Embed Pods Frameworks */,
 				C19960E766AFE74D2D12C289 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -183,7 +182,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				E12282714A586DBD7B4B1197 /* [CP] Embed Pods Frameworks */,
 				3EE8A3EEFAFB1C3689275F84 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -282,23 +280,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CorporateMessenger/Pods-CorporateMessenger-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6120E7B0E35F257AE4C9AD18 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CorporateMessenger-CorporateMessengerTests/Pods-CorporateMessenger-CorporateMessengerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CorporateMessenger-CorporateMessengerTests/Pods-CorporateMessenger-CorporateMessengerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CorporateMessenger-CorporateMessengerTests/Pods-CorporateMessenger-CorporateMessengerTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A3981CAD60DF879E154EEC30 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -358,23 +339,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CorporateMessenger-CorporateMessengerTests/Pods-CorporateMessenger-CorporateMessengerTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E12282714A586DBD7B4B1197 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CorporateMessenger/Pods-CorporateMessenger-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CorporateMessenger/Pods-CorporateMessenger-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CorporateMessenger/Pods-CorporateMessenger-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {

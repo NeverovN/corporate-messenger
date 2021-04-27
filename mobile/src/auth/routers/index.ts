@@ -4,16 +4,19 @@ import {
   StackNavigationProp,
 } from '@react-navigation/stack';
 
-type AuthNavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>;
-type FeedNavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>;
+// consts
+import { REGISTER_SCREEN_NAME, LOGIN_SCREEN_NAME } from '../constants/routes';
 
-export type AuthProps = {
-  navigation: AuthNavigationProp;
-};
+type AuthNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+type RegistrationNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;
+
+// export type AuthProps = {
+//   navigation: AuthNavigationProp;
+// };
 
 type RootStackParamList = {
-  Auth: undefined;
-  Feed: undefined;
+  Login: undefined;
+  Register: undefined;
 };
 
 const Screens = createStackNavigator<RootStackParamList>();
