@@ -22,6 +22,11 @@ type RootStackParamList = {
 export type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Login'
+  >;
+
+  export type RegistrationScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Register'
 >;
 
 const Screens = createStackNavigator<RootStackParamList>();
