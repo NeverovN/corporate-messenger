@@ -2,12 +2,12 @@ import React, { memo } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
-interface ISignInButtonProps {
+interface ISignButtonProps {
   title?: string;
   onPress?(): void;
 }
 
-const SignInButton: React.FC<ISignInButtonProps> = (props) => {
+const SignButton: React.FC<ISignButtonProps> = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress} style={styles.touchStyle}>
       <View style={styles.viewStyle}>
@@ -17,4 +17,4 @@ const SignInButton: React.FC<ISignInButtonProps> = (props) => {
   );
 };
 
-export default memo(SignInButton);
+export default memo(SignButton);

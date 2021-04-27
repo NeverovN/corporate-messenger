@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 // components
 import AuthInput from '../AuthInput';
-import SignInButton from '../SignInButton';
+import SignButton from '../SignButton';
 
 // styles
 import styles from './styles';
@@ -31,7 +31,7 @@ const LoginView: FC<ILoginViewProps> = (props) => {
         value={props.password}
         onChangeText={props.onChangePassword}
       />
-      <SignInButton title="SIGN IN" onPress={props.handleLogin} />
+      <SignButton title="SIGN IN" onPress={props.handleLogin} />
     </View>
   );
 };
