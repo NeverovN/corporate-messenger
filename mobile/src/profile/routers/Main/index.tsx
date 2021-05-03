@@ -1,8 +1,22 @@
-import React, { memo, FC } from 'react';
-interface IPrfileNavigatorProps {}
+// Auth router (authentication level router)
 
-const ProfileNavigator: FC<IPrfileNavigatorProps> = () => {
-  return <></>;
+import React, { memo, FC } from 'react';
+import Screens from '../index';
+
+// constants
+import { PROFILE_SCREEN_NAME } from '../../constants/routes';
+
+// components
+import Profile from '../../containers/Profile';
+
+interface ISettingsNavigatorProps {}
+
+const ProfileNavigator: FC<ISettingsNavigatorProps> = () => {
+  return (
+    <Screens.Navigator initialRouteName={PROFILE_SCREEN_NAME}>
+      <Screens.Screen name={PROFILE_SCREEN_NAME} component={Profile} />
+    </Screens.Navigator>
+  );
 };
 
 export default memo(ProfileNavigator);

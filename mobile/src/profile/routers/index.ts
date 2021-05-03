@@ -4,12 +4,12 @@ import {
 } from '@react-navigation/stack';
 
 type RootStackParamList = {
-  Feed: undefined;
+  Profile: undefined;
 };
 
-export type FeedScreenNavigationProp = StackNavigationProp<
+export type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  'Feed'
+  'Profile'
 >;
 
 const Screens = createStackNavigator<RootStackParamList>();
