@@ -4,7 +4,6 @@ import LoginView from '../../../auth/components/Login';
 
 // hooks
 import { useHandleLogin } from '../../../auth/hooks/useHandleLogin';
-import { Alert } from 'react-native';
 
 interface ILoginContainerProps {}
 

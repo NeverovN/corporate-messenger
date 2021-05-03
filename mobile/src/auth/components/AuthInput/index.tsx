@@ -1,10 +1,5 @@
 import React, { memo } from 'react';
-import {
-  StyleProp,
-  TextInput,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
-} from 'react-native';
+import { TextInput } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -18,8 +13,9 @@ interface IAuthInput {
 const AuthInput: React.FC<IAuthInput> = (props) => {
   return (
     <TextInput
-      {...props}
+      // {...props}
       style={styles.inputStyle}
+      value={props.value}
       onChangeText={props.onChangeText}
     />
   );

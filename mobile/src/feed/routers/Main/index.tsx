@@ -4,10 +4,7 @@ import React, { memo, FC } from 'react';
 import Screens from '../index';
 
 // constants
-import {
-  LOGIN_SCREEN_NAME,
-  REGISTER_SCREEN_NAME,
-} from '../../constants/routes';
+import { FEED_SCREEN_NAME } from '../../constants/routes';
 
 // components
 import Login from '../../containers/Login';

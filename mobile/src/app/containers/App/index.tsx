@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 
 // routers
-import AppNavigator from '../../routers/index';
+import AppNavigator from '../../routers/Main/index';
 
 interface IApp {}
 
