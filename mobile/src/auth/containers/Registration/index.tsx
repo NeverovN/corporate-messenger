@@ -1,14 +1,14 @@
 import React, { FC, memo, useState } from 'react';
+
 // components
 import RegisterView from '../../../auth/components/Register';
 
 // hooks
 import { useHandleRegistration } from '../../../auth/hooks/useHandleRegistration';
-import { Alert } from 'react-native';
 
 interface ILoginContainerProps {}
 
-const LoginContainer: FC<ILoginContainerProps> = () => {
+const RegistrationContainer: FC<ILoginContainerProps> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordRepeat, setPasswordRepeat] = useState<string>('');
@@ -18,10 +18,6 @@ const LoginContainer: FC<ILoginContainerProps> = () => {
     password,
     passwordRepeat,
   });
-
-  // const onLoginPress = () => {
-  //   handleLogin();
-  // };
 
   return (
     <RegisterView
@@ -36,4 +32,4 @@ const LoginContainer: FC<ILoginContainerProps> = () => {
   );
 };
 
-export default memo(LoginContainer);
+export default memo(RegistrationContainer);

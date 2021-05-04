@@ -18,7 +18,7 @@ type AppTabParamList = {
   Feed: undefined;
   ChatList: undefined;
   Settings: undefined;
-  Porfile: undefined;
+  Profile: undefined;
 };
 
 export type FeedNavigationProp = BottomTabNavigationProp<
@@ -29,7 +29,9 @@ export type FeedNavigationProp = BottomTabNavigationProp<
 export type AuthNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Auth'
->;
+  >;
+export const InnerScreens = createBottomTabNavigator<AppTabParamList>();
+
 export type AppNavigationProp = StackNavigationProp<RootStackParamList, 'App'>;
 
 const Screens = createStackNavigator<RootStackParamList>();

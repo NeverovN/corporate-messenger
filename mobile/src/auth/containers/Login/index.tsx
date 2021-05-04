@@ -1,9 +1,10 @@
 import React, { FC, memo, useState } from 'react';
 // components
 import LoginView from '../../../auth/components/Login';
+import { useHandleLogin } from '../../hooks/useHandleLogin';
 
 // hooks
-import { useHandleLogin } from '../../../auth/hooks/useHandleLogin';
+import { useHandleSignUpRedirection } from '../../hooks/useHandleSingUpRedirection';
 
 interface ILoginContainerProps {}
 
@@ -12,10 +13,10 @@ const LoginContainer: FC<ILoginContainerProps> = () => {
   const [password, setPassword] = useState<string>('');
 
   const handleLogin = useHandleLogin({ email, password });
-
-  // const onLoginPress = () => {
-  //   handleLogin();
-  // };
+  const handleSignUpRedirection = useHandleSignUpRedirection({
+    email,
+    password,
+  });
 
   return (
     <LoginView
@@ -24,6 +25,7 @@ const LoginContainer: FC<ILoginContainerProps> = () => {
       password={password}
       onChangePassword={setPassword}
       handleLogin={handleLogin}
+      handleSignUpRedirection={handleSignUpRedirection}
     />
   );
 };

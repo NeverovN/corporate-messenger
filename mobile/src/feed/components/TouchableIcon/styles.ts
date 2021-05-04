@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  feedStyle: {
-    flex: 1,
-    alignItems: 'center',
+  touchableIconStyle: {
+    margin: 7,
+    marginLeft: 10,
   },
 });

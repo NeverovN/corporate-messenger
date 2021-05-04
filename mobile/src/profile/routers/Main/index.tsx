@@ -13,7 +13,9 @@ interface ISettingsNavigatorProps {}
 
 const ProfileNavigator: FC<ISettingsNavigatorProps> = () => {
   return (
-    <Screens.Navigator initialRouteName={PROFILE_SCREEN_NAME}>
+    <Screens.Navigator
+      initialRouteName={PROFILE_SCREEN_NAME}
+      screenOptions={{ headerLeft: () => null }}>
       <Screens.Screen name={PROFILE_SCREEN_NAME} component={Profile} />
     </Screens.Navigator>
   );

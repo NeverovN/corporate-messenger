@@ -24,7 +24,7 @@ interface IPostAuthNavigatorProps {}
 
 const PostAuthNavigator: FC<IPostAuthNavigatorProps> = () => {
   return (
-    <InnerScreens.Navigator>
+    <InnerScreens.Navigator initialRouteName={FEED_SCREEN_NAME}>
       <InnerScreens.Screen name={FEED_SCREEN_NAME} component={FeedNavigator} />
       <InnerScreens.Screen
         name={CHAT_LIST_SCREEN_NAME}
@@ -44,9 +44,19 @@ const PostAuthNavigator: FC<IPostAuthNavigatorProps> = () => {
 
 const AppNavigator: FC<IPostAuthNavigatorProps> = () => {
   return (
-    <Screens.Navigator>
-      <Screens.Screen name={AUTH_SCREEN_NAME} component={AuthNavigator} />
-      <Screens.Screen name={APP_SCREEN_NAME} component={PostAuthNavigator} />
+    <Screens.Navigator
+      initialRouteName={AUTH_SCREEN_NAME}
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Screens.Screen
+        name={AUTH_SCREEN_NAME}
+        component={AuthNavigator} // not here
+      />
+      <Screens.Screen
+        name={APP_SCREEN_NAME} // not here
+        component={PostAuthNavigator}
+      />
     </Screens.Navigator>
   );
 };

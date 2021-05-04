@@ -11,7 +11,7 @@ import {
 
 // components
 import Login from '../../containers/Login';
-import RegisterView from '../../components/Register';
+import Register from '../../containers/Registration';
 
 interface IAppScreenProps {}
 
@@ -19,7 +19,7 @@ const AuthScreen: FC<IAppScreenProps> = () => {
   return (
     <Screens.Navigator initialRouteName={LOGIN_SCREEN_NAME}>
       <Screens.Screen name={LOGIN_SCREEN_NAME} component={Login} />
-      <Screens.Screen name={REGISTER_SCREEN_NAME} component={RegisterView} />
+      <Screens.Screen name={REGISTER_SCREEN_NAME} component={Register} />
     </Screens.Navigator>
   );
 };

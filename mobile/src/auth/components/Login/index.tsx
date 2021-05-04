@@ -16,6 +16,8 @@ interface ILoginViewProps {
   onChangePassword(password: string): void;
 
   handleLogin(): void;
+
+  handleSignUpRedirection(): void;
 }
 
 const LoginView: FC<ILoginViewProps> = (props) => {
@@ -32,6 +34,7 @@ const LoginView: FC<ILoginViewProps> = (props) => {
         onChangeText={props.onChangePassword}
       />
       <SignButton title="SIGN IN" onPress={props.handleLogin} />
+      <SignButton title="SIGN UP" onPress={props.handleSignUpRedirection} />
     </View>
   );
 };
