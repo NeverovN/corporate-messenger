@@ -1,26 +1,26 @@
 // Auth router (authentication level router)
 
 import React, { memo, FC } from 'react';
-import FeedTabNavigator from '../TopTab';
+import FeedTabRouter from '../TopTab';
 import Screens from '../index';
 
 // constants
-import { FEED_SCREEN_NAME } from '../../constants/routes';
+import { FEED_SCREEN_NAME } from 'feed/constants/routes';
 
 // containers
-import Feed from '../../containers/Feed';
-import FriendFeed from '../../containers/FriendFeed';
+import Feed from 'feed/containers/Feed';
+import FriendFeed from 'feed/containers/FriendFeed';
 
-interface IFeedNavigatorProps {}
+interface IFeedRouterProps {}
 
-const FeedNavigator: FC<IFeedNavigatorProps> = () => {
+const FeedRouter: FC<IFeedRouterProps> = () => {
   return (
     <Screens.Navigator
       initialRouteName={FEED_SCREEN_NAME}
       screenOptions={{ headerLeft: () => null }}>
-      <Screens.Screen name={FEED_SCREEN_NAME} component={FeedTabNavigator} />
+      <Screens.Screen name={FEED_SCREEN_NAME} component={FeedTabRouter} />
     </Screens.Navigator>
   );
 };
 
-export default memo(FeedNavigator);
+export default memo(FeedRouter);

@@ -7,11 +7,11 @@ import { InnerScreens } from '../index';
 import {
   ALL_FEED_SCREEN_NAME,
   FRIEND_FEED_SCREEN_NAME,
-} from '../../constants/routes';
+} from 'feed/constants/routes';
 
 // containers
-import Feed from '../../containers/Feed';
-import FriendFeed from '../../containers/FriendFeed';
+import Feed from 'feed/containers/Feed';
+import FriendFeed from 'feed/containers/FriendFeed';
 
 interface IFeedTabNavigatorProps {}
 

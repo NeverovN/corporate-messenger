@@ -1,6 +1,6 @@
 import React, { memo, FC } from 'react';
 
-import SettingsView from '../../components/Settings';
+import SettingsView from 'settings/components/Settings';
 
 interface ISettingsContainerProps {}
 

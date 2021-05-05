@@ -2,10 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
 // constants
-import { APP_SCREEN_NAME } from '../../app/constants/routes';
+import { MAIN_STACK_NAME } from 'app/constants/routes';
 
 // routers
-import { AuthNavigationProp } from '../../app/routers/index';
+import { MainScreenNavigationProp } from 'app/types/routes';
 
 type UseHandleRegistrationResult = () => Promise<void>;
 type UseHandleRegistrationOptions = {
@@ -24,7 +24,8 @@ export function useHandleRegistration(
   ) => {
     return true;
   }; // api
-  const navigation = useNavigation<AuthNavigationProp>();
+
+  const navigation = useNavigation<MainScreenNavigationProp>();
 
   const handleRegistration = async () => {
     try {
@@ -38,7 +39,7 @@ export function useHandleRegistration(
     }
 
     // sends some info on server to give user access to their account
-    navigation.navigate(APP_SCREEN_NAME); 
+    navigation.navigate(MAIN_STACK_NAME);
   };
 
   return handleRegistration;

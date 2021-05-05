@@ -1,10 +1,10 @@
 import React, { FC, memo, useState } from 'react';
 
 // components
-import RegisterView from '../../../auth/components/Register';
+import RegisterView from 'auth/components/Register';
 
 // hooks
-import { useHandleRegistration } from '../../../auth/hooks/useHandleRegistration';
+import { useHandleRegistration } from 'auth/hooks/useHandleRegistration';
 
 interface ILoginContainerProps {}
 

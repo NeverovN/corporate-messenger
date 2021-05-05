@@ -1,12 +1,12 @@
 import React, { FC, memo } from 'react';
 
 // routers
-import AppNavigatorContainer from '../../routers/Main/index';
+import NavigationProvider from '../../routers';
 
 interface IApp {}
 
 const App: FC<IApp> = () => {
-  return <AppNavigatorContainer />;
+  return <NavigationProvider />;
 };
 
 export default memo(App);

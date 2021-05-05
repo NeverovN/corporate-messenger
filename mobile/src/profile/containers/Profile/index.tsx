@@ -1,6 +1,6 @@
 import React, { memo, FC } from 'react';
 
-import ProfileView from '../../components/Profile';
+import ProfileView from 'profile/components/Profile';
 
 interface IProfileContainerProps {}
 

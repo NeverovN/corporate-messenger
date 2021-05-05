@@ -1,7 +1,7 @@
 import React, { memo, FC } from 'react';
 
 // components
-import ChatListView from '../../components/ChatList';
+import ChatListView from 'chat/components/ChatList';
 
 interface IChatListContainerProps {}
 

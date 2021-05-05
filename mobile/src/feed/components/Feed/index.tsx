@@ -1,20 +1,22 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { FlatList } from 'react-native';
+import { ListItem } from 'react-native-elements';
 
-// styles
-import styles from './styles';
+interface IFeedComponentProps {
+  data: ReadonlyArray<IFlatListProps>;
+}
 
-// components
-import TileView from '../Tile';
+interface IFlatListProps {
+  id: number;
+  data: typeof React.Component;
+}
 
-interface IFeedComponentProps {}
-
-const FeedView: FC<IFeedComponentProps> = () => {
+const FeedView: FC<IFeedComponentProps> = (props) => {
   return (
-    //there would be a FlatList, but I didn't have time to make it work
-    <View style={styles.feedStyle}>
-      <TileView />
-    </View>
+    <FlatList<IFlatListProps>
+      renderItem={({ item }) => <ListItem Component={item.data} />}
+      data={props.data}
+    />
   );
 };
 

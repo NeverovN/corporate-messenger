@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 
 // constants
-import { AUTH_STACK_NAME } from '../constants/routes';
+import { AUTH_STACK_NAME } from 'app/constants/routes';
 
 // types
 import { SplashScreenNavigationProp } from '../types/routes';

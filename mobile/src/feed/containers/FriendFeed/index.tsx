@@ -1,7 +1,7 @@
 import React, { memo, FC } from 'react';
 
 // components
-import FriendFeedView from '../../components/FriendFeed';
+import FriendFeedView from 'feed/components/FriendFeed';
 
 interface IFriendFeedContainerProps {}
 

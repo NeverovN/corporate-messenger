@@ -2,10 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
 // constants
-import { APP_SCREEN_NAME } from '../../app/constants/routes';
+import { MAIN_STACK_NAME } from 'app/constants/routes';
 
 // routers
-import { AuthNavigationProp } from '../../app/routers/index';
+import { MainScreenNavigationProp } from 'app/types/routes';
 
 type UseHandleRegistrationResult = () => Promise<void>;
 type UseHandleLoginOptions = {
@@ -16,26 +16,20 @@ type UseHandleLoginOptions = {
 export function useHandleLogin(
   params: UseHandleLoginOptions,
 ): UseHandleRegistrationResult {
-  const loginHandler = async (
-    _email: string,
-    _password: string,
-  ) => {
+  const loginHandler = async (_email: string, _password: string) => {
     return true;
   }; // api
-  const navigation = useNavigation<AuthNavigationProp>();
+  const navigation = useNavigation<MainScreenNavigationProp>();
 
   const handleLogin = async () => {
     try {
-      await loginHandler(
-        params.email,
-        params.password,
-      );
+      await loginHandler(params.email, params.password);
     } catch {
       Alert.alert('ERROR', 'Error occured'); // just for now
     }
 
     // sends some info on server to give user access to their account
-    navigation.navigate(APP_SCREEN_NAME); 
+    navigation.navigate(MAIN_STACK_NAME);
   };
 
   return handleLogin;
