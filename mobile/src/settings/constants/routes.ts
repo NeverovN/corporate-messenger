@@ -1,1 +1,1 @@
-export const SETTINGS_SCREEN_NAME = 'Settings';
+export const SETTINGS_STACK_NAME = 'SettingsStack';

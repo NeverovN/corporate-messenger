@@ -1,6 +1,8 @@
-export const AUTH_SCREEN_NAME = 'Auth';
-export const APP_SCREEN_NAME = 'App';
-export const FEED_SCREEN_NAME = 'Feed';
-export const CHAT_LIST_SCREEN_NAME = 'ChatList';
-export const SETTINGS_SCREEN_NAME = 'Settings';
-export const PROFILE_SCREEN_NAME = 'Profile';
+export const SPLASH_SCREEN_NAME = 'Splash';
+export const AUTH_STACK_NAME = 'AuthStack';
+export const MAIN_STACK_NAME = 'MainStack';
+export const SHARED_STACK_NAME = 'SharedStack';
+
+export const FEED_STACK_NAME = 'FeedStack';
+export const CHAT_STACK_NAME = 'ChatStack';
+export const PROFILE_STACK_NAME = 'ProfileStack';
