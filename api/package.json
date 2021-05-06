@@ -4,16 +4,36 @@
   "version": "0.0.1",
   "repository": "git@github.com:phantom-patrick/corporate-messenger.git",
   "private": true,
+  "scripts": {
+    "start:dev": "npm run build:dev",
+    "build:dev": "nodemon 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,graphql",
+    "prettier-format": "prettier --config .prettierrc '.' --write",
+    "lint": "eslint . --ext .ts --fix"
+  },
+  "dependencies": {
+    "@graphql-tools/load-files": "^6.3.2",
+    "@graphql-tools/merge": "^6.2.13",
+    "apollo-server-express": "^2.24.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "graphql": "^15.5.0",
+    "http": "^0.0.1-security",
+    "ncp": "^2.0.0",
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
   "devDependencies": {
+    "@types/compression": "^1.7.0",
+    "@types/express": "^4.17.11",
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^15.0.2",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "2.2.1"
-  },
-  "scripts": {
-    "prettier-format": "prettier --config .prettierrc '.' --write",
-    "lint": "eslint . --ext .ts --fix"
   }
 }
