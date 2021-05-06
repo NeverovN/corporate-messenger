@@ -555,6 +555,29 @@
     lodash "~4.17.20"
     tslib "~2.2.0"
 
+"@graphql-codegen/typescript-document-nodes@1.17.11":
+  version "1.17.11"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-document-nodes/-/typescript-document-nodes-1.17.11.tgz#0d1af3be2f99d993a9dc8d71c3a17853dfabe5c9"
+  integrity sha512-ZBQeJBUZTwcAMDasCkR7RrKHVMy4d9mIWVgfuY0P+oDAQDIBbVSxA1A+sgxw92MQjVLozkqsZ6c5tmEArJA2Vg==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^1.18.5"
+    "@graphql-codegen/visitor-plugin-common" "^1.20.0"
+    auto-bind "~4.0.0"
+    tslib "~2.2.0"
+
+"@graphql-codegen/typescript-mongodb@1.19.0":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-mongodb/-/typescript-mongodb-1.19.0.tgz#fe2e4e0f58594eeb71d93b4217b20a18c95ea3e4"
+  integrity sha512-QKyAMfcAVCqZEsVC3EsmXbpZvaIGMBAYUmrX/OooTSdi8nAKcsOulSUDET5d8M9sZW7oFmfagKEeNkqbEggvHA==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^1.18.5"
+    "@graphql-codegen/typescript" "^1.22.0"
+    "@graphql-codegen/visitor-plugin-common" "^1.20.0"
+    "@graphql-tools/utils" "^7.0.0"
+    auto-bind "~4.0.0"
+    lodash "~4.17.20"
+    tslib "~2.2.0"
+
 "@graphql-codegen/typescript-operations@1.17.16":
   version "1.17.16"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-operations/-/typescript-operations-1.17.16.tgz#75eb389f268b2dbd2e46b235bcb957be561c31cb"
@@ -575,6 +598,18 @@
     "@graphql-codegen/visitor-plugin-common" "^1.20.0"
     auto-bind "~4.0.0"
     change-case-all "1.0.14"
+    tslib "~2.2.0"
+
+"@graphql-codegen/typescript-resolvers@1.19.1":
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-resolvers/-/typescript-resolvers-1.19.1.tgz#56677ec56c1ca7174d22a2f236e3fb7f6503e708"
+  integrity sha512-KdCVfg2u2RMbHu7eV9SOh5rmfnEQaMsQ0k8741bMbBmCESLnrWltujF2RT1OPN7WCn7xJejBtrFg/3UgT0fNug==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^1.18.5"
+    "@graphql-codegen/typescript" "^1.22.0"
+    "@graphql-codegen/visitor-plugin-common" "^1.20.0"
+    "@graphql-tools/utils" "^7.0.0"
+    auto-bind "~4.0.0"
     tslib "~2.2.0"
 
 "@graphql-codegen/typescript@1.22.0", "@graphql-codegen/typescript@^1.22.0":

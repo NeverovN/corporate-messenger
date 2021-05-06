@@ -5,7 +5,9 @@
   "repository": "git@github.com:phantom-patrick/corporate-messenger.git",
   "private": true,
   "scripts": {
-    "gql:codegen:mobile": "graphql-codegen --config config/codegen.mobile.yml"
+    "gql:codegen:api": "graphql-codegen --config .config/codegen.api.yml",
+    "gql:codegen:mobile": "graphql-codegen --config .config/codegen.mobile.yml",
+    "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "graphql": "^15.5.0"
@@ -15,6 +17,8 @@
     "@graphql-codegen/introspection": "1.18.2",
     "@graphql-codegen/typescript": "1.22.0",
     "@graphql-codegen/typescript-operations": "1.17.16",
-    "@graphql-codegen/typescript-react-apollo": "2.2.4"
+    "@graphql-codegen/typescript-react-apollo": "2.2.4",
+    "@graphql-codegen/typescript-resolvers": "1.19.1",
+    "@graphql-codegen/typescript-document-nodes": "1.17.11"
   }
 }
