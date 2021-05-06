@@ -1,0 +1,11 @@
+fragment UserFragment on User {
+  guid
+  firstName
+  lastName
+}
+
+query GetUserByGuid($guid: ID!) {
+  getUserByGuid(guid: $guid) {
+    ...UserFragment
+  }
+}
