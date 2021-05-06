@@ -27,7 +27,9 @@
       "auth/*": ["./src/auth/*"],
       "chat/*": ["./src/chat/*"],
       "common/*": ["./src/common/*"],
-      "settings/*": ["./src/settings/*"]
+      "settings/*": ["./src/settings/*"],
+      "feed/*": ["./src/feed/*"],
+      "profile/*": ["./src/profile/*"]
     }
   },
   "exclude": [
