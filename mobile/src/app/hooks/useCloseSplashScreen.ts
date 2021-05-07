@@ -20,7 +20,9 @@ export default function useCloseSplashScreen() {
   const closeSplashScreen = async () => {
     const isUserAlreadyLoggedIn = await isLoggedIn();
 
-    // if (isUserAlreadyLoggedIn) return openMainStack();
+    if (isUserAlreadyLoggedIn) {
+      return openMainStack();
+    }
 
     return openAuthStack();
   };

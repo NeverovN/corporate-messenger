@@ -1,14 +1,19 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import styles from './styles';
+
+// components
+import TopBarView from '../TopBar';
+import Chats from 'chat/containers/Chats';
 
 interface IChatListComponentProps {}
 
 const ChatListView: FC<IChatListComponentProps> = () => {
   return (
     <View style={styles.chatListStyle}>
-      <Text>Chat List Screen</Text>
+      <TopBarView />
+      <Chats />
     </View>
   );
 };

@@ -1,7 +1,7 @@
-import React, { FC, memo } from 'react';
+import { FC } from 'react';
 
 // component
-import TileView from 'feed/components/Tile';
+import TileView from '@/feed/components/Tile';
 
 export const useFeedList = () => {
   // shitcode

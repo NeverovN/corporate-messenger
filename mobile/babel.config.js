@@ -22,6 +22,8 @@ module.exports = {
           chat: ['./src/chat'],
           common: ['./src/common'],
           settings: ['./src/settings'],
+          feed: ['./src/feed'],
+          profile: ['./src/profile'],
         },
       },
     ],

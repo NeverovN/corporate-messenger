@@ -5,7 +5,7 @@ import ChatListView from 'chat/components/ChatList';
 
 interface IChatListContainerProps {}
 
-const ChatList: FC<IChatListContainerProps> = (props) => {
+const ChatList: FC<IChatListContainerProps> = () => {
   return <ChatListView />;
 };
 

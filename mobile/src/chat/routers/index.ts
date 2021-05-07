@@ -7,7 +7,7 @@ type RootStackParamList = {
   ChatList: undefined;
 };
 
-export type FeedScreenNavigationProp = StackNavigationProp<
+export type ChatScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'ChatList'
 >;

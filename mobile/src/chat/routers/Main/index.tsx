@@ -6,8 +6,8 @@ import Screens from '../index';
 // constants
 import { CHAT_LIST_SCREEN_NAME } from '../../constants/routes';
 
-// components
-import ChatList from '../../containers/ChatList';
+// containers
+import ChatList from 'chat/containers/ChatList';
 
 interface IAppScreenProps {}
 

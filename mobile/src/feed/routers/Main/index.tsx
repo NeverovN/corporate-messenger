@@ -5,11 +5,11 @@ import FeedTabRouter from '../TopTab';
 import Screens from '../index';
 
 // constants
-import { FEED_SCREEN_NAME } from 'feed/constants/routes';
+import { FEED_SCREEN_NAME } from '@/feed/constants/routes';
 
 // containers
-import Feed from 'feed/containers/Feed';
-import FriendFeed from 'feed/containers/FriendFeed';
+// import Feed from 'feed/containers/Feed';
+// import FriendFeed from 'feed/containers/FriendFeed';
 
 interface IFeedRouterProps {}
 

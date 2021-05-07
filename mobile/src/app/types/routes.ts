@@ -6,11 +6,10 @@ import {
   SHARED_STACK_NAME,
   BOTTOM_TAB_NAME,
   FEED_STACK_NAME,
+  CHAT_LIST_STACK_NAME,
+  SETTINGS_STACK_NAME,
   CHAT_STACK_NAME,
-  PROFILE_STACK_NAME,
 } from 'app/constants/routes';
-
-import { SETTINGS_STACK_NAME } from 'settings/constants/routes';
 
 export type RootStackParamList = {
   [SPLASH_SCREEN_NAME]: undefined;
@@ -34,16 +33,22 @@ export type MainScreenNavigationProp = StackNavigationProp<
 >;
 
 export type SharedStackParamList = {
+  [CHAT_STACK_NAME]: undefined;
   [SETTINGS_STACK_NAME]: undefined;
 };
 
-export type SharedSettingsScreenNavigationProp = StackNavigationProp<
-  MainStackParamList,
-  typeof SHARED_STACK_NAME
+export type SharedChatScreenNavigationProp = StackNavigationProp<
+  SharedStackParamList,
+  typeof CHAT_STACK_NAME
 >;
 
 export type BottomTabParamList = {
   [FEED_STACK_NAME]: undefined;
-  [CHAT_STACK_NAME]: undefined;
-  [PROFILE_STACK_NAME]: undefined;
+  [CHAT_LIST_STACK_NAME]: undefined;
+  [SETTINGS_STACK_NAME]: undefined;
 };
+
+export type ChatScreenNavigationProp = StackNavigationProp<
+  SharedStackParamList,
+  typeof CHAT_STACK_NAME
+>;

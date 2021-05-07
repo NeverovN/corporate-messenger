@@ -5,10 +5,10 @@ import Screens from '../index';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 // constants
-import { PROFILE_SCREEN_NAME } from 'profile/constants/routes';
+import { PROFILE_SCREEN_NAME } from '@/profile/constants/routes';
 
 // components
-import Profile from 'profile/containers/Profile';
+import Profile from '@/profile/containers/Profile';
 
 interface IProfileRouterProps {}
 
