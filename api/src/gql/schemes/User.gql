@@ -1,0 +1,18 @@
+type User {
+  guid: ID!
+  firstName: String!
+  lastName: String!
+}
+
+type Query {
+  getUserByGuid(guid: ID!): User
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+}

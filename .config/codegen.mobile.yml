@@ -1,0 +1,11 @@
+overwrite: true
+schema: "api/src/**/*.gql"
+documents: "mobile/src/**/*.gql"
+generates:
+  mobile/src/common/types/gql.generated.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withHooks: true
