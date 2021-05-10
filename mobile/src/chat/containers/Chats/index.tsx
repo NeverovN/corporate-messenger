@@ -1,5 +1,4 @@
 import React, { FC, memo } from 'react';
-import {} from 'react-native';
 
 // components
 import ChatsView from 'chat/components/Chats';
@@ -16,3 +15,4 @@ const ChatsContainer: FC<IChatsContainerProps> = () => {
 };
 
 export default memo(ChatsContainer);
+gi;
