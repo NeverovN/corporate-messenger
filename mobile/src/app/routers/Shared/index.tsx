@@ -20,8 +20,17 @@ const SharedRouter = () => {
       <SharedStack.Screen
         name={SETTINGS_STACK_NAME}
         component={SettingsRouter}
+        options={{
+          headerBackTitle: ' ',
+        }}
       />
-      <SharedStack.Screen name={CHAT_STACK_NAME} component={ChatRouter} />
+      <SharedStack.Screen
+        name={CHAT_STACK_NAME}
+        component={ChatRouter}
+        options={{
+          headerBackTitle: ' ',
+        }}
+      />
     </SharedStack.Navigator>
   );
 };

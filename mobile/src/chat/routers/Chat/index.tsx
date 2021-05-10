@@ -14,14 +14,16 @@ interface IAppScreenProps {}
 
 const Screens = createStackNavigator<ChatListStackParamList>();
 
-const ChatListNavigator: FC<IAppScreenProps> = () => {
+const ChatNavigator: FC<IAppScreenProps> = () => {
   return (
-    <Screens.Navigator
-      initialRouteName={CHAT_SCREEN_NAME}
-      screenOptions={{ headerShown: false }}>
-      <Screens.Screen name={CHAT_SCREEN_NAME} component={ChatScreen} />
+    <Screens.Navigator initialRouteName={CHAT_SCREEN_NAME}>
+      <Screens.Screen
+        name={CHAT_SCREEN_NAME}
+        component={ChatScreen}
+        options={{ headerShown: false }}
+      />
     </Screens.Navigator>
   );
 };
 
-export default memo(ChatListNavigator);
+export default memo(ChatNavigator);
