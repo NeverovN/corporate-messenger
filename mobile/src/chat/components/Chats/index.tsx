@@ -14,7 +14,7 @@ interface IFlatListProps {
   data: typeof React.Component;
 }
 
-const FeedView: FC<IChatsViewProps> = (props) => {
+const ChatView: FC<IChatsViewProps> = (props) => {
   return (
     <View style={styles.chatsStyle}>
       <FlatList<IFlatListProps>
@@ -25,4 +25,4 @@ const FeedView: FC<IChatsViewProps> = (props) => {
   );
 };
 
-export default memo(FeedView);
+export default memo(ChatView);

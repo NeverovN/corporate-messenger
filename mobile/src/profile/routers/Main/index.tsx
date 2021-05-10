@@ -2,17 +2,23 @@
 
 import React, { memo, FC } from 'react';
 import Screens from '../index';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 // constants
 import { PROFILE_SCREEN_NAME } from '@/profile/constants/routes';
 
 // components
-import Profile from '@/profile/containers/Profile';
+import Profile from 'profile/containers/Profile';
+
+// hocs
+import HeaderRight from '@/profile/containers/HeaderRight';
 
 interface IProfileRouterProps {}
 
 const ProfileRouter: FC<IProfileRouterProps> = () => {
+  const headerRight = () => {
+    return <HeaderRight />;
+  };
+
   return (
     <Screens.Navigator
       initialRouteName={PROFILE_SCREEN_NAME}
@@ -21,7 +27,7 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
         name={PROFILE_SCREEN_NAME}
         component={Profile}
         options={{
-          headerRight: () => <Icon name="cog" size={25} />, // perhaps it should be mooved in its own file
+          headerRight: headerRight, // perhaps it should be mooved in its own file
         }}
       />
     </Screens.Navigator>

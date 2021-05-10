@@ -20,7 +20,7 @@ const SettingsNavigator: FC<ISettingsNavigatorProps> = () => {
   return (
     <Screens.Navigator
       initialRouteName={SETTINGS_STACK_NAME}
-      screenOptions={{ headerLeft: () => null }}>
+      screenOptions={{ headerShown: false }}>
       <Screens.Screen name={SETTINGS_STACK_NAME} component={Settings} />
     </Screens.Navigator>
   );

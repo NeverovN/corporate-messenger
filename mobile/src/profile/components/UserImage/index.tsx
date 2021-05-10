@@ -1,16 +1,15 @@
 import React, { FC, memo } from 'react';
 import { View, Image } from 'react-native';
 
-// styles
 import styles from './styles';
 
-interface IUserIconViewProps {}
+interface IUserImageViewProps {}
 
-const UserIconView: FC<IUserIconViewProps> = () => {
+const UserImageView: FC<IUserImageViewProps> = () => {
   return (
-    <View style={styles.userIconViewStyle}>
+    <View style={styles.userImageViewStyle}>
       <Image
-        style={styles.userIconImageStyle}
+        style={styles.userImageImageStyle}
         source={{
           uri:
             'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
@@ -20,4 +19,4 @@ const UserIconView: FC<IUserIconViewProps> = () => {
   );
 };
 
-export default memo(UserIconView);
+export default memo(UserImageView);

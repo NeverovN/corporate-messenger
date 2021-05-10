@@ -5,8 +5,8 @@ import {} from 'react-native';
 import TopBarButtonsView from 'chat/components/TopBarButtons';
 
 // hooks
-import { useHandleSearch } from '@/chat/hooks/useHandleSearch';
-import { useHandleNewChat } from '@/chat/hooks/useHandleNewChat';
+import { useHandleSearch } from 'chat/hooks/useHandleSearch';
+import { useHandleNewChat } from 'chat/hooks/useHandleNewChat';
 
 interface ITopBarButtonsContainerProps {}
 

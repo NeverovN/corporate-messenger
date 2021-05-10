@@ -1,14 +1,17 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import styles from './styles';
 
-interface IProfileComponentProps {}
+// containers
+import MainTile from 'profile/containers/MainTile';
 
-const ProfileView: FC<IProfileComponentProps> = () => {
+interface IProfileViewProps {}
+
+const ProfileView: FC<IProfileViewProps> = () => {
   return (
     <View style={styles.profileStyle}>
-      <Text>Profile Screen</Text>
+      <MainTile />
     </View>
   );
 };

@@ -2,11 +2,11 @@ import React, { memo } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // types
-import { SharedStackParamList } from '@/app/types/routes';
+import { SharedStackParamList } from 'app/types/routes';
 
 // constants
-import { SETTINGS_STACK_NAME } from '@/settings/constants/routes';
-import { CHAT_STACK_NAME } from 'chat/constants/routes';
+import { SETTINGS_STACK_NAME } from 'app/constants/routes';
+import { CHAT_STACK_NAME } from 'app/constants/routes';
 
 // routers
 import SettingsRouter from '@/settings/routers/Main';

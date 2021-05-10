@@ -2,15 +2,19 @@ import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
 // types
-import { ChatScreenNavigationProp } from 'app/types/routes';
+import { SharedStackNavigationProp } from 'app/types/routes';
 
 // consts
-import { CHAT_STACK_NAME } from 'chat/constants/routes';
+import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
 
-interface IUseChatSelectionParams {}
+// interface IUseChatSelectionParams {}
 
-export const useChatSelection = (params: IUseChatSelectionParams) => {
-  const navigation = useNavigation<ChatScreenNavigationProp>();
+export const useChatSelection = (
+  {
+    /*params: IUseChatSelectionParams*/
+  },
+) => {
+  const navigation = useNavigation<SharedStackNavigationProp>();
 
   const chatSelectionHandler = async () => {
     return true;
@@ -24,7 +28,7 @@ export const useChatSelection = (params: IUseChatSelectionParams) => {
     }
 
     // sends some info on server to give user access to their account
-    navigation.navigate(CHAT_STACK_NAME);
+    navigation.navigate(SHARED_STACK_NAME, { screen: CHAT_STACK_NAME });
   };
 
   return handleChatSelection;

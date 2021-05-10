@@ -1,11 +1,11 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import { CHAT_STACK_NAME } from 'chat/constants/routes';
+import { CHAT_SCREEN_NAME } from 'chat/constants/routes';
 
 export type ChatListStackParamList = {
-  [CHAT_STACK_NAME]: undefined;
+  [CHAT_SCREEN_NAME]: undefined;
 };
 
 export type ChatScreenNavigationProp = StackNavigationProp<
   ChatListStackParamList,
-  typeof CHAT_STACK_NAME
+  typeof CHAT_SCREEN_NAME
 >;
