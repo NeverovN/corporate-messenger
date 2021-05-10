@@ -7,7 +7,8 @@ import styles from './styles';
 // components
 
 export interface IChatItemViewProps {
-  title: string;
+  title?: string;
+  onPress(): void;
 }
 
 const ChatItemView: FC<IChatItemViewProps> = (props) => {
@@ -15,7 +16,7 @@ const ChatItemView: FC<IChatItemViewProps> = (props) => {
     <TouchableOpacity
       style={styles.chatItemStyle}
       activeOpacity={0.7}
-      onPress={props?.onPress}
+      onPress={props.onPress}
     />
   );
 };

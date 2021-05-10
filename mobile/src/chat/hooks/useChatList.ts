@@ -1,14 +1,27 @@
 import { FC } from 'react';
 
 // containers
-import ChatItem from 'chat/containers/ChatItem';
+import ChatItem from 'chat/components/ChatItem';
 
-export const useChatList = () => {
+// types
+import { IChatItem } from 'chat/types/chat';
+import { SharedStackNavigationProp } from '@/app/types/routes';
+
+// consts
+import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
+
+export const useChatList = (navigation: SharedStackNavigationProp) => {
   const array: FC[] = new Array(10).fill(ChatItem);
-  const result: ReadonlyArray<any> = array.map((el, index) => {
+  const result: Array<IChatItem> = array.map((el, ind) => {
     return {
+      guid: 'guidtest',
+      title: 'chattitle',
+      users: [],
+      id: ind,
       data: el,
-      id: index,
+      onPress: () => {
+        navigation.navigate(SHARED_STACK_NAME, { screen: CHAT_STACK_NAME });
+      },
     };
   });
   return result;

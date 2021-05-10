@@ -1,14 +1,23 @@
-import React, { memo, FC } from 'react';
+import React, { FC, memo } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 // components
-import ChatListView from 'chat/components/ChatList';
+import ChatsView from '@/chat/components/ChatList';
 
-interface IChatListContainerProps {}
+// hooks
+import { useChatList } from 'chat/hooks/useChatList';
 
-const ChatList: FC<IChatListContainerProps> = () => {
-  console.log('rerender ChatListContainer');
+// types
+import { SharedStackNavigationProp } from 'app/types/routes';
 
-  return <ChatListView />;
+interface IChatsContainerProps {}
+
+const ChatsContainer: FC<IChatsContainerProps> = () => {
+  const navigation = useNavigation<SharedStackNavigationProp>();
+
+  const chatsData = useChatList(navigation);
+
+  return <ChatsView data={chatsData} />;
 };
 
-export default memo(ChatList);
+export default memo(ChatsContainer);
