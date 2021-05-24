@@ -5,7 +5,7 @@ export default StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 25,
   },
-  userIconImageStile: {
+  userIconImageStyle: {
     width: 50,
     height: 50,
     borderRadius: 25,

@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { SETTINGS_STACK_NAME } from 'settings/constants/routes';
+import { SETTINGS_STACK_NAME } from '@/settings/constants/routes';
 
 export type SettingsStackParamList = {
   [SETTINGS_STACK_NAME]: undefined;

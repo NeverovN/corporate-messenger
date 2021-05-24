@@ -565,19 +565,6 @@
     auto-bind "~4.0.0"
     tslib "~2.2.0"
 
-"@graphql-codegen/typescript-mongodb@1.19.0":
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-mongodb/-/typescript-mongodb-1.19.0.tgz#fe2e4e0f58594eeb71d93b4217b20a18c95ea3e4"
-  integrity sha512-QKyAMfcAVCqZEsVC3EsmXbpZvaIGMBAYUmrX/OooTSdi8nAKcsOulSUDET5d8M9sZW7oFmfagKEeNkqbEggvHA==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^1.18.5"
-    "@graphql-codegen/typescript" "^1.22.0"
-    "@graphql-codegen/visitor-plugin-common" "^1.20.0"
-    "@graphql-tools/utils" "^7.0.0"
-    auto-bind "~4.0.0"
-    lodash "~4.17.20"
-    tslib "~2.2.0"
-
 "@graphql-codegen/typescript-operations@1.17.16":
   version "1.17.16"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-operations/-/typescript-operations-1.17.16.tgz#75eb389f268b2dbd2e46b235bcb957be561c31cb"

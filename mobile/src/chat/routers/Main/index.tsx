@@ -6,16 +6,14 @@ import Screens from '../index';
 // constants
 import { CHAT_LIST_SCREEN_NAME } from '../../constants/routes';
 
-// components
-import ChatList from '../../containers/ChatList';
+// containers
+import ChatList from '@/chat/containers/Chat';
 
 interface IAppScreenProps {}
 
 const ChatListNavigator: FC<IAppScreenProps> = () => {
   return (
-    <Screens.Navigator
-      initialRouteName={CHAT_LIST_SCREEN_NAME}
-      screenOptions={{ headerLeft: () => null }}>
+    <Screens.Navigator initialRouteName={CHAT_LIST_SCREEN_NAME}>
       <Screens.Screen name={CHAT_LIST_SCREEN_NAME} component={ChatList} />
     </Screens.Navigator>
   );

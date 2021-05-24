@@ -3,7 +3,7 @@
 import React, { memo } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-// components
+// container
 import LoginScreen from 'auth/containers/Login';
 import RegisterScreen from 'auth/containers/Registration';
 
