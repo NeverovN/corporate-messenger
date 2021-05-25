@@ -1,6 +1,9 @@
 import React, { FC, memo } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
+
+// styles
+import styles from './styles';
 
 interface IFeedComponentProps {
   data: ReadonlyArray<IFlatListProps>;
@@ -13,10 +16,12 @@ interface IFlatListProps {
 
 const FeedView: FC<IFeedComponentProps> = (props) => {
   return (
-    <FlatList<IFlatListProps>
-      renderItem={({ item }) => <ListItem Component={item.data} />}
-      data={props.data}
-    />
+    <View style={styles.feedStyle}>
+      <FlatList<IFlatListProps>
+        renderItem={({ item }) => <ListItem Component={item.data} />}
+        data={props.data}
+      />
+    </View>
   );
 };
 

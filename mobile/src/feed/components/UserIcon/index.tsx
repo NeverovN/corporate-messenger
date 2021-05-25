@@ -10,7 +10,7 @@ const UserIconView: FC<IUserIconViewProps> = () => {
   return (
     <View style={styles.userIconViewStyle}>
       <Image
-        style={styles.userIconImageStile}
+        style={styles.userIconImageStyle}
         source={{
           uri:
             'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',

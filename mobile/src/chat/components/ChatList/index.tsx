@@ -1,14 +1,26 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { FlatList, View, ListRenderItem } from 'react-native';
 
+import ChatItem from '@/chat/components/ChatItem';
+
+// styles
 import styles from './styles';
 
-interface IChatListComponentProps {}
+// types
+import { IChatItem } from 'chat/types/chat';
 
-const ChatListView: FC<IChatListComponentProps> = () => {
+interface IChatListViewProps {
+  data: IChatItem[];
+}
+
+const renderChatItem: ListRenderItem<IChatItem> = ({ item }) => {
+  return <ChatItem onPress={item.onPress} />;
+};
+
+const ChatListView: FC<IChatListViewProps> = (props) => {
   return (
-    <View style={styles.chatListStyle}>
-      <Text>Chat List Screen</Text>
+    <View style={styles.chatsStyle}>
+      <FlatList renderItem={renderChatItem} data={props.data} />
     </View>
   );
 };
