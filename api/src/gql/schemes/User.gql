@@ -18,13 +18,20 @@ type Query {
 }
 
 type Mutation {
-  # login(input: AuthenticationInput!): AuthenticationResult!
-  createUser(input: AuthenticationInput!): AuthenticationResult!
+  login(input: LoginInput!): AuthenticationResult!
+  createUser(input: CreateUserInput!): AuthenticationResult!
 }
 
-input AuthenticationInput {
+input LoginInput {
   email: String!
   password: String!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
 }
 
 type AuthenticationResult {

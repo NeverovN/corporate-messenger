@@ -19,19 +19,25 @@ function mapUserDocumentToUserEntity(
 }
 
 class UserController {
+  private mapUserWithFallback(
+    user: DocumentType<UserEntity> | null,
+  ): UserEntity | null {
+    if (!user) return null;
+
+    return mapUserDocumentToUserEntity(user);
+  }
+
   async getUser(id: string) {
     const user = await UserModel.findById(id);
 
-    const result = user || null;
-
-    return result;
+    return this.mapUserWithFallback(user);
   }
 
-  // async getUsers(ids: Array<string>) {
-  //   const users = await this.repository.findByIds(ids);
+  async getUserByEmail(email: string): Promise<UserEntity | null> {
+    const user = await UserModel.findOne({ email });
 
-  //   return users;
-  // }
+    return this.mapUserWithFallback(user);
+  }
 
   async createUser(
     email: string,
