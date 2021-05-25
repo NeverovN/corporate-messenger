@@ -1,7 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
 import React, { FC, memo } from 'react';
 
-import initApolloClient from './init';
+import initApolloClient from 'app/api/Apollo/init';
 
 const apolloClient = initApolloClient();
 

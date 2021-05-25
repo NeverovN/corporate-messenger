@@ -38,7 +38,7 @@ const authLink = setContext(async (_, { headers }) => {
   return {
     ...headers,
     headers: {
-      'x-token': token,
+      authorization: token, // TODO: choose appropriate header based on API
     },
   };
 });
