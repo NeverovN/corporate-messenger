@@ -1,6 +1,5 @@
 import React, { FC, memo } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -13,8 +12,8 @@ interface IBottomTileBarViewProps {}
 const BottomTileBar: FC<IBottomTileBarViewProps> = () => {
   return (
     <View style={styles.bottomTileBarStyle}>
-      <TouchableIconView name="heart" size={35} />
-      <TouchableIconView name="comment" size={35} />
+      <TouchableIconView name="heart" size={30} />
+      <TouchableIconView name="comment" size={30} />
     </View>
   );
 };

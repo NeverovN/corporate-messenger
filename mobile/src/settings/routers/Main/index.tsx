@@ -4,10 +4,10 @@ import React, { memo, FC } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // constants
-import { SETTINGS_STACK_NAME } from 'settings/constants/routes';
+import { SETTINGS_STACK_NAME } from '@/settings/constants/routes';
 
 // components
-import Settings from 'settings/components/Settings';
+import Settings from '@/settings/components/Settings';
 
 // types
 import { SettingsStackParamList } from '@/settings/types';
@@ -20,7 +20,7 @@ const SettingsNavigator: FC<ISettingsNavigatorProps> = () => {
   return (
     <Screens.Navigator
       initialRouteName={SETTINGS_STACK_NAME}
-      screenOptions={{ headerLeft: () => null }}>
+      screenOptions={{ headerShown: false }}>
       <Screens.Screen name={SETTINGS_STACK_NAME} component={Settings} />
     </Screens.Navigator>
   );

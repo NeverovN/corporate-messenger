@@ -1,14 +1,33 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { View, FlatList, ListRenderItem } from 'react-native';
 
 import styles from './styles';
 
-interface IProfileComponentProps {}
+// containers
+import MainTile from 'profile/containers/MainTile';
 
-const ProfileView: FC<IProfileComponentProps> = () => {
+// components
+import Tile from 'feed/components/Tile';
+
+// types
+import { IFeedItem } from 'common/types/feed';
+
+interface IProfileViewProps {
+  data: Array<IFeedItem>;
+}
+
+const renderFeedItem: ListRenderItem<IFeedItem> = () => {
+  return <Tile />;
+};
+
+const ProfileView: FC<IProfileViewProps> = (props) => {
   return (
     <View style={styles.profileStyle}>
-      <Text>Profile Screen</Text>
+      <FlatList
+        ListHeaderComponent={MainTile}
+        data={props.data}
+        renderItem={renderFeedItem}
+      />
     </View>
   );
 };

@@ -3,13 +3,15 @@ import {
   StackNavigationProp,
 } from '@react-navigation/stack';
 
+import { CHAT_LIST_SCREEN_NAME } from '../constants/routes';
+
 type RootStackParamList = {
-  ChatList: undefined;
+  [CHAT_LIST_SCREEN_NAME]: undefined;
 };
 
-export type FeedScreenNavigationProp = StackNavigationProp<
+export type ChatScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  'ChatList'
+  typeof CHAT_LIST_SCREEN_NAME
 >;
 
 const Screens = createStackNavigator<RootStackParamList>();

@@ -9,7 +9,7 @@ import {
   AUTH_STACK_NAME,
   SPLASH_SCREEN_NAME,
   MAIN_STACK_NAME,
-} from '../../constants/routes';
+} from 'app/constants/routes';
 
 // screens
 import SplashScreen from '../../containers/Splash';
