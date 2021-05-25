@@ -1,11 +1,12 @@
-import { useGetUserByGuidQuery, User } from '@/common/types/gql.generated';
+import { useGetUserTokenQuery } from '@/common/types/gql.generated';
 
-export default function useTestAPI(): User | null {
-  const guid = 'test';
-
-  const { data } = useGetUserByGuidQuery({
-    variables: { guid },
+export default function useTestAPI(): string | null {
+  const { data } = useGetUserTokenQuery({
+    variables: {
+      username: 'test',
+      password: 'pass',
+    },
   });
 
-  return data?.getUserByGuid || null;
+  return data?.getUserToken?.accessToken || null;
 }
