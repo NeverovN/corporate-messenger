@@ -22,8 +22,8 @@ const link = split(
       definition.operation === 'subscription'
     );
   },
-  httpLink,
   wsLink,
+  httpLink,
 );
 
 const errorLink = onError((error) => {
