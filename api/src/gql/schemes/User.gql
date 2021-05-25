@@ -8,7 +8,6 @@ type User {
   email: String!
   firstName: String!
   lastName: String!
-  email: String!
   avatar: String
   #friends: [User]!
   #settings: UserSettings!
@@ -19,12 +18,12 @@ type Query {
 }
 
 type Mutation {
-  login(input: AuthenticationInput!): AuthenticationResult!
+  # login(input: AuthenticationInput!): AuthenticationResult!
   createUser(input: AuthenticationInput!): AuthenticationResult!
 }
 
 input AuthenticationInput {
-  username: String!
+  email: String!
   password: String!
 }
 

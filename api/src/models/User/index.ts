@@ -1,32 +1,39 @@
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
-import { ID, URL } from '../../types/common';
+import {
+  getModelForClass,
+  modelOptions,
+  prop,
+  Severity,
+} from '@typegoose/typegoose';
+import { ID, Nullable, URL } from '../../types/common';
 
-import { UserSettings } from './models';
+import { UserSettings, defaultUserSettings } from './models';
 
-@Entity()
-export class UserModel {
-  @ObjectIdColumn()
-  id: ID;
+@modelOptions({
+  options: { allowMixed: Severity.ALLOW },
+  schemaOptions: { collection: 'users', _id: true },
+})
+export class UserEntity {
+  _id: string;
 
-  @Column()
+  @prop({ required: true })
   email: string;
 
-  @Column()
+  @prop({ required: true })
   password: string;
 
-  @Column()
+  @prop({ required: true })
   firstName: string;
 
-  @Column()
+  @prop({ required: true })
   lastName: string;
 
-  @Column()
-  avatar: URL;
+  @prop()
+  avatar: Nullable<URL>;
 
-  @Column()
+  @prop({ ref: () => UserEntity })
   friends: Array<ID>;
 
-  @Column(() => UserSettings)
+  @prop({ required: true })
   settings: UserSettings;
 
   constructor(
@@ -34,21 +41,8 @@ export class UserModel {
     password: string,
     firstName: string,
     lastName: string,
-    avatar?: string,
+    avatar: Nullable<URL>,
   ) {
-    const userAvatar = this.createUserAvatar(avatar);
-    this.initRequiredData(email, password, firstName, lastName, userAvatar);
-  }
-
-  private initRequiredData(
-    email: string,
-    password: string,
-    firstName: string,
-    lastName: string,
-    avatar: string,
-  ): void {
-    // this.id = ''; //! FIX THIS
-
     this.email = email;
     this.password = password;
 
@@ -58,12 +52,10 @@ export class UserModel {
 
     // default data
     this.friends = [];
-    this.settings = new UserSettings();
-  }
-
-  private createUserAvatar(avatar?: string): string {
-    if (avatar) return avatar;
-
-    return 'default avatar'; // TODO: return default user picture or set null (depends on business rules)
+    this.settings = defaultUserSettings;
   }
 }
+
+const UserModel = getModelForClass(UserEntity);
+
+export default UserModel;

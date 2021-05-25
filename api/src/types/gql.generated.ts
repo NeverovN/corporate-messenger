@@ -15,7 +15,7 @@ export type Scalars = {
 };
 
 export type AuthenticationInput = {
-  username: Scalars['String'];
+  email: Scalars['String'];
   password: Scalars['String'];
 };
 
@@ -27,13 +27,7 @@ export type AuthenticationResult = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  login: AuthenticationResult;
   createUser: AuthenticationResult;
-};
-
-
-export type MutationLoginArgs = {
-  input: AuthenticationInput;
 };
 
 
@@ -167,7 +161,6 @@ export type AuthenticationResultResolvers<ContextType = any, ParentType extends 
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
   createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
 };
 

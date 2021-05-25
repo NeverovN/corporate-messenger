@@ -1,16 +1,12 @@
-import { Column } from 'typeorm';
 import { ID } from '../../types/common';
 
-export class UserSettings {
-  @Column()
+export type UserSettings = {
   notificationsEnabled: boolean;
-
-  @Column()
   banlist: Array<ID>;
   // ... etc.
+};
 
-  constructor() {
-    this.notificationsEnabled = false;
-    this.banlist = [];
-  }
-}
+export const defaultUserSettings: UserSettings = {
+  notificationsEnabled: true,
+  banlist: [],
+};

@@ -20,10 +20,10 @@
     "skipLibCheck": false,
     "strict": true,
     "target": "esnext",
-    "strictPropertyInitialization": false,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*/index", "./src/*"]
-    }
+    "strictPropertyInitialization": false
+    // "baseUrl": ".",
+    // "paths": {
+    //   "@/*": ["./src/*/index", "./src/*"]
+    // }
   }
 }
