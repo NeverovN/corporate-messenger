@@ -7,7 +7,9 @@ import { MAIN_STACK_NAME } from 'app/constants/routes';
 // routers
 import { MainScreenNavigationProp } from 'app/types/routes';
 
-type UseHandleRegistrationResult = () => Promise<void>;
+import { useGetUserTokenQuery } from 'common/types/gql.generated';
+
+type UseHandleRegistrationResult = () => void;
 type UseHandleLoginOptions = {
   email: string;
   password: string;
@@ -16,18 +18,27 @@ type UseHandleLoginOptions = {
 export function useHandleLogin(
   params: UseHandleLoginOptions,
 ): UseHandleRegistrationResult {
-  const loginHandler = async (_email: string, _password: string) => {
-    return true;
-  }; // api
   const navigation = useNavigation<MainScreenNavigationProp>();
+  const { data, loading, error } = useGetUserTokenQuery({
+    variables: { username: params.email, password: params.password },
+  });
+
+  if (loading) {
+    return () => {
+      console.log('loading');
+    };
+  } else if (error) {
+    console.log(error);
+    return () => {
+      Alert.alert('Error', 'db response error');
+    };
+  }
 
   const handleLogin = async () => {
-    try {
-      await loginHandler(params.email, params.password);
-    } catch {
-      Alert.alert('ERROR', 'Error occured'); // just for now
+    if (data?.getUserToken === null) {
+      Alert.alert('Error', 'Wrong user data');
+      return;
     }
-
     // sends some info on server to give user access to their account
     navigation.navigate(MAIN_STACK_NAME);
   };
