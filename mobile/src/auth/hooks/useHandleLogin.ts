@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 
 // constants
 import { MAIN_STACK_NAME } from 'app/constants/routes';
+import { userData } from 'common/constants/userData';
 
 // routers
 import { MainScreenNavigationProp } from 'app/types/routes';
@@ -30,6 +31,8 @@ export function useHandleLogin(
 
     // sends some info on server to give user access to their account
     navigation.navigate(MAIN_STACK_NAME);
+    userData.username = params.email;
+    userData.password = params.password;
   };
 
   return handleLogin;

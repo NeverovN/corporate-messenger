@@ -1,4 +1,6 @@
-export interface IFeedItem {
-  onPress(): void;
-  id: number;
+import { FC } from 'react';
+
+export interface IPostItem {
+  data: FC;
+  index: number;
 }

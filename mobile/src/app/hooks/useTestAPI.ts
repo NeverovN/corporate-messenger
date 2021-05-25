@@ -1,4 +1,3 @@
-
 import { useGetUserTokenQuery } from '@/common/types/gql.generated';
 
 export default function useTestAPI(): string | null {
@@ -10,3 +9,4 @@ export default function useTestAPI(): string | null {
   });
 
   return data?.getUserToken?.accessToken || null;
+}

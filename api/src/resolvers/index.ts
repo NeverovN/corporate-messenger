@@ -1,5 +1,6 @@
 import { Resolvers } from '../types/gql.generated';
-import { User } from '../types/typeorm';
+import { User } from '../types/typeormUser';
+import { Post } from '../types/typeormPost';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -14,13 +15,10 @@ const resolverMap: Resolvers = {
         ACCESS_SECRET_TOKEN,
       ) as User | null;
 
-      console.log(verifiedUser);
-
       return verifiedUser;
     },
     async getUsers() {
       const users = await User.find();
-      console.log(users);
       return users;
     },
     async getUserToken(_, args) {
@@ -48,6 +46,21 @@ const resolverMap: Resolvers = {
         return null;
       }
     },
+    getPosts() {
+      return Post.find() || null;
+    },
+    async getPost(_, args) {
+      const post = await Post.findOne({
+        id: args.id,
+      });
+
+      return post || null;
+    },
+    async getUsersPosts(_, args) {
+      const posts = await Post.find({ username: args.username });
+
+      return posts || null;
+    },
   },
   Mutation: {
     async createUser(_, args) {
@@ -59,14 +72,18 @@ const resolverMap: Resolvers = {
         newUser.password = hashedPassword;
         newUser.username = args.input.username;
 
-        newUser.save();
-        console.log(await User.find());
-
-        return newUser;
+        return await newUser.save();
       } catch (error) {
         console.log('error', error);
         return newUser;
       }
+    },
+    async addPost(_, args) {
+      // there must be token check but there is no token queries on this branch
+      const newPost = new Post();
+      // const user = jwt.verify(args.input.token, ACCESS_SECRET_TOKEN) as User;
+      newPost.username = args.input.username;
+      return await newPost.save();
     },
   },
 };

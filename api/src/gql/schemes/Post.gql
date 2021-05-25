@@ -1,0 +1,20 @@
+type Query {
+  getPosts: [Post]
+  getUsersPosts(username: String!): [Post]
+  getPost(id: ID!): Post
+}
+
+type Mutation {
+  addPost(input: InputPost!): Post!
+}
+
+type Post {
+  id: ID!
+  username: String
+  createdAt: String
+  comments: [String]
+}
+
+input InputPost {
+  username: String!
+}
