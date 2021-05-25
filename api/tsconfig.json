@@ -20,18 +20,10 @@
     "skipLibCheck": false,
     "strict": true,
     "target": "esnext",
-    "strictPropertyInitialization": false
-    // "baseUrl": ".",
-    // "paths": {
-    //   "@/*": ["./src/*/index", "./src/*"],
-    //   "root/*": ["./*"],
-    //   "app/*": ["./src/app/*"],
-    //   "auth/*": ["./src/auth/*"],
-    //   "chat/*": ["./src/chat/*"],
-    //   "common/*": ["./src/common/*"],
-    //   "settings/*": ["./src/settings/*"],
-    //   "feed/*": ["./src/feed/*"],
-    //   "profile/*": ["./src/profile/*"]
-    // }
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*/index", "./src/*"]
+    }
   }
 }
