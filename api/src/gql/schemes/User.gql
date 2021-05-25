@@ -1,18 +1,24 @@
 type User {
   guid: ID!
-  firstName: String!
-  lastName: String!
+  username: String!
+  password: String!
 }
 
 type Query {
-  getUserByGuid(guid: ID!): User
+  getUser(token: String!): User
+  getUsers: [User]
+  getUserToken(username: String!, password: String!): AccessToken
 }
 
 type Mutation {
-  createUser(input: CreateUserInput!): User!
+  createUser(input: CreateUserInput!): User
 }
 
 input CreateUserInput {
-  firstName: String!
-  lastName: String!
+  username: String!
+  password: String!
+}
+
+type AccessToken {
+  accessToken: String!
 }

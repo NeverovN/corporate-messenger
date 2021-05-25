@@ -18,7 +18,8 @@
     "resolveJsonModule": true,
     "skipLibCheck": false,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "emitDecoratorMetadata": true
     // "baseUrl": ".",
     // "paths": {
     //   "@/*": ["./src/*/index", "./src/*"],

@@ -1,10 +1,14 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -24,7 +28,6 @@ export type Mutation = {
   createUser: User;
 };
 
-
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };
@@ -33,7 +36,6 @@ export type Query = {
   __typename?: 'Query';
   getUserByGuid?: Maybe<User>;
 };
-
 
 export type QueryGetUserByGuidArgs = {
   guid: Scalars['ID'];
@@ -46,38 +48,34 @@ export type User = {
   lastName: Scalars['String'];
 };
 
-export type UserFragmentFragment = (
-  { __typename?: 'User' }
-  & Pick<User, 'guid' | 'firstName' | 'lastName'>
-);
+export type UserFragmentFragment = { __typename?: 'User' } & Pick<
+  User,
+  'guid' | 'firstName' | 'lastName'
+>;
 
 export type GetUserByGuidQueryVariables = Exact<{
   guid: Scalars['ID'];
 }>;
 
-
-export type GetUserByGuidQuery = (
-  { __typename?: 'Query' }
-  & { getUserByGuid?: Maybe<(
-    { __typename?: 'User' }
-    & UserFragmentFragment
-  )> }
-);
+export type GetUserByGuidQuery = { __typename?: 'Query' } & {
+  getUserByGuid?: Maybe<{ __typename?: 'User' } & UserFragmentFragment>;
+};
 
 export const UserFragmentFragmentDoc = gql`
-    fragment UserFragment on User {
-  guid
-  firstName
-  lastName
-}
-    `;
-export const GetUserByGuidDocument = gql`
-    query GetUserByGuid($guid: ID!) {
-  getUserByGuid(guid: $guid) {
-    ...UserFragment
+  fragment UserFragment on User {
+    guid
+    firstName
+    lastName
   }
-}
-    ${UserFragmentFragmentDoc}`;
+`;
+export const GetUserByGuidDocument = gql`
+  query GetUserByGuid($guid: ID!) {
+    getUserByGuid(guid: $guid) {
+      ...UserFragment
+    }
+  }
+  ${UserFragmentFragmentDoc}
+`;
 
 /**
  * __useGetUserByGuidQuery__
@@ -95,14 +93,37 @@ export const GetUserByGuidDocument = gql`
  *   },
  * });
  */
-export function useGetUserByGuidQuery(baseOptions: Apollo.QueryHookOptions<GetUserByGuidQuery, GetUserByGuidQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetUserByGuidQuery, GetUserByGuidQueryVariables>(GetUserByGuidDocument, options);
-      }
-export function useGetUserByGuidLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByGuidQuery, GetUserByGuidQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetUserByGuidQuery, GetUserByGuidQueryVariables>(GetUserByGuidDocument, options);
-        }
-export type GetUserByGuidQueryHookResult = ReturnType<typeof useGetUserByGuidQuery>;
-export type GetUserByGuidLazyQueryHookResult = ReturnType<typeof useGetUserByGuidLazyQuery>;
-export type GetUserByGuidQueryResult = Apollo.QueryResult<GetUserByGuidQuery, GetUserByGuidQueryVariables>;
+export function useGetUserByGuidQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetUserByGuidQuery,
+    GetUserByGuidQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetUserByGuidQuery, GetUserByGuidQueryVariables>(
+    GetUserByGuidDocument,
+    options,
+  );
+}
+export function useGetUserByGuidLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUserByGuidQuery,
+    GetUserByGuidQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetUserByGuidQuery, GetUserByGuidQueryVariables>(
+    GetUserByGuidDocument,
+    options,
+  );
+}
+export type GetUserByGuidQueryHookResult = ReturnType<
+  typeof useGetUserByGuidQuery
+>;
+export type GetUserByGuidLazyQueryHookResult = ReturnType<
+  typeof useGetUserByGuidLazyQuery
+>;
+export type GetUserByGuidQueryResult = Apollo.QueryResult<
+  GetUserByGuidQuery,
+  GetUserByGuidQueryVariables
+>;
