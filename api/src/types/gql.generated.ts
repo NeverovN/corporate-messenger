@@ -58,13 +58,6 @@ export type User = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
-  settings: UserSettings;
-};
-
-export type UserSettings = {
-  __typename?: 'UserSettings';
-  notificationsEnabled: Scalars['Boolean'];
-  banlist: Array<Scalars['String']>;
 };
 
 
@@ -152,7 +145,6 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  UserSettings: ResolverTypeWrapper<UserSettings>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -165,7 +157,6 @@ export type ResolversParentTypes = {
   Query: {};
   User: User;
   ID: Scalars['ID'];
-  UserSettings: UserSettings;
   Boolean: Scalars['Boolean'];
 };
 
@@ -190,13 +181,6 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  settings?: Resolver<ResolversTypes['UserSettings'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type UserSettingsResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserSettings'] = ResolversParentTypes['UserSettings']> = {
-  notificationsEnabled?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  banlist?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -205,7 +189,6 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
-  UserSettings?: UserSettingsResolvers<ContextType>;
 };
 
 
