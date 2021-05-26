@@ -1,27 +1,12 @@
-import { DocumentType } from '@typegoose/typegoose';
-
-import UserModel, { UserEntity } from '../../models/User';
 import { Nullable, URL } from '../../types/common';
 
-function mapUserDocumentToUserEntity(
-  document: DocumentType<UserEntity>,
-): UserEntity {
-  return {
-    _id: document._id,
-    email: document.email,
-    password: document.password,
-    firstName: document.firstName,
-    lastName: document.lastName,
-    friends: document.friends,
-    avatar: document.avatar,
-    settings: document.settings,
-  };
-}
+import UserModel, { UserEntity } from '../../models/User';
+import { UserDocument } from '../../models/User/types';
+
+import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 
 class UserController {
-  private mapUserWithFallback(
-    user: DocumentType<UserEntity> | null,
-  ): UserEntity | null {
+  private mapUserWithFallback(user: UserDocument | null): UserEntity | null {
     if (!user) return null;
 
     return mapUserDocumentToUserEntity(user);

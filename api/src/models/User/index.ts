@@ -6,7 +6,12 @@ import {
 } from '@typegoose/typegoose';
 import { ID, Nullable, URL } from '../../types/common';
 
-import { UserSettings, defaultUserSettings } from './models';
+import { UserSettings } from './types';
+
+export const defaultUserSettings: UserSettings = {
+  notificationsEnabled: true,
+  banlist: [],
+};
 
 @modelOptions({
   options: { allowMixed: Severity.ALLOW },
