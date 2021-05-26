@@ -1,17 +1,61 @@
-import { ID, URL } from '../../types/common';
+import {
+  getModelForClass,
+  modelOptions,
+  prop,
+  Severity,
+} from '@typegoose/typegoose';
+import { ID, Nullable, URL } from '../../types/common';
 
-type UserSettings = {
-  notificationsEnabled: boolean;
-  // ... etc.
-};
+import { UserSettings, defaultUserSettings } from './models';
 
-type NewType = {
-  id: ID;
-  avatar: URL; // optional to use URL
-  friends: Array<ID>;
+@modelOptions({
+  options: { allowMixed: Severity.ALLOW },
+  schemaOptions: { collection: 'users', _id: true },
+})
+export class UserEntity {
+  _id: string;
+
+  @prop({ required: true })
+  email: string;
+
+  @prop({ required: true })
+  password: string;
+
+  @prop({ required: true })
   firstName: string;
-  lastName: string;
-  settings: UserSettings;
-};
 
-export type UserModel = NewType;
+  @prop({ required: true })
+  lastName: string;
+
+  @prop()
+  avatar: Nullable<URL>;
+
+  @prop({ ref: () => UserEntity })
+  friends: Array<ID>;
+
+  @prop({ required: true })
+  settings: UserSettings;
+
+  constructor(
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    avatar: Nullable<URL>,
+  ) {
+    this.email = email;
+    this.password = password;
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.avatar = avatar;
+
+    // default data
+    this.friends = [];
+    this.settings = defaultUserSettings;
+  }
+}
+
+const UserModel = getModelForClass(UserEntity);
+
+export default UserModel;

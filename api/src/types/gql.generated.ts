@@ -14,22 +14,27 @@ export type Scalars = {
   Float: number;
 };
 
-export type AccessToken = {
-  __typename?: 'AccessToken';
-  accessToken: Scalars['String'];
+export type AuthenticationResult = {
+  __typename?: 'AuthenticationResult';
+  token: Scalars['String'];
+  user: User;
 };
 
 export type CreateUserInput = {
-  username: Scalars['String'];
+  email: Scalars['String'];
   password: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
 };
 
-export type InputPost = {
-  username: Scalars['String'];
+export type LoginInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
+<<<<<<< HEAD
   addPost: Post;
   createUser?: Maybe<User>;
 };
@@ -37,6 +42,15 @@ export type Mutation = {
 
 export type MutationAddPostArgs = {
   input: InputPost;
+=======
+  login: AuthenticationResult;
+  createUser: AuthenticationResult;
+};
+
+
+export type MutationLoginArgs = {
+  input: LoginInput;
+>>>>>>> f8aa6285597519089198893b77db21dd07436e80
 };
 
 
@@ -54,6 +68,7 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
+<<<<<<< HEAD
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUser?: Maybe<User>;
@@ -81,13 +96,29 @@ export type QueryGetUserTokenArgs = {
 
 export type QueryGetUsersPostsArgs = {
   username: Scalars['String'];
+=======
+  getUserById?: Maybe<User>;
+};
+
+
+export type QueryGetUserByIdArgs = {
+  id: Scalars['String'];
+>>>>>>> f8aa6285597519089198893b77db21dd07436e80
 };
 
 export type User = {
   __typename?: 'User';
+<<<<<<< HEAD
   guid: Scalars['ID'];
   username: Scalars['String'];
   password: Scalars['String'];
+=======
+  id: Scalars['ID'];
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  avatar?: Maybe<Scalars['String']>;
+>>>>>>> f8aa6285597519089198893b77db21dd07436e80
 };
 
 
@@ -168,6 +199,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+<<<<<<< HEAD
   AccessToken: ResolverTypeWrapper<AccessToken>;
   String: ResolverTypeWrapper<Scalars['String']>;
   CreateUserInput: CreateUserInput;
@@ -175,13 +207,22 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+=======
+  AuthenticationResult: ResolverTypeWrapper<AuthenticationResult>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  CreateUserInput: CreateUserInput;
+  LoginInput: LoginInput;
+  Mutation: ResolverTypeWrapper<{}>;
+>>>>>>> f8aa6285597519089198893b77db21dd07436e80
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+<<<<<<< HEAD
   AccessToken: AccessToken;
   String: Scalars['String'];
   CreateUserInput: CreateUserInput;
@@ -189,17 +230,32 @@ export type ResolversParentTypes = {
   Mutation: {};
   Post: Post;
   ID: Scalars['ID'];
+=======
+  AuthenticationResult: AuthenticationResult;
+  String: Scalars['String'];
+  CreateUserInput: CreateUserInput;
+  LoginInput: LoginInput;
+  Mutation: {};
+>>>>>>> f8aa6285597519089198893b77db21dd07436e80
   Query: {};
   User: User;
+  ID: Scalars['ID'];
   Boolean: Scalars['Boolean'];
 };
 
+<<<<<<< HEAD
 export type AccessTokenResolvers<ContextType = any, ParentType extends ResolversParentTypes['AccessToken'] = ResolversParentTypes['AccessToken']> = {
   accessToken?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+=======
+export type AuthenticationResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthenticationResult'] = ResolversParentTypes['AuthenticationResult']> = {
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+>>>>>>> f8aa6285597519089198893b77db21dd07436e80
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+<<<<<<< HEAD
   addPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationAddPostArgs, 'input'>>;
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
 };
@@ -225,11 +281,31 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   guid?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+=======
+  login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
+  createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getUserById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
+};
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+>>>>>>> f8aa6285597519089198893b77db21dd07436e80
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
+<<<<<<< HEAD
   AccessToken?: AccessTokenResolvers<ContextType>;
+=======
+  AuthenticationResult?: AuthenticationResultResolvers<ContextType>;
+>>>>>>> f8aa6285597519089198893b77db21dd07436e80
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

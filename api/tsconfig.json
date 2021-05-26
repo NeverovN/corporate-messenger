@@ -5,6 +5,7 @@
     "checkJs": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     // "isolatedModules": true,
     "jsx": "react-native",
@@ -19,18 +20,10 @@
     "skipLibCheck": false,
     "strict": true,
     "target": "esnext",
-    "emitDecoratorMetadata": true
+    "strictPropertyInitialization": false
     // "baseUrl": ".",
     // "paths": {
-    //   "@/*": ["./src/*/index", "./src/*"],
-    //   "root/*": ["./*"],
-    //   "app/*": ["./src/app/*"],
-    //   "auth/*": ["./src/auth/*"],
-    //   "chat/*": ["./src/chat/*"],
-    //   "common/*": ["./src/common/*"],
-    //   "settings/*": ["./src/settings/*"],
-    //   "feed/*": ["./src/feed/*"],
-    //   "profile/*": ["./src/profile/*"]
+    //   "@/*": ["./src/*/index", "./src/*"]
     // }
   }
 }
