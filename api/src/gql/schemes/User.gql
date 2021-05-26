@@ -1,18 +1,40 @@
+# type UserSettings {
+#   notificationsEnabled: Boolean!
+#   banlist: [String!]!
+# }
+
 type User {
-  guid: ID!
+  id: ID!
+  email: String!
   firstName: String!
   lastName: String!
+  avatar: String
+  #friends: [User]!
+  #settings: UserSettings!
 }
 
 type Query {
-  getUserByGuid(guid: ID!): User
+  getUserById(id: String!): User
 }
 
 type Mutation {
-  createUser(input: CreateUserInput!): User!
+  login(input: LoginInput!): AuthenticationResult!
+  createUser(input: CreateUserInput!): AuthenticationResult!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }
 
 input CreateUserInput {
+  email: String!
+  password: String!
   firstName: String!
   lastName: String!
+}
+
+type AuthenticationResult {
+  token: String!
+  user: User!
 }

@@ -17,6 +17,8 @@ const AuthInput: React.FC<IAuthInput> = (props) => {
       style={styles.inputStyle}
       value={props.value}
       onChangeText={props.onChangeText}
+      autoCapitalize="none"
+      autoCorrect={false}
     />
   );
 };

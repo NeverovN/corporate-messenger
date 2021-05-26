@@ -14,7 +14,7 @@ type ChatMessage = {
   media: Array<ChatMedia>;
 };
 
-export type ChatModel = {
+export interface ChatModel {
   id: ID;
   logo: URL;
   // participants: Array<UserModel['id']>;
@@ -22,4 +22,4 @@ export type ChatModel = {
 
   messages: Array<ChatMessage['id']>;
   settings: ChatSettings;
-};
+}
