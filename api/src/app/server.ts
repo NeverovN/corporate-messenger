@@ -4,7 +4,7 @@ import compression from 'compression';
 
 import schema from '../gql/schema';
 import getUserIdByToken from '../utils/getUserIdByToken';
-import { ApolloContextType } from '../types/server';
+import { ApolloContextType } from '../types/apollo';
 
 export function initServer(port: number): void {
   const SUCCESS_MESSAGE = `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`;
@@ -16,12 +16,10 @@ export function initServer(port: number): void {
       // Get the user token from the headers.
       const token = req.headers.authorization || '';
 
-      if (!token) return null;
+      if (!token) return { currentUserId: null };
 
       // Try to retrieve a user with the token
       const currentUserId = getUserIdByToken(token);
-
-      if (!currentUserId) return null;
 
       // Add the user to the context
       return { currentUserId };
