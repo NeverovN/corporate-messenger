@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 
-import { TOKEN_SECRET } from '../consts/tokens';
 import { ID } from '../types/common';
 
+import { EnvConstants } from '../consts/env';
+
 export default function createToken(userId: ID): string {
-  return jwt.sign({ userId }, TOKEN_SECRET, { expiresIn: '1m' });
+  return jwt.sign({ userId }, EnvConstants.TOKEN_SECRET, { expiresIn: '1m' });
 }

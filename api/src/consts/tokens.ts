@@ -1,4 +1,0 @@
-// TODO: move into .env
-
-export const TOKEN_SECRET =
-  'e30f4ad3afa29130f0d4d8ffe0551feb344004278c5b97780b49f43d052e833f32c8070c8bc6b9526959fe7521ed6b8dbdc99898594a4bb1a68bf77887481c37';

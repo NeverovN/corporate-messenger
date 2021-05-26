@@ -1,8 +1,7 @@
 import { initDatabase } from './db';
 import { initServer } from './server';
 
-// TODO: move to .env file
-const PORT = 3000;
+import { EnvConstants } from '../consts/env';
 
 export async function initApp(): Promise<void> {
   try {
@@ -14,5 +13,5 @@ export async function initApp(): Promise<void> {
     throw error;
   }
 
-  initServer(PORT);
+  initServer(EnvConstants.PORT);
 }
