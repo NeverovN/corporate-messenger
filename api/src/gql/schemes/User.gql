@@ -9,7 +9,7 @@ type User {
   firstName: String!
   lastName: String!
   avatar: String
-  #friends: [User]!
+  friends: [User]!
   #settings: UserSettings!
 }
 
@@ -20,6 +20,7 @@ type Query {
 type Mutation {
   login(input: LoginInput!): AuthenticationResult!
   createUser(input: CreateUserInput!): AuthenticationResult!
+  addFriend(input: AddFriendInput!): User
 }
 
 input LoginInput {
@@ -37,4 +38,8 @@ input CreateUserInput {
 type AuthenticationResult {
   token: String!
   user: User!
+}
+
+input AddFriendInput {
+  friendId: String!
 }
