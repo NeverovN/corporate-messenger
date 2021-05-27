@@ -13,9 +13,9 @@ const AddPostButtonContainer: FC<IAddPostButtonContainderProps> = () => {
   // const userToken = useCurrentUserToken(); // thats how it should be ----------|
   // const handleEdit = useAddPost({ token: userToken }); // <---- continue ---|
 
-  const handleEdit = useAddPost();
+  const handleAddPost = useAddPost();
 
-  return <AddPostButtonView onPress={handleEdit} />;
+  return <AddPostButtonView onPress={handleAddPost} />;
 };
 
 export default memo(AddPostButtonContainer);

@@ -64,6 +64,16 @@ const resolverMap: Resolvers = {
       return { token: token, user: mapUserEntityToUserGQL(user) };
     },
   },
+  Query: {
+    async getUserById(_, args) {
+      const entityFound = await UserController.getUser(args.id);
+      if (!entityFound) throw Error('User not found');
+
+      const user = mapUserEntityToUserGQL(entityFound);
+
+      return user;
+    },
+  },
   User: userResolvers,
 };
 export default resolverMap;

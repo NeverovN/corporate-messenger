@@ -56,6 +56,8 @@ class UserController {
 
     const createdUser = await UserModel.create(newUser);
 
+    createdUser.save();
+
     return mapUserDocumentToUserEntity(createdUser);
   }
 }
