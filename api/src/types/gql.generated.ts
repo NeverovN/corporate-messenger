@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { UserEntity } from 'api/src/models/User/index';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -8,6 +9,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]: Maybe<T[SubKey]> };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = {
   [X in Exclude<keyof T, K>]?: T[X];
 } &
@@ -19,6 +21,10 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+};
+
+export type AddFriendInput = {
+  friendId: Scalars['String'];
 };
 
 export type AuthenticationResult = {
@@ -47,11 +53,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addPost: Post;
   createUser: AuthenticationResult;
-  login: AuthenticationResult;
-};
-
-export type MutationAddPostArgs = {
-  input: InputPost;
+  addFriend?: Maybe<User>;
 };
 
 export type MutationCreateUserArgs = {
@@ -68,6 +70,10 @@ export type Post = {
   username?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['String']>;
   comments?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type MutationAddFriendArgs = {
+  input: AddFriendInput;
 };
 
 export type Query = {
@@ -97,6 +103,7 @@ export type User = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
+  friends: Array<Maybe<User>>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -215,8 +222,11 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  AuthenticationResult: ResolverTypeWrapper<AuthenticationResult>;
+  AddFriendInput: AddFriendInput;
   String: ResolverTypeWrapper<Scalars['String']>;
+  AuthenticationResult: ResolverTypeWrapper<
+    Omit<AuthenticationResult, 'user'> & { user: ResolversTypes['User'] }
+  >;
   CreateUserInput: CreateUserInput;
   InputPost: InputPost;
   LoginInput: LoginInput;
@@ -224,14 +234,18 @@ export type ResolversTypes = {
   Post: ResolverTypeWrapper<Post>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<UserEntity>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  AuthenticationResult: AuthenticationResult;
+  AddFriendInput: AddFriendInput;
   String: Scalars['String'];
+  AuthenticationResult: Omit<AuthenticationResult, 'user'> & {
+    user: ResolversParentTypes['User'];
+  };
   CreateUserInput: CreateUserInput;
   InputPost: InputPost;
   LoginInput: LoginInput;
@@ -239,7 +253,7 @@ export type ResolversParentTypes = {
   Post: Post;
   ID: Scalars['ID'];
   Query: {};
-  User: User;
+  User: UserEntity;
   Boolean: Scalars['Boolean'];
 };
 
@@ -256,11 +270,11 @@ export type MutationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
-  addPost?: Resolver<
-    ResolversTypes['Post'],
+  login?: Resolver<
+    ResolversTypes['AuthenticationResult'],
     ParentType,
     ContextType,
-    RequireFields<MutationAddPostArgs, 'input'>
+    RequireFields<MutationLoginArgs, 'input'>
   >;
   createUser?: Resolver<
     ResolversTypes['AuthenticationResult'],
@@ -268,11 +282,11 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateUserArgs, 'input'>
   >;
-  login?: Resolver<
-    ResolversTypes['AuthenticationResult'],
+  addFriend?: Resolver<
+    Maybe<ResolversTypes['User']>,
     ParentType,
     ContextType,
-    RequireFields<MutationLoginArgs, 'input'>
+    RequireFields<MutationAddFriendArgs, 'input'>
   >;
 };
 
@@ -333,6 +347,11 @@ export type UserResolvers<
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  friends?: Resolver<
+    Array<Maybe<ResolversTypes['User']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -2,6 +2,10 @@ overwrite: true
 schema: "api/src/**/*.gql"
 generates:
   api/src/types/gql.generated.ts:
+    config:
+      configType: api/src/types/apollo#ApolloContextType
+      mappers:
+        User: api/src/models/User/index#UserEntity
     plugins:
       - "typescript"
       - "typescript-resolvers"

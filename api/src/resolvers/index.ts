@@ -1,23 +1,11 @@
-import { Resolvers, User as UserGQL } from '../types/gql.generated';
-import UserController from '../controllers/User';
+import { Resolvers } from '../types/gql.generated';
+import { UserController } from '../controllers/User';
 
-import userResolvers from './User';
-import { UserEntity } from '../models/User';
 import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
 import verifyPasswordHash from '../utils/verifyPasswordHash';
-
-function mapUserEntityToUserGQL(user: UserEntity): UserGQL {
-  return {
-    id: user._id,
-    email: user.email,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    // friends: user.friends,
-    avatar: user.avatar,
-    // settings: user.settings,
-  };
-}
+import { UserEntity } from '../models/User';
+import { ApolloContextType } from '../types/apollo';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -35,7 +23,7 @@ const resolverMap: Resolvers = {
 
       const token = createToken(user._id);
 
-      return { token: token, user: mapUserEntityToUserGQL(user) };
+      return { token, user };
     },
     async createUser(_, { input }) {
       //! 1. validate (TODO)
@@ -61,19 +49,30 @@ const resolverMap: Resolvers = {
 
       const token = createToken(user._id);
 
-      return { token: token, user: mapUserEntityToUserGQL(user) };
+      return { token: token, user };
+    },
+    async addFriend(_, { input }, context: ApolloContextType) {
+      // TODO: handle unauthorized access
+      if (!context.currentUserId) throw new Error('Unauthorized Access');
+
+      // TODO: handle model controller issues
+      const newUser = await UserController.addFriend(
+        context.currentUserId,
+        input.friendId,
+      );
+
+      return newUser;
     },
   },
-  Query: {
-    async getUserById(_, args) {
-      const entityFound = await UserController.getUser(args.id);
-      if (!entityFound) throw Error('User not found');
+  User: {
+    id: (user: UserEntity) => user._id,
+    friends: async (user: UserEntity) => {
+      const friendIds = user.friends;
 
-      const user = mapUserEntityToUserGQL(entityFound);
+      const friends = await UserController.getUsers(friendIds);
 
-      return user;
+      return friends;
     },
   },
-  User: userResolvers,
 };
 export default resolverMap;
