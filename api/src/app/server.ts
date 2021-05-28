@@ -1,5 +1,6 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
+
 import compression from 'compression';
 
 import schema from '../gql/schema';
@@ -23,6 +24,11 @@ export function initServer(port: number): void {
 
       // Add the user to the context
       return { currentUserId };
+    },
+    subscriptions: {
+      onConnect: () => {
+        console.log('connected to we socet');
+      },
     },
   });
 

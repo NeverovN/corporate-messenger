@@ -1,7 +1,10 @@
 type Query {
   getPosts: [Post]
-  getUsersPosts(token: String!): [Post]
   getPost(id: ID!): Post
+}
+
+type Subscription {
+  newPost(token: String!): Post!
 }
 
 type Mutation {

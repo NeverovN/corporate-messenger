@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useGetUsersPostsQuery } from 'common/types/gql.generated';
+import { useNewPostSubscription } from 'common/types/gql.generated';
 
 // consts
 import { tokenVar } from 'common/cache/cache';
@@ -13,17 +13,19 @@ interface IPostArr {
 }
 
 export const useUsersPosts = () => {
-  const { data } = useGetUsersPostsQuery({
+  const { data, loading, error } = useNewPostSubscription({
     variables: {
       token: tokenVar(),
     },
   });
 
-  if (
-    typeof data === 'undefined' ||
-    typeof data.getUsersPosts === 'undefined' ||
-    data.getUsersPosts === null
-  ) {
+  if (loading) {
+    console.log('loading posts');
+    return [];
+  } else if (error) {
+    console.log(error);
+    return [];
+  } else if (!data || !data.getUsersPosts) {
     return [];
   }
 
@@ -36,5 +38,5 @@ export const useUsersPosts = () => {
     });
   }
 
-  return posts;
+  return [];
 };

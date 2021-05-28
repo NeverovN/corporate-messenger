@@ -1,6 +1,7 @@
 import { Resolvers } from '../types/gql.generated';
 import { UserController } from '../controllers/User';
 import { PostController } from '../controllers/Post';
+import { NEW_POST } from '../consts/events';
 
 import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
@@ -8,7 +9,7 @@ import verifyPasswordHash from '../utils/verifyPasswordHash';
 import decodeToken from '../utils/decodeToken';
 import { UserEntity } from '../models/User';
 import { ApolloContextType } from '../types/apollo';
-import { EnvConstants } from '../consts/env';
+import { PubSub } from 'apollo-server-express';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -79,10 +80,14 @@ const resolverMap: Resolvers = {
     async getUserById(_, args) {
       return await UserController.getUser(args.id);
     },
-    async getUsersPosts(_, { token }) {
-      const { userId } = decodeToken(token);
-      const posts = PostController.getPostsByAuthor(userId);
-      return posts;
+  },
+  Subscription: {
+    newPost: {
+      subscribe: (_, __) => {
+        console.log('subscription');
+
+        return new PubSub().asyncIterator(['getUsersPosts']);
+      },
     },
   },
   User: {

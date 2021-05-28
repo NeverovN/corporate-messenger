@@ -10,8 +10,8 @@ mutation CreatePost($token: String!) {
   }
 }
 
-query GetUsersPosts($token: String!) {
-  getUsersPosts(token: $token) {
+subscription NewPost($token: String!) {
+  newPost(token: $token) {
     ...PostFragment
   }
 }
