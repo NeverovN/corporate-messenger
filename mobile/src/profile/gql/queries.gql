@@ -1,0 +1,17 @@
+fragment PostFragment on Post {
+  id
+  author
+  createdAt
+}
+
+mutation CreatePost($token: String!) {
+  createPost(token: $token) {
+    ...PostFragment
+  }
+}
+
+query GetUsersPosts($token: String!) {
+  getUsersPosts(token: $token) {
+    ...PostFragment
+  }
+}

@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { Alert } from 'react-native';
 
 // constants
 import { REGISTER_SCREEN_NAME } from 'auth/constants/routes';
@@ -8,11 +7,8 @@ import { REGISTER_SCREEN_NAME } from 'auth/constants/routes';
 import { AuthScreenNavigationProp } from 'auth/types/routes';
 
 type UseHandleLoginResult = () => Promise<void>;
-type UseHandleLoginOptions = {};
 
-export function useHandleSignUpRedirection(
-  params: UseHandleLoginOptions,
-): UseHandleLoginResult {
+export function useHandleSignUpRedirection(): UseHandleLoginResult {
   const navigation = useNavigation<AuthScreenNavigationProp>();
 
   const handleSignUpRedirection = async () => {

@@ -1,29 +1,42 @@
 fragment UserFragment on User {
-  guid
-  username
-  password
+  id
+  firstName
+  lastName
+  email
 }
 
-query GetToken($token: String!) {
-  getUser(token: $token) {
-    ...UserFragment
+mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    token
+    user {
+      ...UserFragment
+    }
   }
 }
 
-query GetUsers {
-  getUsers {
-    ...UserFragment
+query GetUserByEmail($email: String!) {
+  getUserByEmail(email: $email) {
+    email
   }
 }
 
-query GetUserToken($username: String!, $password: String!) {
-  getUserToken(username: $username, password: $password) {
-    accessToken
-  }
-}
+# query GetUsers {
+#   getUsers {
+#     ...UserFragment
+#   }
+# }
 
-mutation AddUser($username: String!, $password: String!) {
-  createUser(input: { username: $username, password: $password }) {
-    ...UserFragment
+# query GetUserToken($username: String!, $password: String!) {
+#   getUserToken(username: $username, password: $password) {
+#     accessToken
+#   }
+# }
+
+mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+    token
+    user {
+      ...UserFragment
+    }
   }
 }

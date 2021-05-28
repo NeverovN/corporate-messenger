@@ -1,28 +1,28 @@
 // hooks
 import useOpenAuthStack from './useOpenAuthStack';
-import useOpenMainStack from './useOpenMainStack';
+// import useOpenMainStack from './useOpenMainStack';
 
 //TODO: remove
-const fakePromise = (timeout: number) =>
-  new Promise((r) => setTimeout(r, timeout));
+// const fakePromise = (timeout: number) =>
+//   new Promise((r) => setTimeout(r, timeout));
 
 //TODO: implement real function
-async function isLoggedIn() {
-  await fakePromise(3000);
+// async function isLoggedIn() {
+//   await fakePromise(3000);
 
-  return true; //* you can change it while mocking UI to imitate real value
-}
+//   return true; //* you can change it while mocking UI to imitate real value
+// }
 
 export default function useCloseSplashScreen() {
   const openAuthStack = useOpenAuthStack();
-  const openMainStack = useOpenMainStack();
+  // const openMainStack = useOpenMainStack();
 
   const closeSplashScreen = async () => {
-    const isUserAlreadyLoggedIn = await isLoggedIn();
+    // const isUserAlreadyLoggedIn = await isLoggedIn();
 
-    if (isUserAlreadyLoggedIn) {
-      return openMainStack();
-    }
+    // if (isUserAlreadyLoggedIn) {
+    // return openMainStack();
+    // }
 
     return openAuthStack();
   };

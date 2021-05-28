@@ -1,13 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
+// cache
+import { tokenVar } from 'common/cache/cache';
+
 // constants
 import { MAIN_STACK_NAME } from 'app/constants/routes';
+import { userData } from 'common/constants/userData';
 
 // routers
 import { MainScreenNavigationProp } from 'app/types/routes';
 
-import { useGetUserTokenQuery } from 'common/types/gql.generated';
+// queries
+import { useLoginMutation } from 'common/types/gql.generated';
 
 type UseHandleRegistrationResult = () => void;
 type UseHandleLoginOptions = {
@@ -19,29 +24,29 @@ export function useHandleLogin(
   params: UseHandleLoginOptions,
 ): UseHandleRegistrationResult {
   const navigation = useNavigation<MainScreenNavigationProp>();
-  const { data, loading, error } = useGetUserTokenQuery({
-    variables: { username: params.email, password: params.password },
-  });
-
-  if (loading) {
-    return () => {
-      console.log('loading');
-    };
-  } else if (error) {
-    console.log(error);
-    return () => {
-      Alert.alert('Error', 'db response error');
-    };
-  }
+  const [login] = useLoginMutation();
 
   const handleLogin = async () => {
-    if (data?.getUserToken === null) {
-      Alert.alert('Error', 'Wrong user data');
-      return;
-    }
-    // sends some info on server to give user access to their account
-    navigation.navigate(MAIN_STACK_NAME);
-  };
+    try {
+      const { data } = await login({
+        variables: {
+          input: {
+            email: params.email,
+            password: params.password,
+          },
+        },
+      });
 
+      tokenVar(data?.login.token);
+
+      navigation.navigate(MAIN_STACK_NAME);
+      userData.username = params.email;
+      userData.password = params.password;
+      return;
+    } catch (err) {
+      Alert.alert('Error', `${err}`);
+      console.log(err);
+    }
+  };
   return handleLogin;
 }

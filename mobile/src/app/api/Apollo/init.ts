@@ -1,11 +1,12 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient } from '@apollo/client';
+import { cache } from '@/common/cache/cache';
 
 import link from './links';
 
 export default function initClient() {
   const client = new ApolloClient({
     version: '0.1',
-    cache: new InMemoryCache(),
+    cache: cache,
     link,
   });
 

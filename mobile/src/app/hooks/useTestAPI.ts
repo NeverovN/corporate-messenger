@@ -1,12 +1,14 @@
-import { useGetUserTokenQuery } from '@/common/types/gql.generated';
+import { useLoginMutation } from '@/common/types/gql.generated';
 
 export default function useTestAPI(): string | null {
-  const { data } = useGetUserTokenQuery({
+  const [, { data }] = useLoginMutation({
     variables: {
-      username: 'test',
-      password: 'pass',
+      input: {
+        email: 'test@test.test',
+        password: 'password1',
+      },
     },
   });
 
-  return data?.getUserToken?.accessToken || null;
+  return data?.login?.token || null;
 }

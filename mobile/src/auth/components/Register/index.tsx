@@ -18,7 +18,11 @@ interface IRegisterScreenProps {
   passwordRepeat: string;
   onChangePasswordRepeat(password: string): void;
 
-  // some more stuff not now
+  firstName: string;
+  onChangeFirstName(firstName: string): void;
+
+  lastName: string;
+  onChangeLastName(lastName: string): void;
 
   handleRegistration(): void;
 }
@@ -30,6 +34,16 @@ const RegisterView: FC<IRegisterScreenProps> = (props) => {
         placeholder="enter your login"
         value={props.email}
         onChangeText={props.onChangeEmail}
+      />
+      <AuthInput
+        placeholder="enter your First Name"
+        value={props.firstName}
+        onChangeText={props.onChangeFirstName}
+      />
+      <AuthInput
+        placeholder="enter your Last Name"
+        value={props.lastName}
+        onChangeText={props.onChangeLastName}
       />
       <AuthInput
         placeholder="enter your password"

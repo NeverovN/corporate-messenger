@@ -15,6 +15,7 @@ type User {
 
 type Query {
   getUserById(id: String!): User
+  getUserByEmail(email: String!): User
 }
 
 type Mutation {

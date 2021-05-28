@@ -1,0 +1,24 @@
+type Query {
+  getPosts: [Post]
+  getUsersPosts(token: String!): [Post]
+  getPost(id: ID!): Post
+}
+
+type Mutation {
+  createPost(token: String!): Post!
+}
+
+type Post {
+  id: ID!
+  author: ID!
+  createdAt: String!
+  comments: [CommentModel]
+}
+
+type CommentModel {
+  id: ID!
+  author: ID!
+  createdAt: String!
+  lastEdit: String
+  likes: [ID]
+}

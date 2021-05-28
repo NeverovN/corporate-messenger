@@ -10,13 +10,13 @@ import MainTile from 'profile/containers/MainTile';
 import Tile from 'feed/components/Tile';
 
 // types
-import { IFeedItem } from 'common/types/feed';
+import { IPostItem } from 'feed/types/feed';
 
 interface IProfileViewProps {
-  data: Array<IFeedItem>;
+  data: Array<IPostItem>;
 }
 
-const renderFeedItem: ListRenderItem<IFeedItem> = () => {
+const renderPostItem: ListRenderItem<IPostItem> = () => {
   return <Tile />;
 };
 
@@ -26,7 +26,7 @@ const ProfileView: FC<IProfileViewProps> = (props) => {
       <FlatList
         ListHeaderComponent={MainTile}
         data={props.data}
-        renderItem={renderFeedItem}
+        renderItem={renderPostItem}
       />
     </View>
   );

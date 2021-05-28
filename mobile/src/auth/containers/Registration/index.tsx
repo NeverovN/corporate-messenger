@@ -12,11 +12,15 @@ const RegistrationContainer: FC<ILoginContainerProps> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordRepeat, setPasswordRepeat] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
 
   const handleRegistration = useHandleRegistration({
     email,
     password,
     passwordRepeat,
+    firstName,
+    lastName,
   });
 
   return (
@@ -27,6 +31,10 @@ const RegistrationContainer: FC<ILoginContainerProps> = () => {
       onChangePassword={setPassword}
       passwordRepeat={passwordRepeat}
       onChangePasswordRepeat={setPasswordRepeat}
+      firstName={firstName}
+      onChangeFirstName={setFirstName}
+      lastName={lastName}
+      onChangeLastName={setLastName}
       handleRegistration={handleRegistration}
     />
   );
