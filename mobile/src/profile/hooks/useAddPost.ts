@@ -1,17 +1,14 @@
-import { userData } from 'common/constants/userData';
-import { useAddPostMutation } from 'common/types/gql.generated';
+import { useCreatePostMutation } from 'common/types/gql.generated';
+
+// cache
+import { tokenVar } from 'common/cache/cache';
+
 interface IUseAddPost {}
 
 export const useAddPost = () => {
-  const [addPost] = useAddPostMutation();
+  const [createPost] = useCreatePostMutation();
+
   return async () => {
-    await addPost({
-      variables: {
-        input: {
-          username: userData.username,
-        },
-      },
-    });
-    console.log('add post button pressed');
+    await createPost({ variables: { token: tokenVar() } });
   };
 };

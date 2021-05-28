@@ -1,22 +1,24 @@
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
+// cache
+import { tokenVar } from 'common/cache/cache';
+
 // constants
 import { MAIN_STACK_NAME } from 'app/constants/routes';
 import { userData } from 'common/constants/userData';
 
 // routers
 import { MainScreenNavigationProp } from 'app/types/routes';
-import {
-  useAddUserMutation,
-  useGetUsersQuery,
-} from '@/common/types/gql.generated';
+import { useCreateUserMutation } from '@/common/types/gql.generated';
 
 type UseHandleRegistrationResult = () => void;
 type UseHandleRegistrationOptions = {
   email: string;
   password: string;
   passwordRepeat: string;
+  firstName: string;
+  lastName: string;
 };
 
 export function useHandleRegistration(
@@ -24,31 +26,7 @@ export function useHandleRegistration(
 ): UseHandleRegistrationResult {
   const navigation = useNavigation<MainScreenNavigationProp>();
 
-  const { data, loading, error } = useGetUsersQuery();
-  const [addUser] = useAddUserMutation({
-    variables: {
-      username: params.email,
-      password: params.password,
-    },
-  });
-
-  console.log(
-    'data.getUsers: ',
-    data?.getUsers?.find((user) => user?.username === params.email),
-  );
-
-  if (loading) {
-    return () => {
-      console.log('loading');
-    };
-  } else if (error) {
-    console.log(error);
-    return () => Alert.alert('Error', 'db response error');
-  } else if (data?.getUsers?.find((user) => user?.username === params.email)) {
-    return () => {
-      Alert.alert('Error', 'User with such username already exists');
-    };
-  }
+  const [addUser] = useCreateUserMutation();
 
   if (!validateEmail(params.email)) {
     return () => {
@@ -73,19 +51,26 @@ export function useHandleRegistration(
   }
   const handleRegistration = async () => {
     try {
-      await addUser({
+      const { data } = await addUser({
         variables: {
-          username: params.email,
-          password: params.password,
+          input: {
+            email: params.email,
+            password: params.password,
+            firstName: params.firstName,
+            lastName: params.lastName,
+          },
         },
       });
+
+      tokenVar(data?.createUser.token);
+
+      navigation.navigate(MAIN_STACK_NAME);
+      userData.username = params.email;
+      userData.password = params.password;
     } catch (err) {
-      console.log('rejected', err);
-      Alert.alert('Error', 'Error while creating new user. Try again');
+      console.log('rejected', `${err}`);
+      Alert.alert('Error', `${err}`);
     }
-    navigation.navigate(MAIN_STACK_NAME);
-    userData.username = params.email;
-    userData.password = params.password;
   };
 
   return handleRegistration;

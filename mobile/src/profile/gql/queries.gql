@@ -1,30 +1,17 @@
 fragment PostFragment on Post {
   id
-  username
-  comments
+  author
+  createdAt
 }
 
-query GetPosts {
-  getPosts {
+mutation CreatePost($token: String!) {
+  createPost(token: $token) {
     ...PostFragment
   }
 }
 
-query GetPost($id: ID!) {
-  getPost(id: $id) {
-    ...PostFragment
-  }
-}
-
-query GetUsersPosts($username: String!) {
-  getUsersPosts(username: $username) {
-    username
-    id
-  }
-}
-
-mutation AddPost($input: InputPost!) {
-  addPost(input: $input) {
+query GetUsersPosts($token: String!) {
+  getUsersPosts(token: $token) {
     ...PostFragment
   }
 }

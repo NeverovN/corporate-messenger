@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useGetUsersPostsQuery } from 'common/types/gql.generated';
 
 // consts
-import { userData } from '@/common/constants/userData';
+import { tokenVar } from 'common/cache/cache';
 
 // components
 import TileView from 'feed/components/Tile';
@@ -13,19 +13,11 @@ interface IPostArr {
 }
 
 export const useUsersPosts = () => {
-  const { data, loading, error } = useGetUsersPostsQuery({
+  const { data } = useGetUsersPostsQuery({
     variables: {
-      username: userData.username,
+      token: tokenVar(),
     },
   });
-
-  if (loading) {
-    console.log('loading');
-    return [];
-  } else if (error) {
-    console.log(error);
-    return [];
-  }
 
   if (
     typeof data === 'undefined' ||

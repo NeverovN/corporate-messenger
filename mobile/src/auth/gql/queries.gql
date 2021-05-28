@@ -5,9 +5,18 @@ fragment UserFragment on User {
   email
 }
 
-query GetToken($id: String!) {
-  getUserById(id: $id) {
-    ...UserFragment
+mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    token
+    user {
+      ...UserFragment
+    }
+  }
+}
+
+query GetUserByEmail($email: String!) {
+  getUserByEmail(email: $email) {
+    email
   }
 }
 

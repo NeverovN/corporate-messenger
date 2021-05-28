@@ -32,7 +32,7 @@ const errorLink = onError((error) => {
   console.log('Network Error ->', error);
 });
 
-const authLink = setContext(async (_, { headers }) => {
+export const authLink = setContext(async (_, { headers }) => {
   const token = ''; // TODO: get real token
 
   return {

@@ -1,4 +1,11 @@
-import { ID, DateLike, Nullable } from '../../types/common';
+import { ID, DateLike, Nullable, URL } from '../../types/common';
+
+import {
+  getModelForClass,
+  modelOptions,
+  prop,
+  Severity,
+} from '@typegoose/typegoose';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type PostMedia = {};
@@ -11,14 +18,43 @@ export type CommentModel = {
   likes: Array<ID>; // array of user ids (person who can leave like) - in GQL it can me GQL User type
 };
 
-export type PostModel = {
-  id: ID;
-  author: ID;
-  repost: Nullable<ID>; // link to original post
-  media: Array<PostMedia>;
-  likes: Array<ID>; // array of user ids (person who can leave like) - in GQL it can me GQL User type
-  createdAt: DateLike;
-  lastEdit: DateLike;
+@modelOptions({
+  options: { allowMixed: Severity.ALLOW },
+  schemaOptions: { collection: 'posts', _id: true },
+})
+export class PostEntity {
+  id: string;
 
+  @prop({ required: true })
+  author: ID;
+
+  @prop({ required: true })
+  createdAt: string;
+
+  @prop()
+  lastEdit: string;
+
+  @prop()
+  avatar: Nullable<URL>;
+
+  @prop()
+  repost: Nullable<URL>;
+
+  @prop()
+  media: Array<PostMedia>;
+
+  @prop()
+  likes: Array<ID>;
+
+  @prop()
   comments: Array<CommentModel>;
-};
+
+  constructor(author: ID) {
+    this.author = author;
+    this.createdAt = new Date().toString();
+  }
+}
+
+const PostModel = getModelForClass(PostEntity);
+
+export default PostModel;
