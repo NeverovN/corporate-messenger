@@ -6,7 +6,10 @@
   "private": true,
   "scripts": {
     "gql:codegen:api": "graphql-codegen --config .config/codegen.api.yml",
+    "gql:codegen:api:watch": "yarn gql:codegen:api --watch",
     "gql:codegen:mobile": "graphql-codegen --config .config/codegen.mobile.yml",
+    "gql:codegen:mobile:watch": "yarn gql:codegen:mobile --watch",
+    "gql:codegen:all:watch": "yarn gql:codegen:api:watch & yarn gql:codegen:mobile:watch",
     "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
