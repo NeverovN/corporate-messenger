@@ -6,7 +6,6 @@ import { tokenVar } from 'common/cache/cache';
 
 // constants
 import { MAIN_STACK_NAME } from 'app/constants/routes';
-import { userData } from 'common/constants/userData';
 
 // routers
 import { MainScreenNavigationProp } from 'app/types/routes';
@@ -19,6 +18,8 @@ type UseHandleLoginOptions = {
   email: string;
   password: string;
 };
+
+//TODO: apply validation too (as for sign up)
 
 export function useHandleLogin(
   params: UseHandleLoginOptions,
@@ -40,8 +41,6 @@ export function useHandleLogin(
       tokenVar(data?.login.token);
 
       navigation.navigate(MAIN_STACK_NAME);
-      userData.username = params.email;
-      userData.password = params.password;
       return;
     } catch (err) {
       Alert.alert('Error', `${err}`);

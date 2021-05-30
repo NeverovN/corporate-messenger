@@ -6,16 +6,10 @@ import SplashView from '@/app/components/Splash';
 // hooks
 import useCloseSplashScreen from '@/app/hooks/useCloseSplashScreen';
 
-// TODO: remove useTestAPI
-import useTestAPI from '@/app/hooks/useTestAPI';
-
 interface ISplashContainerProps {}
 
 const SplashContainer: FC<ISplashContainerProps> = () => {
-  const a = useTestAPI();
   const closeSplashScreen = useCloseSplashScreen();
-
-  console.log('... a ->', a);
 
   useEffect(() => {
     closeSplashScreen();

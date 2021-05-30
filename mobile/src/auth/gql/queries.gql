@@ -14,24 +14,6 @@ mutation Login($input: LoginInput!) {
   }
 }
 
-query GetUserByEmail($email: String!) {
-  getUserByEmail(email: $email) {
-    email
-  }
-}
-
-# query GetUsers {
-#   getUsers {
-#     ...UserFragment
-#   }
-# }
-
-# query GetUserToken($username: String!, $password: String!) {
-#   getUserToken(username: $username, password: $password) {
-#     accessToken
-#   }
-# }
-
 mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
     token
