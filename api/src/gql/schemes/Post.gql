@@ -1,21 +1,22 @@
+type Post {
+  id: ID!
+  author: ID!
+  createdAt: String!
+  lastEdit: String
+  comments: [CommentModel]
+}
+
 type Query {
   getPosts: [Post]
   getPost(id: ID!): Post
 }
 
 type Subscription {
-  newPost(token: String!): Post!
+  newPost: Post!
 }
 
 type Mutation {
-  createPost(token: String!): Post!
-}
-
-type Post {
-  id: ID!
-  author: ID!
-  createdAt: String!
-  comments: [CommentModel]
+  createPost: Post
 }
 
 type CommentModel {

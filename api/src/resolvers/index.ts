@@ -6,10 +6,11 @@ import { NEW_POST } from '../consts/events';
 import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
 import verifyPasswordHash from '../utils/verifyPasswordHash';
-import decodeToken from '../utils/decodeToken';
 import { UserEntity } from '../models/User';
+
+// types
 import { ApolloContextType } from '../types/apollo';
-import { PubSub } from 'apollo-server-express';
+import { withFilter } from 'graphql-subscriptions';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -67,10 +68,18 @@ const resolverMap: Resolvers = {
 
       return newUser;
     },
-    async createPost(_, { token }) {
-      const { userId } = decodeToken(token);
-      const post = await PostController.createPost(userId);
-      return post;
+    async createPost(_, __, { currentUserId, pubsub }: ApolloContextType) {
+      console.log(currentUserId);
+      try {
+        const post = await PostController.createPost(currentUserId || '');
+        pubsub.publish(NEW_POST, {
+          newPost: { post },
+        });
+        return { ...post, id: post._id };
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
     },
   },
   Query: {
@@ -83,11 +92,24 @@ const resolverMap: Resolvers = {
   },
   Subscription: {
     newPost: {
-      subscribe: (_, __) => {
-        console.log('subscription');
-
-        return new PubSub().asyncIterator(['getUsersPosts']);
-      },
+      subscribe: withFilter(
+        (_, __, { pubsub }) => {
+          console.log('subscribed for new post');
+          return pubsub.asyncIterator([NEW_POST]);
+        },
+        (payload) => {
+          console.log({
+            ...payload.newPost.post,
+            id: payload.newPost.post._id,
+          });
+          return { ...payload.newPost.post, id: payload.newPost.post._id };
+        },
+      ),
+      // resolve: (payload: any) => {
+      //   console.log('subscription resolved');
+      //   console.log({ ...payload.newPost.post });
+      //   return { ...payload.newPost.post, id: payload.newPost.post._id };
+      // },
     },
   },
   User: {
@@ -99,6 +121,15 @@ const resolverMap: Resolvers = {
 
       return friends;
     },
+  },
+  Post: {
+    // id: (post) => post.id, // i don't understand why it doesn't work
+    // author: async (post) => {
+    //   const authorDocument = await UserModel.findById(post.author).exec();
+    //   if (!authorDocument) return null;
+    //   const author = mapUserDocumentToUserEntity(authorDocument);
+    //   return author;
+    // },
   },
 };
 export default resolverMap;

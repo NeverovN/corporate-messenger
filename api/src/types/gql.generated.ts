@@ -57,17 +57,13 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
-  createPost: Post;
+  createPost?: Maybe<Post>;
   createUser: AuthenticationResult;
   login: AuthenticationResult;
 };
 
 export type MutationAddFriendArgs = {
   input: AddFriendInput;
-};
-
-export type MutationCreatePostArgs = {
-  token: Scalars['String'];
 };
 
 export type MutationCreateUserArgs = {
@@ -83,6 +79,7 @@ export type Post = {
   id: Scalars['ID'];
   author: Scalars['ID'];
   createdAt: Scalars['String'];
+  lastEdit?: Maybe<Scalars['String']>;
   comments?: Maybe<Array<Maybe<CommentModel>>>;
 };
 
@@ -92,7 +89,6 @@ export type Query = {
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUserByEmail?: Maybe<User>;
   getUserById?: Maybe<User>;
-  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
 };
 
 export type QueryGetPostArgs = {
@@ -107,8 +103,9 @@ export type QueryGetUserByIdArgs = {
   id: Scalars['String'];
 };
 
-export type QueryGetUsersPostsArgs = {
-  token: Scalars['String'];
+export type Subscription = {
+  __typename?: 'Subscription';
+  newPost: Post;
 };
 
 export type User = {
@@ -249,6 +246,7 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
   Query: ResolverTypeWrapper<{}>;
+  Subscription: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<UserEntity>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
@@ -267,6 +265,7 @@ export type ResolversParentTypes = {
   Mutation: {};
   Post: Post;
   Query: {};
+  Subscription: {};
   User: UserEntity;
   Boolean: Scalars['Boolean'];
 };
@@ -306,12 +305,7 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationAddFriendArgs, 'input'>
   >;
-  createPost?: Resolver<
-    ResolversTypes['Post'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreatePostArgs, 'token'>
-  >;
+  createPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType>;
   createUser?: Resolver<
     ResolversTypes['AuthenticationResult'],
     ParentType,
@@ -333,6 +327,7 @@ export type PostResolvers<
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   comments?: Resolver<
     Maybe<Array<Maybe<ResolversTypes['CommentModel']>>>,
     ParentType,
@@ -368,11 +363,17 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryGetUserByIdArgs, 'id'>
   >;
-  getUsersPosts?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
+};
+
+export type SubscriptionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
+> = {
+  newPost?: SubscriptionResolver<
+    ResolversTypes['Post'],
+    'newPost',
     ParentType,
-    ContextType,
-    RequireFields<QueryGetUsersPostsArgs, 'token'>
+    ContextType
   >;
 };
 
@@ -399,6 +400,7 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 
