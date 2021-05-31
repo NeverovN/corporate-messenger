@@ -89,6 +89,7 @@ export type Query = {
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUserByEmail?: Maybe<User>;
   getUserById?: Maybe<User>;
+  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
 };
 
 export type QueryGetPostArgs = {

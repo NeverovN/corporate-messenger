@@ -6,7 +6,6 @@ import { tokenVar } from 'common/cache/cache';
 
 // constants
 import { MAIN_STACK_NAME } from 'app/constants/routes';
-import { userData } from 'common/constants/userData';
 
 // routers
 import { MainScreenNavigationProp } from 'app/types/routes';
@@ -17,11 +16,16 @@ import { useLoginMutation } from 'common/types/gql.generated';
 // async storage
 import { storage } from 'common/storage/index';
 
+// consts
+import keys from 'common/constants/storageKeys';
+
 type UseHandleRegistrationResult = () => void;
 type UseHandleLoginOptions = {
   email: string;
   password: string;
 };
+
+//TODO: apply validation too (as for sign up)
 
 export function useHandleLogin(
   params: UseHandleLoginOptions,
@@ -41,11 +45,9 @@ export function useHandleLogin(
       });
 
       tokenVar(data?.login.token);
-      storage.addToStorage('token', data?.login.token || '');
+      storage.addToStorage(keys.token, data?.login.token || '');
 
       navigation.navigate(MAIN_STACK_NAME);
-      userData.username = params.email;
-      userData.password = params.password;
       return;
     } catch (err) {
       Alert.alert('Error', `${err}`);

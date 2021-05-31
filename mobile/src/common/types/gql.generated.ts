@@ -61,6 +61,10 @@ export type MutationAddFriendArgs = {
   input: AddFriendInput;
 };
 
+export type MutationCreatePostArgs = {
+  token: Scalars['String'];
+};
+
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };

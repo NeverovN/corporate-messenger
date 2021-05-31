@@ -13,10 +13,7 @@ const LoginContainer: FC<ILoginContainerProps> = () => {
   const [password, setPassword] = useState<string>('');
 
   const handleLogin = useHandleLogin({ email, password });
-  const handleSignUpRedirection = useHandleSignUpRedirection({
-    email,
-    password,
-  });
+  const handleSignUpRedirection = useHandleSignUpRedirection();
 
   return (
     <LoginView

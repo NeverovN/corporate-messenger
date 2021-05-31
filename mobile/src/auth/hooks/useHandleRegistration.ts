@@ -15,6 +15,10 @@ import { useCreateUserMutation } from '@/common/types/gql.generated';
 // async storage
 import { storage } from 'common/storage/index';
 
+// utils
+import validateEmail from '../utils/validateEmail';
+import validatePassword from '../utils/validatePassword';
+
 type UseHandleRegistrationResult = () => void;
 type UseHandleRegistrationOptions = {
   email: string;
@@ -33,7 +37,7 @@ export function useHandleRegistration(
 
   if (!validateEmail(params.email)) {
     return () => {
-      Alert.alert('Error', 'Invalid email');
+      Alert.alert('Error', 'Invalid email'); // TODO: add custom errors (e.g. dropdown alerts or toasts - https://www.npmjs.com/package/react-native-toast-message)
     };
   }
 
@@ -47,7 +51,7 @@ export function useHandleRegistration(
     };
   }
 
-  if (!validateMatch(params.password, params.passwordRepeat)) {
+  if (params.password !== params.passwordRepeat) {
     return () => {
       Alert.alert('Error', 'Passwords not match');
     };
@@ -79,14 +83,3 @@ export function useHandleRegistration(
 
   return handleRegistration;
 }
-
-const validateEmail = (email: string) =>
-  email.match(
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  );
-
-const validatePassword = (password: string) =>
-  password.match(/^(?=.*[a-z])(?=.*[0-9])(?=.{8,})/);
-
-const validateMatch = (password: string, repeat: string) =>
-  password.match(repeat);

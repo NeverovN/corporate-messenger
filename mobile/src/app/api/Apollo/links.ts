@@ -34,9 +34,8 @@ const errorLink = onError((error) => {
   console.log('Network Error ->', error);
 });
 
-export const authLink = setContext(async (operation, { headers }) => {
-  const token = tokenVar(); // TODO: get real token
-  // console.log('operation: ', operation);
+export const authLink = setContext(async (_, { headers }) => {
+  const token = tokenVar();
 
   headers = {
     ...headers,
@@ -44,9 +43,6 @@ export const authLink = setContext(async (operation, { headers }) => {
       authorization: token, // TODO: choose appropriate header based on API
     },
   };
-  // console.log('forward: ', headers);
-
-  // operation.setContext();
   return headers;
 });
 
