@@ -6,12 +6,12 @@ import { REGISTER_SCREEN_NAME } from 'auth/constants/routes';
 // routers
 import { AuthScreenNavigationProp } from 'auth/types/routes';
 
-type UseHandleLoginResult = () => Promise<void>;
+type UseHandleLoginResult = () => void;
 
 export function useHandleSignUpRedirection(): UseHandleLoginResult {
   const navigation = useNavigation<AuthScreenNavigationProp>();
 
-  const handleSignUpRedirection = async () => {
+  const handleSignUpRedirection = () => {
     navigation.navigate(REGISTER_SCREEN_NAME);
   };
 
