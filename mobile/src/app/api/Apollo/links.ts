@@ -7,6 +7,8 @@ import { getMainDefinition } from '@apollo/client/utilities';
 
 import { BASE_HTTP_URL, BASE_WS_URL } from '@/app/constants/network';
 
+import { tokenVar } from 'common/cache/cache';
+
 const httpLink = new HttpLink({ uri: BASE_HTTP_URL });
 
 const wsLink = new WebSocketLink({
@@ -32,15 +34,20 @@ const errorLink = onError((error) => {
   console.log('Network Error ->', error);
 });
 
-export const authLink = setContext(async (_, { headers }) => {
-  const token = ''; // TODO: get real token
+export const authLink = setContext(async (operation, { headers }) => {
+  const token = tokenVar(); // TODO: get real token
+  // console.log('operation: ', operation);
 
-  return {
+  headers = {
     ...headers,
     headers: {
       authorization: token, // TODO: choose appropriate header based on API
     },
   };
+  // console.log('forward: ', headers);
+
+  // operation.setContext();
+  return headers;
 });
 
 export default from([errorLink, authLink, link]);

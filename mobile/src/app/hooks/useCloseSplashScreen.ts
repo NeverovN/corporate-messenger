@@ -1,6 +1,7 @@
 // hooks
 import useOpenAuthStack from './useOpenAuthStack';
-// import useOpenMainStack from './useOpenMainStack';
+import { isLoggedIn } from '@/app/utils/isLoggedIn';
+import useOpenMainStack from './useOpenMainStack';
 
 //TODO: remove
 // const fakePromise = (timeout: number) =>
@@ -15,14 +16,14 @@ import useOpenAuthStack from './useOpenAuthStack';
 
 export default function useCloseSplashScreen() {
   const openAuthStack = useOpenAuthStack();
-  // const openMainStack = useOpenMainStack();
+  const openMainStack = useOpenMainStack();
 
   const closeSplashScreen = async () => {
-    // const isUserAlreadyLoggedIn = await isLoggedIn();
+    const isUserAlreadyLoggedIn = await isLoggedIn();
 
-    // if (isUserAlreadyLoggedIn) {
-    // return openMainStack();
-    // }
+    if (isUserAlreadyLoggedIn) {
+      return openMainStack();
+    }
 
     return openAuthStack();
   };

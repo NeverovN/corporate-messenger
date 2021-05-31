@@ -1,10 +1,14 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -48,26 +52,18 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
-  createPost: Post;
+  createPost?: Maybe<Post>;
   createUser: AuthenticationResult;
   login: AuthenticationResult;
 };
-
 
 export type MutationAddFriendArgs = {
   input: AddFriendInput;
 };
 
-
-export type MutationCreatePostArgs = {
-  token: Scalars['String'];
-};
-
-
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };
-
 
 export type MutationLoginArgs = {
   input: LoginInput;
@@ -78,6 +74,7 @@ export type Post = {
   id: Scalars['ID'];
   author: Scalars['ID'];
   createdAt: Scalars['String'];
+  lastEdit?: Maybe<Scalars['String']>;
   comments?: Maybe<Array<Maybe<CommentModel>>>;
 };
 
@@ -87,27 +84,23 @@ export type Query = {
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUserByEmail?: Maybe<User>;
   getUserById?: Maybe<User>;
-  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
 };
-
 
 export type QueryGetPostArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetUserByEmailArgs = {
   email: Scalars['String'];
 };
-
 
 export type QueryGetUserByIdArgs = {
   id: Scalars['String'];
 };
 
-
-export type QueryGetUsersPostsArgs = {
-  token: Scalars['String'];
+export type Subscription = {
+  __typename?: 'Subscription';
+  newPost: Post;
 };
 
 export type User = {
@@ -120,115 +113,88 @@ export type User = {
   friends: Array<Maybe<User>>;
 };
 
-export type UserFragmentFragment = (
-  { __typename?: 'User' }
-  & Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>
-);
+export type UserFragmentFragment = { __typename?: 'User' } & Pick<
+  User,
+  'id' | 'firstName' | 'lastName' | 'email'
+>;
 
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
 }>;
 
-
-export type LoginMutation = (
-  { __typename?: 'Mutation' }
-  & { login: (
-    { __typename?: 'AuthenticationResult' }
-    & Pick<AuthenticationResult, 'token'>
-    & { user: (
-      { __typename?: 'User' }
-      & UserFragmentFragment
-    ) }
-  ) }
-);
+export type LoginMutation = { __typename?: 'Mutation' } & {
+  login: { __typename?: 'AuthenticationResult' } & Pick<
+    AuthenticationResult,
+    'token'
+  > & { user: { __typename?: 'User' } & UserFragmentFragment };
+};
 
 export type GetUserByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
-
-export type GetUserByEmailQuery = (
-  { __typename?: 'Query' }
-  & { getUserByEmail?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'email'>
-  )> }
-);
+export type GetUserByEmailQuery = { __typename?: 'Query' } & {
+  getUserByEmail?: Maybe<{ __typename?: 'User' } & Pick<User, 'email'>>;
+};
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
 }>;
 
+export type CreateUserMutation = { __typename?: 'Mutation' } & {
+  createUser: { __typename?: 'AuthenticationResult' } & Pick<
+    AuthenticationResult,
+    'token'
+  > & { user: { __typename?: 'User' } & UserFragmentFragment };
+};
 
-export type CreateUserMutation = (
-  { __typename?: 'Mutation' }
-  & { createUser: (
-    { __typename?: 'AuthenticationResult' }
-    & Pick<AuthenticationResult, 'token'>
-    & { user: (
-      { __typename?: 'User' }
-      & UserFragmentFragment
-    ) }
-  ) }
-);
+export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
+  Post,
+  'id' | 'createdAt' | 'author'
+>;
 
-export type PostFragmentFragment = (
-  { __typename?: 'Post' }
-  & Pick<Post, 'id' | 'author' | 'createdAt'>
-);
+export type CreatePostMutationVariables = Exact<{ [key: string]: never }>;
 
-export type CreatePostMutationVariables = Exact<{
-  token: Scalars['String'];
-}>;
+export type CreatePostMutation = { __typename?: 'Mutation' } & {
+  createPost?: Maybe<{ __typename?: 'Post' } & PostFragmentFragment>;
+};
 
+export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
 
-export type CreatePostMutation = (
-  { __typename?: 'Mutation' }
-  & { createPost: (
-    { __typename?: 'Post' }
-    & PostFragmentFragment
-  ) }
-);
-
-export type GetUsersPostsQueryVariables = Exact<{
-  token: Scalars['String'];
-}>;
-
-
-export type GetUsersPostsQuery = (
-  { __typename?: 'Query' }
-  & { getUsersPosts?: Maybe<Array<Maybe<(
-    { __typename?: 'Post' }
-    & PostFragmentFragment
-  )>>> }
-);
+export type NewPostSubscription = { __typename?: 'Subscription' } & {
+  newPost: { __typename?: 'Post' } & PostFragmentFragment;
+};
 
 export const UserFragmentFragmentDoc = gql`
-    fragment UserFragment on User {
-  id
-  firstName
-  lastName
-  email
-}
-    `;
+  fragment UserFragment on User {
+    id
+    firstName
+    lastName
+    email
+  }
+`;
 export const PostFragmentFragmentDoc = gql`
-    fragment PostFragment on Post {
-  id
-  author
-  createdAt
-}
-    `;
+  fragment PostFragment on Post {
+    id
+    createdAt
+    author
+  }
+`;
 export const LoginDocument = gql`
-    mutation Login($input: LoginInput!) {
-  login(input: $input) {
-    token
-    user {
-      ...UserFragment
+  mutation Login($input: LoginInput!) {
+    login(input: $input) {
+      token
+      user {
+        ...UserFragment
+      }
     }
   }
-}
-    ${UserFragmentFragmentDoc}`;
-export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+  ${UserFragmentFragmentDoc}
+`;
+export type LoginMutationFn = Apollo.MutationFunction<
+  LoginMutation,
+  LoginMutationVariables
+>;
 
 /**
  * __useLoginMutation__
@@ -247,20 +213,31 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  *   },
  * });
  */
-export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
-      }
+export function useLoginMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LoginMutation,
+    LoginMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
+    LoginDocument,
+    options,
+  );
+}
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
-export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<
+  LoginMutation,
+  LoginMutationVariables
+>;
 export const GetUserByEmailDocument = gql`
-    query GetUserByEmail($email: String!) {
-  getUserByEmail(email: $email) {
-    email
+  query GetUserByEmail($email: String!) {
+    getUserByEmail(email: $email) {
+      email
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetUserByEmailQuery__
@@ -278,28 +255,55 @@ export const GetUserByEmailDocument = gql`
  *   },
  * });
  */
-export function useGetUserByEmailQuery(baseOptions: Apollo.QueryHookOptions<GetUserByEmailQuery, GetUserByEmailQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetUserByEmailQuery, GetUserByEmailQueryVariables>(GetUserByEmailDocument, options);
-      }
-export function useGetUserByEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByEmailQuery, GetUserByEmailQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetUserByEmailQuery, GetUserByEmailQueryVariables>(GetUserByEmailDocument, options);
-        }
-export type GetUserByEmailQueryHookResult = ReturnType<typeof useGetUserByEmailQuery>;
-export type GetUserByEmailLazyQueryHookResult = ReturnType<typeof useGetUserByEmailLazyQuery>;
-export type GetUserByEmailQueryResult = Apollo.QueryResult<GetUserByEmailQuery, GetUserByEmailQueryVariables>;
+export function useGetUserByEmailQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetUserByEmailQuery,
+    GetUserByEmailQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
+    GetUserByEmailDocument,
+    options,
+  );
+}
+export function useGetUserByEmailLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUserByEmailQuery,
+    GetUserByEmailQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
+    GetUserByEmailDocument,
+    options,
+  );
+}
+export type GetUserByEmailQueryHookResult = ReturnType<
+  typeof useGetUserByEmailQuery
+>;
+export type GetUserByEmailLazyQueryHookResult = ReturnType<
+  typeof useGetUserByEmailLazyQuery
+>;
+export type GetUserByEmailQueryResult = Apollo.QueryResult<
+  GetUserByEmailQuery,
+  GetUserByEmailQueryVariables
+>;
 export const CreateUserDocument = gql`
-    mutation CreateUser($input: CreateUserInput!) {
-  createUser(input: $input) {
-    token
-    user {
-      ...UserFragment
+  mutation CreateUser($input: CreateUserInput!) {
+    createUser(input: $input) {
+      token
+      user {
+        ...UserFragment
+      }
     }
   }
-}
-    ${UserFragmentFragmentDoc}`;
-export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+  ${UserFragmentFragmentDoc}
+`;
+export type CreateUserMutationFn = Apollo.MutationFunction<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>;
 
 /**
  * __useCreateUserMutation__
@@ -318,21 +322,38 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  *   },
  * });
  */
-export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
-      }
-export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
-export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
-export const CreatePostDocument = gql`
-    mutation CreatePost($token: String!) {
-  createPost(token: $token) {
-    ...PostFragment
-  }
+export function useCreateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateUserMutation,
+    CreateUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
+    CreateUserDocument,
+    options,
+  );
 }
-    ${PostFragmentFragmentDoc}`;
-export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+export type CreateUserMutationHookResult = ReturnType<
+  typeof useCreateUserMutation
+>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>;
+export const CreatePostDocument = gql`
+  mutation CreatePost {
+    createPost {
+      ...PostFragment
+    }
+  }
+  ${PostFragmentFragmentDoc}
+`;
+export type CreatePostMutationFn = Apollo.MutationFunction<
+  CreatePostMutation,
+  CreatePostMutationVariables
+>;
 
 /**
  * __useCreatePostMutation__
@@ -347,49 +368,66 @@ export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, C
  * @example
  * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
  *   variables: {
- *      token: // value for 'token'
  *   },
  * });
  */
-export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, options);
-      }
-export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
-export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
-export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
-export const GetUsersPostsDocument = gql`
-    query GetUsersPosts($token: String!) {
-  getUsersPosts(token: $token) {
-    ...PostFragment
-  }
+export function useCreatePostMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePostMutation,
+    CreatePostMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(
+    CreatePostDocument,
+    options,
+  );
 }
-    ${PostFragmentFragmentDoc}`;
+export type CreatePostMutationHookResult = ReturnType<
+  typeof useCreatePostMutation
+>;
+export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<
+  CreatePostMutation,
+  CreatePostMutationVariables
+>;
+export const NewPostDocument = gql`
+  subscription NewPost {
+    newPost {
+      ...PostFragment
+    }
+  }
+  ${PostFragmentFragmentDoc}
+`;
 
 /**
- * __useGetUsersPostsQuery__
+ * __useNewPostSubscription__
  *
- * To run a query within a React component, call `useGetUsersPostsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUsersPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useNewPostSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useNewPostSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetUsersPostsQuery({
+ * const { data, loading, error } = useNewPostSubscription({
  *   variables: {
- *      token: // value for 'token'
  *   },
  * });
  */
-export function useGetUsersPostsQuery(baseOptions: Apollo.QueryHookOptions<GetUsersPostsQuery, GetUsersPostsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetUsersPostsQuery, GetUsersPostsQueryVariables>(GetUsersPostsDocument, options);
-      }
-export function useGetUsersPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUsersPostsQuery, GetUsersPostsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetUsersPostsQuery, GetUsersPostsQueryVariables>(GetUsersPostsDocument, options);
-        }
-export type GetUsersPostsQueryHookResult = ReturnType<typeof useGetUsersPostsQuery>;
-export type GetUsersPostsLazyQueryHookResult = ReturnType<typeof useGetUsersPostsLazyQuery>;
-export type GetUsersPostsQueryResult = Apollo.QueryResult<GetUsersPostsQuery, GetUsersPostsQueryVariables>;
+export function useNewPostSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    NewPostSubscription,
+    NewPostSubscriptionVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSubscription<
+    NewPostSubscription,
+    NewPostSubscriptionVariables
+  >(NewPostDocument, options);
+}
+export type NewPostSubscriptionHookResult = ReturnType<
+  typeof useNewPostSubscription
+>;
+export type NewPostSubscriptionResult = Apollo.SubscriptionResult<NewPostSubscription>;

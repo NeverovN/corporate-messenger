@@ -6,8 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 // constants
 import { SETTINGS_STACK_NAME } from '@/settings/constants/routes';
 
-// components
-import Settings from '@/settings/components/Settings';
+// containers
+import Settings from '@/settings/containers/Settings';
 
 // types
 import { SettingsStackParamList } from '@/settings/types';

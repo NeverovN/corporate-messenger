@@ -14,6 +14,9 @@ import { MainScreenNavigationProp } from 'app/types/routes';
 // queries
 import { useLoginMutation } from 'common/types/gql.generated';
 
+// async storage
+import { storage } from 'common/storage/index';
+
 type UseHandleRegistrationResult = () => void;
 type UseHandleLoginOptions = {
   email: string;
@@ -38,6 +41,7 @@ export function useHandleLogin(
       });
 
       tokenVar(data?.login.token);
+      storage.addToStorage('token', data?.login.token || '');
 
       navigation.navigate(MAIN_STACK_NAME);
       userData.username = params.email;
