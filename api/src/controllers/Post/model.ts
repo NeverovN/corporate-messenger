@@ -1,4 +1,4 @@
-import { DateLike, ID } from '../../types/common';
+import { ID } from '../../types/common';
 
 import PostModel, { PostEntity } from '../../models/Post';
 import { PostDocument } from '../../models/Post/types';

@@ -23,7 +23,7 @@ export type CommentModel = {
   schemaOptions: { collection: 'posts', _id: true },
 })
 export class PostEntity {
-  id: string;
+  _id: string;
 
   @prop({ required: true })
   author: ID;
@@ -51,7 +51,7 @@ export class PostEntity {
 
   constructor(author: ID) {
     this.author = author;
-    this.createdAt = new Date().toString();
+    this.createdAt = Date().toString();
   }
 }
 

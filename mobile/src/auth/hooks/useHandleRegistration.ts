@@ -12,6 +12,9 @@ import { userData } from 'common/constants/userData';
 import { MainScreenNavigationProp } from 'app/types/routes';
 import { useCreateUserMutation } from '@/common/types/gql.generated';
 
+// async storage
+import { storage } from 'common/storage/index';
+
 type UseHandleRegistrationResult = () => void;
 type UseHandleRegistrationOptions = {
   email: string;
@@ -63,6 +66,7 @@ export function useHandleRegistration(
       });
 
       tokenVar(data?.createUser.token);
+      storage.addToStorage('token', data?.createUser.token || '');
 
       navigation.navigate(MAIN_STACK_NAME);
       userData.username = params.email;
