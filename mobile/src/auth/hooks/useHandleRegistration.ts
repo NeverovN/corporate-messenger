@@ -1,9 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
-// cache
-import { tokenVar } from 'common/cache/cache';
-
 // constants
 import { MAIN_STACK_NAME } from 'app/constants/routes';
 
@@ -11,12 +8,10 @@ import { MAIN_STACK_NAME } from 'app/constants/routes';
 import { MainScreenNavigationProp } from 'app/types/routes';
 import { useCreateUserMutation } from '@/common/types/gql.generated';
 
-// async storage
-import { storage } from 'common/storage/index';
-
 // utils
 import validateEmail from '../utils/validateEmail';
 import validatePassword from '../utils/validatePassword';
+import { setToken } from '../utils/setToken';
 
 type UseHandleRegistrationResult = () => void;
 type UseHandleRegistrationOptions = {
@@ -68,8 +63,7 @@ export function useHandleRegistration(
         },
       });
 
-      tokenVar(data?.createUser.token);
-      storage.addToStorage('token', data?.createUser.token || '');
+      setToken(data?.createUser.token || '');
 
       navigation.navigate(MAIN_STACK_NAME);
     } catch (err) {

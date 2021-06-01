@@ -10,9 +10,6 @@ import { MainScreenNavigationProp } from 'app/types/routes';
 // queries
 import { useLoginMutation } from 'common/types/gql.generated';
 
-// consts
-import keys from 'common/constants/storageKeys';
-
 // utils
 import { setToken } from 'auth/utils/setToken';
 

@@ -1,1 +1,1 @@
-export const NEW_POST = 'NEW_POST';
+export const POST_CREATED = 'NewPost';
