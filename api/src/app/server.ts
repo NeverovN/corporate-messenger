@@ -1,5 +1,5 @@
 import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server';
 import compression from 'compression';
 
 import schema from '../gql/schema';
@@ -9,12 +9,12 @@ import { ApolloContextType } from '../types/apollo';
 export function initServer(port: number): void {
   const SUCCESS_MESSAGE = `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`;
 
-  const app = express();
   const server = new ApolloServer({
     schema,
     context: ({ req }): ApolloContextType => {
+      return { currentUserId: '60b4806854b93b3daf16391b' };
       // Get the user token from the headers.
-      const token = req.headers.authorization || '';
+      const token = req?.headers.authorization || '';
 
       if (!token) return { currentUserId: null };
 
@@ -26,10 +26,7 @@ export function initServer(port: number): void {
     },
   });
 
-  app.use(compression());
-  app.listen(3000);
-
-  server.applyMiddleware({ app, path: '/graphql' });
+  server.listen(3000);
 
   console.log(SUCCESS_MESSAGE);
 }

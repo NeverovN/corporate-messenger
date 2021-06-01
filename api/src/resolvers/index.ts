@@ -6,9 +6,15 @@ import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
 import verifyPasswordHash from '../utils/verifyPasswordHash';
 import decodeToken from '../utils/decodeToken';
-import { UserEntity } from '../models/User';
+import UserModel, { UserEntity } from '../models/User';
 import { ApolloContextType } from '../types/apollo';
-import { EnvConstants } from '../consts/env';
+import { mapUserDocumentToUserEntity } from '../models/User/mappers';
+import MessageModel, { MessageEntity } from '../models/Message';
+import { mapMessageDocumentToMessageEntity } from '../models/Message/mappers';
+import { MessageController } from '../controllers/Message';
+
+import { pubsub } from '../consts/pubsub';
+import { NEW_MESSAGE } from '../consts/events';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -71,6 +77,17 @@ const resolverMap: Resolvers = {
       const post = await PostController.createPost(userId);
       return post;
     },
+    async createMessage(_, args, { currentUserId }) {
+      const newMessage = await MessageController.createMessage(
+        currentUserId,
+        [
+          currentUserId, // just for now because there is no receivers link setup
+        ],
+        args.content,
+      );
+      pubsub.publish(NEW_MESSAGE, { newMessage: { msg: newMessage } });
+      return newMessage;
+    },
   },
   Query: {
     async getUserByEmail(_, { email }) {
@@ -83,6 +100,32 @@ const resolverMap: Resolvers = {
       const { userId } = decodeToken(token);
       const posts = PostController.getPostsByAuthor(userId);
       return posts;
+    },
+    async getMessages(_, __, { currentUserId }) {
+      const userDoc = await UserModel.findById(currentUserId).exec();
+      if (!userDoc) return null;
+      const user = mapUserDocumentToUserEntity(userDoc);
+      const msgDoc = await MessageModel.find(
+        ({ author, receivers }) =>
+          author === user._id || receivers.find(user._id),
+      ).exec();
+      if (!msgDoc) return null;
+
+      const messages: MessageEntity[] = [];
+      msgDoc.forEach((el) =>
+        messages.push(mapMessageDocumentToMessageEntity(el)),
+      );
+
+      return messages;
+    },
+  },
+  Subscription: {
+    newMessage: {
+      subscribe: () => pubsub.asyncIterator([NEW_MESSAGE]),
+
+      resolve: ({ newMessage }: MSGPayloadType) => {
+        return newMessage.msg;
+      },
     },
   },
   User: {
@@ -97,3 +140,9 @@ const resolverMap: Resolvers = {
   },
 };
 export default resolverMap;
+
+type MSGPayloadType = {
+  newMessage: {
+    msg: MessageEntity;
+  };
+};
