@@ -6,9 +6,11 @@ import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
 import verifyPasswordHash from '../utils/verifyPasswordHash';
 import decodeToken from '../utils/decodeToken';
-import { UserEntity } from '../models/User';
+import UserModel, { UserEntity } from '../models/User';
 import { ApolloContextType } from '../types/apollo';
 import { EnvConstants } from '../consts/env';
+import getUserIdByToken from '../utils/getUserIdByToken';
+import { mapUserDocumentToUserEntity } from '../models/User/mappers';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -83,6 +85,12 @@ const resolverMap: Resolvers = {
       const { userId } = decodeToken(token);
       const posts = PostController.getPostsByAuthor(userId);
       return posts;
+    },
+    async getUser(_, __, { currentUserId }) {
+      const userDocument = await UserModel.findById(currentUserId).exec();
+      if (!userDocument) return null;
+      const user = mapUserDocumentToUserEntity(userDocument);
+      return { user };
     },
   },
   User: {

@@ -15,3 +15,10 @@ query GetUsersPosts($token: String!) {
     ...PostFragment
   }
 }
+
+query GetUser {
+  getUser {
+    firstName
+    lastName
+  }
+}

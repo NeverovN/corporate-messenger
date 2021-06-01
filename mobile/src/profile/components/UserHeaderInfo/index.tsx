@@ -4,18 +4,14 @@ import { View } from 'react-native';
 import styles from './styles';
 
 // containers
-import UserName from 'profile/containers/UserName';
-import UserStatus from 'profile/containers/UserStatus';
-import UserOnline from 'profile/containers/UserOnline';
+import UserInfoContainer from 'profile/containers/UserInfo';
 
 interface IUserHeaderInfoViewProps {}
 
 const UserHeaderInfoView: FC<IUserHeaderInfoViewProps> = () => {
   return (
     <View style={styles.userHeaderInfoStyle}>
-      <UserName />
-      <UserStatus />
-      <UserOnline />
+      <UserInfoContainer />
     </View>
   );
 };
