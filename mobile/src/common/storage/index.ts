@@ -1,43 +1,33 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
 interface IAsyncStorage {
-  addToStorage(
-    key: string,
-    value: string,
-    cb?: (er: Error | undefined) => void,
-  ): Promise<boolean>;
-  getFromStorage(
-    key: string,
-    cb?: (er: Error | undefined) => void,
-  ): Promise<string | null>;
-  removeFromStorage(
-    key: string,
-    cb?: (er: Error | undefined) => void,
-  ): Promise<boolean>;
+  addToStorage(key: string, value: string): Promise<boolean>;
+  getFromStorage(key: string): Promise<string | null>;
+  removeFromStorage(key: string): Promise<boolean>;
   clear(): Promise<void>;
 }
 
 export const storage: IAsyncStorage = {
-  addToStorage: async (key, value, cb) => {
+  addToStorage: async (key, value) => {
     try {
-      await AsyncStorage.setItem(key, value, cb);
+      await AsyncStorage.setItem(key, value);
       return true;
     } catch (error) {
       console.log(error);
       return false;
     }
   },
-  getFromStorage: async (key, cb) => {
+  getFromStorage: async (key) => {
     try {
-      return await AsyncStorage.getItem(key, cb);
+      return await AsyncStorage.getItem(key);
     } catch (error) {
       console.log(error);
       return Promise.reject();
     }
   },
-  removeFromStorage: async (key, cb) => {
+  removeFromStorage: async (key) => {
     try {
-      await AsyncStorage.removeItem(key, cb);
+      await AsyncStorage.removeItem(key);
       return true;
     } catch (error) {
       console.log(error);

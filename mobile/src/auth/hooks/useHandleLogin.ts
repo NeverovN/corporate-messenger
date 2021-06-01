@@ -1,9 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
-// cache
-import { tokenVar } from 'common/cache/cache';
-
 // constants
 import { MAIN_STACK_NAME } from 'app/constants/routes';
 
@@ -13,11 +10,11 @@ import { MainScreenNavigationProp } from 'app/types/routes';
 // queries
 import { useLoginMutation } from 'common/types/gql.generated';
 
-// async storage
-import { storage } from 'common/storage/index';
-
 // consts
 import keys from 'common/constants/storageKeys';
+
+// utils
+import { setToken } from 'auth/utils/setToken';
 
 type UseHandleRegistrationResult = () => void;
 type UseHandleLoginOptions = {
@@ -44,8 +41,7 @@ export function useHandleLogin(
         },
       });
 
-      tokenVar(data?.login.token);
-      storage.addToStorage(keys.token, data?.login.token || '');
+      setToken(data?.login.token || '');
 
       navigation.navigate(MAIN_STACK_NAME);
       return;

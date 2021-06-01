@@ -19,9 +19,9 @@ export function initServer(port: number): void {
     // },
     context: ({ req }): ApolloContextType => {
       const token = req?.headers.authorization || '';
-      if (!token) return { currentUserId: null, pubsub };
+      if (!token) return { currentUserId: null };
       const currentUserId = getUserIdByToken(token);
-      return { currentUserId, pubsub };
+      return { currentUserId };
     },
     subscriptions: {
       onConnect: () => {

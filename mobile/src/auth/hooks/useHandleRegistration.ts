@@ -6,7 +6,6 @@ import { tokenVar } from 'common/cache/cache';
 
 // constants
 import { MAIN_STACK_NAME } from 'app/constants/routes';
-import { userData } from 'common/constants/userData';
 
 // routers
 import { MainScreenNavigationProp } from 'app/types/routes';
@@ -73,8 +72,6 @@ export function useHandleRegistration(
       storage.addToStorage('token', data?.createUser.token || '');
 
       navigation.navigate(MAIN_STACK_NAME);
-      userData.username = params.email;
-      userData.password = params.password;
     } catch (err) {
       console.log('rejected', `${err}`);
       Alert.alert('Error', `${err}`);

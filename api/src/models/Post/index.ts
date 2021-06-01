@@ -51,7 +51,7 @@ export class PostEntity {
 
   constructor(author: ID) {
     this.author = author;
-    this.createdAt = Date().toString();
+    this.createdAt = new Date().toString();
   }
 }
 

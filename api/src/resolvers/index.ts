@@ -12,6 +12,10 @@ import { UserEntity } from '../models/User';
 import { ApolloContextType } from '../types/apollo';
 import { withFilter } from 'graphql-subscriptions';
 
+// consts
+import { pubsub } from '../consts/pubsub';
+import { PostEntity } from '../models/Post';
+
 const resolverMap: Resolvers = {
   Mutation: {
     async login(_, { input }) {
@@ -68,18 +72,13 @@ const resolverMap: Resolvers = {
 
       return newUser;
     },
-    async createPost(_, __, { currentUserId, pubsub }: ApolloContextType) {
+    async createPost(_, __, { currentUserId }: ApolloContextType) {
       console.log(currentUserId);
-      try {
-        const post = await PostController.createPost(currentUserId || '');
-        pubsub.publish(NEW_POST, {
-          newPost: { post },
-        });
-        return { ...post, id: post._id };
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
+      const post = await PostController.createPost(currentUserId || '');
+      pubsub.publish(NEW_POST, {
+        newPost: { post },
+      });
+      return { ...post, id: post._id };
     },
   },
   Query: {
@@ -123,7 +122,7 @@ const resolverMap: Resolvers = {
     },
   },
   Post: {
-    // id: (post) => post.id, // i don't understand why it doesn't work
+    // id: (post: PostEntity) => post._id, // i don't understand why it doesn't work
     // author: async (post) => {
     //   const authorDocument = await UserModel.findById(post.author).exec();
     //   if (!authorDocument) return null;

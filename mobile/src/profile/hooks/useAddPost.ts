@@ -4,6 +4,7 @@ import { useNewPostSubscription } from 'common/types/gql.generated';
 interface IUseAddPost {}
 
 export const useAddPost = () => {
+  // TODO: add errors and refreshers
   const result = useNewPostSubscription(); // check if work [don't ;)]
 
   const [createPost] = useCreatePostMutation();

@@ -57,7 +57,7 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
-  createPost?: Maybe<Post>;
+  createPost: Post;
   createUser: AuthenticationResult;
   login: AuthenticationResult;
 };
@@ -89,7 +89,6 @@ export type Query = {
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUserByEmail?: Maybe<User>;
   getUserById?: Maybe<User>;
-  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
 };
 
 export type QueryGetPostArgs = {
@@ -306,7 +305,7 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationAddFriendArgs, 'input'>
   >;
-  createPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType>;
+  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
   createUser?: Resolver<
     ResolversTypes['AuthenticationResult'],
     ParentType,

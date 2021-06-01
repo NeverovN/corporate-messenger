@@ -52,17 +52,13 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
-  createPost?: Maybe<Post>;
+  createPost: Post;
   createUser: AuthenticationResult;
   login: AuthenticationResult;
 };
 
 export type MutationAddFriendArgs = {
   input: AddFriendInput;
-};
-
-export type MutationCreatePostArgs = {
-  token: Scalars['String'];
 };
 
 export type MutationCreateUserArgs = {
@@ -133,14 +129,6 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
   > & { user: { __typename?: 'User' } & UserFragmentFragment };
 };
 
-export type GetUserByEmailQueryVariables = Exact<{
-  email: Scalars['String'];
-}>;
-
-export type GetUserByEmailQuery = { __typename?: 'Query' } & {
-  getUserByEmail?: Maybe<{ __typename?: 'User' } & Pick<User, 'email'>>;
-};
-
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
 }>;
@@ -160,7 +148,7 @@ export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
 export type CreatePostMutationVariables = Exact<{ [key: string]: never }>;
 
 export type CreatePostMutation = { __typename?: 'Mutation' } & {
-  createPost?: Maybe<{ __typename?: 'Post' } & PostFragmentFragment>;
+  createPost: { __typename?: 'Post' } & PostFragmentFragment;
 };
 
 export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
@@ -234,64 +222,6 @@ export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<
   LoginMutation,
   LoginMutationVariables
->;
-export const GetUserByEmailDocument = gql`
-  query GetUserByEmail($email: String!) {
-    getUserByEmail(email: $email) {
-      email
-    }
-  }
-`;
-
-/**
- * __useGetUserByEmailQuery__
- *
- * To run a query within a React component, call `useGetUserByEmailQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserByEmailQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetUserByEmailQuery({
- *   variables: {
- *      email: // value for 'email'
- *   },
- * });
- */
-export function useGetUserByEmailQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetUserByEmailQuery,
-    GetUserByEmailQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
-    GetUserByEmailDocument,
-    options,
-  );
-}
-export function useGetUserByEmailLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetUserByEmailQuery,
-    GetUserByEmailQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetUserByEmailQuery, GetUserByEmailQueryVariables>(
-    GetUserByEmailDocument,
-    options,
-  );
-}
-export type GetUserByEmailQueryHookResult = ReturnType<
-  typeof useGetUserByEmailQuery
->;
-export type GetUserByEmailLazyQueryHookResult = ReturnType<
-  typeof useGetUserByEmailLazyQuery
->;
-export type GetUserByEmailQueryResult = Apollo.QueryResult<
-  GetUserByEmailQuery,
-  GetUserByEmailQueryVariables
 >;
 export const CreateUserDocument = gql`
   mutation CreateUser($input: CreateUserInput!) {

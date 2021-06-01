@@ -16,7 +16,7 @@ type Subscription {
 }
 
 type Mutation {
-  createPost: Post
+  createPost: Post!
 }
 
 type CommentModel {
