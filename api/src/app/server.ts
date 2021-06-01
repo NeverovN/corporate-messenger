@@ -12,7 +12,6 @@ export function initServer(port: number): void {
   const server = new ApolloServer({
     schema,
     context: ({ req }): ApolloContextType => {
-      return { currentUserId: '60b4806854b93b3daf16391b' };
       // Get the user token from the headers.
       const token = req?.headers.authorization || '';
 

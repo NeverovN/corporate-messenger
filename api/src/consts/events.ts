@@ -1,1 +1,1 @@
-export const NEW_MESSAGE = 'NewMsg';
+export const MESSAGE_CREATED = 'NewMsg';
