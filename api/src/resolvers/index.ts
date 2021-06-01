@@ -8,8 +8,6 @@ import verifyPasswordHash from '../utils/verifyPasswordHash';
 import decodeToken from '../utils/decodeToken';
 import UserModel, { UserEntity } from '../models/User';
 import { ApolloContextType } from '../types/apollo';
-import { EnvConstants } from '../consts/env';
-import getUserIdByToken from '../utils/getUserIdByToken';
 import { mapUserDocumentToUserEntity } from '../models/User/mappers';
 
 const resolverMap: Resolvers = {
@@ -79,7 +77,7 @@ const resolverMap: Resolvers = {
       return await UserController.getUserByEmail(email);
     },
     async getUserById(_, args) {
-      return await UserController.getUser(args.id);
+      return await UserController.getUser(args.id); // don't see principal difference between this query and getUser
     },
     async getUsersPosts(_, { token }) {
       const { userId } = decodeToken(token);
@@ -87,10 +85,7 @@ const resolverMap: Resolvers = {
       return posts;
     },
     async getUser(_, __, { currentUserId }) {
-      const userDocument = await UserModel.findById(currentUserId).exec();
-      if (!userDocument) return null;
-      const user = mapUserDocumentToUserEntity(userDocument);
-      return { user };
+      return await UserController.getUser(currentUserId);
     },
   },
   User: {

@@ -4,18 +4,15 @@ import React, { memo, FC } from 'react';
 import UserInfoView from 'profile/components/UserInfo';
 
 // hooks
-import { useGetUserName } from 'profile/hooks/useGetUserName';
+import { useGetUser } from '@/profile/hooks/useGetUser';
 
 interface IUserInfoContainerProps {}
 
 const UserInfoContainer: FC<IUserInfoContainerProps> = () => {
-  const userName = useGetUserName();
-  console.log(userName?.firstName && userName?.firstName);
+  const userName = useGetUser(); // implement userId via road var through navigation
   return (
     <UserInfoView
-      userName={`${
-        (userName?.firstName && userName?.firstName) || 'defUserFName'
-      } ${(userName?.lastName && userName?.lastName) || 'defUserSName'}`} // that will work correct when changes of links from pr#25 come
+      userName={userName}
       userOnline="online"
       userStatus="User status"
     />

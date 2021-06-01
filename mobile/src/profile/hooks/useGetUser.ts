@@ -4,7 +4,7 @@ export const useGetUserName = () => {
   const { data } = useGetUserQuery();
   console.log('getUser: ', data?.getUser);
   if (!data || !data.getUser) {
-    return null;
+    return 'defUserFName defUserSName';
   }
-  return data.getUser;
+  return `${data.getUser.firstName} ${data.getUser?.lastName}`;
 };
