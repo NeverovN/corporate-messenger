@@ -9,7 +9,7 @@ type User {
   firstName: String!
   lastName: String!
   avatar: String
-  friends: [ID]!
+  friends: [User!]!
   #settings: UserSettings!
 }
 

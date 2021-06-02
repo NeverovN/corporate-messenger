@@ -14,6 +14,7 @@ import { withFilter } from 'graphql-subscriptions';
 
 // consts
 import { pubsub } from '../consts/pubsub';
+import { PostEntity } from '../models/Post';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -75,22 +76,12 @@ const resolverMap: Resolvers = {
       if (!currentUserId) {
         throw Error('unlogined user');
       }
-      const author = await UserController.getUser(currentUserId);
-      if (!author) {
-        throw Error('user is missing');
-      }
-      const post = await PostController.createPost(author);
 
-      pubsub.publish(POST_CREATED, {
-        newPost: {
-          ...post,
-          author: author,
-        },
-      });
-      return {
-        ...post,
-        author: author,
-      };
+      const post = await PostController.createPost(currentUserId);
+
+      pubsub.publish(POST_CREATED, post);
+
+      return post;
     },
   },
   Query: {
@@ -104,23 +95,20 @@ const resolverMap: Resolvers = {
   Subscription: {
     newPost: {
       subscribe: withFilter(
-        (_, __, { pubsub }) => {
+        () => {
           console.log('subscribed for new post');
           return pubsub.asyncIterator([POST_CREATED]);
         },
-        (payload) => {
-          console.log({
-            ...payload.newPost.post,
-            id: payload.newPost.post._id,
-          });
-          return { ...payload.newPost.post, id: payload.newPost.post._id };
+        (post) => {
+          console.log(post);
+
+          return true;
         },
       ),
-      // resolve: (payload: any) => {
-      //   console.log('subscription resolved');
-      //   console.log({ ...payload.newPost.post });
-      //   return { ...payload.newPost.post, id: payload.newPost.post._id };
-      // },
+      resolve: (post: PostEntity) => {
+        console.log('subscription resolved');
+        return post;
+      },
     },
   },
   User: {
@@ -130,19 +118,17 @@ const resolverMap: Resolvers = {
 
       const friends = await UserController.getUsers(friendIds);
 
-      const friendsIDs = friends.map((el) => el.id);
-
-      return friendsIDs;
+      return friends;
     },
   },
   Post: {
-    // id: (post: PostEntity) => post._id, // i don't understand why it doesn't work
-    // author: async (post) => {
-    //   const authorDocument = await UserModel.findById(post.author).exec();
-    //   if (!authorDocument) return null;
-    //   const author = mapUserDocumentToUserEntity(authorDocument);
-    //   return author;
-    // },
+    author: async (post: PostEntity) => {
+      const author = await UserController.getUser(post.author);
+
+      if (!author) throw new Error('author missed'); // TODO: provide useful errors
+
+      return author;
+    },
   },
 };
 export default resolverMap;
