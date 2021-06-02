@@ -1,10 +1,10 @@
-import { useGetUserQuery } from 'common/types/gql.generated';
+import { useGetCurrentUserQuery } from 'common/types/gql.generated';
 
-export const useGetUserName = () => {
-  const { data } = useGetUserQuery();
-  console.log('getUser: ', data?.getUser);
-  if (!data || !data.getUser) {
+export const useGetUser = () => {
+  const { data } = useGetCurrentUserQuery();
+  console.log('getUser: ', data?.getCurrentUser);
+  if (!data || !data.getCurrentUser) {
     return 'defUserFName defUserSName';
   }
-  return `${data.getUser.firstName} ${data.getUser?.lastName}`;
+  return `${data.getCurrentUser.firstName} ${data.getCurrentUser?.lastName}`;
 };

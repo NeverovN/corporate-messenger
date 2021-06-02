@@ -16,8 +16,15 @@ query GetUsersPosts($token: String!) {
   }
 }
 
-query GetUser {
-  getUser {
+query GetCurrentUser {
+  getCurrentUser {
+    firstName
+    lastName
+  }
+}
+
+query GetUserByID($id: ID!) {
+  getUserById(id: $id) {
     firstName
     lastName
   }

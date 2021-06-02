@@ -14,8 +14,8 @@ type User {
 }
 
 type Query {
-  getUser: User
-  getUserById(id: String!): User
+  getCurrentUser: User
+  getUserById(id: ID!): User
   getUserByEmail(email: String!): User
 }
 

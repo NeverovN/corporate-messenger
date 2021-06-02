@@ -9,7 +9,7 @@ import TileView from 'feed/components/Tile';
 
 interface IPostArr {
   data: FC;
-  index: number;
+  id: number;
 }
 
 export const useUsersPosts = () => {
@@ -32,7 +32,7 @@ export const useUsersPosts = () => {
   for (let i = 0; i < data.getUsersPosts.length; i++) {
     posts.push({
       data: TileView,
-      index: i,
+      id: i,
     });
   }
 

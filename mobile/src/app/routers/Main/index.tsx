@@ -16,7 +16,6 @@ const MainStack = createStackNavigator<MainStackParamList>();
 const MainRouter = () => {
   return (
     <MainStack.Navigator
-      initialRouteName={BOTTOM_TAB_NAME}
       screenOptions={{
         headerShown: false,
         gestureEnabled: false,

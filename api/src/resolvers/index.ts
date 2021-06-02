@@ -84,7 +84,7 @@ const resolverMap: Resolvers = {
       const posts = PostController.getPostsByAuthor(userId);
       return posts;
     },
-    async getUser(_, __, { currentUserId }) {
+    async getCurrentUser(_, __, { currentUserId }) {
       return await UserController.getUser(currentUserId);
     },
   },
