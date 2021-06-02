@@ -1,7 +1,7 @@
 import { Resolvers } from '../types/gql.generated';
 import { UserController } from '../controllers/User';
 import { PostController } from '../controllers/Post';
-import { POST_CREATED } from '../consts/events';
+import { POST_CREATED, CHAT_CREATED } from '../consts/events';
 
 import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
@@ -14,6 +14,7 @@ import { withFilter } from 'graphql-subscriptions';
 
 // consts
 import { pubsub } from '../consts/pubsub';
+import { ChatController } from '../controllers/Chat';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -92,6 +93,19 @@ const resolverMap: Resolvers = {
         author: author,
       };
     },
+    async createChat(_, __, { currentUserId }) {
+      const user = await UserController.getUser(currentUserId);
+      if (!user) throw Error('unlogined user');
+      const newChat = await ChatController.createChat([user]);
+      console.log(pubsub);
+
+      pubsub.publish(CHAT_CREATED, {
+        newChat: { chat: newChat },
+      });
+      console.log(pubsub);
+
+      return newChat;
+    },
   },
   Query: {
     async getUserById(_, args) {
@@ -100,11 +114,18 @@ const resolverMap: Resolvers = {
     async getPosts(_, __, { currentUserId }) {
       return await PostController.getPostsByAuthor(currentUserId);
     },
+    async getChats(_, __, { currentUserId }) {
+      const user = await UserController.getUser(currentUserId);
+      if (!user) {
+        throw Error('unlogined user');
+      }
+      return await ChatController.getChats(user);
+    },
   },
   Subscription: {
     newPost: {
       subscribe: withFilter(
-        (_, __, { pubsub }) => {
+        () => {
           console.log('subscribed for new post');
           return pubsub.asyncIterator([POST_CREATED]);
         },
@@ -121,6 +142,13 @@ const resolverMap: Resolvers = {
       //   console.log({ ...payload.newPost.post });
       //   return { ...payload.newPost.post, id: payload.newPost.post._id };
       // },
+    },
+    newChat: {
+      subscribe: () => pubsub.asyncIterator([CHAT_CREATED]),
+      resolve: (payload: any) => {
+        console.log(payload);
+        return payload.newChat.chat;
+      },
     },
   },
   User: {

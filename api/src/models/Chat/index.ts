@@ -1,25 +1,44 @@
-import { URL, ID, DateLike } from '../../types/common';
+import {
+  getModelForClass,
+  modelOptions,
+  prop,
+  Severity,
+} from '@typegoose/typegoose';
+import { ID, Nullable, URL } from '../../types/common';
+import { UserEntity } from '../User';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type ChatMedia = {};
+import { ChatSettings } from './types';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type ChatSettings = {};
-
-type ChatMessage = {
-  id: ID;
-  createdAt: DateLike;
-  lastEdit: DateLike;
-  author: ID;
-  media: Array<ChatMedia>;
+export const defaultUserSettings: ChatSettings = {
+  notificationsEnabled: true,
 };
 
-export interface ChatModel {
+@modelOptions({
+  options: { allowMixed: Severity.ALLOW },
+  schemaOptions: { collection: 'chats', _id: true },
+})
+export class ChatEntity {
   id: ID;
-  logo: URL;
-  // participants: Array<UserModel['id']>;
-  participants: Array<ID>;
 
-  messages: Array<ChatMessage['id']>;
+  @prop()
+  logo: Nullable<URL>;
+
+  @prop({ required: true })
+  participants: UserEntity[];
+
+  @prop()
+  messages: string[]; // just for now as there is no MessageEntity
+
+  @prop()
   settings: ChatSettings;
+
+  constructor(participants: UserEntity[]) {
+    this.participants = participants;
+    this.messages = [];
+    this.settings = defaultUserSettings;
+  }
 }
+
+const UserModel = getModelForClass(ChatEntity);
+
+export default UserModel;

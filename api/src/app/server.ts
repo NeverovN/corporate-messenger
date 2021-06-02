@@ -9,7 +9,6 @@ import { ApolloContextType } from '../types/apollo';
 
 export function initServer(port: number): void {
   const SUCCESS_MESSAGE = `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`;
-  const pubsub = new PubSub();
   // const app = express();
   const server = new ApolloServer({
     schema,
@@ -17,12 +16,13 @@ export function initServer(port: number): void {
     //   pubsub: new PubSub(),
     //   currentUserId: '60b01cd8bca2ef4950d41b5f',
     // },
-    context: ({ req }): ApolloContextType => {
-      const token = req?.headers.authorization || '';
-      if (!token) return { currentUserId: null };
-      const currentUserId = getUserIdByToken(token);
-      return { currentUserId };
-    },
+    context: { currentUserId: '60b4806854b93b3daf16391b' },
+    //   ({ req }): ApolloContextType => {
+    //   const token = req?.headers.authorization || '';
+    //   if (!token) return { currentUserId: null };
+    //   const currentUserId = getUserIdByToken(token);
+    //   return { currentUserId };
+    // },
     subscriptions: {
       onConnect: () => {
         console.log('connected to web socet');
