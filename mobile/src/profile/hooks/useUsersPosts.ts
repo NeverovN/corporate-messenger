@@ -7,7 +7,7 @@ import { tokenVar } from 'common/cache/cache';
 // components
 import TileView from 'feed/components/Tile';
 
-interface IPostArr {
+interface IPost {
   data: FC;
   id: number;
 }
@@ -27,14 +27,10 @@ export const useUsersPosts = () => {
     return [];
   }
 
-  const posts: IPostArr[] = new Array();
-
-  for (let i = 0; i < data.getUsersPosts.length; i++) {
-    posts.push({
-      data: TileView,
-      id: i,
-    });
-  }
+  const posts: IPost[] = data.getUsersPosts.map((_, i) => ({
+    data: TileView,
+    id: i,
+  }));
 
   return posts;
 };
