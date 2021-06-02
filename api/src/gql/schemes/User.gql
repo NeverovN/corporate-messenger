@@ -9,13 +9,13 @@ type User {
   firstName: String!
   lastName: String!
   avatar: String
-  friends: [User]!
+  friends: [ID]!
   #settings: UserSettings!
 }
 
 type Query {
-  getUserById(id: String!): User
-  getUserByEmail(email: String!): User
+  getCurrentUser: User
+  getUserById(id: ID!): User
 }
 
 type Mutation {

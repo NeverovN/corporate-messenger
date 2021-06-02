@@ -1,6 +1,6 @@
 // hooks
 import useOpenAuthStack from './useOpenAuthStack';
-import { isLoggedIn } from '@/app/utils/isLoggedIn';
+import { isLoggedIn } from '@/auth/utils/isLoggedIn';
 import useOpenMainStack from './useOpenMainStack';
 
 export default function useCloseSplashScreen() {

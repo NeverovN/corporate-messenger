@@ -1,7 +1,9 @@
 fragment PostFragment on Post {
   id
   createdAt
-  author
+  author {
+    id
+  }
 }
 
 mutation CreatePost {
@@ -13,5 +15,18 @@ mutation CreatePost {
 subscription NewPost {
   newPost {
     ...PostFragment
+  }
+}
+
+query GetPosts {
+  getPosts {
+    ...PostFragment
+  }
+}
+
+query GetUser {
+  getCurrentUser {
+    firstName
+    lastName
   }
 }

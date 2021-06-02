@@ -6,16 +6,17 @@ import {
   prop,
   Severity,
 } from '@typegoose/typegoose';
+import { UserEntity } from '../User';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type PostMedia = {};
 
 export type CommentModel = {
   id: ID;
-  author: ID;
+  author: UserEntity;
   createdAt: DateLike;
   lastEdit: DateLike;
-  likes: Array<ID>; // array of user ids (person who can leave like) - in GQL it can me GQL User type
+  likes: Array<UserEntity>; // array of user ids (person who can leave like) - in GQL it can me GQL User type
 };
 
 @modelOptions({
@@ -23,10 +24,10 @@ export type CommentModel = {
   schemaOptions: { collection: 'posts', _id: true },
 })
 export class PostEntity {
-  _id: string;
+  id: string;
 
   @prop({ required: true })
-  author: ID;
+  author: UserEntity;
 
   @prop({ required: true })
   createdAt: string;
@@ -49,7 +50,7 @@ export class PostEntity {
   @prop()
   comments: Array<CommentModel>;
 
-  constructor(author: ID) {
+  constructor(author: UserEntity) {
     this.author = author;
     this.createdAt = new Date().toString();
   }

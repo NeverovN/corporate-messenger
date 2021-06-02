@@ -5,6 +5,7 @@ import { PostDocument } from '../../models/Post/types';
 
 import { mapPostDocumentToPostEntity } from '../../models/Post/mappers';
 import PostEntityController from './entity';
+import { UserEntity } from '../../models/User';
 
 class PostModelController {
   private mapPostWithFallback(post: PostDocument | null): PostEntity | null {
@@ -27,13 +28,13 @@ class PostModelController {
     return result.map(mapPostDocumentToPostEntity);
   }
 
-  async getPostsByAuthor(author: ID): Promise<(PostEntity | null)[]> {
+  async getPostsByAuthor(author: UserEntity): Promise<(PostEntity | null)[]> {
     const posts = await PostModel.find({ author });
 
     return posts.map((el) => this.mapPostWithFallback(el));
   }
 
-  async createPost(author: ID): Promise<PostEntity> {
+  async createPost(author: UserEntity): Promise<PostEntity> {
     const newPost = PostEntityController.createPostEntity(author);
 
     const createdPost = await PostModel.create(newPost);

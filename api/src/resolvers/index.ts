@@ -1,7 +1,7 @@
 import { Resolvers } from '../types/gql.generated';
 import { UserController } from '../controllers/User';
 import { PostController } from '../controllers/Post';
-import { NEW_POST } from '../consts/events';
+import { POST_CREATED } from '../consts/events';
 
 import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
@@ -14,7 +14,6 @@ import { withFilter } from 'graphql-subscriptions';
 
 // consts
 import { pubsub } from '../consts/pubsub';
-import { PostEntity } from '../models/Post';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -30,7 +29,7 @@ const resolverMap: Resolvers = {
 
       if (!isPasswordCorrect) throw Error('Incorrect password'); //! TODO: use Apollo Errors
 
-      const token = createToken(user._id);
+      const token = createToken(user.id);
 
       return { token, user };
     },
@@ -56,7 +55,7 @@ const resolverMap: Resolvers = {
         null,
       );
 
-      const token = createToken(user._id);
+      const token = createToken(user.id);
 
       return { token: token, user };
     },
@@ -73,20 +72,33 @@ const resolverMap: Resolvers = {
       return newUser;
     },
     async createPost(_, __, { currentUserId }: ApolloContextType) {
-      console.log(currentUserId);
-      const post = await PostController.createPost(currentUserId || '');
-      pubsub.publish(NEW_POST, {
-        newPost: { post },
+      if (!currentUserId) {
+        throw Error('unlogined user');
+      }
+      const author = await UserController.getUser(currentUserId);
+      if (!author) {
+        throw Error('user is missing');
+      }
+      const post = await PostController.createPost(author);
+
+      pubsub.publish(POST_CREATED, {
+        newPost: {
+          ...post,
+          author: author,
+        },
       });
-      return { ...post, id: post._id };
+      return {
+        ...post,
+        author: author,
+      };
     },
   },
   Query: {
-    async getUserByEmail(_, { email }) {
-      return await UserController.getUserByEmail(email);
-    },
     async getUserById(_, args) {
       return await UserController.getUser(args.id);
+    },
+    async getPosts(_, __, { currentUserId }) {
+      return await PostController.getPostsByAuthor(currentUserId);
     },
   },
   Subscription: {
@@ -94,7 +106,7 @@ const resolverMap: Resolvers = {
       subscribe: withFilter(
         (_, __, { pubsub }) => {
           console.log('subscribed for new post');
-          return pubsub.asyncIterator([NEW_POST]);
+          return pubsub.asyncIterator([POST_CREATED]);
         },
         (payload) => {
           console.log({
@@ -112,13 +124,15 @@ const resolverMap: Resolvers = {
     },
   },
   User: {
-    id: (user: UserEntity) => user._id,
+    id: (user: UserEntity) => user.id,
     friends: async (user: UserEntity) => {
       const friendIds = user.friends;
 
       const friends = await UserController.getUsers(friendIds);
 
-      return friends;
+      const friendsIDs = friends.map((el) => el.id);
+
+      return friendsIDs;
     },
   },
   Post: {

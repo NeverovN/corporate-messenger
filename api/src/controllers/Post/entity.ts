@@ -1,9 +1,10 @@
 import { ID } from '../../types/common';
 
 import { PostEntity } from '../../models/Post';
+import { UserEntity } from '../../models/User';
 
 class PostEntityController {
-  createPostEntity(author: ID): PostEntity {
+  createPostEntity(author: UserEntity): PostEntity {
     const newPost = new PostEntity(author);
 
     return newPost;

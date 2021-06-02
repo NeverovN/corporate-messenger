@@ -5,7 +5,7 @@ export function mapUserDocumentToUserEntity(
   document: UserDocument,
 ): UserEntity {
   return {
-    _id: document._id,
+    id: document.id,
     email: document.email,
     password: document.password,
     firstName: document.firstName,

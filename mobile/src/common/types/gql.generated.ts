@@ -31,10 +31,10 @@ export type AuthenticationResult = {
 export type CommentModel = {
   __typename?: 'CommentModel';
   id: Scalars['ID'];
-  author: Scalars['ID'];
+  author: User;
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
-  likes?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  likes?: Maybe<Array<Maybe<User>>>;
 };
 
 export type CreateUserInput = {
@@ -54,6 +54,8 @@ export type Mutation = {
   addFriend?: Maybe<User>;
   createPost: Post;
   createUser: AuthenticationResult;
+  getPost?: Maybe<Post>;
+  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
 };
 
@@ -65,6 +67,10 @@ export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };
 
+export type MutationGetPostArgs = {
+  id: Scalars['ID'];
+};
+
 export type MutationLoginArgs = {
   input: LoginInput;
 };
@@ -72,7 +78,7 @@ export type MutationLoginArgs = {
 export type Post = {
   __typename?: 'Post';
   id: Scalars['ID'];
-  author: Scalars['ID'];
+  author: User;
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
   comments?: Maybe<Array<Maybe<CommentModel>>>;
@@ -80,9 +86,9 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
+  getCurrentUser?: Maybe<User>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
-  getUserByEmail?: Maybe<User>;
   getUserById?: Maybe<User>;
 };
 
@@ -90,12 +96,8 @@ export type QueryGetPostArgs = {
   id: Scalars['ID'];
 };
 
-export type QueryGetUserByEmailArgs = {
-  email: Scalars['String'];
-};
-
 export type QueryGetUserByIdArgs = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -110,7 +112,7 @@ export type User = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
-  friends: Array<Maybe<User>>;
+  friends: Array<Maybe<Scalars['ID']>>;
 };
 
 export type UserFragmentFragment = { __typename?: 'User' } & Pick<
@@ -142,8 +144,8 @@ export type CreateUserMutation = { __typename?: 'Mutation' } & {
 
 export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
   Post,
-  'id' | 'createdAt' | 'author'
->;
+  'id' | 'createdAt'
+> & { author: { __typename?: 'User' } & Pick<User, 'id'> };
 
 export type CreatePostMutationVariables = Exact<{ [key: string]: never }>;
 
@@ -155,6 +157,22 @@ export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type NewPostSubscription = { __typename?: 'Subscription' } & {
   newPost: { __typename?: 'Post' } & PostFragmentFragment;
+};
+
+export type GetPostsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetPostsQuery = { __typename?: 'Query' } & {
+  getPosts?: Maybe<
+    Array<Maybe<{ __typename?: 'Post' } & PostFragmentFragment>>
+  >;
+};
+
+export type GetUserQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetUserQuery = { __typename?: 'Query' } & {
+  getCurrentUser?: Maybe<
+    { __typename?: 'User' } & Pick<User, 'firstName' | 'lastName'>
+  >;
 };
 
 export const UserFragmentFragmentDoc = gql`
@@ -169,7 +187,9 @@ export const PostFragmentFragmentDoc = gql`
   fragment PostFragment on Post {
     id
     createdAt
-    author
+    author {
+      id
+    }
   }
 `;
 export const LoginDocument = gql`
@@ -365,3 +385,107 @@ export type NewPostSubscriptionHookResult = ReturnType<
   typeof useNewPostSubscription
 >;
 export type NewPostSubscriptionResult = Apollo.SubscriptionResult<NewPostSubscription>;
+export const GetPostsDocument = gql`
+  query GetPosts {
+    getPosts {
+      ...PostFragment
+    }
+  }
+  ${PostFragmentFragmentDoc}
+`;
+
+/**
+ * __useGetPostsQuery__
+ *
+ * To run a query within a React component, call `useGetPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetPostsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(
+    GetPostsDocument,
+    options,
+  );
+}
+export function useGetPostsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPostsQuery,
+    GetPostsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(
+    GetPostsDocument,
+    options,
+  );
+}
+export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
+export type GetPostsLazyQueryHookResult = ReturnType<
+  typeof useGetPostsLazyQuery
+>;
+export type GetPostsQueryResult = Apollo.QueryResult<
+  GetPostsQuery,
+  GetPostsQueryVariables
+>;
+export const GetUserDocument = gql`
+  query GetUser {
+    getCurrentUser {
+      firstName
+      lastName
+    }
+  }
+`;
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUserQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(
+    GetUserDocument,
+    options,
+  );
+}
+export function useGetUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUserQuery,
+    GetUserQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(
+    GetUserDocument,
+    options,
+  );
+}
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserQueryResult = Apollo.QueryResult<
+  GetUserQuery,
+  GetUserQueryVariables
+>;
