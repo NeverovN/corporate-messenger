@@ -6,9 +6,8 @@ import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
 import verifyPasswordHash from '../utils/verifyPasswordHash';
 import decodeToken from '../utils/decodeToken';
-import UserModel, { UserEntity } from '../models/User';
+import { UserEntity } from '../models/User';
 import { ApolloContextType } from '../types/apollo';
-import { mapUserDocumentToUserEntity } from '../models/User/mappers';
 
 const resolverMap: Resolvers = {
   Mutation: {
