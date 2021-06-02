@@ -38,6 +38,11 @@ export function useHandleLogin(
         },
       });
 
+      if (!data || !data.login) {
+        // covered in another pr
+        throw Error('server responce error');
+      }
+
       tokenVar(data?.login.token);
 
       navigation.navigate(MAIN_STACK_NAME);

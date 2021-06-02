@@ -8,7 +8,6 @@ import verifyPasswordHash from '../utils/verifyPasswordHash';
 import decodeToken from '../utils/decodeToken';
 import { UserEntity } from '../models/User';
 import { ApolloContextType } from '../types/apollo';
-import { EnvConstants } from '../consts/env';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -77,12 +76,15 @@ const resolverMap: Resolvers = {
       return await UserController.getUserByEmail(email);
     },
     async getUserById(_, args) {
-      return await UserController.getUser(args.id);
+      return await UserController.getUser(args.id); // don't see principal difference between this query and getUser
     },
     async getUsersPosts(_, { token }) {
       const { userId } = decodeToken(token);
       const posts = PostController.getPostsByAuthor(userId);
       return posts;
+    },
+    async getCurrentUser(_, __, { currentUserId }) {
+      return await UserController.getUser(currentUserId);
     },
   },
   User: {
