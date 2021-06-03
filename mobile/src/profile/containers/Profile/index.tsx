@@ -9,7 +9,7 @@ interface IProfileContainerProps {}
 
 const Profile: FC<IProfileContainerProps> = () => {
   const posts = useUsersPosts();
-  console.log('rerender profile');
+  console.log('re-render profile');
 
   return <ProfileView data={posts} />;
 };

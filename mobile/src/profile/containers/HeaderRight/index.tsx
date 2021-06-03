@@ -6,9 +6,9 @@ import HeaderRightView from 'profile/components/HeaderRight';
 // hooks
 import { useSettingsNavigation } from 'profile/hooks/useSettingsNavigation';
 
-interface IHeaderRightContainderProps {}
+interface IHeaderRightContainerProps {}
 
-const HeaderRight: FC<IHeaderRightContainderProps> = () => {
+const HeaderRight: FC<IHeaderRightContainerProps> = () => {
   const navigate = useSettingsNavigation();
 
   return <HeaderRightView size={25} onPress={navigate} />;

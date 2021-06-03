@@ -1,12 +1,6 @@
-import {
-  createStackNavigator,
-  StackNavigationProp,
-} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import {
-  createMaterialTopTabNavigator,
-  MaterialTopTabBarProps,
-} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 type RootStackParamList = {
   Feed: undefined;
