@@ -1,7 +1,11 @@
 fragment msgFragment on Message {
   id
-  author
-  receivers
+  author {
+    id
+  }
+  receivers {
+    id
+  }
   content
 }
 

@@ -15,7 +15,7 @@ type MessageMedia = {};
   schemaOptions: { collection: 'messages', _id: true },
 })
 export class MessageEntity {
-  id: string;
+  _id: string;
 
   @prop({ required: true })
   author: ID;

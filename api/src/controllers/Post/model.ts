@@ -5,7 +5,6 @@ import { PostDocument } from '../../models/Post/types';
 
 import { mapPostDocumentToPostEntity } from '../../models/Post/mappers';
 import PostEntityController from './entity';
-import { UserEntity } from '../../models/User';
 
 class PostModelController {
   private mapPostWithFallback(post: PostDocument | null): PostEntity | null {

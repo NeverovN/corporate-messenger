@@ -1,8 +1,8 @@
 type Message {
   id: ID!
   content: String!
-  author: ID!
-  receivers: [ID!]!
+  author: User!
+  receivers: [User!]!
   createdAt: String!
   lastEdit: String
 }

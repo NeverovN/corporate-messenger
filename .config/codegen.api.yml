@@ -8,6 +8,7 @@ generates:
         User: ../models/User/index#UserEntity
         Post: ../models/Post/index#PostEntity
         Chat: ../models/Chat/index#ChatEntity
+        Message: ../models/Message/index#MessageEntity
 
     plugins:
       - "typescript"

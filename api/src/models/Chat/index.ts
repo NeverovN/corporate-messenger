@@ -18,7 +18,7 @@ export const defaultUserSettings: ChatSettings = {
   schemaOptions: { collection: 'chats', _id: true },
 })
 export class ChatEntity {
-  id: ID;
+  _id: ID;
 
   @prop()
   logo: Nullable<URL>;

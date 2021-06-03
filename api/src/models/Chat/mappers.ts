@@ -5,7 +5,7 @@ export function mapChatDocumentToChatEntity(
   document: ChatDocument,
 ): ChatEntity {
   return {
-    id: document.id,
+    _id: document._id,
     logo: document.logo,
     participants: document.participants,
     messages: document.messages,

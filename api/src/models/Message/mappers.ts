@@ -5,7 +5,7 @@ export function mapMessageDocumentToMessageEntity(
   document: MessageDocument,
 ): MessageEntity {
   return {
-    id: document.id,
+    _id: document._id,
     content: document.content,
     author: document.author,
     receivers: document.receivers,

@@ -12,14 +12,11 @@ import { UserEntity } from '../models/User';
 // types
 import { ApolloContextType } from '../types/apollo';
 import { withFilter } from 'graphql-subscriptions';
-
-// consts
 import { pubsub } from '../consts/pubsub';
 import { PostEntity } from '../models/Post';
 import { ChatEntity } from '../models/Chat';
-import { mapUserDocumentToUserEntity } from '../models/User/mappers';
 import { MessageEntity } from '../models/Message';
-import { mapMessageDocumentToMessageEntity } from '../models/Message/mappers';
+import { MessageController } from '../controllers/Message';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -35,7 +32,7 @@ const resolverMap: Resolvers = {
 
       if (!isPasswordCorrect) throw Error('Incorrect password'); //! TODO: use Apollo Errors
 
-      const token = createToken(user.id);
+      const token = createToken(user._id);
 
       return { token, user };
     },
@@ -61,7 +58,7 @@ const resolverMap: Resolvers = {
         null,
       );
 
-      const token = createToken(user.id);
+      const token = createToken(user._id);
 
       return { token: token, user };
     },
@@ -120,21 +117,7 @@ const resolverMap: Resolvers = {
       return await ChatController.getChats(currentUserId);
     },
     async getMessages(_, __, { currentUserId }) {
-      const userDoc = await UserModel.findById(currentUserId).exec();
-      if (!userDoc) return null;
-      const user = mapUserDocumentToUserEntity(userDoc);
-      const msgDoc = await MessageModel.find(
-        ({ author, receivers }) =>
-          author === user._id || receivers.find(user._id),
-      ).exec();
-      if (!msgDoc) return null;
-
-      const messages: MessageEntity[] = [];
-      msgDoc.forEach((el) =>
-        messages.push(mapMessageDocumentToMessageEntity(el)),
-      );
-
-      return messages;
+      return await MessageController.getMessagesByAuthor(currentUserId);
     },
   },
   Subscription: {
@@ -169,7 +152,7 @@ const resolverMap: Resolvers = {
     },
   },
   User: {
-    id: (user: UserEntity) => user.id,
+    id: (user: UserEntity) => user._id,
     friends: async (user: UserEntity) => {
       const friendIds = user.friends;
 
@@ -179,6 +162,7 @@ const resolverMap: Resolvers = {
     },
   },
   Post: {
+    id: (post: PostEntity) => post._id,
     author: async (post: PostEntity) => {
       const author = await UserController.getUser(post.author);
 
@@ -188,8 +172,22 @@ const resolverMap: Resolvers = {
     },
   },
   Chat: {
+    id: (chat: ChatEntity) => chat._id,
     participants: async (chat: ChatEntity) => {
       return await ChatController.getParticipants(chat);
+    },
+  },
+  Message: {
+    id: (msg: MessageEntity) => msg._id,
+    author: async (message: MessageEntity) => {
+      const author = await UserController.getUser(message.author);
+
+      if (!author) throw new Error('author missed'); // TODO: provide useful errors
+
+      return author;
+    },
+    receivers: async (message: MessageEntity) => {
+      return await MessageController.getReceivers(message);
     },
   },
 };

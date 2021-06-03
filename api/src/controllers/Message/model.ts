@@ -5,6 +5,8 @@ import { MessageDocument } from '../../models/Message/types';
 
 import { mapMessageDocumentToMessageEntity } from '../../models/Message/mappers';
 import MessageEntityController from './entity';
+import { UserEntity } from '../../models/User';
+import { UserController } from '../User';
 
 class MessageModelController {
   private mapMessageWithFallback(
@@ -51,6 +53,15 @@ class MessageModelController {
     await createdMessage.save();
 
     return mapMessageDocumentToMessageEntity(createdMessage);
+  }
+
+  async getReceivers(msg: MessageEntity): Promise<UserEntity[]> {
+    const users = await UserController.getAllUsers();
+    const participants = users.filter((user) =>
+      msg.receivers.includes(user._id),
+    );
+
+    return participants;
   }
 }
 

@@ -5,9 +5,8 @@ import { ChatDocument } from '../../models/Chat/types';
 
 import { mapChatDocumentToChatEntity } from '../../models/Chat/mappers';
 import ChatEntityController from './entity';
-import UserModel, { UserEntity } from '../../models/User';
+import { UserEntity } from '../../models/User';
 import { UserController } from '../User';
-import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 
 class ChatModelController {
   private mapChatWithFallback(chat: ChatDocument | null): ChatEntity | null {
@@ -41,7 +40,7 @@ class ChatModelController {
   }
 
   async getParticipants(chat: ChatEntity): Promise<UserEntity[]> {
-    const users = await UserModel.find().exec();
+    const users = await UserController.getAllUsers();
     const participants = users.filter((user) =>
       chat.participants.includes(user._id),
     );

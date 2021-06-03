@@ -5,7 +5,7 @@ export function mapPostDocumentToPostEntity(
   document: PostDocument,
 ): PostEntity {
   return {
-    id: document.id,
+    _id: document._id,
     author: document.author,
     createdAt: document.createdAt,
     lastEdit: document.lastEdit,

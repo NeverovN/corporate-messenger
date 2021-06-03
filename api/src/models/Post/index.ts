@@ -24,7 +24,7 @@ export type CommentModel = {
   schemaOptions: { collection: 'posts', _id: true },
 })
 export class PostEntity {
-  id: string;
+  _id: string;
 
   @prop({ required: true })
   author: ID;
