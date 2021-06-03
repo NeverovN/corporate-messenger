@@ -115,6 +115,23 @@ const resolverMap: Resolvers = {
     async getPosts(_, __, { currentUserId }) {
       return await PostController.getPostsByAuthor(currentUserId);
     },
+    async getAllPosts() {
+      return await PostController.getAllPosts();
+    },
+    async getFriendPosts(_, __, { currentUserId }) {
+      const friends = await UserController.getFriends(currentUserId);
+      const feedFromEachUser = friends.map((user) =>
+        PostController.getPostsByAuthor(user._id),
+      );
+
+      const feed = feedFromEachUser.reduce(async (acc, el) => {
+        return [...acc, ...(await el)];
+      }, [] as any);
+
+      console.log(feed);
+
+      return feed;
+    },
     async getChats(_, __, { currentUserId }) {
       return await ChatController.getChats(currentUserId);
     },

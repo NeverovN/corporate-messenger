@@ -1,0 +1,17 @@
+query GetFeed {
+  getAllPosts {
+    id
+    author {
+      id
+    }
+  }
+}
+
+query GetFriendFeed {
+  getFriendPosts {
+    id
+    author {
+      id
+    }
+  }
+}

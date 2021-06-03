@@ -118,8 +118,10 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
+  getAllPosts?: Maybe<Array<Maybe<Post>>>;
   getChats?: Maybe<Array<Maybe<Chat>>>;
   getCurrentUser?: Maybe<User>;
+  getFriendPosts?: Maybe<Array<Maybe<Post>>>;
   getMessages?: Maybe<Array<Maybe<Message>>>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
@@ -280,6 +282,36 @@ export type NewMessageSubscription = (
     { __typename?: 'Message' }
     & MsgFragmentFragment
   ) }
+);
+
+export type GetFeedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFeedQuery = (
+  { __typename?: 'Query' }
+  & { getAllPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ) }
+  )>>> }
+);
+
+export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFriendFeedQuery = (
+  { __typename?: 'Query' }
+  & { getFriendPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ) }
+  )>>> }
 );
 
 export type PostFragmentFragment = (
@@ -636,6 +668,80 @@ export function useNewMessageSubscription(baseOptions?: Apollo.SubscriptionHookO
       }
 export type NewMessageSubscriptionHookResult = ReturnType<typeof useNewMessageSubscription>;
 export type NewMessageSubscriptionResult = Apollo.SubscriptionResult<NewMessageSubscription>;
+export const GetFeedDocument = gql`
+    query GetFeed {
+  getAllPosts {
+    id
+    author {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetFeedQuery__
+ *
+ * To run a query within a React component, call `useGetFeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFeedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFeedQuery(baseOptions?: Apollo.QueryHookOptions<GetFeedQuery, GetFeedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFeedQuery, GetFeedQueryVariables>(GetFeedDocument, options);
+      }
+export function useGetFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFeedQuery, GetFeedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFeedQuery, GetFeedQueryVariables>(GetFeedDocument, options);
+        }
+export type GetFeedQueryHookResult = ReturnType<typeof useGetFeedQuery>;
+export type GetFeedLazyQueryHookResult = ReturnType<typeof useGetFeedLazyQuery>;
+export type GetFeedQueryResult = Apollo.QueryResult<GetFeedQuery, GetFeedQueryVariables>;
+export const GetFriendFeedDocument = gql`
+    query GetFriendFeed {
+  getFriendPosts {
+    id
+    author {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetFriendFeedQuery__
+ *
+ * To run a query within a React component, call `useGetFriendFeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFriendFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFriendFeedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFriendFeedQuery(baseOptions?: Apollo.QueryHookOptions<GetFriendFeedQuery, GetFriendFeedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFriendFeedQuery, GetFriendFeedQueryVariables>(GetFriendFeedDocument, options);
+      }
+export function useGetFriendFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFriendFeedQuery, GetFriendFeedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFriendFeedQuery, GetFriendFeedQueryVariables>(GetFriendFeedDocument, options);
+        }
+export type GetFriendFeedQueryHookResult = ReturnType<typeof useGetFriendFeedQuery>;
+export type GetFriendFeedLazyQueryHookResult = ReturnType<typeof useGetFriendFeedLazyQuery>;
+export type GetFriendFeedQueryResult = Apollo.QueryResult<GetFriendFeedQuery, GetFriendFeedQueryVariables>;
 export const CreatePostDocument = gql`
     mutation CreatePost {
   createPost {

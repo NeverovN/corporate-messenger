@@ -1,6 +1,8 @@
 type Query {
   getPosts: [Post]
   getPost(id: ID!): Post
+  getAllPosts: [Post]
+  getFriendPosts: [Post]
 }
 
 type Subscription {

@@ -27,6 +27,10 @@ class PostModelController {
     return result.map(mapPostDocumentToPostEntity);
   }
 
+  async getAllPosts(): Promise<Array<PostEntity>> {
+    return await PostModel.find().exec();
+  }
+
   async getPostsByAuthor(authorId: ID): Promise<(PostEntity | null)[]> {
     const posts = await PostModel.find({ author: authorId });
 

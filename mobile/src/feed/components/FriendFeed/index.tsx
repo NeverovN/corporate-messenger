@@ -1,16 +1,27 @@
 import React, { FC, memo } from 'react';
-import { View, Text, Button } from 'react-native';
+import { FlatList, View, ListRenderItem } from 'react-native';
+
+// components
+import Tile from '../Tile';
 
 // styles
 import styles from './styles';
 
-interface IFriendFeedComponentProps {}
+// types
+import { IPostItem } from 'feed/types/feed';
 
-const FriendFeedView: FC<IFriendFeedComponentProps> = () => {
+interface IFriendFeedListViewProps {
+  data: IPostItem[];
+}
+
+const renderChatItem: ListRenderItem<IPostItem> = () => {
+  return <Tile />;
+};
+
+const FriendFeedView: FC<IFriendFeedListViewProps> = (props) => {
   return (
     <View style={styles.friendFeedStyle}>
-      <Text>Friend Feed Screen</Text>
-      <Button title="" onPress={() => {}} />
+      <FlatList renderItem={renderChatItem} data={props.data} />
     </View>
   );
 };

@@ -15,6 +15,7 @@ export const useChatList = (navigation: SharedStackNavigationProp) => {
         title: '',
         participants: [],
         id: '',
+        onPress: () => {},
       };
     }
     return {
