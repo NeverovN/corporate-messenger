@@ -62,10 +62,24 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
+export type Message = {
+  __typename?: 'Message';
+  id: Scalars['ID'];
+  content: Scalars['String'];
+  author: Scalars['ID'];
+  receivers: Array<Scalars['ID']>;
+  createdAt: Scalars['String'];
+  lastEdit?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
+<<<<<<< HEAD
   createChat: Chat;
+=======
+  createMessage: Message;
+>>>>>>> feature/messeges-setup
   createPost: Post;
   createUser: AuthenticationResult;
   getPost?: Maybe<Post>;
@@ -77,14 +91,28 @@ export type MutationAddFriendArgs = {
   input: AddFriendInput;
 };
 
+<<<<<<< HEAD
+=======
+export type MutationCreateMessageArgs = {
+  content: Scalars['String'];
+};
+
+export type MutationCreatePostArgs = {
+  token: Scalars['String'];
+};
+
+>>>>>>> feature/messeges-setup
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };
 
+<<<<<<< HEAD
 export type MutationGetPostArgs = {
   id: Scalars['ID'];
 };
 
+=======
+>>>>>>> feature/messeges-setup
 export type MutationLoginArgs = {
   input: LoginInput;
 };
@@ -100,8 +128,12 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
+<<<<<<< HEAD
   getChats?: Maybe<Array<Maybe<Chat>>>;
   getCurrentUser?: Maybe<User>;
+=======
+  getMessages?: Maybe<Array<Maybe<Message>>>;
+>>>>>>> feature/messeges-setup
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUserById?: Maybe<User>;
@@ -111,14 +143,31 @@ export type QueryGetPostArgs = {
   id: Scalars['ID'];
 };
 
+<<<<<<< HEAD
+=======
+export type QueryGetUserByEmailArgs = {
+  email: Scalars['String'];
+};
+
+>>>>>>> feature/messeges-setup
 export type QueryGetUserByIdArgs = {
   id: Scalars['ID'];
 };
 
+<<<<<<< HEAD
 export type Subscription = {
   __typename?: 'Subscription';
   newChat: Chat;
   newPost: Post;
+=======
+export type QueryGetUsersPostsArgs = {
+  token: Scalars['String'];
+>>>>>>> feature/messeges-setup
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  newMessage: Message;
 };
 
 export type User = {
@@ -158,6 +207,7 @@ export type CreateUserMutation = { __typename?: 'Mutation' } & {
   > & { user: { __typename?: 'User' } & UserFragmentFragment };
 };
 
+<<<<<<< HEAD
 export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
   Post,
   'id' | 'createdAt'
@@ -176,6 +226,47 @@ export type NewPostSubscription = { __typename?: 'Subscription' } & {
 };
 
 export type GetPostsQueryVariables = Exact<{ [key: string]: never }>;
+=======
+export type MsgFragmentFragment = { __typename?: 'Message' } & Pick<
+  Message,
+  'id' | 'author' | 'receivers' | 'content'
+>;
+
+export type GetMessagesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetMessagesQuery = { __typename?: 'Query' } & {
+  getMessages?: Maybe<
+    Array<Maybe<{ __typename?: 'Message' } & MsgFragmentFragment>>
+  >;
+};
+
+export type CreateMessageMutationVariables = Exact<{
+  content: Scalars['String'];
+}>;
+
+export type CreateMessageMutation = { __typename?: 'Mutation' } & {
+  createMessage: { __typename?: 'Message' } & MsgFragmentFragment;
+};
+
+export type NewMessageSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type NewMessageSubscription = { __typename?: 'Subscription' } & {
+  newMessage: { __typename?: 'Message' } & MsgFragmentFragment;
+};
+
+export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
+  Post,
+  'id' | 'author' | 'createdAt'
+>;
+
+export type CreatePostMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+export type CreatePostMutation = { __typename?: 'Mutation' } & {
+  createPost: { __typename?: 'Post' } & PostFragmentFragment;
+};
+>>>>>>> feature/messeges-setup
 
 export type GetPostsQuery = { __typename?: 'Query' } & {
   getPosts?: Maybe<
@@ -183,11 +274,17 @@ export type GetPostsQuery = { __typename?: 'Query' } & {
   >;
 };
 
+<<<<<<< HEAD
 export type GetUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserQuery = { __typename?: 'Query' } & {
   getCurrentUser?: Maybe<
     { __typename?: 'User' } & Pick<User, 'firstName' | 'lastName'>
+=======
+export type GetUsersPostsQuery = { __typename?: 'Query' } & {
+  getUsersPosts?: Maybe<
+    Array<Maybe<{ __typename?: 'Post' } & PostFragmentFragment>>
+>>>>>>> feature/messeges-setup
   >;
 };
 
@@ -199,6 +296,7 @@ export const UserFragmentFragmentDoc = gql`
     email
   }
 `;
+<<<<<<< HEAD
 export const PostFragmentFragmentDoc = gql`
   fragment PostFragment on Post {
     id
@@ -206,6 +304,21 @@ export const PostFragmentFragmentDoc = gql`
     author {
       id
     }
+=======
+export const MsgFragmentFragmentDoc = gql`
+  fragment msgFragment on Message {
+    id
+    author
+    receivers
+    content
+  }
+`;
+export const PostFragmentFragmentDoc = gql`
+  fragment PostFragment on Post {
+    id
+    author
+    createdAt
+>>>>>>> feature/messeges-setup
   }
 `;
 export const LoginDocument = gql`
@@ -266,6 +379,15 @@ export const CreateUserDocument = gql`
       user {
         ...UserFragment
       }
+<<<<<<< HEAD
+    }
+  }
+  ${UserFragmentFragmentDoc}
+`;
+export type CreateUserMutationFn = Apollo.MutationFunction<
+  CreateUserMutation,
+  CreateUserMutationVariables
+=======
     }
   }
   ${UserFragmentFragmentDoc}
@@ -312,12 +434,188 @@ export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
   CreateUserMutation,
   CreateUserMutationVariables
 >;
+export const GetMessagesDocument = gql`
+  query GetMessages {
+    getMessages {
+      ...msgFragment
+    }
+  }
+  ${MsgFragmentFragmentDoc}
+`;
+
+/**
+ * __useGetMessagesQuery__
+ *
+ * To run a query within a React component, call `useGetMessagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMessagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMessagesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMessagesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetMessagesQuery,
+    GetMessagesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetMessagesQuery, GetMessagesQueryVariables>(
+    GetMessagesDocument,
+    options,
+  );
+}
+export function useGetMessagesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetMessagesQuery,
+    GetMessagesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetMessagesQuery, GetMessagesQueryVariables>(
+    GetMessagesDocument,
+    options,
+  );
+}
+export type GetMessagesQueryHookResult = ReturnType<typeof useGetMessagesQuery>;
+export type GetMessagesLazyQueryHookResult = ReturnType<
+  typeof useGetMessagesLazyQuery
+>;
+export type GetMessagesQueryResult = Apollo.QueryResult<
+  GetMessagesQuery,
+  GetMessagesQueryVariables
+>;
+export const CreateMessageDocument = gql`
+  mutation CreateMessage($content: String!) {
+    createMessage(content: $content) {
+      ...msgFragment
+    }
+  }
+  ${MsgFragmentFragmentDoc}
+`;
+export type CreateMessageMutationFn = Apollo.MutationFunction<
+  CreateMessageMutation,
+  CreateMessageMutationVariables
+>>>>>>> feature/messeges-setup
+>;
+
+/**
+ * __useCreateMessageMutation__
+ *
+ * To run a mutation, you first call `useCreateMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMessageMutation, { data, loading, error }] = useCreateMessageMutation({
+ *   variables: {
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+<<<<<<< HEAD
+export function useCreateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateUserMutation,
+    CreateUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
+    CreateUserDocument,
+    options,
+  );
+}
+export type CreateUserMutationHookResult = ReturnType<
+  typeof useCreateUserMutation
+>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>;
 export const CreatePostDocument = gql`
   mutation CreatePost {
     createPost {
       ...PostFragment
     }
   }
+=======
+export function useCreateMessageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateMessageMutation,
+    CreateMessageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateMessageMutation,
+    CreateMessageMutationVariables
+  >(CreateMessageDocument, options);
+}
+export type CreateMessageMutationHookResult = ReturnType<
+  typeof useCreateMessageMutation
+>;
+export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
+export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<
+  CreateMessageMutation,
+  CreateMessageMutationVariables
+>;
+export const NewMessageDocument = gql`
+  subscription NewMessage {
+    newMessage {
+      ...msgFragment
+    }
+  }
+  ${MsgFragmentFragmentDoc}
+`;
+
+/**
+ * __useNewMessageSubscription__
+ *
+ * To run a query within a React component, call `useNewMessageSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useNewMessageSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNewMessageSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNewMessageSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    NewMessageSubscription,
+    NewMessageSubscriptionVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSubscription<
+    NewMessageSubscription,
+    NewMessageSubscriptionVariables
+  >(NewMessageDocument, options);
+}
+export type NewMessageSubscriptionHookResult = ReturnType<
+  typeof useNewMessageSubscription
+>;
+export type NewMessageSubscriptionResult = Apollo.SubscriptionResult<NewMessageSubscription>;
+export const CreatePostDocument = gql`
+  mutation CreatePost($token: String!) {
+    createPost(token: $token) {
+      ...PostFragment
+    }
+  }
+>>>>>>> feature/messeges-setup
   ${PostFragmentFragmentDoc}
 `;
 export type CreatePostMutationFn = Apollo.MutationFunction<
@@ -361,14 +659,21 @@ export type CreatePostMutationOptions = Apollo.BaseMutationOptions<
   CreatePostMutation,
   CreatePostMutationVariables
 >;
+<<<<<<< HEAD
 export const NewPostDocument = gql`
   subscription NewPost {
     newPost {
+=======
+export const GetUsersPostsDocument = gql`
+  query GetUsersPosts($token: String!) {
+    getUsersPosts(token: $token) {
+>>>>>>> feature/messeges-setup
       ...PostFragment
     }
   }
   ${PostFragmentFragmentDoc}
 `;
+<<<<<<< HEAD
 
 /**
  * __useNewPostSubscription__
@@ -409,6 +714,8 @@ export const GetPostsDocument = gql`
   }
   ${PostFragmentFragmentDoc}
 `;
+=======
+>>>>>>> feature/messeges-setup
 
 /**
  * __useGetPostsQuery__
@@ -425,6 +732,7 @@ export const GetPostsDocument = gql`
  *   },
  * });
  */
+<<<<<<< HEAD
 export function useGetPostsQuery(
   baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>,
 ) {
@@ -504,4 +812,39 @@ export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = Apollo.QueryResult<
   GetUserQuery,
   GetUserQueryVariables
+=======
+export function useGetUsersPostsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetUsersPostsQuery,
+    GetUsersPostsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetUsersPostsQuery, GetUsersPostsQueryVariables>(
+    GetUsersPostsDocument,
+    options,
+  );
+}
+export function useGetUsersPostsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUsersPostsQuery,
+    GetUsersPostsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetUsersPostsQuery, GetUsersPostsQueryVariables>(
+    GetUsersPostsDocument,
+    options,
+  );
+}
+export type GetUsersPostsQueryHookResult = ReturnType<
+  typeof useGetUsersPostsQuery
+>;
+export type GetUsersPostsLazyQueryHookResult = ReturnType<
+  typeof useGetUsersPostsLazyQuery
+>;
+export type GetUsersPostsQueryResult = Apollo.QueryResult<
+  GetUsersPostsQuery,
+  GetUsersPostsQueryVariables
+>>>>>>> feature/messeges-setup
 >;

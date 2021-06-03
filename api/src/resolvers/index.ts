@@ -2,7 +2,7 @@ import { Resolvers } from '../types/gql.generated';
 import { UserController } from '../controllers/User';
 import { PostController } from '../controllers/Post';
 import { ChatController } from '../controllers/Chat';
-import { POST_CREATED, CHAT_CREATED } from '../consts/events';
+import { POST_CREATED, CHAT_CREATED, MESSAGE_CREATED } from '../consts/events';
 
 import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
@@ -17,6 +17,9 @@ import { withFilter } from 'graphql-subscriptions';
 import { pubsub } from '../consts/pubsub';
 import { PostEntity } from '../models/Post';
 import { ChatEntity } from '../models/Chat';
+import { mapUserDocumentToUserEntity } from '../models/User/mappers';
+import { MessageEntity } from '../models/Message';
+import { mapMessageDocumentToMessageEntity } from '../models/Message/mappers';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -94,6 +97,17 @@ const resolverMap: Resolvers = {
 
       return newChat;
     },
+    async createMessage(_, args, { currentUserId }) {
+      const newMessage = await MessageController.createMessage(
+        currentUserId,
+        [
+          currentUserId, // just for now because there is no receivers link setup
+        ],
+        args.content,
+      );
+      pubsub.publish(MESSAGE_CREATED, { newMessage: { msg: newMessage } });
+      return newMessage;
+    },
   },
   Query: {
     async getUserById(_, args) {
@@ -104,6 +118,23 @@ const resolverMap: Resolvers = {
     },
     async getChats(_, __, { currentUserId }) {
       return await ChatController.getChats(currentUserId);
+    },
+    async getMessages(_, __, { currentUserId }) {
+      const userDoc = await UserModel.findById(currentUserId).exec();
+      if (!userDoc) return null;
+      const user = mapUserDocumentToUserEntity(userDoc);
+      const msgDoc = await MessageModel.find(
+        ({ author, receivers }) =>
+          author === user._id || receivers.find(user._id),
+      ).exec();
+      if (!msgDoc) return null;
+
+      const messages: MessageEntity[] = [];
+      msgDoc.forEach((el) =>
+        messages.push(mapMessageDocumentToMessageEntity(el)),
+      );
+
+      return messages;
     },
   },
   Subscription: {
@@ -127,6 +158,13 @@ const resolverMap: Resolvers = {
       resolve: (chat: ChatEntity) => {
         console.log(chat);
         return chat;
+      },
+    },
+    newMessage: {
+      subscribe: () => pubsub.asyncIterator([MESSAGE_CREATED]),
+
+      resolve: ({ newMessage }: MSGPayloadType) => {
+        return newMessage.msg;
       },
     },
   },
@@ -156,3 +194,9 @@ const resolverMap: Resolvers = {
   },
 };
 export default resolverMap;
+
+type MSGPayloadType = {
+  newMessage: {
+    msg: MessageEntity;
+  };
+};

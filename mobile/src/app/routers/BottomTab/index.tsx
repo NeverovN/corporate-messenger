@@ -12,9 +12,9 @@ import {
 } from '@/app/constants/routes';
 
 // routers
-import FeedRouter from '@/feed/routers/Main';
-import ChatRouter from '@/chat/routers/Main';
-import ProfileRouter from '@/profile/routers/Main';
+import FeedRouter from 'feed/routers/Main';
+import ChatRouter from 'chat/chatList/routers/Main';
+import ProfileRouter from 'profile/routers/Main';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
