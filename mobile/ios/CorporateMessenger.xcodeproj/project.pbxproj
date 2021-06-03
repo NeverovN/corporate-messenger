@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1569D7AA26648747007F1C88 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1569D7A926648747007F1C88 /* libRNCAsyncStorage.a */; };
 		43D64A3D961BEE3AEC6DF4C1 /* libPods-CorporateMessenger-CorporateMessengerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A61BAAA4C4B5F58269213E8E /* libPods-CorporateMessenger-CorporateMessengerTests.a */; };
 		52C782C92641C2D5002EC154 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 52C782C82641C2D5002EC154 /* fonts */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -25,6 +26,13 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = CorporateMessenger;
 		};
+		1569D7A726648708007F1C88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1569D7A326648708007F1C88 /* RNCAsyncStorage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNCAsyncStorage;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +45,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CorporateMessenger/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CorporateMessenger/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CorporateMessenger/main.m; sourceTree = "<group>"; };
+		1569D7A326648708007F1C88 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
+		1569D7A926648747007F1C88 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A26DE965DB49F330DF1DC20 /* Pods-CorporateMessenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CorporateMessenger.debug.xcconfig"; path = "Target Support Files/Pods-CorporateMessenger/Pods-CorporateMessenger.debug.xcconfig"; sourceTree = "<group>"; };
 		461A49B1C39EB739EC046D9F /* Pods-CorporateMessenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CorporateMessenger.release.xcconfig"; path = "Target Support Files/Pods-CorporateMessenger/Pods-CorporateMessenger.release.xcconfig"; sourceTree = "<group>"; };
 		52C782C82641C2D5002EC154 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
@@ -61,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1569D7AA26648747007F1C88 /* libRNCAsyncStorage.a in Frameworks */,
 				D9B90EE975ED30ECD8AF570E /* libPods-CorporateMessenger.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,9 +120,18 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		1569D7A426648708007F1C88 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1569D7A826648708007F1C88 /* libRNCAsyncStorage.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1569D7A926648747007F1C88 /* libRNCAsyncStorage.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				F7FF48B999B6CC29A3BD478C /* libPods-CorporateMessenger.a */,
 				A61BAAA4C4B5F58269213E8E /* libPods-CorporateMessenger-CorporateMessengerTests.a */,
@@ -122,6 +142,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				1569D7A326648708007F1C88 /* RNCAsyncStorage.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -225,6 +246,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1569D7A426648708007F1C88 /* Products */;
+					ProjectRef = 1569D7A326648708007F1C88 /* RNCAsyncStorage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* CorporateMessenger */,
@@ -232,6 +259,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1569D7A826648708007F1C88 /* libRNCAsyncStorage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCAsyncStorage.a;
+			remoteRef = 1569D7A726648708007F1C88 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {

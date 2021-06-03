@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 // styles
 import styles from './styles';

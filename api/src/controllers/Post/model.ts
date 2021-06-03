@@ -1,4 +1,4 @@
-import { DateLike, ID } from '../../types/common';
+import { ID } from '../../types/common';
 
 import PostModel, { PostEntity } from '../../models/Post';
 import { PostDocument } from '../../models/Post/types';
@@ -27,14 +27,14 @@ class PostModelController {
     return result.map(mapPostDocumentToPostEntity);
   }
 
-  async getPostsByAuthor(author: ID): Promise<(PostEntity | null)[]> {
-    const posts = await PostModel.find({ author });
+  async getPostsByAuthor(authorId: ID): Promise<(PostEntity | null)[]> {
+    const posts = await PostModel.find({ author: authorId });
 
     return posts.map((el) => this.mapPostWithFallback(el));
   }
 
-  async createPost(author: ID): Promise<PostEntity> {
-    const newPost = PostEntityController.createPostEntity(author);
+  async createPost(authorId: ID): Promise<PostEntity> {
+    const newPost = PostEntityController.createPostEntity(authorId);
 
     const createdPost = await PostModel.create(newPost);
 
@@ -44,6 +44,6 @@ class PostModelController {
   }
 }
 
-const userModelController = new PostModelController();
+const postModelController = new PostModelController();
 
-export default userModelController;
+export default postModelController;

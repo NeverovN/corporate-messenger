@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { useGetUsersPostsQuery } from 'common/types/gql.generated';
-
-// consts
-import { tokenVar } from 'common/cache/cache';
+import {
+  useGetPostsQuery,
+  useNewPostSubscription,
+} from 'common/types/gql.generated';
 
 // components
 import TileView from 'feed/components/Tile';
@@ -13,16 +13,13 @@ interface IPost {
 }
 
 export const useUsersPosts = () => {
-  const { data } = useGetUsersPostsQuery({
-    variables: {
-      token: tokenVar(),
-    },
-  });
+  const { data: queryData } = useGetPostsQuery();
+  const { data: subData } = useNewPostSubscription();
 
   if (
-    typeof data === 'undefined' ||
-    typeof data.getUsersPosts === 'undefined' ||
-    data.getUsersPosts === null
+    typeof queryData === 'undefined' ||
+    typeof queryData.getPosts === 'undefined' ||
+    queryData.getPosts === null
   ) {
     return [];
   }
@@ -31,6 +28,14 @@ export const useUsersPosts = () => {
     data: TileView,
     id: i,
   }));
+
+  if (subData) {
+    // in perfect world it must add new post to profile screen
+    // in my world data never receives information and i have no idea why
+    console.log('data received');
+    posts.push({ data: TileView, id: posts.length + 1 });
+  }
+
 
   return posts;
 };

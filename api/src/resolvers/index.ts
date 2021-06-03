@@ -1,13 +1,23 @@
-import { Resolvers } from '../types/gql.generated';
+import { PostResolvers, Resolvers } from '../types/gql.generated';
 import { UserController } from '../controllers/User';
 import { PostController } from '../controllers/Post';
+import { POST_CREATED } from '../consts/events';
 
 import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
 import verifyPasswordHash from '../utils/verifyPasswordHash';
-import decodeToken from '../utils/decodeToken';
 import { UserEntity } from '../models/User';
+import { PostEntity } from '../models/Post';
+
+// types
 import { ApolloContextType } from '../types/apollo';
+
+import { withFilter } from 'graphql-subscriptions';
+
+// consts
+import { pubsub } from '../consts/pubsub';
+
+
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -23,7 +33,7 @@ const resolverMap: Resolvers = {
 
       if (!isPasswordCorrect) throw Error('Incorrect password'); //! TODO: use Apollo Errors
 
-      const token = createToken(user._id);
+      const token = createToken(user.id);
 
       return { token, user };
     },
@@ -49,7 +59,7 @@ const resolverMap: Resolvers = {
         null,
       );
 
-      const token = createToken(user._id);
+      const token = createToken(user.id);
 
       return { token: token, user };
     },
@@ -65,36 +75,63 @@ const resolverMap: Resolvers = {
 
       return newUser;
     },
-    async createPost(_, { token }) {
-      const { userId } = decodeToken(token);
-      const post = await PostController.createPost(userId);
+    async createPost(_, __, { currentUserId }: ApolloContextType) {
+      if (!currentUserId) {
+        throw Error('unlogined user');
+      }
+
+      const post = await PostController.createPost(currentUserId);
+
+      pubsub.publish(POST_CREATED, post);
+
       return post;
     },
   },
   Query: {
-    async getUserByEmail(_, { email }) {
-      return await UserController.getUserByEmail(email);
-    },
     async getUserById(_, args) {
       return await UserController.getUser(args.id); // don't see principal difference between this query and getUser
     },
-    async getUsersPosts(_, { token }) {
-      const { userId } = decodeToken(token);
-      const posts = PostController.getPostsByAuthor(userId);
-      return posts;
+    async getPosts(_, __, { currentUserId }) {
+      return await PostController.getPostsByAuthor(currentUserId);
+    },
+  },
+  Subscription: {
+    newPost: {
+      subscribe: withFilter(
+        () => {
+          console.log('subscribed for new post');
+          return pubsub.asyncIterator([POST_CREATED]);
+        },
+        () => {
+          // basing on true/false return decides, if resolve function should be called
+          return true;
+        },
+      ),
+      resolve: (post: PostEntity) => {
+        return post;
+      },
     },
     async getCurrentUser(_, __, { currentUserId }) {
       return await UserController.getUser(currentUserId);
     },
   },
   User: {
-    id: (user: UserEntity) => user._id,
+    id: (user: UserEntity) => user.id,
     friends: async (user: UserEntity) => {
       const friendIds = user.friends;
 
       const friends = await UserController.getUsers(friendIds);
 
       return friends;
+    },
+  },
+  Post: {
+    author: async (post: PostEntity) => {
+      const author = await UserController.getUser(post.author);
+
+      if (!author) throw new Error('author missed'); // TODO: provide useful errors
+
+      return author;
     },
   },
 };

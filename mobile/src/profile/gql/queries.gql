@@ -1,20 +1,29 @@
 fragment PostFragment on Post {
   id
-  author
   createdAt
+  author {
+    id
+  }
 }
 
-mutation CreatePost($token: String!) {
-  createPost(token: $token) {
+mutation CreatePost {
+  createPost {
     ...PostFragment
   }
 }
 
-query GetUsersPosts($token: String!) {
-  getUsersPosts(token: $token) {
+subscription NewPost {
+  newPost {
     ...PostFragment
   }
 }
+
+query GetPosts {
+  getPosts {
+    ...PostFragment
+  }
+}
+
 
 query GetCurrentUser {
   getCurrentUser {
@@ -22,6 +31,7 @@ query GetCurrentUser {
     lastName
   }
 }
+
 
 query GetUserByID($id: ID!) {
   getUserById(id: $id) {

@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { UserEntity } from 'api/src/models/User/index';
+import { UserEntity } from '../models/User/index';
+import { PostEntity } from '../models/Post/index';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -29,10 +30,10 @@ export type AuthenticationResult = {
 export type CommentModel = {
   __typename?: 'CommentModel';
   id: Scalars['ID'];
-  author: Scalars['ID'];
+  author: User;
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
-  likes?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  likes?: Maybe<Array<Maybe<User>>>;
 };
 
 export type CreateUserInput = {
@@ -52,6 +53,8 @@ export type Mutation = {
   addFriend?: Maybe<User>;
   createPost: Post;
   createUser: AuthenticationResult;
+  getPost?: Maybe<Post>;
+  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
 };
 
@@ -61,13 +64,20 @@ export type MutationAddFriendArgs = {
 };
 
 
+
 export type MutationCreatePostArgs = {
   token: Scalars['String'];
 };
 
 
+
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
+};
+
+
+export type MutationGetPostArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -78,8 +88,9 @@ export type MutationLoginArgs = {
 export type Post = {
   __typename?: 'Post';
   id: Scalars['ID'];
-  author: Scalars['ID'];
+  author: User;
   createdAt: Scalars['String'];
+  lastEdit?: Maybe<Scalars['String']>;
   comments?: Maybe<Array<Maybe<CommentModel>>>;
 };
 
@@ -88,9 +99,7 @@ export type Query = {
   getCurrentUser: User;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
-  getUserByEmail?: Maybe<User>;
   getUserById?: Maybe<User>;
-  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
 };
 
 
@@ -98,15 +107,14 @@ export type QueryGetPostArgs = {
   id: Scalars['ID'];
 };
 
-
-export type QueryGetUserByEmailArgs = {
-  email: Scalars['String'];
-};
-
-
 export type QueryGetUserByIdArgs = {
   id: Scalars['ID'];
 };
+
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  newPost?: Maybe<Post>;
 
 
 export type QueryGetUsersPostsArgs = {
@@ -120,7 +128,7 @@ export type User = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
-  friends: Array<Maybe<User>>;
+  friends: Array<User>;
 };
 
 
@@ -203,14 +211,23 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   AddFriendInput: AddFriendInput;
   String: ResolverTypeWrapper<Scalars['String']>;
-  AuthenticationResult: ResolverTypeWrapper<Omit<AuthenticationResult, 'user'> & { user: ResolversTypes['User'] }>;
-  CommentModel: ResolverTypeWrapper<CommentModel>;
+  AuthenticationResult: ResolverTypeWrapper<
+    Omit<AuthenticationResult, 'user'> & { user: ResolversTypes['User'] }
+  >;
+  CommentModel: ResolverTypeWrapper<
+    Omit<CommentModel, 'author' | 'likes'> & {
+      author: ResolversTypes['User'];
+      likes?: Maybe<Array<Maybe<ResolversTypes['User']>>>;
+    }
+  >;
+
   ID: ResolverTypeWrapper<Scalars['ID']>;
   CreateUserInput: CreateUserInput;
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
-  Post: ResolverTypeWrapper<Post>;
+  Post: ResolverTypeWrapper<PostEntity>;
   Query: ResolverTypeWrapper<{}>;
+  Subscription: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<UserEntity>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
@@ -219,14 +236,22 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   AddFriendInput: AddFriendInput;
   String: Scalars['String'];
+  AuthenticationResult: Omit<AuthenticationResult, 'user'> & {
+    user: ResolversParentTypes['User'];
+  };
+  CommentModel: Omit<CommentModel, 'author' | 'likes'> & {
+    author: ResolversParentTypes['User'];
+    likes?: Maybe<Array<Maybe<ResolversParentTypes['User']>>>;
+  };
   AuthenticationResult: Omit<AuthenticationResult, 'user'> & { user: ResolversParentTypes['User'] };
   CommentModel: CommentModel;
   ID: Scalars['ID'];
   CreateUserInput: CreateUserInput;
   LoginInput: LoginInput;
   Mutation: {};
-  Post: Post;
+  Post: PostEntity;
   Query: {};
+  Subscription: {};
   User: UserEntity;
   Boolean: Scalars['Boolean'];
 };
@@ -239,9 +264,52 @@ export type AuthenticationResultResolvers<ContextType = any, ParentType extends 
 
 export type CommentModelResolvers<ContextType = any, ParentType extends ResolversParentTypes['CommentModel'] = ResolversParentTypes['CommentModel']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  author?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+
+  likes?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['User']>>>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
+> = {
+  addFriend?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationAddFriendArgs, 'input'>
+  >;
+  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
+  createUser?: Resolver<
+    ResolversTypes['AuthenticationResult'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateUserArgs, 'input'>
+  >;
+  getPost?: Resolver<
+    Maybe<ResolversTypes['Post']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationGetPostArgs, 'id'>
+  >;
+  getUsersPosts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
+    ParentType,
+    ContextType
+  >;
+  login?: Resolver<
+    ResolversTypes['AuthenticationResult'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationLoginArgs, 'input'>
+  >;
   likes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ID']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -255,8 +323,56 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  author?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+
+  lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  comments?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['CommentModel']>>>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type QueryResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
+> = {
+  getCurrentUser?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType
+  >;
+  getPost?: Resolver<
+    Maybe<ResolversTypes['Post']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetPostArgs, 'id'>
+  >;
+  getPosts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
+    ParentType,
+    ContextType
+  >;
+  getUserById?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetUserByIdArgs, 'id'>
+  >;
+};
+
+export type SubscriptionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
+> = {
+  newPost?: SubscriptionResolver<
+    Maybe<ResolversTypes['Post']>,
+    'newPost',
+    ParentType,
+    ContextType
+  >;
   comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentModel']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -276,7 +392,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  friends?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>;
+  friends?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -286,6 +403,7 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 

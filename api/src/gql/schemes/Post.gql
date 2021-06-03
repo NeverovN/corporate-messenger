@@ -1,24 +1,30 @@
 type Query {
   getPosts: [Post]
-  getUsersPosts(token: String!): [Post]
   getPost(id: ID!): Post
 }
 
+type Subscription {
+  newPost: Post
+}
+
 type Mutation {
-  createPost(token: String!): Post!
+  createPost: Post!
+  getUsersPosts: [Post]
+  getPost(id: ID!): Post
 }
 
 type Post {
   id: ID!
-  author: ID!
+  author: User!
   createdAt: String!
+  lastEdit: String
   comments: [CommentModel]
 }
 
 type CommentModel {
   id: ID!
-  author: ID!
+  author: User!
   createdAt: String!
   lastEdit: String
-  likes: [ID]
+  likes: [User]
 }

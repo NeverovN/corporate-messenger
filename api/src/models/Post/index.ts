@@ -29,13 +29,10 @@ export class PostEntity {
   author: ID;
 
   @prop({ required: true })
-  createdAt: string;
+  createdAt: DateLike;
 
   @prop()
-  lastEdit: string;
-
-  @prop()
-  avatar: Nullable<URL>;
+  lastEdit: Nullable<DateLike>;
 
   @prop()
   repost: Nullable<URL>;
@@ -49,9 +46,15 @@ export class PostEntity {
   @prop()
   comments: Array<CommentModel>;
 
-  constructor(author: ID) {
-    this.author = author;
+  constructor(authorId: ID) {
+    this.author = authorId;
     this.createdAt = new Date().toString();
+    this.lastEdit = null;
+    this.comments = [];
+    this.repost = null;
+    this.media = [];
+    this.likes = [];
+    this.comments = [];
   }
 }
 
