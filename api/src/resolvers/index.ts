@@ -18,6 +18,10 @@ import { ChatEntity } from '../models/Chat';
 import { MessageEntity } from '../models/Message';
 import { MessageController } from '../controllers/Message';
 
+// types
+
+// consts
+
 const resolverMap: Resolvers = {
   Mutation: {
     async login(_, { input }) {
@@ -32,7 +36,7 @@ const resolverMap: Resolvers = {
 
       if (!isPasswordCorrect) throw Error('Incorrect password'); //! TODO: use Apollo Errors
 
-      const token = createToken(user._id);
+      const token = createToken(user.id);
 
       return { token, user };
     },
@@ -58,7 +62,7 @@ const resolverMap: Resolvers = {
         null,
       );
 
-      const token = createToken(user._id);
+      const token = createToken(user.id);
 
       return { token: token, user };
     },
@@ -110,7 +114,7 @@ const resolverMap: Resolvers = {
   },
   Query: {
     async getUserById(_, args) {
-      return await UserController.getUser(args.id);
+      return await UserController.getUser(args.id); // don't see principal difference between this query and getUser
     },
     async getPosts(_, __, { currentUserId }) {
       return await PostController.getPostsByAuthor(currentUserId);
@@ -120,6 +124,9 @@ const resolverMap: Resolvers = {
     },
     async getMessages(_, __, { currentUserId }) {
       return await MessageController.getMessagesByAuthor(currentUserId);
+    },
+    async getCurrentUser(_, __, { currentUserId }) {
+      return await UserController.getUser(currentUserId);
     },
   },
   Subscription: {
@@ -154,7 +161,7 @@ const resolverMap: Resolvers = {
     },
   },
   User: {
-    id: (user: UserEntity) => user._id,
+    id: (user: UserEntity) => user.id,
     friends: async (user: UserEntity) => {
       const friendIds = user.friends;
 

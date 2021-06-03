@@ -6,10 +6,13 @@ export const isLoggedIn = async () => {
   if (!!tokenVar()) {
     return true;
   }
-  const tokenFromStorage = await storage.getFromStorage('token'); // same as prev comm
+
+  const tokenFromStorage = await storage.getFromStorage('token');
+
   if (!!tokenFromStorage) {
     setToken(tokenFromStorage);
     return true;
   }
+
   return false;
 };

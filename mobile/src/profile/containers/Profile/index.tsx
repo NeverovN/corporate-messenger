@@ -3,6 +3,7 @@ import React, { memo, FC } from 'react';
 // hooks
 import { useUsersPosts } from 'profile/hooks/useUsersPosts';
 
+// components
 import ProfileView from 'profile/components/Profile';
 
 interface IProfileContainerProps {}

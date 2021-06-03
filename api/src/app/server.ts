@@ -10,8 +10,11 @@ export function initServer(port: number): void {
     schema,
     context: ({ req }): ApolloContextType => {
       const token = req?.headers.authorization || '';
+
       if (!token) return { currentUserId: null };
+
       const currentUserId = getUserIdByToken(token);
+
       return { currentUserId };
     },
     subscriptions: {

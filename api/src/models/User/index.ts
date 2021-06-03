@@ -18,7 +18,7 @@ export const defaultUserSettings: UserSettings = {
   schemaOptions: { collection: 'users', _id: true },
 })
 export class UserEntity {
-  _id: string;
+  id: string;
 
   @prop({ required: true })
   email: string;
