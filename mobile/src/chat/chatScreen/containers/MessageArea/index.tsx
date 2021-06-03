@@ -12,7 +12,6 @@ import {
 const MessageAreaContainer: FC<IMessageAreaContainerProps> = () => {
   const response = useGetMessagesQuery();
   const { data } = useNewMessageSubscription(); // no response in code but normal response on playground
-  console.log('data?.newMessage: ', data);
   const messages =
     !response.data || !response.data.getMessages
       ? []
