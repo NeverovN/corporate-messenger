@@ -5,7 +5,6 @@ import { UserDocument } from '../../models/User/types';
 
 import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 import UserEntityController from './entity';
-import { UserController } from '.';
 
 class UserModelController {
   private mapUserWithFallback(user: UserDocument | null): UserEntity | null {

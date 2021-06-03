@@ -14,7 +14,7 @@ type User {
 }
 
 type Query {
-  getCurrentUser: User
+  getCurrentUser: User!
   getUserById(id: ID!): User
 }
 

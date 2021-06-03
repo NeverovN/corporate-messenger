@@ -110,7 +110,7 @@ const resolverMap: Resolvers = {
   },
   Query: {
     async getUserById(_, args) {
-      return await UserController.getUser(args.id);
+      return await UserController.getUser(args.id); // don't see principal difference between this query and getUser
     },
     async getPosts(_, __, { currentUserId }) {
       return await PostController.getPostsByAuthor(currentUserId);
@@ -137,6 +137,13 @@ const resolverMap: Resolvers = {
     },
     async getMessages(_, __, { currentUserId }) {
       return await MessageController.getMessagesByAuthor(currentUserId);
+    },
+    async getCurrentUser(_, __, { currentUserId }) {
+      const user = await UserController.getUser(currentUserId);
+      if (!user) {
+        throw Error('unlogged user');
+      }
+      return user;
     },
   },
   Subscription: {
@@ -212,4 +219,5 @@ const resolverMap: Resolvers = {
     },
   },
 };
+
 export default resolverMap;

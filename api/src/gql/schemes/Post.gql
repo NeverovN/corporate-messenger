@@ -9,6 +9,10 @@ type Subscription {
   newPost: Post!
 }
 
+type Subscription {
+  newPost: Post
+}
+
 type Mutation {
   createPost: Post!
   getUsersPosts: [Post]

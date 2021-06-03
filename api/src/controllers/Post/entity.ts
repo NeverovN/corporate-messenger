@@ -1,7 +1,6 @@
 import { ID } from '../../types/common';
 
 import { PostEntity } from '../../models/Post';
-import { UserEntity } from '../../models/User';
 
 class PostEntityController {
   createPostEntity(authorId: ID): PostEntity {

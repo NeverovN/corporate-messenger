@@ -19,7 +19,7 @@ const BottomBarContainer: FC<IBottomBarContainerProps> = () => {
   const onClipPress = useClipPressHandler();
   const onEmojiPress = useEmojiPressHandler();
   const { params } = useRoute<ChatRouteProp>(); // returns undefined anyway
-  const onSendPress = useSendPressHandler(message, params.chatId);
+  const onSendPress = useSendPressHandler(message, params?.chatId);
 
   console.log('button route: ');
   return (
