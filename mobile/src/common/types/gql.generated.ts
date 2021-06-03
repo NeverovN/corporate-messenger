@@ -102,10 +102,6 @@ export type MutationGetPostArgs = {
   id: Scalars['ID'];
 };
 
-export type MutationGetPostArgs = {
-  id: Scalars['ID'];
-};
-
 export type MutationLoginArgs = {
   input: LoginInput;
 };
@@ -122,7 +118,7 @@ export type Post = {
 export type Query = {
   __typename?: 'Query';
   getChats?: Maybe<Array<Maybe<Chat>>>;
-  getCurrentUser?: Maybe<User>;
+  getCurrentUser: User;
   getMessages?: Maybe<Array<Maybe<Message>>>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
@@ -170,22 +166,16 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
   > & { user: { __typename?: 'User' } & UserFragmentFragment };
 };
 
-export type LoginMutation = { __typename?: 'Mutation' } & {
-  login: { __typename?: 'AuthenticationResult' } & Pick<
-    AuthenticationResult,
-    'token'
-  > & { user: { __typename?: 'User' } & UserFragmentFragment };
-};
-
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
 }>;
 
-export type CreatePostMutation = { __typename?: 'Mutation' } & {
-  createPost: { __typename?: 'Post' } & PostFragmentFragment;
+export type CreateUserMutation = { __typename?: 'Mutation' } & {
+  createUser: { __typename?: 'AuthenticationResult' } & Pick<
+    AuthenticationResult,
+    'token'
+  > & { user: { __typename?: 'User' } & UserFragmentFragment };
 };
-
-export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type GetChatsQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -250,13 +240,8 @@ export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
 
 export type CreatePostMutationVariables = Exact<{ [key: string]: never }>;
 
-export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetCurrentUserQuery = { __typename?: 'Query' } & {
-  getCurrentUser: { __typename?: 'User' } & Pick<
-    User,
-    'firstName' | 'lastName'
-  >;
+export type CreatePostMutation = { __typename?: 'Mutation' } & {
+  createPost: { __typename?: 'Post' } & PostFragmentFragment;
 };
 
 export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
@@ -273,11 +258,12 @@ export type GetPostsQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetUserQueryVariables = Exact<{ [key: string]: never }>;
+export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetUserQuery = { __typename?: 'Query' } & {
-  getCurrentUser?: Maybe<
-    { __typename?: 'User' } & Pick<User, 'firstName' | 'lastName'>
+export type GetCurrentUserQuery = { __typename?: 'Query' } & {
+  getCurrentUser: { __typename?: 'User' } & Pick<
+    User,
+    'firstName' | 'lastName'
   >;
 };
 
@@ -712,9 +698,10 @@ export type NewMessageSubscriptionHookResult = ReturnType<
 >;
 export type NewMessageSubscriptionResult = Apollo.SubscriptionResult<NewMessageSubscription>;
 export const CreatePostDocument = gql`
-    mutation CreatePost {
-  createPost {
-    ...PostFragment
+  mutation CreatePost {
+    createPost {
+      ...PostFragment
+    }
   }
   ${PostFragmentFragmentDoc}
 `;
@@ -760,64 +747,12 @@ export type CreatePostMutationOptions = Apollo.BaseMutationOptions<
   CreatePostMutationVariables
 >;
 export const NewPostDocument = gql`
-    subscription NewPost {
-  newPost {
-    ...PostFragment
-  }
-  ${PostFragmentFragmentDoc}
-`;
-
-/**
- * __useGetPostsQuery__
- *
- * To run a query within a React component, call `useGetPostsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPostsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetPostsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(
-    GetPostsDocument,
-    options,
-  );
-}
-export function useGetPostsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetPostsQuery,
-    GetPostsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(
-    GetPostsDocument,
-    options,
-  );
-}
-export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
-export type GetPostsLazyQueryHookResult = ReturnType<
-  typeof useGetPostsLazyQuery
->;
-export type GetPostsQueryResult = Apollo.QueryResult<
-  GetPostsQuery,
-  GetPostsQueryVariables
->;
-export const GetUserDocument = gql`
-  query GetUser {
-    getCurrentUser {
-      firstName
-      lastName
+  subscription NewPost {
+    newPost {
+      ...PostFragment
     }
   }
+  ${PostFragmentFragmentDoc}
 `;
 
 /**
@@ -904,8 +839,8 @@ export type GetPostsQueryResult = Apollo.QueryResult<
   GetPostsQuery,
   GetPostsQueryVariables
 >;
-export const GetUserDocument = gql`
-  query GetUser {
+export const GetCurrentUserDocument = gql`
+  query GetCurrentUser {
     getCurrentUser {
       firstName
       lastName
@@ -914,44 +849,51 @@ export const GetUserDocument = gql`
 `;
 
 /**
- * __useGetUserQuery__
+ * __useGetCurrentUserQuery__
  *
- * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetUserQuery({
+ * const { data, loading, error } = useGetCurrentUserQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetUserQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(
-    GetUserDocument,
-    options,
-  );
-}
-export function useGetUserLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetUserQuery,
-    GetUserQueryVariables
+export function useGetCurrentUserQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetCurrentUserQuery,
+    GetCurrentUserQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(
-    GetUserDocument,
+  return Apollo.useQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(
+    GetCurrentUserDocument,
     options,
   );
 }
-export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
-export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
-export type GetUserQueryResult = Apollo.QueryResult<
-  GetUserQuery,
-  GetUserQueryVariables
+export function useGetCurrentUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCurrentUserQuery,
+    GetCurrentUserQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(
+    GetCurrentUserDocument,
+    options,
+  );
+}
+export type GetCurrentUserQueryHookResult = ReturnType<
+  typeof useGetCurrentUserQuery
+>;
+export type GetCurrentUserLazyQueryHookResult = ReturnType<
+  typeof useGetCurrentUserLazyQuery
+>;
+export type GetCurrentUserQueryResult = Apollo.QueryResult<
+  GetCurrentUserQuery,
+  GetCurrentUserQueryVariables
 >;

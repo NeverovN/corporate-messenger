@@ -126,7 +126,11 @@ const resolverMap: Resolvers = {
       return await MessageController.getMessagesByAuthor(currentUserId);
     },
     async getCurrentUser(_, __, { currentUserId }) {
-      return await UserController.getUser(currentUserId);
+      const user = await UserController.getUser(currentUserId);
+      if (!user) {
+        throw Error('unlogged user');
+      }
+      return user;
     },
   },
   Subscription: {

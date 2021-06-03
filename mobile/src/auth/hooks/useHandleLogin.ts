@@ -32,7 +32,7 @@ type UseHandleLoginOptions = {
 export function useHandleLogin(
   params: UseHandleLoginOptions,
 ): UseHandleRegistrationResult {
-  const navigation = useNavigation<MainScreenNavigationProp>();
+  const navigation = useNavigation<MainScreenNavigationProp>(); // now noticed it breaks since I implement additional types in app routes
   const [login] = useLoginMutation();
 
   const handleLogin = async () => {

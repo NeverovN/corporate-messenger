@@ -25,7 +25,7 @@ type UseHandleRegistrationOptions = {
 export function useHandleRegistration(
   params: UseHandleRegistrationOptions,
 ): UseHandleRegistrationResult {
-  const navigation = useNavigation<MainScreenNavigationProp>();
+  const navigation = useNavigation<MainScreenNavigationProp>(); // same as login
 
   const [addUser] = useCreateUserMutation();
 

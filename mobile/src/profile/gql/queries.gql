@@ -24,7 +24,7 @@ query GetPosts {
   }
 }
 
-query GetUser {
+query GetCurrentUser {
   getCurrentUser {
     firstName
     lastName
