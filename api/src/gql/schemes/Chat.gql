@@ -2,7 +2,7 @@ type Chat {
   id: ID!
   participants: [User]!
   logo: String
-  # messages: [ChatMessage]
+  messages: [Message]
   settings: ChatSettings
 }
 

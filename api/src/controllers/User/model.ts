@@ -27,11 +27,6 @@ class UserModelController {
     return result.map(mapUserDocumentToUserEntity);
   }
 
-  async getAllUsers(): Promise<UserEntity[]> {
-    const usersQuery = await UserModel.find().exec();
-    return usersQuery.map(mapUserDocumentToUserEntity);
-  }
-
   async getUserByEmail(email: ID): Promise<UserEntity | null> {
     const user = await UserModel.findOne({ email });
 

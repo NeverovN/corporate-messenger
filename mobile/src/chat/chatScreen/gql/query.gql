@@ -15,8 +15,8 @@ query GetMessages {
   }
 }
 
-mutation CreateMessage($content: String!) {
-  createMessage(content: $content) {
+mutation CreateMessage($content: String!, $chatId: String!) {
+  createMessage(content: $content, chatId: $chatId) {
     ...msgFragment
   }
 }

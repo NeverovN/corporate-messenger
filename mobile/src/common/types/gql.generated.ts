@@ -29,6 +29,7 @@ export type Chat = {
   id: Scalars['ID'];
   participants: Array<Maybe<User>>;
   logo?: Maybe<Scalars['String']>;
+  messages?: Maybe<Array<Maybe<Message>>>;
   settings?: Maybe<ChatSettings>;
 };
 
@@ -88,6 +89,7 @@ export type MutationAddFriendArgs = {
 
 export type MutationCreateMessageArgs = {
   content: Scalars['String'];
+  chatId: Scalars['String'];
 };
 
 
@@ -190,6 +192,48 @@ export type CreateUserMutation = (
   ) }
 );
 
+export type GetChatsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetChatsQuery = (
+  { __typename?: 'Query' }
+  & { getChats?: Maybe<Array<Maybe<(
+    { __typename?: 'Chat' }
+    & ChatFragmentFragment
+  )>>> }
+);
+
+export type CreateChatMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CreateChatMutation = (
+  { __typename?: 'Mutation' }
+  & { createChat: (
+    { __typename?: 'Chat' }
+    & ChatFragmentFragment
+  ) }
+);
+
+export type NewChatSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NewChatSubscription = (
+  { __typename?: 'Subscription' }
+  & { newChat: (
+    { __typename?: 'Chat' }
+    & ChatFragmentFragment
+  ) }
+);
+
+export type ChatFragmentFragment = (
+  { __typename?: 'Chat' }
+  & Pick<Chat, 'id'>
+  & { participants: Array<Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  )>> }
+);
+
 export type MsgFragmentFragment = (
   { __typename?: 'Message' }
   & Pick<Message, 'id' | 'content'>
@@ -215,6 +259,7 @@ export type GetMessagesQuery = (
 
 export type CreateMessageMutationVariables = Exact<{
   content: Scalars['String'];
+  chatId: Scalars['String'];
 }>;
 
 
@@ -296,6 +341,14 @@ export const UserFragmentFragmentDoc = gql`
   firstName
   lastName
   email
+}
+    `;
+export const ChatFragmentFragmentDoc = gql`
+    fragment ChatFragment on Chat {
+  id
+  participants {
+    id
+  }
 }
     `;
 export const MsgFragmentFragmentDoc = gql`
@@ -391,6 +444,101 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const GetChatsDocument = gql`
+    query GetChats {
+  getChats {
+    ...ChatFragment
+  }
+}
+    ${ChatFragmentFragmentDoc}`;
+
+/**
+ * __useGetChatsQuery__
+ *
+ * To run a query within a React component, call `useGetChatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetChatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetChatsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetChatsQuery(baseOptions?: Apollo.QueryHookOptions<GetChatsQuery, GetChatsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetChatsQuery, GetChatsQueryVariables>(GetChatsDocument, options);
+      }
+export function useGetChatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetChatsQuery, GetChatsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetChatsQuery, GetChatsQueryVariables>(GetChatsDocument, options);
+        }
+export type GetChatsQueryHookResult = ReturnType<typeof useGetChatsQuery>;
+export type GetChatsLazyQueryHookResult = ReturnType<typeof useGetChatsLazyQuery>;
+export type GetChatsQueryResult = Apollo.QueryResult<GetChatsQuery, GetChatsQueryVariables>;
+export const CreateChatDocument = gql`
+    mutation CreateChat {
+  createChat {
+    ...ChatFragment
+  }
+}
+    ${ChatFragmentFragmentDoc}`;
+export type CreateChatMutationFn = Apollo.MutationFunction<CreateChatMutation, CreateChatMutationVariables>;
+
+/**
+ * __useCreateChatMutation__
+ *
+ * To run a mutation, you first call `useCreateChatMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateChatMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createChatMutation, { data, loading, error }] = useCreateChatMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCreateChatMutation(baseOptions?: Apollo.MutationHookOptions<CreateChatMutation, CreateChatMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateChatMutation, CreateChatMutationVariables>(CreateChatDocument, options);
+      }
+export type CreateChatMutationHookResult = ReturnType<typeof useCreateChatMutation>;
+export type CreateChatMutationResult = Apollo.MutationResult<CreateChatMutation>;
+export type CreateChatMutationOptions = Apollo.BaseMutationOptions<CreateChatMutation, CreateChatMutationVariables>;
+export const NewChatDocument = gql`
+    subscription NewChat {
+  newChat {
+    ...ChatFragment
+  }
+}
+    ${ChatFragmentFragmentDoc}`;
+
+/**
+ * __useNewChatSubscription__
+ *
+ * To run a query within a React component, call `useNewChatSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useNewChatSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNewChatSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNewChatSubscription(baseOptions?: Apollo.SubscriptionHookOptions<NewChatSubscription, NewChatSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<NewChatSubscription, NewChatSubscriptionVariables>(NewChatDocument, options);
+      }
+export type NewChatSubscriptionHookResult = ReturnType<typeof useNewChatSubscription>;
+export type NewChatSubscriptionResult = Apollo.SubscriptionResult<NewChatSubscription>;
 export const GetMessagesDocument = gql`
     query GetMessages {
   getMessages {
@@ -426,8 +574,8 @@ export type GetMessagesQueryHookResult = ReturnType<typeof useGetMessagesQuery>;
 export type GetMessagesLazyQueryHookResult = ReturnType<typeof useGetMessagesLazyQuery>;
 export type GetMessagesQueryResult = Apollo.QueryResult<GetMessagesQuery, GetMessagesQueryVariables>;
 export const CreateMessageDocument = gql`
-    mutation CreateMessage($content: String!) {
-  createMessage(content: $content) {
+    mutation CreateMessage($content: String!, $chatId: String!) {
+  createMessage(content: $content, chatId: $chatId) {
     ...msgFragment
   }
 }
@@ -448,6 +596,7 @@ export type CreateMessageMutationFn = Apollo.MutationFunction<CreateMessageMutat
  * const [createMessageMutation, { data, loading, error }] = useCreateMessageMutation({
  *   variables: {
  *      content: // value for 'content'
+ *      chatId: // value for 'chatId'
  *   },
  * });
  */

@@ -1,28 +1,33 @@
-import { FC } from 'react';
-
-// containers
-import ChatItem from '@/chat/chatList/components/ChatItem';
-
 // types
-import { IChatItem } from 'chat/chatList/types/chat';
 import { SharedStackNavigationProp } from '@/app/types/routes';
 
 // consts
 import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
+import { useGetChatsQuery } from '@/common/types/gql.generated';
 
 export const useChatList = (navigation: SharedStackNavigationProp) => {
-  const array: FC[] = new Array(10).fill(ChatItem);
-  const result: Array<IChatItem> = array.map((el, ind) => {
+  const { data } = useGetChatsQuery();
+
+  return data?.getChats?.map((el) => {
+    if (!el) {
+      return {
+        data: null,
+        title: '',
+        participants: [],
+        id: '',
+      };
+    }
     return {
-      guid: 'guidtest',
-      title: 'chattitle',
-      users: [],
-      id: ind,
       data: el,
+      title: el.id,
+      participants: el.participants,
+      id: el.id,
       onPress: () => {
-        navigation.navigate(SHARED_STACK_NAME, { screen: CHAT_STACK_NAME });
+        navigation.push(SHARED_STACK_NAME, {
+          screen: CHAT_STACK_NAME,
+          params: { chatId: el.id },
+        });
       },
     };
   });
-  return result;
 };

@@ -9,19 +9,19 @@ import iconStyles from './styles';
 interface IIconProps {
   name: string;
   type?: IconType;
-  color?: string;
+  // color?: string; // prop gives warning
   customStyle?: TextStyle;
 }
 
 const Icon: FC<IIconProps> = (props) => {
   const iconType = props.type || IconType.MEDIUM;
   const customStyle = props.customStyle || {};
-  const color = props.color || '';
+  // const color = props.color || '';
 
   const style: TextStyle = {
     ...iconStyles[iconType],
     ...customStyle,
-    color,
+    // color,
   };
 
   return <FontAwesomeIcon name={props.name} style={style} />;

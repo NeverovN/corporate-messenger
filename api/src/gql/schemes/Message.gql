@@ -12,7 +12,7 @@ type Query {
 }
 
 type Mutation {
-  createMessage(content: String!): Message!
+  createMessage(content: String!, chatId: String!): Message!
 }
 
 type Subscription {

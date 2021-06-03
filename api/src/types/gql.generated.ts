@@ -34,6 +34,7 @@ export type Chat = {
   id: Scalars['ID'];
   participants: Array<Maybe<User>>;
   logo?: Maybe<Scalars['String']>;
+  messages?: Maybe<Array<Maybe<Message>>>;
   settings?: Maybe<ChatSettings>;
 };
 
@@ -93,6 +94,7 @@ export type MutationAddFriendArgs = {
 
 export type MutationCreateMessageArgs = {
   content: Scalars['String'];
+  chatId: Scalars['String'];
 };
 
 
@@ -282,6 +284,7 @@ export type ChatResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   participants?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>;
   logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  messages?: Resolver<Maybe<Array<Maybe<ResolversTypes['Message']>>>, ParentType, ContextType>;
   settings?: Resolver<Maybe<ResolversTypes['ChatSettings']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -313,7 +316,7 @@ export type MessageResolvers<ContextType = any, ParentType extends ResolversPare
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddFriendArgs, 'input'>>;
   createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType>;
-  createMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationCreateMessageArgs, 'content'>>;
+  createMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationCreateMessageArgs, 'content' | 'chatId'>>;
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
   createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationGetPostArgs, 'id'>>;

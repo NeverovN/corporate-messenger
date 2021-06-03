@@ -102,6 +102,13 @@ const resolverMap: Resolvers = {
         ],
         args.content,
       );
+      const currChat = await ChatController.getChat(args.chatId);
+
+      currChat?.messages.push({
+        _id: newMessage._id,
+        author: newMessage.author,
+      });
+
       pubsub.publish(MESSAGE_CREATED, { newMessage: { msg: newMessage } });
       return newMessage;
     },
@@ -173,8 +180,10 @@ const resolverMap: Resolvers = {
   },
   Chat: {
     id: (chat: ChatEntity) => chat._id,
-    participants: async (chat: ChatEntity) => {
-      return await ChatController.getParticipants(chat);
+    participants: async (chat: ChatEntity) =>
+      await ChatController.getParticipants(chat),
+    messages: async (chat: ChatEntity) => {
+      return await ChatController.getMessages(chat);
     },
   },
   Message: {

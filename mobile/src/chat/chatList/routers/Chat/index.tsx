@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { CHAT_SCREEN_NAME } from '../../constants/routes';
 
 // containers
-import ChatScreen from 'chat/chatScreen/components/ChatScreen';
+import ChatScreen from 'chat/chatScreen/containers/ChatScreen';
 
 // types
 import { ChatListStackParamList } from 'chat/chatList/types/routes';

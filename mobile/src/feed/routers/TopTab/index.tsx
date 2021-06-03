@@ -1,7 +1,6 @@
 // Auth router (authentication level router)
 
 import React, { memo, FC } from 'react';
-import { InnerScreens } from '../index';
 
 // constants
 import {
@@ -12,18 +11,19 @@ import {
 // containers
 import Feed from '@/feed/containers/Feed';
 import FriendFeed from '@/feed/containers/FriendFeed';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
+import { TopTabsParamList } from 'feed/types/routes';
 interface IFeedTabNavigatorProps {}
+
+const Screens = createMaterialTopTabNavigator<TopTabsParamList>();
 
 const FeedTabNavigator: FC<IFeedTabNavigatorProps> = () => {
   return (
-    <InnerScreens.Navigator initialRouteName={ALL_FEED_SCREEN_NAME}>
-      <InnerScreens.Screen name={ALL_FEED_SCREEN_NAME} component={Feed} />
-      <InnerScreens.Screen
-        name={FRIEND_FEED_SCREEN_NAME}
-        component={FriendFeed}
-      />
-    </InnerScreens.Navigator>
+    <Screens.Navigator initialRouteName={ALL_FEED_SCREEN_NAME}>
+      <Screens.Screen name={ALL_FEED_SCREEN_NAME} component={Feed} />
+      <Screens.Screen name={FRIEND_FEED_SCREEN_NAME} component={FriendFeed} />
+    </Screens.Navigator>
   );
 };
 

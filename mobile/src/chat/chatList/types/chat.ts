@@ -1,6 +1,6 @@
 export interface IChatItem {
-  guid: string;
+  id: string;
   title: string;
-  users: any[];
+  participants: string[];
   onPress(): void;
 }

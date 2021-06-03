@@ -1,7 +1,9 @@
+import { useCreateChatMutation } from '@/common/types/gql.generated';
+
 export const useHandleNewChat = () => {
-  // call apollo mutation
-  // chat with appropriate id will be stored in apollo cache
+  const [CreateChat] = useCreateChatMutation();
   return () => {
+    CreateChat();
     console.log('new chat button pressed');
   };
 };

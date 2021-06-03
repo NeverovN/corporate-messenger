@@ -56,12 +56,7 @@ class MessageModelController {
   }
 
   async getReceivers(msg: MessageEntity): Promise<UserEntity[]> {
-    const users = await UserController.getAllUsers();
-    const participants = users.filter((user) =>
-      msg.receivers.includes(user._id),
-    );
-
-    return participants;
+    return await UserController.getUsers(msg.receivers);
   }
 }
 

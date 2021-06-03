@@ -13,6 +13,11 @@ export const defaultUserSettings: ChatSettings = {
   notificationsEnabled: true,
 };
 
+type MessageType = {
+  _id: ID;
+  author: ID;
+};
+
 @modelOptions({
   options: { allowMixed: Severity.ALLOW },
   schemaOptions: { collection: 'chats', _id: true },
@@ -27,7 +32,7 @@ export class ChatEntity {
   participants: ID[];
 
   @prop()
-  messages: string[]; // just for now as there is no MessageEntity
+  messages: MessageType[];
 
   @prop()
   settings: ChatSettings;

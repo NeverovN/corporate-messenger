@@ -1,35 +1,35 @@
-import { useNavigation } from '@react-navigation/native';
-import { Alert } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
+// import { Alert } from 'react-native';
 
-// types
-import { SharedStackNavigationProp } from 'app/types/routes';
+// // types
+// import { SharedStackNavigationProp } from 'app/types/routes';
 
-// consts
-import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
+// // consts
+// import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
 
-// interface IUseChatSelectionParams {}
+// // interface IUseChatSelectionParams {}
 
-export const useChatSelection = (
-  {
-    /*params: IUseChatSelectionParams*/
-  },
-) => {
-  const navigation = useNavigation<SharedStackNavigationProp>();
+// export const useChatSelection = (
+//   {
+//     /*params: IUseChatSelectionParams*/
+//   },
+// ) => {
+//   const navigation = useNavigation<SharedStackNavigationProp>();
 
-  const chatSelectionHandler = async () => {
-    return true;
-  }; // api
+//   const chatSelectionHandler = async () => {
+//     return true;
+//   }; // api
 
-  const handleChatSelection = async () => {
-    try {
-      await chatSelectionHandler();
-    } catch {
-      Alert.alert('ERROR', 'Error occured'); // just for now
-    }
+//   const handleChatSelection = async () => {
+//     try {
+//       await chatSelectionHandler();
+//     } catch {
+//       Alert.alert('ERROR', 'Error occurred'); // just for now
+//     }
 
-    // sends some info on server to give user access to their account
-    navigation.navigate(SHARED_STACK_NAME, { screen: CHAT_STACK_NAME });
-  };
+//     // sends some info on server to give user access to their account
+//     navigation.navigate(SHARED_STACK_NAME, { screen: CHAT_STACK_NAME, params: {id: } });
+//   };
 
-  return handleChatSelection;
-};
+//   return handleChatSelection;
+// };
