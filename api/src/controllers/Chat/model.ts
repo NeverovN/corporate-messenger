@@ -9,6 +9,7 @@ import { UserEntity } from '../../models/User';
 import { UserController } from '../User';
 import { MessageEntity } from '../../models/Message';
 import { MessageController } from '../Message';
+import { MessageType } from '../../models/Chat';
 
 class ChatModelController {
   private mapChatWithFallback(chat: ChatDocument | null): ChatEntity | null {
@@ -49,6 +50,17 @@ class ChatModelController {
     return await MessageController.getMessages(
       chat.messages.map((el) => el._id),
     );
+  }
+
+  async addMessage(chatId: string, msg: MessageType): Promise<boolean> {
+    try {
+      const chatModel = await ChatModel.findById(chatId).exec();
+      chatModel?.messages.push(msg);
+      chatModel?.save();
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
 

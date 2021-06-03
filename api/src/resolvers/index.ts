@@ -102,14 +102,9 @@ const resolverMap: Resolvers = {
         ],
         args.content,
       );
-      const currChat = await ChatController.getChat(args.chatId);
+      await ChatController.addMessage(args.chatId, newMessage);
 
-      currChat?.messages.push({
-        _id: newMessage._id,
-        author: newMessage.author,
-      });
-
-      pubsub.publish(MESSAGE_CREATED, { newMessage: { msg: newMessage } });
+      pubsub.publish(MESSAGE_CREATED, newMessage);
       return newMessage;
     },
   },
@@ -153,8 +148,8 @@ const resolverMap: Resolvers = {
     newMessage: {
       subscribe: () => pubsub.asyncIterator([MESSAGE_CREATED]),
 
-      resolve: ({ newMessage }: MSGPayloadType) => {
-        return newMessage.msg;
+      resolve: (msg: MessageEntity) => {
+        return msg;
       },
     },
   },
@@ -201,9 +196,3 @@ const resolverMap: Resolvers = {
   },
 };
 export default resolverMap;
-
-type MSGPayloadType = {
-  newMessage: {
-    msg: MessageEntity;
-  };
-};

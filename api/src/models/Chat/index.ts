@@ -5,7 +5,6 @@ import {
   Severity,
 } from '@typegoose/typegoose';
 import { ID, Nullable, URL } from '../../types/common';
-import { UserEntity } from '../User';
 
 import { ChatSettings } from './types';
 
@@ -13,7 +12,7 @@ export const defaultUserSettings: ChatSettings = {
   notificationsEnabled: true,
 };
 
-type MessageType = {
+export type MessageType = {
   _id: ID;
   author: ID;
 };
