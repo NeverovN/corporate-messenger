@@ -7,7 +7,7 @@ import {
 // components
 import TileView from 'feed/components/Tile';
 
-interface IPostArr {
+interface IPost {
   data: FC;
   id: number;
 }
@@ -24,9 +24,9 @@ export const useUsersPosts = () => {
     return [];
   }
 
-  const posts: IPostArr[] = queryData.getPosts.map((_, ind) => ({
+  const posts: IPost[] = data.getUsersPosts.map((_, i) => ({
     data: TileView,
-    id: ind,
+    id: i,
   }));
 
   if (subData) {
@@ -35,6 +35,7 @@ export const useUsersPosts = () => {
     console.log('data received');
     posts.push({ data: TileView, id: posts.length + 1 });
   }
+
 
   return posts;
 };

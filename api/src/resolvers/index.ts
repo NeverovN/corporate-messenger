@@ -7,14 +7,17 @@ import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
 import verifyPasswordHash from '../utils/verifyPasswordHash';
 import { UserEntity } from '../models/User';
+import { PostEntity } from '../models/Post';
 
 // types
 import { ApolloContextType } from '../types/apollo';
+
 import { withFilter } from 'graphql-subscriptions';
 
 // consts
 import { pubsub } from '../consts/pubsub';
-import { PostEntity } from '../models/Post';
+
+
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -86,7 +89,7 @@ const resolverMap: Resolvers = {
   },
   Query: {
     async getUserById(_, args) {
-      return await UserController.getUser(args.id);
+      return await UserController.getUser(args.id); // don't see principal difference between this query and getUser
     },
     async getPosts(_, __, { currentUserId }) {
       return await PostController.getPostsByAuthor(currentUserId);
@@ -107,6 +110,9 @@ const resolverMap: Resolvers = {
       resolve: (post: PostEntity) => {
         return post;
       },
+    },
+    async getCurrentUser(_, __, { currentUserId }) {
+      return await UserController.getUser(currentUserId);
     },
   },
   User: {

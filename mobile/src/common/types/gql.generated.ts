@@ -86,7 +86,8 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
-  getCurrentUser?: Maybe<User>;
+
+  getCurrentUser: User;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUserById?: Maybe<User>;
@@ -149,6 +150,7 @@ export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
 
 export type CreatePostMutationVariables = Exact<{ [key: string]: never }>;
 
+
 export type CreatePostMutation = { __typename?: 'Mutation' } & {
   createPost: { __typename?: 'Post' } & PostFragmentFragment;
 };
@@ -174,6 +176,30 @@ export type GetUserQuery = { __typename?: 'Query' } & {
     { __typename?: 'User' } & Pick<User, 'firstName' | 'lastName'>
   >;
 };
+
+export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCurrentUserQuery = (
+  { __typename?: 'Query' }
+  & { getCurrentUser: (
+    { __typename?: 'User' }
+    & Pick<User, 'firstName' | 'lastName'>
+  ) }
+);
+
+export type GetUserByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetUserByIdQuery = (
+  { __typename?: 'Query' }
+  & { getUserById?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'firstName' | 'lastName'>
+  )> }
+);
 
 export const UserFragmentFragmentDoc = gql`
   fragment UserFragment on User {
@@ -243,6 +269,7 @@ export type LoginMutationOptions = Apollo.BaseMutationOptions<
   LoginMutation,
   LoginMutationVariables
 >;
+
 export const CreateUserDocument = gql`
   mutation CreateUser($input: CreateUserInput!) {
     createUser(input: $input) {
@@ -452,12 +479,14 @@ export const GetUserDocument = gql`
  *
  * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
  * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
  * const { data, loading, error } = useGetUserQuery({
+
  *   variables: {
  *   },
  * });
@@ -489,3 +518,4 @@ export type GetUserQueryResult = Apollo.QueryResult<
   GetUserQuery,
   GetUserQueryVariables
 >;
+

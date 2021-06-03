@@ -43,6 +43,7 @@ export function useHandleLogin(
 
       setToken(data.login.token || '');
 
+
       navigation.navigate(MAIN_STACK_NAME);
       return;
     } catch (err) {
