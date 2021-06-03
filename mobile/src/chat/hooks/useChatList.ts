@@ -14,8 +14,8 @@ export const useChatList = (navigation: SharedStackNavigationProp) => {
   const array: FC[] = new Array(10).fill(ChatItem);
   const result: Array<IChatItem> = array.map((el, ind) => {
     return {
-      guid: 'guidtest',
-      title: 'chattitle',
+      guid: 'guid test',
+      title: 'chat title',
       users: [],
       id: ind,
       data: el,

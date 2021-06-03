@@ -6,7 +6,7 @@ import ChatView from '@/chat/components/Chat';
 interface IChatListContainerProps {}
 
 const ChatList: FC<IChatListContainerProps> = () => {
-  console.log('rerender ChatListContainer');
+  console.log('re-render ChatListContainer');
 
   return <ChatView />;
 };

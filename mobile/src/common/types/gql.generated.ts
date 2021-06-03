@@ -102,7 +102,7 @@ export type QueryGetUserByIdArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  newPost: Post;
+  newPost?: Maybe<Post>;
 };
 
 export type User = {
@@ -112,7 +112,7 @@ export type User = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
-  friends: Array<Maybe<Scalars['ID']>>;
+  friends: Array<User>;
 };
 
 export type UserFragmentFragment = { __typename?: 'User' } & Pick<
@@ -156,7 +156,7 @@ export type CreatePostMutation = { __typename?: 'Mutation' } & {
 export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type NewPostSubscription = { __typename?: 'Subscription' } & {
-  newPost: { __typename?: 'Post' } & PostFragmentFragment;
+  newPost?: Maybe<{ __typename?: 'Post' } & PostFragmentFragment>;
 };
 
 export type GetPostsQueryVariables = Exact<{ [key: string]: never }>;

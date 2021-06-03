@@ -7,9 +7,9 @@ import AddPostButtonView from 'profile/components/AddPostButton';
 import { useAddPost } from 'profile/hooks/useAddPost';
 // import { useCurrentUserToken } from 'common/hooks/useCurrentUserToken';
 
-interface IAddPostButtonContainderProps {}
+interface IAddPostButtonContainerProps {}
 
-const AddPostButtonContainer: FC<IAddPostButtonContainderProps> = () => {
+const AddPostButtonContainer: FC<IAddPostButtonContainerProps> = () => {
   // const userToken = useCurrentUserToken(); // thats how it should be ----------|
   // const handleEdit = useAddPost({ token: userToken }); // <---- continue ---|
 

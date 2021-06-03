@@ -6,9 +6,9 @@ import EditButtonView from 'profile/components/EditButton';
 // hooks
 import { useHandleEdit } from 'profile/hooks/useHandleEdit';
 
-interface IEditButtonContainderProps {}
+interface IEditButtonContainerProps {}
 
-const EditButtonContainer: FC<IEditButtonContainderProps> = () => {
+const EditButtonContainer: FC<IEditButtonContainerProps> = () => {
   const handleEdit = useHandleEdit();
 
   return <EditButtonView onPress={handleEdit} />;

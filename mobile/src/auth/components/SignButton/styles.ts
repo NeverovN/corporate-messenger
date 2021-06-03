@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   textStyle: {
-    fontSize: 20
+    fontSize: 20,
   },
 
   viewStyle: {
@@ -15,7 +15,4 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  touchStyle: {
-
-  }
 });

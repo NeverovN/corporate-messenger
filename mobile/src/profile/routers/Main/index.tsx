@@ -27,7 +27,7 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
         name={PROFILE_SCREEN_NAME}
         component={Profile}
         options={{
-          headerRight: headerRight, // perhaps it should be mooved in its own file
+          headerRight: headerRight, // perhaps it should be moved in its own file
         }}
       />
     </Screens.Navigator>

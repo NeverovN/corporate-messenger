@@ -1,4 +1,4 @@
-import { Resolvers } from '../types/gql.generated';
+import { PostResolvers, Resolvers } from '../types/gql.generated';
 import { UserController } from '../controllers/User';
 import { PostController } from '../controllers/Post';
 import { POST_CREATED } from '../consts/events';
@@ -99,14 +99,12 @@ const resolverMap: Resolvers = {
           console.log('subscribed for new post');
           return pubsub.asyncIterator([POST_CREATED]);
         },
-        (post) => {
-          console.log(post);
-
+        () => {
+          // basing on true/false return decides, if resolve function should be called
           return true;
         },
       ),
       resolve: (post: PostEntity) => {
-        console.log('subscription resolved');
         return post;
       },
     },

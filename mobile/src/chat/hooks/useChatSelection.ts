@@ -24,7 +24,7 @@ export const useChatSelection = (
     try {
       await chatSelectionHandler();
     } catch {
-      Alert.alert('ERROR', 'Error occured'); // just for now
+      Alert.alert('ERROR', 'Error occurred'); // just for now
     }
 
     // sends some info on server to give user access to their account
