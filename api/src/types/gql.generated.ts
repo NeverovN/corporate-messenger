@@ -1,5 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { UserEntity } from 'api/src/models/User/index';
+import { UserEntity } from '../models/User/index';
+import { PostEntity } from '../models/Post/index';
+import { ChatEntity } from '../models/Chat/index';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -132,7 +134,7 @@ export type User = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
-  friends: Array<Maybe<Scalars['ID']>>;
+  friends: Array<User>;
 };
 
 
@@ -216,14 +218,14 @@ export type ResolversTypes = {
   AddFriendInput: AddFriendInput;
   String: ResolverTypeWrapper<Scalars['String']>;
   AuthenticationResult: ResolverTypeWrapper<Omit<AuthenticationResult, 'user'> & { user: ResolversTypes['User'] }>;
-  Chat: ResolverTypeWrapper<Omit<Chat, 'participants'> & { participants: Array<Maybe<ResolversTypes['User']>> }>;
+  Chat: ResolverTypeWrapper<ChatEntity>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   ChatSettings: ResolverTypeWrapper<ChatSettings>;
   CommentModel: ResolverTypeWrapper<Omit<CommentModel, 'author' | 'likes'> & { author: ResolversTypes['User'], likes?: Maybe<Array<Maybe<ResolversTypes['User']>>> }>;
   CreateUserInput: CreateUserInput;
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
-  Post: ResolverTypeWrapper<Omit<Post, 'author' | 'comments'> & { author: ResolversTypes['User'], comments?: Maybe<Array<Maybe<ResolversTypes['CommentModel']>>> }>;
+  Post: ResolverTypeWrapper<PostEntity>;
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<UserEntity>;
@@ -235,14 +237,14 @@ export type ResolversParentTypes = {
   AddFriendInput: AddFriendInput;
   String: Scalars['String'];
   AuthenticationResult: Omit<AuthenticationResult, 'user'> & { user: ResolversParentTypes['User'] };
-  Chat: Omit<Chat, 'participants'> & { participants: Array<Maybe<ResolversParentTypes['User']>> };
+  Chat: ChatEntity;
   ID: Scalars['ID'];
   ChatSettings: ChatSettings;
   CommentModel: Omit<CommentModel, 'author' | 'likes'> & { author: ResolversParentTypes['User'], likes?: Maybe<Array<Maybe<ResolversParentTypes['User']>>> };
   CreateUserInput: CreateUserInput;
   LoginInput: LoginInput;
   Mutation: {};
-  Post: Omit<Post, 'author' | 'comments'> & { author: ResolversParentTypes['User'], comments?: Maybe<Array<Maybe<ResolversParentTypes['CommentModel']>>> };
+  Post: PostEntity;
   Query: {};
   Subscription: {};
   User: UserEntity;
@@ -315,7 +317,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  friends?: Resolver<Array<Maybe<ResolversTypes['ID']>>, ParentType, ContextType>;
+  friends?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -1,3 +1,3 @@
-import { UserModel } from './User';
+import { UserEntity } from './User';
 
-export const entities = [UserModel];
+export const entities = [UserEntity];

@@ -5,7 +5,9 @@ import { ChatDocument } from '../../models/Chat/types';
 
 import { mapChatDocumentToChatEntity } from '../../models/Chat/mappers';
 import ChatEntityController from './entity';
-import { UserEntity } from '../../models/User';
+import UserModel, { UserEntity } from '../../models/User';
+import { UserController } from '../User';
+import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 
 class ChatModelController {
   private mapChatWithFallback(chat: ChatDocument | null): ChatEntity | null {
@@ -20,22 +22,31 @@ class ChatModelController {
     return this.mapChatWithFallback(chat);
   }
 
-  async getChats(user: UserEntity): Promise<Array<ChatEntity>> {
+  async getChats(userId: ID): Promise<Array<ChatEntity>> {
     const chatsQuery = await ChatModel.find().exec();
 
     const result = chatsQuery.filter(({ participants }) =>
-      participants.includes(user),
+      participants.includes(userId),
     );
 
     return result.map(mapChatDocumentToChatEntity);
   }
 
-  async createChat(participants: UserEntity[]): Promise<ChatEntity> {
+  async createChat(participants: ID[]): Promise<ChatEntity> {
     const newChat = ChatEntityController.createChatEntity(participants);
 
     const createdChat = await ChatModel.create(newChat);
 
     return mapChatDocumentToChatEntity(createdChat);
+  }
+
+  async getParticipants(chat: ChatEntity): Promise<UserEntity[]> {
+    const users = await UserModel.find().exec();
+    const participants = users.filter((user) =>
+      chat.participants.includes(user._id),
+    );
+
+    return participants;
   }
 }
 

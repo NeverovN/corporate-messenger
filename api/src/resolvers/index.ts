@@ -1,6 +1,7 @@
 import { Resolvers } from '../types/gql.generated';
 import { UserController } from '../controllers/User';
 import { PostController } from '../controllers/Post';
+import { ChatController } from '../controllers/Chat';
 import { POST_CREATED, CHAT_CREATED } from '../consts/events';
 
 import createToken from '../utils/createToken';
@@ -14,7 +15,8 @@ import { withFilter } from 'graphql-subscriptions';
 
 // consts
 import { pubsub } from '../consts/pubsub';
-import { ChatController } from '../controllers/Chat';
+import { PostEntity } from '../models/Post';
+import { ChatEntity } from '../models/Chat';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -74,34 +76,20 @@ const resolverMap: Resolvers = {
     },
     async createPost(_, __, { currentUserId }: ApolloContextType) {
       if (!currentUserId) {
-        throw Error('unlogined user');
+        throw Error('unlogged user');
       }
-      const author = await UserController.getUser(currentUserId);
-      if (!author) {
-        throw Error('user is missing');
-      }
-      const post = await PostController.createPost(author);
 
-      pubsub.publish(POST_CREATED, {
-        newPost: {
-          ...post,
-          author: author,
-        },
-      });
-      return {
-        ...post,
-        author: author,
-      };
+      const post = await PostController.createPost(currentUserId);
+
+      pubsub.publish(POST_CREATED, post);
+
+      return post;
     },
     async createChat(_, __, { currentUserId }) {
-      const user = await UserController.getUser(currentUserId);
-      if (!user) throw Error('unlogined user');
-      const newChat = await ChatController.createChat([user]);
+      const newChat = await ChatController.createChat([currentUserId]);
       console.log(pubsub);
 
-      pubsub.publish(CHAT_CREATED, {
-        newChat: { chat: newChat },
-      });
+      pubsub.publish(CHAT_CREATED, newChat);
       console.log(pubsub);
 
       return newChat;
@@ -115,11 +103,7 @@ const resolverMap: Resolvers = {
       return await PostController.getPostsByAuthor(currentUserId);
     },
     async getChats(_, __, { currentUserId }) {
-      const user = await UserController.getUser(currentUserId);
-      if (!user) {
-        throw Error('unlogined user');
-      }
-      return await ChatController.getChats(user);
+      return await ChatController.getChats(currentUserId);
     },
   },
   Subscription: {
@@ -129,25 +113,20 @@ const resolverMap: Resolvers = {
           console.log('subscribed for new post');
           return pubsub.asyncIterator([POST_CREATED]);
         },
-        (payload) => {
-          console.log({
-            ...payload.newPost.post,
-            id: payload.newPost.post._id,
-          });
-          return { ...payload.newPost.post, id: payload.newPost.post._id };
+        () => {
+          // basing on true/false return decides, if resolve function should be called
+          return true;
         },
       ),
-      // resolve: (payload: any) => {
-      //   console.log('subscription resolved');
-      //   console.log({ ...payload.newPost.post });
-      //   return { ...payload.newPost.post, id: payload.newPost.post._id };
-      // },
+      resolve: (post: PostEntity) => {
+        return post;
+      },
     },
     newChat: {
       subscribe: () => pubsub.asyncIterator([CHAT_CREATED]),
-      resolve: (payload: any) => {
-        console.log(payload);
-        return payload.newChat.chat;
+      resolve: (chat: ChatEntity) => {
+        console.log(chat);
+        return chat;
       },
     },
   },
@@ -158,19 +137,22 @@ const resolverMap: Resolvers = {
 
       const friends = await UserController.getUsers(friendIds);
 
-      const friendsIDs = friends.map((el) => el.id);
-
-      return friendsIDs;
+      return friends;
     },
   },
   Post: {
-    // id: (post: PostEntity) => post._id, // i don't understand why it doesn't work
-    // author: async (post) => {
-    //   const authorDocument = await UserModel.findById(post.author).exec();
-    //   if (!authorDocument) return null;
-    //   const author = mapUserDocumentToUserEntity(authorDocument);
-    //   return author;
-    // },
+    author: async (post: PostEntity) => {
+      const author = await UserController.getUser(post.author);
+
+      if (!author) throw new Error('author missed'); // TODO: provide useful errors
+
+      return author;
+    },
+  },
+  Chat: {
+    participants: async (chat: ChatEntity) => {
+      return await ChatController.getParticipants(chat);
+    },
   },
 };
 export default resolverMap;

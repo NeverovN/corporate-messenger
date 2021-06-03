@@ -12,7 +12,7 @@ const EditButtonView: FC<IEditButtonViewProps> = (props) => {
   return (
     <View style={styles.editButtonViewStyle}>
       <TouchableOpacity
-        style={styles.editButtontTouchSyles}
+        style={styles.editButtonTouchStyles}
         onPress={props.onPress}>
         <Text>Edit</Text>
       </TouchableOpacity>

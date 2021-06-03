@@ -3,9 +3,12 @@ schema: "api/src/**/*.gql"
 generates:
   api/src/types/gql.generated.ts:
     config:
-      configType: api/src/types/apollo#ApolloContextType
+      configType: ./apollo#ApolloContextType
       mappers:
-        User: api/src/models/User/index#UserEntity
+        User: ../models/User/index#UserEntity
+        Post: ../models/Post/index#PostEntity
+        Chat: ../models/Chat/index#ChatEntity
+
     plugins:
       - "typescript"
       - "typescript-resolvers"

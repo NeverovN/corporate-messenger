@@ -24,7 +24,7 @@ export class ChatEntity {
   logo: Nullable<URL>;
 
   @prop({ required: true })
-  participants: UserEntity[];
+  participants: ID[];
 
   @prop()
   messages: string[]; // just for now as there is no MessageEntity
@@ -32,7 +32,7 @@ export class ChatEntity {
   @prop()
   settings: ChatSettings;
 
-  constructor(participants: UserEntity[]) {
+  constructor(participants: ID[]) {
     this.participants = participants;
     this.messages = [];
     this.settings = defaultUserSettings;

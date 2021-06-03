@@ -28,13 +28,13 @@ class PostModelController {
     return result.map(mapPostDocumentToPostEntity);
   }
 
-  async getPostsByAuthor(author: UserEntity): Promise<(PostEntity | null)[]> {
-    const posts = await PostModel.find({ author });
+  async getPostsByAuthor(authorId: ID): Promise<(PostEntity | null)[]> {
+    const posts = await PostModel.find({ author: authorId });
 
     return posts.map((el) => this.mapPostWithFallback(el));
   }
 
-  async createPost(author: UserEntity): Promise<PostEntity> {
+  async createPost(author: ID): Promise<PostEntity> {
     const newPost = PostEntityController.createPostEntity(author);
 
     const createdPost = await PostModel.create(newPost);

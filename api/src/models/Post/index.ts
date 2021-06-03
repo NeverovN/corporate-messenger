@@ -27,7 +27,7 @@ export class PostEntity {
   id: string;
 
   @prop({ required: true })
-  author: UserEntity;
+  author: ID;
 
   @prop({ required: true })
   createdAt: string;
@@ -50,7 +50,7 @@ export class PostEntity {
   @prop()
   comments: Array<CommentModel>;
 
-  constructor(author: UserEntity) {
+  constructor(author: ID) {
     this.author = author;
     this.createdAt = new Date().toString();
   }
