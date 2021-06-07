@@ -126,7 +126,6 @@ export type Query = {
   getChatById?: Maybe<Chat>;
   getChats?: Maybe<Array<Maybe<Chat>>>;
   getCurrentUser: User;
-  getMessages?: Maybe<Array<Maybe<Message>>>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUserById?: Maybe<User>;
@@ -134,11 +133,6 @@ export type Query = {
 
 
 export type QueryGetChatByIdArgs = {
-  chatId: Scalars['ID'];
-};
-
-
-export type QueryGetMessagesArgs = {
   chatId: Scalars['ID'];
 };
 
@@ -348,7 +342,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getChatById?: Resolver<Maybe<ResolversTypes['Chat']>, ParentType, ContextType, RequireFields<QueryGetChatByIdArgs, 'chatId'>>;
   getChats?: Resolver<Maybe<Array<Maybe<ResolversTypes['Chat']>>>, ParentType, ContextType>;
   getCurrentUser?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  getMessages?: Resolver<Maybe<Array<Maybe<ResolversTypes['Message']>>>, ParentType, ContextType, RequireFields<QueryGetMessagesArgs, 'chatId'>>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetPostArgs, 'id'>>;
   getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getUserById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;

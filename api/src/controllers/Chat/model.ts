@@ -7,9 +7,6 @@ import { mapChatDocumentToChatEntity } from '../../models/Chat/mappers';
 import ChatEntityController from './entity';
 import { UserEntity } from '../../models/User';
 import { UserController } from '../User';
-import { MessageEntity } from '../../models/Message';
-import { MessageController } from '../Message';
-import { MessageType } from '../../models/Chat';
 
 class ChatModelController {
   private mapChatWithFallback(chat: ChatDocument | null): ChatEntity | null {
@@ -52,26 +49,9 @@ class ChatModelController {
   }
 
   async getParticipantsByChatId(chatId: ID): Promise<ID[]> {
-    const chat = await ChatEntityController.getChatById(chatId);
+    const chat = await this.getChat(chatId);
+
     return chat.participants;
-  }
-
-  async getMessages(chat: ChatEntity): Promise<MessageEntity[]> {
-    return await MessageController.getMessages(
-      chat.messages.map((el) => el._id),
-    );
-  }
-
-  async addMessage(chatId: string, msg: MessageType): Promise<boolean> {
-    try {
-      // changed logic but not confident is it the needed approach
-      const chatDoc = await ChatEntityController.getChatById(chatId);
-      chatDoc.messages.push(msg);
-      chatDoc.save();
-      return true;
-    } catch (error) {
-      return false;
-    }
   }
 }
 
