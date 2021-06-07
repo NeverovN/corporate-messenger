@@ -4,7 +4,6 @@ interface IUseAddPost {}
 
 export const useAddPost = () => {
   const [createPost] = useCreatePostMutation();
-
   return async () => {
     try {
       createPost();

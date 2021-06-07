@@ -1,26 +1,27 @@
 import React, { FC, memo } from 'react';
-import { FlatList, View } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { FlatList, View, ListRenderItem } from 'react-native';
+
+// components
+import Tile from '../Tile';
+
+// types
+import { IPostItem } from 'feed/types/feed';
 
 // styles
 import styles from './styles';
 
-interface IFeedComponentProps {
-  data: ReadonlyArray<IFlatListProps>;
+interface IFeedListViewProps {
+  data: IPostItem[];
 }
 
-interface IFlatListProps {
-  id: number;
-  data: typeof React.Component;
-}
+const renderChatItem: ListRenderItem<IPostItem> = () => {
+  return <Tile />;
+};
 
-const FeedView: FC<IFeedComponentProps> = (props) => {
+const FeedView: FC<IFeedListViewProps> = (props) => {
   return (
     <View style={styles.feedStyle}>
-      <FlatList<IFlatListProps>
-        renderItem={({ item }) => <ListItem Component={item.data} />}
-        data={props.data}
-      />
+      <FlatList renderItem={renderChatItem} data={props.data} />
     </View>
   );
 };

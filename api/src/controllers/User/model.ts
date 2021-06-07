@@ -53,6 +53,21 @@ class UserModelController {
     return this.mapUserWithFallback(userResult);
   }
 
+  async getFriends(userId: ID): Promise<UserEntity[]> {
+    const user = await UserModel.findById(userId).exec();
+    if (!user) {
+      throw Error('unlogged user');
+    }
+
+    const allUsers = await UserModel.find().exec();
+
+    const friends = allUsers.filter((possibleFriend) =>
+      user.friends.includes(possibleFriend.id),
+    );
+
+    return friends;
+  }
+
   async createUser(
     email: string,
     password: string,

@@ -32,7 +32,7 @@ class UserEntityController {
   }
 
   private addUserToFriends(user: UserEntity, friend: UserEntity): UserEntity {
-    const newUserFriendIds = this.getNewFriendIds(user.friends, friend.id);
+    const newUserFriendIds = this.getNewFriendIds(user.friends, friend._id);
 
     return { ...user, friends: newUserFriendIds };
   }

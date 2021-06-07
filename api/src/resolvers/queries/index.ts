@@ -34,6 +34,17 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
 
     return await ChatController.getChat(args.chatId);
   },
+  async getFriendPosts(_, __, { currentUserId }) {
+    if (!currentUserId) throw Error('Unauthorized');
+
+    const friends = await UserController.getFriends(currentUserId);
+
+    const feed = await Promise.all(
+      friends.map((user) => PostController.getPostsByAuthor(user._id)),
+    );
+
+    return feed.flat(); // TODO: check if it works correctly (maybe we have to use lodash or ramda or somethings else)
+  },
 };
 
 export default queryResolvers;

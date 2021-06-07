@@ -7,7 +7,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
   },
-  addPostButtontTouchSyles: {
+  addPostButtonTouchStyle: {
     width: '80%',
     height: '100%',
     alignItems: 'center',

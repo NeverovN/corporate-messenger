@@ -7,7 +7,7 @@ import styles from './styles';
 // containers
 import UserHeader from '@/profile/containers/UserHeader';
 import EditButton from 'profile/containers/EditButton';
-import AddPostButon from 'profile/containers/AddPostButton';
+import AddPostButton from 'profile/containers/AddPostButton';
 
 interface IMainTileViewProps {}
 
@@ -18,7 +18,7 @@ const MainTileView: FC<IMainTileViewProps> = () => {
         <UserHeader />
         <EditButton />
       </View>
-      <AddPostButon />
+      <AddPostButton />
     </>
   );
 };

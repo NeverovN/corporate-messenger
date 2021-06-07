@@ -24,14 +24,12 @@ query GetPosts {
   }
 }
 
-
 query GetCurrentUser {
   getCurrentUser {
     firstName
     lastName
   }
 }
-
 
 query GetUserByID($id: ID!) {
   getUserById(id: $id) {

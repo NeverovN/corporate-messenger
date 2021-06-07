@@ -1,11 +1,11 @@
 // component
 import TileView from '@/feed/components/Tile';
-import { useGetFeedQuery } from '@/common/types/gql.generated';
+import { useGetFriendFeedQuery } from '@/common/types/gql.generated';
 
-export const useFeedList = () => {
-  const { data } = useGetFeedQuery();
+export const useFriendFeedList = () => {
+  const { data } = useGetFriendFeedQuery();
 
-  return data?.getAllPosts?.map((el) => {
+  return data?.getFriendPosts?.map((el) => {
     if (!el) {
       return {
         data: null,
