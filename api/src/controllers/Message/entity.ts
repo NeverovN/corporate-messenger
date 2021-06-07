@@ -3,12 +3,8 @@ import { ID } from '../../types/common';
 import { MessageEntity } from '../../models/Message';
 
 class MessageEntityController {
-  createMessageEntity(
-    author: ID,
-    receivers: ID[],
-    content: string,
-  ): MessageEntity {
-    const newMessage = new MessageEntity(author, receivers, content);
+  createMessageEntity(author: ID, chat: ID, content: string): MessageEntity {
+    const newMessage = new MessageEntity(author, chat, content);
 
     return newMessage;
   }

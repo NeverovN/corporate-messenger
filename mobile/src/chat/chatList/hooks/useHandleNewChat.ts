@@ -1,9 +1,9 @@
 import { useCreateChatMutation } from '@/common/types/gql.generated';
 
 export const useHandleNewChat = () => {
-  const [CreateChat] = useCreateChatMutation();
+  const [createChat] = useCreateChatMutation();
   return () => {
-    CreateChat();
+    createChat();
     console.log('new chat button pressed');
   };
 };

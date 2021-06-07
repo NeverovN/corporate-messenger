@@ -6,12 +6,6 @@ import {
 } from '@typegoose/typegoose';
 import { ID, Nullable, URL } from '../../types/common';
 
-import { ChatSettings } from './types';
-
-export const defaultUserSettings: ChatSettings = {
-  notificationsEnabled: true,
-};
-
 export type MessageType = {
   _id: ID;
   author: ID;
@@ -33,13 +27,9 @@ export class ChatEntity {
   @prop()
   messages: MessageType[];
 
-  @prop()
-  settings: ChatSettings;
-
   constructor(participants: ID[]) {
     this.participants = participants;
     this.messages = [];
-    this.settings = defaultUserSettings;
   }
 }
 

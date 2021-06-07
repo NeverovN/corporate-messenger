@@ -21,7 +21,7 @@ export class MessageEntity {
   author: ID;
 
   @prop({ required: true })
-  receivers: ID[];
+  chatId: ID;
 
   @prop({ required: true })
   content: string;
@@ -35,9 +35,9 @@ export class MessageEntity {
   @prop()
   media: Array<MessageMedia>;
 
-  constructor(author: ID, receivers: ID[], content: string) {
+  constructor(author: ID, chatId: ID, content: string) {
     this.author = author;
-    this.receivers = receivers;
+    this.chatId = chatId;
     this.content = content;
     this.createdAt = new Date().toString();
   }

@@ -12,6 +12,7 @@ type ChatSettings {
 
 type Query {
   getChats: [Chat]
+  getChatById(chatId: ID!): Chat
 }
 
 type Mutation {

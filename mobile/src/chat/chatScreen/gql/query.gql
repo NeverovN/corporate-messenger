@@ -3,9 +3,7 @@ fragment msgFragment on Message {
   author {
     id
   }
-  receivers {
-    id
-  }
+  chatId
   content
 }
 

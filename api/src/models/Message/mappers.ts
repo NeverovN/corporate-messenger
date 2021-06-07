@@ -8,7 +8,7 @@ export function mapMessageDocumentToMessageEntity(
     _id: document._id,
     content: document.content,
     author: document.author,
-    receivers: document.receivers,
+    chatId: document.chatId,
     createdAt: document.createdAt,
     lastEdit: document.lastEdit,
 

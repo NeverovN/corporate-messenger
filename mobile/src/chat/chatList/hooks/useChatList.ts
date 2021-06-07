@@ -8,14 +8,13 @@ import { useGetChatsQuery } from '@/common/types/gql.generated';
 export const useChatList = (navigation: SharedStackNavigationProp) => {
   const { data } = useGetChatsQuery();
 
-  return data?.getChats?.map((el) => {
+  if (!data || !data.getChats) {
+    return [] as any;
+  }
+
+  return data.getChats.map((el) => {
     if (!el) {
-      return {
-        data: null,
-        title: '',
-        participants: [],
-        id: '',
-      };
+      return [] as any;
     }
     return {
       data: el,

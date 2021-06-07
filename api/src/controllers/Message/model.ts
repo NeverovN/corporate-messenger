@@ -5,8 +5,8 @@ import { MessageDocument } from '../../models/Message/types';
 
 import { mapMessageDocumentToMessageEntity } from '../../models/Message/mappers';
 import MessageEntityController from './entity';
-import { UserEntity } from '../../models/User';
-import { UserController } from '../User';
+import { ChatController } from '../Chat';
+import { MessageController } from '.';
 
 class MessageModelController {
   private mapMessageWithFallback(
@@ -39,12 +39,12 @@ class MessageModelController {
 
   async createMessage(
     author: ID,
-    receivers: ID[],
+    chatId: ID,
     content: string,
   ): Promise<MessageEntity> {
     const newMessage = MessageEntityController.createMessageEntity(
       author,
-      receivers,
+      chatId,
       content,
     );
 
@@ -55,8 +55,26 @@ class MessageModelController {
     return mapMessageDocumentToMessageEntity(createdMessage);
   }
 
-  async getReceivers(msg: MessageEntity): Promise<UserEntity[]> {
-    return await UserController.getUsers(msg.receivers);
+  async getReceivers(msg: MessageEntity): Promise<ID[]> {
+    return await ChatController.getParticipantsByChatId(msg.chatId);
+  }
+
+  async getChatId(msg: MessageEntity): Promise<ID> {
+    const chat = await ChatController.getChat(msg.chatId);
+
+    if (!chat) {
+      throw Error('chat not found');
+    }
+
+    return chat._id;
+  }
+
+  async getChatMessages(chatId: ID): Promise<MessageEntity[]> {
+    const chat = await ChatController.getChat(chatId);
+
+    const messagesIds = chat.messages.map((msg) => msg._id);
+
+    return await MessageController.getMessages(messagesIds);
   }
 }
 

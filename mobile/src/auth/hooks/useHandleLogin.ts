@@ -7,6 +7,7 @@ import {
   FEED_STACK_NAME,
   MAIN_STACK_NAME,
 } from 'app/constants/routes';
+import { ALL_FEED_SCREEN_NAME, FEED_SCREEN_NAME } from 'feed/constants/routes';
 
 // routers
 import { MainScreenNavigationProp } from 'app/types/routes';
@@ -16,10 +17,6 @@ import { useLoginMutation } from 'common/types/gql.generated';
 
 // utils
 import { setToken } from 'auth/utils/setToken';
-import {
-  ALL_FEED_SCREEN_NAME,
-  FEED_SCREEN_NAME,
-} from '@/feed/constants/routes';
 
 type UseHandleRegistrationResult = () => void;
 type UseHandleLoginOptions = {

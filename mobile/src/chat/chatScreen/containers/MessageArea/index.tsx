@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect } from 'react';
+import React, { FC, memo } from 'react';
 
 interface IMessageAreaContainerProps {}
 
@@ -11,18 +11,15 @@ import {
 
 const MessageAreaContainer: FC<IMessageAreaContainerProps> = () => {
   const response = useGetMessagesQuery();
-  const { data } = useNewMessageSubscription(); // no response in code but normal response on playground
+  useNewMessageSubscription({
+    onSubscriptionData: (data) => {
+      console.log(data);
+    },
+  }); // no response in code but normal response on playground
   const messages =
     !response.data || !response.data.getMessages
       ? []
       : response.data.getMessages;
-
-  useEffect(() => {
-    if (data && data.newMessage) {
-      messages.push(data?.newMessage);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
 
   return <MessageAreaView data={messages ? null : messages} />;
 };

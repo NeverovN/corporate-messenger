@@ -7,7 +7,6 @@ import { useRoute } from '@react-navigation/native';
 interface IChatListContainerProps {}
 
 const ChatList: FC<IChatListContainerProps> = () => {
-  console.log('re-render ChatListContainer');
   const route = useRoute();
   console.log('chatList', route);
 

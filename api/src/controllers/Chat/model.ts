@@ -19,9 +19,14 @@ class ChatModelController {
   }
 
   async getChat(id: ID) {
-    const chat = await ChatModel.findById(id);
+    const chat = await ChatModel.findById(id).exec();
+    console.log('chat: ', chat?._id);
 
-    return this.mapChatWithFallback(chat);
+    if (!chat) {
+      throw Error('chat not found');
+    }
+
+    return mapChatDocumentToChatEntity(chat);
   }
 
   async getChats(userId: ID): Promise<Array<ChatEntity>> {
@@ -46,6 +51,11 @@ class ChatModelController {
     return await UserController.getUsers(chat.participants);
   }
 
+  async getParticipantsByChatId(chatId: ID): Promise<ID[]> {
+    const chat = await ChatEntityController.getChatById(chatId);
+    return chat.participants;
+  }
+
   async getMessages(chat: ChatEntity): Promise<MessageEntity[]> {
     return await MessageController.getMessages(
       chat.messages.map((el) => el._id),
@@ -54,9 +64,10 @@ class ChatModelController {
 
   async addMessage(chatId: string, msg: MessageType): Promise<boolean> {
     try {
-      const chatModel = await ChatModel.findById(chatId).exec();
-      chatModel?.messages.push(msg);
-      chatModel?.save();
+      // changed logic but not confident is it the needed approach
+      const chatDoc = await ChatEntityController.getChatById(chatId);
+      chatDoc.messages.push(msg);
+      chatDoc.save();
       return true;
     } catch (error) {
       return false;

@@ -80,7 +80,7 @@ const resolverMap: Resolvers = {
     },
     async createPost(_, __, { currentUserId }: ApolloContextType) {
       if (!currentUserId) {
-        throw Error('unlogged user');
+        throw Error('unauthorized user');
       }
 
       const post = await PostController.createPost(currentUserId);
@@ -91,19 +91,15 @@ const resolverMap: Resolvers = {
     },
     async createChat(_, __, { currentUserId }) {
       const newChat = await ChatController.createChat([currentUserId]);
-      console.log(pubsub);
 
       pubsub.publish(CHAT_CREATED, newChat);
-      console.log(pubsub);
 
       return newChat;
     },
     async createMessage(_, args, { currentUserId }) {
       const newMessage = await MessageController.createMessage(
         currentUserId,
-        [
-          currentUserId, // just for now because there is no receivers link setup
-        ],
+        args.chatId,
         args.content,
       );
       await ChatController.addMessage(args.chatId, newMessage);
@@ -122,15 +118,18 @@ const resolverMap: Resolvers = {
     async getChats(_, __, { currentUserId }) {
       return await ChatController.getChats(currentUserId);
     },
-    async getMessages(_, __, { currentUserId }) {
-      return await MessageController.getMessagesByAuthor(currentUserId);
+    async getMessages(_, args) {
+      return await MessageController.getChatMessages(args.chatId);
     },
     async getCurrentUser(_, __, { currentUserId }) {
       const user = await UserController.getUser(currentUserId);
       if (!user) {
-        throw Error('unlogged user');
+        throw Error('unauthorized user');
       }
       return user;
+    },
+    async getChatById(_, args) {
+      return await ChatController.getChat(args.chatId);
     },
   },
   Subscription: {
@@ -175,7 +174,7 @@ const resolverMap: Resolvers = {
     },
   },
   Post: {
-    id: (post: PostEntity) => post._id,
+    id: (post: PostEntity) => post.id,
     author: async (post: PostEntity) => {
       const author = await UserController.getUser(post.author);
 
@@ -201,8 +200,8 @@ const resolverMap: Resolvers = {
 
       return author;
     },
-    receivers: async (message: MessageEntity) => {
-      return await MessageController.getReceivers(message);
+    chatId: async (message: MessageEntity) => {
+      return await MessageController.getChatId(message);
     },
   },
 };
