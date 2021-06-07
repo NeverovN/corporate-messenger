@@ -1,4 +1,4 @@
-fragment msgFragment on Message {
+fragment messageFragment on Message {
   id
   author {
     id
@@ -7,20 +7,27 @@ fragment msgFragment on Message {
   content
 }
 
-query GetMessages {
-  getMessages {
-    ...msgFragment
+query getChatById($chatId: ID!) {
+  getChatById(chatId: $chatId) {
+    id
+    participants {
+      id
+      # extract necessary fields
+    }
+    messages {
+      ...messageFragment
+    }
   }
 }
 
 mutation CreateMessage($content: String!, $chatId: String!) {
   createMessage(content: $content, chatId: $chatId) {
-    ...msgFragment
+    ...messageFragment
   }
 }
 
 subscription NewMessage {
   newMessage {
-    ...msgFragment
+    ...messageFragment
   }
 }
