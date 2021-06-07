@@ -76,7 +76,7 @@ export type Message = {
   id: Scalars['ID'];
   content: Scalars['String'];
   author: User;
-  receivers: Array<User>;
+  chatId: Scalars['ID'];
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
 };
@@ -125,7 +125,7 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
-  getAllPosts?: Maybe<Array<Maybe<Post>>>;
+  getChatById?: Maybe<Chat>;
   getChats?: Maybe<Array<Maybe<Chat>>>;
   getCurrentUser: User;
   getFriendPosts?: Maybe<Array<Maybe<Post>>>;
@@ -133,6 +133,10 @@ export type Query = {
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUserById?: Maybe<User>;
+};
+
+export type QueryGetChatByIdArgs = {
+  chatId: Scalars['ID'];
 };
 
 export type QueryGetPostArgs = {
@@ -394,7 +398,7 @@ export type MessageResolvers<
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  receivers?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  chatId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -463,10 +467,11 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
-  getAllPosts?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
+  getChatById?: Resolver<
+    Maybe<ResolversTypes['Chat']>,
     ParentType,
-    ContextType
+    ContextType,
+    RequireFields<QueryGetChatByIdArgs, 'chatId'>
   >;
   getChats?: Resolver<
     Maybe<Array<Maybe<ResolversTypes['Chat']>>>,
@@ -474,16 +479,6 @@ export type QueryResolvers<
     ContextType
   >;
   getCurrentUser?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  getFriendPosts?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
-    ParentType,
-    ContextType
-  >;
-  getMessages?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Message']>>>,
-    ParentType,
-    ContextType
-  >;
   getPost?: Resolver<
     Maybe<ResolversTypes['Post']>,
     ParentType,

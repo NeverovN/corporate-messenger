@@ -1,0 +1,33 @@
+fragment messageFragment on Message {
+  id
+  author {
+    id
+  }
+  chatId
+  content
+}
+
+query getChatById($chatId: ID!) {
+  getChatById(chatId: $chatId) {
+    id
+    participants {
+      id
+      # extract necessary fields
+    }
+    messages {
+      ...messageFragment
+    }
+  }
+}
+
+mutation CreateMessage($content: String!, $chatId: String!) {
+  createMessage(content: $content, chatId: $chatId) {
+    ...messageFragment
+  }
+}
+
+subscription NewMessage {
+  newMessage {
+    ...messageFragment
+  }
+}
