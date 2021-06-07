@@ -5,8 +5,6 @@ import { useGetFeedQuery } from '@/common/types/gql.generated';
 export const useFeedList = () => {
   const { data } = useGetFeedQuery();
 
-  console.log(data);
-
   if (!data || !data.getAllPosts) {
     return [] as any;
   }

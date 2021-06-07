@@ -16,8 +16,6 @@ export const useUsersPosts = () => {
   const { data: queryData } = useGetPostsQuery();
   const { data: subData } = useNewPostSubscription();
 
-  console.log(queryData?.getPosts?.map((_, i) => i));
-
   if (
     typeof queryData === 'undefined' ||
     typeof queryData.getPosts === 'undefined' ||
