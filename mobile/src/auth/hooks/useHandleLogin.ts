@@ -16,10 +16,7 @@ import { useLoginMutation } from 'common/types/gql.generated';
 
 // utils
 import { setToken } from 'auth/utils/setToken';
-import {
-  ALL_FEED_SCREEN_NAME,
-  FEED_SCREEN_NAME,
-} from '@/feed/constants/routes';
+import { ALL_FEED_SCREEN_NAME, FEED_SCREEN_NAME } from 'feed/constants/routes';
 
 type UseHandleRegistrationResult = () => void;
 type UseHandleLoginOptions = {

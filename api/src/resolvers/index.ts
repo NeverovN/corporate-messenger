@@ -1,8 +1,7 @@
 import { Resolvers } from '../types/gql.generated';
 import { UserController } from '../controllers/User';
 import { PostController } from '../controllers/Post';
-import { ChatController } from '../controllers/Chat';
-import { POST_CREATED, CHAT_CREATED, MESSAGE_CREATED } from '../consts/events';
+import { POST_CREATED } from '../consts/events';
 
 import createToken from '../utils/createToken';
 import createPasswordHash from '../utils/createPasswordHash';
@@ -14,9 +13,6 @@ import { ApolloContextType } from '../types/apollo';
 import { withFilter } from 'graphql-subscriptions';
 import { pubsub } from '../consts/pubsub';
 import { PostEntity } from '../models/Post';
-import { ChatEntity } from '../models/Chat';
-import { MessageEntity } from '../models/Message';
-import { MessageController } from '../controllers/Message';
 
 const resolverMap: Resolvers = {
   Mutation: {
@@ -85,28 +81,6 @@ const resolverMap: Resolvers = {
 
       return post;
     },
-    async createChat(_, __, { currentUserId }) {
-      const newChat = await ChatController.createChat([currentUserId]);
-      console.log(pubsub);
-
-      pubsub.publish(CHAT_CREATED, newChat);
-      console.log(pubsub);
-
-      return newChat;
-    },
-    async createMessage(_, args, { currentUserId }) {
-      const newMessage = await MessageController.createMessage(
-        currentUserId,
-        [
-          currentUserId, // just for now because there is no receivers link setup
-        ],
-        args.content,
-      );
-      await ChatController.addMessage(args.chatId, newMessage);
-
-      pubsub.publish(MESSAGE_CREATED, newMessage);
-      return newMessage;
-    },
   },
   Query: {
     async getUserById(_, args) {
@@ -132,12 +106,6 @@ const resolverMap: Resolvers = {
 
       return feed;
     },
-    async getChats(_, __, { currentUserId }) {
-      return await ChatController.getChats(currentUserId);
-    },
-    async getMessages(_, __, { currentUserId }) {
-      return await MessageController.getMessagesByAuthor(currentUserId);
-    },
     async getCurrentUser(_, __, { currentUserId }) {
       const user = await UserController.getUser(currentUserId);
       if (!user) {
@@ -162,20 +130,6 @@ const resolverMap: Resolvers = {
         return post;
       },
     },
-    newChat: {
-      subscribe: () => pubsub.asyncIterator([CHAT_CREATED]),
-      resolve: (chat: ChatEntity) => {
-        console.log(chat);
-        return chat;
-      },
-    },
-    newMessage: {
-      subscribe: () => pubsub.asyncIterator([MESSAGE_CREATED]),
-
-      resolve: (msg: MessageEntity) => {
-        return msg;
-      },
-    },
   },
   User: {
     id: (user: UserEntity) => user._id,
@@ -195,27 +149,6 @@ const resolverMap: Resolvers = {
       if (!author) throw new Error('author missed'); // TODO: provide useful errors
 
       return author;
-    },
-  },
-  Chat: {
-    id: (chat: ChatEntity) => chat._id,
-    participants: async (chat: ChatEntity) =>
-      await ChatController.getParticipants(chat),
-    messages: async (chat: ChatEntity) => {
-      return await ChatController.getMessages(chat);
-    },
-  },
-  Message: {
-    id: (msg: MessageEntity) => msg._id,
-    author: async (message: MessageEntity) => {
-      const author = await UserController.getUser(message.author);
-
-      if (!author) throw new Error('author missed'); // TODO: provide useful errors
-
-      return author;
-    },
-    receivers: async (message: MessageEntity) => {
-      return await MessageController.getReceivers(message);
     },
   },
 };

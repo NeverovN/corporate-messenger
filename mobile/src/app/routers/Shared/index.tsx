@@ -10,7 +10,7 @@ import { CHAT_STACK_NAME } from 'app/constants/routes';
 
 // routers
 import SettingsRouter from '@/settings/routers/Main';
-import ChatRouter from 'chat/chatList/routers/Chat';
+import ChatRouter from 'chat/routers/Chat';
 
 const SharedStack = createStackNavigator<SharedStackParamList>();
 

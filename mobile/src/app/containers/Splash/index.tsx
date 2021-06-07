@@ -1,5 +1,4 @@
 import React, { FC, memo, useEffect } from 'react';
-import { SafeAreaView } from 'react-native';
 
 // components
 import SplashView from '@/app/components/Splash';
@@ -17,11 +16,7 @@ const SplashContainer: FC<ISplashContainerProps> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <SafeAreaView>
-      <SplashView />
-    </SafeAreaView>
-  );
+  return <SplashView />;
 };
 
 export default memo(SplashContainer);

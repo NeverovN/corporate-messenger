@@ -6,17 +6,16 @@ import {
   prop,
   Severity,
 } from '@typegoose/typegoose';
-import { UserEntity } from '../User';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type PostMedia = {};
 
 export type CommentModel = {
   id: ID;
-  author: UserEntity;
+  author: ID;
   createdAt: DateLike;
   lastEdit: DateLike;
-  likes: Array<UserEntity>; // array of user ids (person who can leave like) - in GQL it can me GQL User type
+  likes: Array<ID>; // array of user ids (person who can leave like) - in GQL it can me GQL User type
 };
 
 @modelOptions({

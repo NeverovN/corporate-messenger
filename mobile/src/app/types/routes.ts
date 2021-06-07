@@ -54,11 +54,6 @@ export type SharedStackNavigationProp = StackNavigationProp<
   typeof SHARED_STACK_NAME
 >;
 
-export type ChatRouteProp = RouteProp<
-  SharedStackParamList,
-  typeof CHAT_STACK_NAME
->;
-
 export type BottomTabParamList = {
   [FEED_STACK_NAME]: NavigatorScreenParams<FeedStackParamList>;
   [CHAT_LIST_STACK_NAME]: undefined;
