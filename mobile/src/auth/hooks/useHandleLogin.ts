@@ -12,7 +12,7 @@ import {
 import { MainScreenNavigationProp } from 'app/types/routes';
 
 // queries
-import { useGetPostsQuery, useLoginMutation } from 'common/types/gql.generated';
+import { useLoginMutation } from 'common/types/gql.generated';
 
 // utils
 import { setToken } from 'auth/utils/setToken';
@@ -29,7 +29,7 @@ type UseHandleLoginOptions = {
 export function useHandleLogin(
   params: UseHandleLoginOptions,
 ): UseHandleRegistrationResult {
-  const navigation = useNavigation<MainScreenNavigationProp>();
+  const navigation = useNavigation<MainScreenNavigationProp>(); // now noticed it breaks since I implement additional types in app routes
   const [login] = useLoginMutation();
 
   const handleLogin = async () => {

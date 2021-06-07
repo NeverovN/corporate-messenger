@@ -10,7 +10,7 @@ type Subscription {
 }
 
 type Subscription {
-  newPost: Post
+  newPost: Post!
 }
 
 type Mutation {

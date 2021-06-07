@@ -2,7 +2,12 @@ import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
 // constants
-import { MAIN_STACK_NAME } from 'app/constants/routes';
+import {
+  BOTTOM_TAB_NAME,
+  FEED_STACK_NAME,
+  MAIN_STACK_NAME,
+} from 'app/constants/routes';
+import { ALL_FEED_SCREEN_NAME, FEED_SCREEN_NAME } from 'feed/constants/routes';
 
 // routers
 import { MainScreenNavigationProp } from 'app/types/routes';
@@ -25,7 +30,7 @@ type UseHandleRegistrationOptions = {
 export function useHandleRegistration(
   params: UseHandleRegistrationOptions,
 ): UseHandleRegistrationResult {
-  const navigation = useNavigation<MainScreenNavigationProp>();
+  const navigation = useNavigation<MainScreenNavigationProp>(); // same as login
 
   const [addUser] = useCreateUserMutation();
 
@@ -65,7 +70,17 @@ export function useHandleRegistration(
 
       setToken(data?.createUser.token || '');
 
-      navigation.navigate(MAIN_STACK_NAME);
+      navigation.navigate(MAIN_STACK_NAME, {
+        // so dumb omg
+        screen: BOTTOM_TAB_NAME,
+        params: {
+          screen: FEED_STACK_NAME,
+          params: {
+            screen: FEED_SCREEN_NAME,
+            params: { screen: ALL_FEED_SCREEN_NAME },
+          },
+        },
+      });
     } catch (err) {
       console.log('rejected', `${err}`);
       Alert.alert('Error', `${err}`);

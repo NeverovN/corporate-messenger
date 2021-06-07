@@ -13,7 +13,7 @@ import {
 
 // routers
 import FeedRouter from 'feed/routers/Main';
-import ChatRouter from 'chat/routers/Main';
+import ChatRouter from 'chat/chatList/routers/Main';
 import ProfileRouter from 'profile/routers/Main';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
