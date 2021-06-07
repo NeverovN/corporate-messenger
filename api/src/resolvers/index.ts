@@ -87,6 +87,7 @@ const resolverMap: Resolvers = {
       return await UserController.getUser(args.id); // don't see principal difference between this query and getUser
     },
     async getPosts(_, __, { currentUserId }) {
+      console.log(currentUserId);
       return await PostController.getPostsByAuthor(currentUserId);
     },
     async getAllPosts() {

@@ -6,6 +6,7 @@ import {
 
 // components
 import TileView from 'feed/components/Tile';
+import { tokenVar } from '@/common/cache/cache';
 
 interface IPost {
   data: FC;
@@ -15,6 +16,10 @@ interface IPost {
 export const useUsersPosts = () => {
   const { data: queryData } = useGetPostsQuery();
   const { data: subData } = useNewPostSubscription();
+
+  console.log(tokenVar());
+
+  console.log(queryData?.getPosts?.map((_, i) => i));
 
   if (
     typeof queryData === 'undefined' ||

@@ -10,5 +10,7 @@ export default function initClient() {
     link,
   });
 
+  client.cache.reset();
+
   return client;
 }

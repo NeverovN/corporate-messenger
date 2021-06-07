@@ -14,14 +14,14 @@ interface IFriendFeedListViewProps {
   data: IPostItem[];
 }
 
-const renderChatItem: ListRenderItem<IPostItem> = () => {
+const renderFeedItem: ListRenderItem<IPostItem> = () => {
   return <Tile />;
 };
 
 const FriendFeedView: FC<IFriendFeedListViewProps> = (props) => {
   return (
     <View style={styles.friendFeedStyle}>
-      <FlatList renderItem={renderChatItem} data={props.data} />
+      <FlatList renderItem={renderFeedItem} data={props.data} />
     </View>
   );
 };

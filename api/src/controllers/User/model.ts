@@ -59,11 +59,7 @@ class UserModelController {
       throw Error('unlogged user');
     }
 
-    const allUsers = await UserModel.find().exec();
-
-    const friends = allUsers.filter((possibleFriend) =>
-      user.friends.includes(possibleFriend.id),
-    );
+    const friends = await this.getUsers(user.friends);
 
     return friends;
   }
