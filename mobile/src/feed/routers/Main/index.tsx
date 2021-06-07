@@ -2,17 +2,16 @@
 
 import React, { memo, FC } from 'react';
 import FeedTabRouter from '../TopTab';
+import Screens from '../index';
 
 // constants
 import { FEED_SCREEN_NAME } from '@/feed/constants/routes';
-import { createStackNavigator } from '@react-navigation/stack';
 
-// types
-import { RootStackParamList } from 'feed/types/routes';
+// containers
+// import Feed from 'feed/containers/Feed';
+// import FriendFeed from 'feed/containers/FriendFeed';
 
 interface IFeedRouterProps {}
-
-const Screens = createStackNavigator<RootStackParamList>();
 
 const FeedRouter: FC<IFeedRouterProps> = () => {
   return (

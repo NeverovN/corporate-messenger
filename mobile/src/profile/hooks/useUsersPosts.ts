@@ -24,7 +24,7 @@ export const useUsersPosts = () => {
     return [];
   }
 
-  const posts: IPost[] = queryData.getPosts.map((_, i) => ({
+  const posts: IPost[] = data.getUsersPosts.map((_, i) => ({
     data: TileView,
     id: i,
   }));
@@ -35,6 +35,7 @@ export const useUsersPosts = () => {
     console.log('data received');
     posts.push({ data: TileView, id: posts.length + 1 });
   }
+
 
   return posts;
 };
