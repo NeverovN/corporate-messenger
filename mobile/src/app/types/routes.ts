@@ -1,4 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
+import { NavigatorScreenParams } from '@react-navigation/core';
 import {
   AUTH_STACK_NAME,
   SPLASH_SCREEN_NAME,
@@ -12,11 +14,14 @@ import {
   PROFILE_STACK_NAME,
 } from 'app/constants/routes';
 
+import { RootStackParamList as FeedStackParamList } from 'feed/types/routes';
+import { AuthStackParamList } from 'auth/types/routes';
+
 export type RootStackParamList = {
   [SPLASH_SCREEN_NAME]: undefined;
-  [AUTH_STACK_NAME]: undefined;
-  [MAIN_STACK_NAME]: undefined;
-  [SHARED_STACK_NAME]: undefined;
+  [AUTH_STACK_NAME]: NavigatorScreenParams<AuthStackParamList>;
+  [MAIN_STACK_NAME]: NavigatorScreenParams<MainStackParamList>;
+  [SHARED_STACK_NAME]: NavigatorScreenParams<SharedStackParamList>;
 };
 
 export type SplashScreenNavigationProp = StackNavigationProp<
@@ -25,8 +30,8 @@ export type SplashScreenNavigationProp = StackNavigationProp<
 >;
 
 export type MainStackParamList = {
-  [SHARED_STACK_NAME]: { screen: string };
-  [BOTTOM_TAB_NAME]: undefined;
+  [SHARED_STACK_NAME]: NavigatorScreenParams<SharedStackParamList>;
+  [BOTTOM_TAB_NAME]: NavigatorScreenParams<BottomTabParamList>;
 };
 
 export type MainScreenNavigationProp = StackNavigationProp<
@@ -40,7 +45,7 @@ export type AuthScreenNavigationProp = StackNavigationProp<
 >;
 
 export type SharedStackParamList = {
-  [CHAT_STACK_NAME]: undefined;
+  [CHAT_STACK_NAME]: { chatId: string };
   [SETTINGS_STACK_NAME]: undefined;
 };
 
@@ -49,8 +54,13 @@ export type SharedStackNavigationProp = StackNavigationProp<
   typeof SHARED_STACK_NAME
 >;
 
+export type ChatRouteProp = RouteProp<
+  SharedStackParamList,
+  typeof CHAT_STACK_NAME
+>;
+
 export type BottomTabParamList = {
-  [FEED_STACK_NAME]: undefined;
+  [FEED_STACK_NAME]: NavigatorScreenParams<FeedStackParamList>;
   [CHAT_LIST_STACK_NAME]: undefined;
   [PROFILE_STACK_NAME]: undefined;
 };

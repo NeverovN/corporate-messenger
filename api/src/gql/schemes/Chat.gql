@@ -1,0 +1,35 @@
+type Message {
+  id: ID!
+  content: String!
+  author: User!
+  chatId: ID!
+  createdAt: String!
+  lastEdit: String
+}
+
+type Chat {
+  id: ID!
+  participants: [User]!
+  logo: String
+  messages: [Message] # pagination will live here (it will become a sub-query)
+  settings: ChatSettings
+}
+
+type ChatSettings {
+  testField: String
+}
+
+type Query {
+  getChats: [Chat]
+  getChatById(chatId: ID!): Chat
+}
+
+type Mutation {
+  createChat: Chat!
+  createMessage(content: String!, chatId: String!): Message!
+}
+
+type Subscription {
+  newChat: Chat!
+  newMessage: Message!
+}

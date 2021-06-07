@@ -2,7 +2,12 @@ import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
 // constants
-import { MAIN_STACK_NAME } from 'app/constants/routes';
+import {
+  BOTTOM_TAB_NAME,
+  FEED_STACK_NAME,
+  MAIN_STACK_NAME,
+} from 'app/constants/routes';
+import { ALL_FEED_SCREEN_NAME, FEED_SCREEN_NAME } from 'feed/constants/routes';
 
 // routers
 import { MainScreenNavigationProp } from 'app/types/routes';
@@ -24,7 +29,7 @@ type UseHandleLoginOptions = {
 export function useHandleLogin(
   params: UseHandleLoginOptions,
 ): UseHandleRegistrationResult {
-  const navigation = useNavigation<MainScreenNavigationProp>();
+  const navigation = useNavigation<MainScreenNavigationProp>(); // now noticed it breaks since I implement additional types in app routes
   const [login] = useLoginMutation();
 
   const handleLogin = async () => {
@@ -43,8 +48,17 @@ export function useHandleLogin(
 
       setToken(data.login.token || '');
 
-
-      navigation.navigate(MAIN_STACK_NAME);
+      navigation.navigate(MAIN_STACK_NAME, {
+        // so dumb omg
+        screen: BOTTOM_TAB_NAME,
+        params: {
+          screen: FEED_STACK_NAME,
+          params: {
+            screen: FEED_SCREEN_NAME,
+            params: { screen: ALL_FEED_SCREEN_NAME },
+          },
+        },
+      });
       return;
     } catch (err) {
       Alert.alert('Error', `${err}`);

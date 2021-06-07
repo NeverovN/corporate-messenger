@@ -4,7 +4,7 @@ type Query {
 }
 
 type Subscription {
-  newPost: Post
+  newPost: Post!
 }
 
 type Mutation {
