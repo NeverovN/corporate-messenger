@@ -1,0 +1,20 @@
+type Query {
+  getMessages(chatId: ID!): [Message]
+  getMessage(id: ID!): Message
+}
+
+type Mutation {
+  createMessage(content: String!, chatId: ID!): Message!
+}
+
+type Subscription {
+  messageCreated: Message!
+}
+
+type Message {
+  id: ID!
+  author: User!
+  content: String!
+  createdAt: String!
+  lastEdit: String
+}

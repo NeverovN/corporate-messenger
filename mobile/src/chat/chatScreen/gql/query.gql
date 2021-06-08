@@ -26,8 +26,19 @@ mutation CreateMessage($content: String!, $chatId: String!) {
   }
 }
 
+query GetMessages($chatId: ID!) {
+  getMessages(chatId: $chatId) {
+    id
+    content
+    author {
+      id
+    }
+    createdAt
+  }
+}
+
 subscription NewMessage {
-  newMessage {
+  messageCreated {
     ...messageFragment
   }
 }
