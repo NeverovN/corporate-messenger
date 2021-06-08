@@ -17,8 +17,6 @@ const ChatsContainer: FC<IChatsContainerProps> = () => {
 
   const chatsData = useChatList(navigation);
 
-  console.log('chat list re-render');
-
   return <ChatsView data={chatsData} />;
 };
 
