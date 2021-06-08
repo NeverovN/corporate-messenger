@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import {
   useGetPostsQuery,
   useNewPostSubscription,
@@ -13,12 +13,8 @@ interface IPost {
 }
 
 export const useUsersPosts = () => {
-  const { data: queryData, refetch } = useGetPostsQuery();
-  const { data: subData } = useNewPostSubscription();
-
-  useEffect(() => {
-    refetch();
-  }, [subData]);
+  const { data: queryData } = useGetPostsQuery();
+  useNewPostSubscription();
 
   if (
     typeof queryData === 'undefined' ||
