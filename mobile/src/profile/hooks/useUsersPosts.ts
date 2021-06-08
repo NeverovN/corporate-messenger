@@ -13,8 +13,9 @@ interface IPost {
 }
 
 export const useUsersPosts = () => {
-  const { data: queryData, refetch } = useGetPostsQuery();
-  const { data: subData } = useNewPostSubscription();
+  const { data: queryData } = useGetPostsQuery();
+  useNewPostSubscription();
+
 
   useEffect(() => {
     refetch();
