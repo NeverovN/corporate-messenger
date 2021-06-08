@@ -39,10 +39,12 @@ class MessageModelController {
     const messagesQuery = await MessageModel.find().exec();
 
     const messages = messagesQuery.filter(
-      ({ chatId }) => chatId === targetChatId,
+      (message) => message.chatId === targetChatId,
     );
 
-    return messages.map(mapMessageDocumentToMessageEntity);
+    console.log('msg: ', messages);
+
+    return messages;
   }
 
   async createMessage(

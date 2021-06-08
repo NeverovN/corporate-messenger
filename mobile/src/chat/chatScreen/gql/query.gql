@@ -1,10 +1,10 @@
 fragment messageFragment on Message {
   id
+  content
   author {
     id
   }
-  chatId
-  content
+  createdAt
 }
 
 query getChatById($chatId: ID!) {
@@ -37,8 +37,8 @@ query GetMessages($chatId: ID!) {
   }
 }
 
-subscription NewMessage {
-  messageCreated {
+subscription NewMessage($chatId: ID!) {
+  messageCreated(chatId: $chatId) {
     ...messageFragment
   }
 }

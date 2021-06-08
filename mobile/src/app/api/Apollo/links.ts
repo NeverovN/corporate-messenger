@@ -31,7 +31,7 @@ const link = split(
 const errorLink = onError((error) => {
   // TODO: implement real errorLink (for example clean token from storage in some cases)
 
-  console.log('Network Error ->', error.operation);
+  console.log('Network Error ->', error);
 });
 
 export const authLink = setContext(async (_, { headers }) => {

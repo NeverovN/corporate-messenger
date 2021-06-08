@@ -3,16 +3,20 @@ import { SharedStackNavigationProp } from '@/app/types/routes';
 
 // consts
 import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
-import { useGetChatsQuery } from 'common/types/gql.generated';
+import {
+  useGetChatsQuery,
+  useNewChatSubscription,
+} from 'common/types/gql.generated';
 
 export const useChatList = (navigation: SharedStackNavigationProp) => {
-  const { data } = useGetChatsQuery();
+  const { data: queryData } = useGetChatsQuery();
+  const { data: subData } = useNewChatSubscription();
 
-  if (!data || !data.getChats) {
+  if (!queryData || !queryData.getChats) {
     return [] as any;
   }
 
-  return data.getChats.map((el) => {
+  const chats = queryData.getChats.map((el) => {
     if (!el) {
       return [] as any;
     }
@@ -29,4 +33,24 @@ export const useChatList = (navigation: SharedStackNavigationProp) => {
       },
     };
   });
+
+  if (subData && subData.newChat) {
+    const mappedNewChat = {
+      data: subData.newChat,
+      title: subData.newChat.id,
+      participants: subData.newChat.participants,
+      id: subData.newChat.id,
+      onPress: () => {
+        navigation.push(SHARED_STACK_NAME, {
+          screen: CHAT_STACK_NAME,
+          params: { chatId: subData.newChat.id },
+        });
+      },
+    };
+    chats.push(mappedNewChat);
+  }
+
+  chats.forEach((el) => console.log(el.id));
+
+  return chats;
 };

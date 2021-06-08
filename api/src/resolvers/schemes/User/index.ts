@@ -6,7 +6,7 @@ import { UserResolvers } from '../../../types/gql.generated';
 import { UserController } from '../../../controllers/User';
 
 const userResolvers: UserResolvers = {
-  id: (user: UserEntity) => user.id,
+  id: (user: UserEntity) => user._id,
   friends: async (user: UserEntity) => {
     const friendIds = user.friends;
 

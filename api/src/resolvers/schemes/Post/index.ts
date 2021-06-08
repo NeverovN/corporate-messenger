@@ -6,7 +6,7 @@ import { PostResolvers } from '../../../types/gql.generated';
 import { UserController } from '../../../controllers/User';
 
 const postResolvers: PostResolvers = {
-  id: (post: PostEntity) => post.id,
+  id: (post: PostEntity) => post._id,
   author: async (post: PostEntity) => {
     const author = await UserController.getUser(post.author);
 

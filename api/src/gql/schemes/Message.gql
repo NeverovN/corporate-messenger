@@ -8,7 +8,7 @@ type Mutation {
 }
 
 type Subscription {
-  messageCreated: Message!
+  messageCreated(chatId: ID!): Message!
 }
 
 type Message {

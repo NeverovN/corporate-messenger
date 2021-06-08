@@ -10,7 +10,7 @@ export const useSendPressHandler = (message: string, chatId: string) => {
       createMsg({
         variables: {
           content: message,
-          chatId: chatId || '60be5d86b0907529c079dac8',
+          chatId: chatId || '60beb93c5d874c5137d7bba0',
         },
       });
     } catch (err) {

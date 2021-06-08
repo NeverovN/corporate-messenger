@@ -8,7 +8,7 @@ import styles from './styles';
 import { IMessage } from 'chat/chatScreen/types/messages';
 
 interface IMessageAreaViewProps {
-  data: IMessage[] | null;
+  data: IMessage[];
 }
 
 const renderMessage: ListRenderItem<IMessage> = ({ item }) => {
