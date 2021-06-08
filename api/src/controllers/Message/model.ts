@@ -42,8 +42,6 @@ class MessageModelController {
       (message) => message.chatId === targetChatId,
     );
 
-    console.log('msg: ', messages);
-
     return messages;
   }
 

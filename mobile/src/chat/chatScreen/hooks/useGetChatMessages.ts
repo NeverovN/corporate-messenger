@@ -2,16 +2,31 @@ import {
   useGetMessagesQuery,
   useNewMessageSubscription,
 } from '@/common/types/gql.generated';
-import MessageContainer from '../containers/Message';
+import { useRoute } from '@react-navigation/native';
+import { useEffect } from 'react';
+
+// types
+import { ChatRouteProp } from '../../chatList/types/routes';
 
 export const useGetChatMessages = () => {
+  const { params } = useRoute<ChatRouteProp>();
+
+  if (!params) {
+    throw Error('chat does not exist');
+  }
+
   const { data: queryData, refetch } = useGetMessagesQuery({
-    variables: { chatId: '60beb93c5d874c5137d7bba0' },
+    variables: { chatId: params.chatId },
   });
 
   const { data: subData } = useNewMessageSubscription({
-    variables: { chatId: '60beb93c5d874c5137d7bba0' },
+    variables: { chatId: params.chatId },
   });
+
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subData]);
 
   if (!queryData || !queryData.getMessages) {
     return [] as any;
@@ -23,7 +38,6 @@ export const useGetChatMessages = () => {
     }
 
     return {
-      data: MessageContainer,
       id: el.id,
       content: el.content,
       createdAt: el.createdAt,
@@ -31,10 +45,6 @@ export const useGetChatMessages = () => {
       onPress: () => console.log(`message ${el.id} pressed`),
     };
   });
-
-  if (subData && subData.messageCreated) {
-    refetch();
-  }
 
   return messages;
 };

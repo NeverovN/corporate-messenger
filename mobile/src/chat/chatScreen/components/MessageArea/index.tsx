@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { View, Text, FlatList, ListRenderItem } from 'react-native';
+import { View, FlatList, ListRenderItem } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -7,16 +7,15 @@ import styles from './styles';
 // types
 import { IMessage } from 'chat/chatScreen/types/messages';
 
+// components
+import MessageView from '../Message';
+
 interface IMessageAreaViewProps {
   data: IMessage[];
 }
 
 const renderMessage: ListRenderItem<IMessage> = ({ item }) => {
-  return (
-    <View>
-      <Text>{item.content}</Text>
-    </View>
-  );
+  return <MessageView onPress={item.onPress} content={item.content} />;
 };
 
 const MessageAreaView: FC<IMessageAreaViewProps> = (props) => {

@@ -7,10 +7,16 @@ import {
   useGetChatsQuery,
   useNewChatSubscription,
 } from 'common/types/gql.generated';
+import { useEffect } from 'react';
 
 export const useChatList = (navigation: SharedStackNavigationProp) => {
-  const { data: queryData } = useGetChatsQuery();
+  const { data: queryData, refetch } = useGetChatsQuery();
   const { data: subData } = useNewChatSubscription();
+
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subData]);
 
   if (!queryData || !queryData.getChats) {
     return [] as any;
@@ -26,31 +32,13 @@ export const useChatList = (navigation: SharedStackNavigationProp) => {
       participants: el.participants,
       id: el.id,
       onPress: () => {
-        navigation.push(SHARED_STACK_NAME, {
+        navigation.navigate(SHARED_STACK_NAME, {
           screen: CHAT_STACK_NAME,
-          params: { chatId: el.id },
+          params: { screen: 'Chat', params: { chatId: el.id } },
         });
       },
     };
   });
-
-  if (subData && subData.newChat) {
-    const mappedNewChat = {
-      data: subData.newChat,
-      title: subData.newChat.id,
-      participants: subData.newChat.participants,
-      id: subData.newChat.id,
-      onPress: () => {
-        navigation.push(SHARED_STACK_NAME, {
-          screen: CHAT_STACK_NAME,
-          params: { chatId: subData.newChat.id },
-        });
-      },
-    };
-    chats.push(mappedNewChat);
-  }
-
-  chats.forEach((el) => console.log(el.id));
 
   return chats;
 };

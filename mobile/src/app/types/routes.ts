@@ -16,12 +16,12 @@ import {
 
 import { RootStackParamList as FeedStackParamList } from 'feed/types/routes';
 import { AuthStackParamList } from 'auth/types/routes';
+import { ChatListStackParamList } from 'chat/chatList/types/routes';
 
 export type RootStackParamList = {
   [SPLASH_SCREEN_NAME]: undefined;
   [AUTH_STACK_NAME]: NavigatorScreenParams<AuthStackParamList>;
   [MAIN_STACK_NAME]: NavigatorScreenParams<MainStackParamList>;
-  [SHARED_STACK_NAME]: NavigatorScreenParams<SharedStackParamList>;
 };
 
 export type SplashScreenNavigationProp = StackNavigationProp<
@@ -45,7 +45,7 @@ export type AuthScreenNavigationProp = StackNavigationProp<
 >;
 
 export type SharedStackParamList = {
-  [CHAT_STACK_NAME]: { chatId: string };
+  [CHAT_STACK_NAME]: NavigatorScreenParams<ChatListStackParamList>;
   [SETTINGS_STACK_NAME]: undefined;
 };
 

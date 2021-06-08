@@ -1,16 +1,19 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 
 // styles
 import styles from './styles';
 
-interface IMessageViewProps {}
+interface IMessageViewProps {
+  content: string;
+  onPress(): void;
+}
 
-const MessageView: FC<IMessageViewProps> = () => {
+const MessageView: FC<IMessageViewProps> = (props) => {
   return (
-    <View style={styles.messageStyle}>
-      <Text>Message</Text>
-    </View>
+    <TouchableOpacity style={styles.messageStyle} onPress={props.onPress}>
+      <Text>{props.content}</Text>
+    </TouchableOpacity>
   );
 };
 
