@@ -17,7 +17,6 @@ class ChatModelController {
 
   async getChat(id: ID) {
     const chat = await ChatModel.findById(id).exec();
-    console.log('chat: ', chat?._id);
 
     if (!chat) {
       throw Error('chat not found');

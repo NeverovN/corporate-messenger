@@ -4,24 +4,14 @@ interface IMessageAreaContainerProps {}
 
 // components
 import MessageAreaView from 'chat/chatScreen/components/MessageArea';
-import {
-  useGetMessagesQuery,
-  useNewMessageSubscription,
-} from '@/common/types/gql.generated';
+
+// hooks
+import { useGetChatMessages } from '../../hooks/useGetChatMessages';
 
 const MessageAreaContainer: FC<IMessageAreaContainerProps> = () => {
-  const response = useGetMessagesQuery();
-  useNewMessageSubscription({
-    onSubscriptionData: (data) => {
-      console.log(data);
-    },
-  }); // no response in code but normal response on playground
-  const messages =
-    !response.data || !response.data.getMessages
-      ? []
-      : response.data.getMessages;
+  const messages = useGetChatMessages();
 
-  return <MessageAreaView data={messages ? null : messages} />;
+  return <MessageAreaView data={messages} />;
 };
 
 export default memo(MessageAreaContainer);

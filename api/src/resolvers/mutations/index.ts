@@ -35,7 +35,7 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     if (!isPasswordCorrect) throw Error('Incorrect password'); //! TODO: use Apollo Errors
 
-    const token = createToken(user.id);
+    const token = createToken(user._id);
 
     return { token, user };
   },
@@ -61,7 +61,7 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       null,
     );
 
-    const token = createToken(user.id);
+    const token = createToken(user._id);
 
     return { token: token, user };
   },
