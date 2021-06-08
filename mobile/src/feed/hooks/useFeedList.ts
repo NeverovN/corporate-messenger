@@ -5,12 +5,13 @@ import { useGetFeedQuery } from '@/common/types/gql.generated';
 export const useFeedList = () => {
   const { data } = useGetFeedQuery();
 
-  return data?.getAllPosts?.map((el) => {
+  if (!data || !data.getAllPosts) {
+    return [] as any;
+  }
+
+  return data.getAllPosts.map((el) => {
     if (!el) {
-      return {
-        data: null,
-        id: '',
-      };
+      return [] as any;
     }
     return {
       data: TileView,

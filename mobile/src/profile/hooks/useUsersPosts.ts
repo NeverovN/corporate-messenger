@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import {
   useGetPostsQuery,
   useNewPostSubscription,
@@ -13,8 +13,12 @@ interface IPost {
 }
 
 export const useUsersPosts = () => {
-  const { data: queryData } = useGetPostsQuery();
+  const { data: queryData, refetch } = useGetPostsQuery();
   const { data: subData } = useNewPostSubscription();
+
+  useEffect(() => {
+    refetch();
+  }, [subData]);
 
   if (
     typeof queryData === 'undefined' ||
@@ -28,13 +32,6 @@ export const useUsersPosts = () => {
     data: TileView,
     id: i,
   }));
-
-  if (subData) {
-    // in perfect world it must add new post to profile screen
-    // in my world data never receives information and i have no idea why
-    console.log('data received');
-    posts.push({ data: TileView, id: posts.length + 1 });
-  }
 
   return posts;
 };

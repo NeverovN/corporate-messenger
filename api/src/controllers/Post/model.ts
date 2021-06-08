@@ -32,7 +32,7 @@ class PostModelController {
   }
 
   async getPostsByAuthor(authorId: ID): Promise<(PostEntity | null)[]> {
-    const posts = await PostModel.find({ author: authorId });
+    const posts = await PostModel.find({ author: authorId }).exec();
 
     return posts.map((el) => this.mapPostWithFallback(el));
   }

@@ -16,6 +16,9 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
 
     return await PostController.getPostsByAuthor(currentUserId);
   },
+  async getAllPosts() {
+    return await PostController.getAllPosts();
+  },
   async getChats(_, __, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');
 
