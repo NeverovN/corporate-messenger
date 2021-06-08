@@ -3,4 +3,5 @@ export interface IMessage {
   author: string;
   receivers: string[];
   content: string;
+  onPress(): void;
 }
