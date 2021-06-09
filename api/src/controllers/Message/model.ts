@@ -5,6 +5,7 @@ import { MessageDocument } from '../../models/Message/types';
 
 import { mapMessageDocumentToMessageEntity } from '../../models/Message/mappers';
 import MessageEntityController from './entity';
+import { ChatController } from '../Chat';
 
 class MessageModelController {
   private mapMessageWithFallback(
@@ -35,22 +36,12 @@ class MessageModelController {
     return messages.map((el) => this.mapMessageWithFallback(el));
   }
 
-  async getChatMessages(targetChatId: ID): Promise<MessageEntity[]> {
-    const messagesQuery = await MessageModel.find().exec();
-
-    const messages = messagesQuery.filter(
-      (message) => message.chatId === targetChatId,
-    );
-
-    return messages;
-  }
-
   async createMessage(
     author: ID,
     chatId: ID,
     content: string,
   ): Promise<MessageEntity> {
-    const newMessage = MessageEntityController.createMessageEntity(
+    const newMessage = await MessageEntityController.createMessageEntity(
       author,
       chatId,
       content,
@@ -58,6 +49,10 @@ class MessageModelController {
 
     const createdMessage = await MessageModel.create(newMessage);
     await createdMessage.save();
+
+    if (!(await ChatController.addMessage(chatId, createdMessage._id))) {
+      throw Error('message cannot be created');
+    }
 
     return mapMessageDocumentToMessageEntity(createdMessage);
   }

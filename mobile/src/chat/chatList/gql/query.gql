@@ -15,10 +15,3 @@ subscription NewChat {
     ...ChatFragment
   }
 }
-
-fragment ChatFragment on Chat {
-  id
-  participants {
-    id
-  }
-}

@@ -7,16 +7,10 @@ import {
   useGetChatsQuery,
   useNewChatSubscription,
 } from 'common/types/gql.generated';
-import { useEffect } from 'react';
 
 export const useChatList = (navigation: SharedStackNavigationProp) => {
-  const { data: queryData, refetch } = useGetChatsQuery();
-  const { data: subData } = useNewChatSubscription();
-
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subData]);
+  const { data: queryData } = useGetChatsQuery();
+  useNewChatSubscription();
 
   if (!queryData || !queryData.getChats) {
     return [] as any;

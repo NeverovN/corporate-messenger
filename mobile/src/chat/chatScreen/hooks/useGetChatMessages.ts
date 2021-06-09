@@ -1,9 +1,8 @@
 import {
-  useGetMessagesQuery,
   useNewMessageSubscription,
+  useGetChatByIdQuery,
 } from '@/common/types/gql.generated';
 import { useRoute } from '@react-navigation/native';
-import { useEffect } from 'react';
 
 // types
 import { ChatRouteProp } from '../../chatList/types/routes';
@@ -15,24 +14,19 @@ export const useGetChatMessages = () => {
     throw Error('chat does not exist');
   }
 
-  const { data: queryData, refetch } = useGetMessagesQuery({
+  const { data: queryData } = useGetChatByIdQuery({
     variables: { chatId: params.chatId },
   });
 
-  const { data: subData } = useNewMessageSubscription({
+  useNewMessageSubscription({
     variables: { chatId: params.chatId },
   });
 
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subData]);
-
-  if (!queryData || !queryData.getMessages) {
+  if (!queryData || !queryData.getChatById || !queryData.getChatById.messages) {
     return [] as any;
   }
 
-  const messages = queryData.getMessages.map((el) => {
+  const messages = queryData.getChatById.messages.map((el) => {
     if (!el) {
       return [] as any;
     }

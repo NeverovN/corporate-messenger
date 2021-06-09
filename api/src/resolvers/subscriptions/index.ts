@@ -38,7 +38,7 @@ const subscriptionResolvers: SubscriptionResolvers = {
       return chat;
     },
   },
-  messageCreated: {
+  newMessage: {
     subscribe: () => pubsub.asyncIterator([MESSAGE_CREATED]),
 
     resolve: (message: MessageEntity) => {

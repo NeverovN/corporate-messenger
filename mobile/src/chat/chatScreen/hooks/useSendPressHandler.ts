@@ -1,5 +1,8 @@
 import React from 'react';
-import { useCreateMessageMutation } from '@/common/types/gql.generated';
+import {
+  useCreateMessageMutation,
+  MessageFragmentFragmentDoc,
+} from '@/common/types/gql.generated';
 import { useRoute } from '@react-navigation/native';
 
 // types
@@ -10,13 +13,29 @@ export const useSendPressHandler = (
   resetTextArea: React.Dispatch<React.SetStateAction<string>>,
 ) => {
   const { params } = useRoute<ChatRouteProp>();
-  const [createMsg] = useCreateMessageMutation();
+  const [createMsg] = useCreateMessageMutation({
+    update: (cache, { data }) => {
+      if (!data) {
+        return;
+      }
+      cache.modify({
+        fields: {
+          getChatById() {
+            cache.writeFragment({
+              fragment: MessageFragmentFragmentDoc,
+              data: data.createMessage,
+            });
+          },
+        },
+      });
+    },
+  });
   if (!message) {
     return () => {};
   }
-  return () => {
+  return async () => {
     try {
-      createMsg({
+      await createMsg({
         variables: {
           content: message,
           chatId: params.chatId,

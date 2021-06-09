@@ -5,7 +5,6 @@ import { QueryResolvers } from '../../types/gql.generated';
 import { UserController } from '../../controllers/User';
 import { PostController } from '../../controllers/Post';
 import { ChatController } from '../../controllers/Chat';
-import { MessageController } from '../../controllers/Message';
 
 const queryResolvers: QueryResolvers<ApolloContextType> = {
   async getUserById(_, args) {
@@ -48,9 +47,6 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
     );
 
     return feed.flat(); // TODO: check if it works correctly (maybe we have to use lodash or ramda or somethings else)
-  },
-  async getMessages(_, args) {
-    return await MessageController.getChatMessages(args.chatId);
   },
 };
 

@@ -65,11 +65,11 @@ export type LoginInput = {
 
 export type Message = {
   __typename?: 'Message';
+  id: Scalars['ID'];
+  content: Scalars['String'];
   author: User;
   chatId: Scalars['ID'];
-  content: Scalars['String'];
   createdAt: Scalars['String'];
-  id: Scalars['ID'];
   lastEdit?: Maybe<Scalars['String']>;
 };
 
@@ -77,7 +77,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
   createChat: Chat;
-  createMessage: Message;
+  createMessage: Chat;
   createPost: Post;
   createUser: AuthenticationResult;
   getPost?: Maybe<Post>;
@@ -90,8 +90,8 @@ export type MutationAddFriendArgs = {
 };
 
 export type MutationCreateMessageArgs = {
-  chatId: Scalars['String'];
   content: Scalars['String'];
+  chatId: Scalars['String'];
 };
 
 export type MutationCreateUserArgs = {
@@ -122,8 +122,6 @@ export type Query = {
   getChats?: Maybe<Array<Maybe<Chat>>>;
   getCurrentUser: User;
   getFriendPosts?: Maybe<Array<Maybe<Post>>>;
-  getMessage?: Maybe<Message>;
-  getMessages?: Maybe<Array<Maybe<Message>>>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUserById?: Maybe<User>;
@@ -132,7 +130,6 @@ export type Query = {
 export type QueryGetChatByIdArgs = {
   chatId: Scalars['ID'];
 };
-
 
 export type QueryGetPostArgs = {
   id: Scalars['ID'];
@@ -144,13 +141,12 @@ export type QueryGetUserByIdArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  messageCreated: Message;
   newChat: Chat;
   newMessage: Message;
   newPost: Post;
 };
 
-export type SubscriptionMessageCreatedArgs = {
+export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
 };
 
@@ -211,30 +207,34 @@ export type NewChatSubscription = { __typename?: 'Subscription' } & {
   newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
 };
 
+export type MessageFragmentFragment = { __typename?: 'Message' } & Pick<
+  Message,
+  'id' | 'content' | 'createdAt' | 'chatId'
+> & { author: { __typename?: 'User' } & Pick<User, 'id'> };
+
 export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
   Chat,
   'id'
-> & { participants: Array<Maybe<{ __typename?: 'User' } & Pick<User, 'id'>>> };
-
-export type MessageFragmentFragment = { __typename?: 'Message' } & Pick<
-  Message,
-  'id' | 'chatId' | 'content'
-
-> & { author: { __typename?: 'User' } & Pick<User, 'id'> };
+> & {
+    participants: Array<Maybe<{ __typename?: 'User' } & Pick<User, 'id'>>>;
+    messages?: Maybe<
+      Array<
+        Maybe<
+          { __typename?: 'Message' } & Pick<
+            Message,
+            'id' | 'content' | 'createdAt'
+          > & { author: { __typename?: 'User' } & Pick<User, 'id'> }
+        >
+      >
+    >;
+  };
 
 export type GetChatByIdQueryVariables = Exact<{
   chatId: Scalars['ID'];
 }>;
 
 export type GetChatByIdQuery = { __typename?: 'Query' } & {
-  getChatById?: Maybe<
-    { __typename?: 'Chat' } & Pick<Chat, 'id'> & {
-        participants: Array<Maybe<{ __typename?: 'User' } & Pick<User, 'id'>>>;
-        messages?: Maybe<
-          Array<Maybe<{ __typename?: 'Message' } & MessageFragmentFragment>>
-        >;
-      }
-  >;
+  getChatById?: Maybe<{ __typename?: 'Chat' } & ChatFragmentFragment>;
 };
 
 export type CreateMessageMutationVariables = Exact<{
@@ -243,70 +243,7 @@ export type CreateMessageMutationVariables = Exact<{
 }>;
 
 export type CreateMessageMutation = { __typename?: 'Mutation' } & {
-  createMessage: { __typename?: 'Message' } & MessageFragmentFragment;
-};
-
-export type NewMessageSubscriptionVariables = Exact<{ [key: string]: never }>;
-
-export type NewMessageSubscription = { __typename?: 'Subscription' } & {
-  newMessage: { __typename?: 'Message' } & MessageFragmentFragment;
-};
-
-export type GetFeedQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetFeedQuery = { __typename?: 'Query' } & {
-  getAllPosts?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Post' } & Pick<Post, 'id'> & {
-            author: { __typename?: 'User' } & Pick<User, 'id'>;
-          }
-      >
-    >
-  >;
-};
-
-export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetFriendFeedQuery = { __typename?: 'Query' } & {
-  getFriendPosts?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Post' } & Pick<Post, 'id'> & {
-            author: { __typename?: 'User' } & Pick<User, 'id'>;
-          }
-      >
-    >
-  >;
-};
-
-export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
-  Post,
-  'id' | 'createdAt'
-> & { author: { __typename?: 'User' } & Pick<User, 'id'> };
-
-export type CreatePostMutationVariables = Exact<{ [key: string]: never }>;
-
-export type CreatePostMutation = { __typename?: 'Mutation' } & {
-  createPost: { __typename?: 'Post' } & PostFragmentFragment;
-};
-
-
-export type GetMessagesQueryVariables = Exact<{
-  chatId: Scalars['ID'];
-}>;
-
-export type GetMessagesQuery = { __typename?: 'Query' } & {
-  getMessages?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Message' } & Pick<
-          Message,
-          'id' | 'content' | 'createdAt'
-        > & { author: { __typename?: 'User' } & Pick<User, 'id'> }
-      >
-    >
-  >;
+  createMessage: { __typename?: 'Chat' } & ChatFragmentFragment;
 };
 
 export type NewMessageSubscriptionVariables = Exact<{
@@ -314,7 +251,7 @@ export type NewMessageSubscriptionVariables = Exact<{
 }>;
 
 export type NewMessageSubscription = { __typename?: 'Subscription' } & {
-  messageCreated: { __typename?: 'Message' } & MessageFragmentFragment;
+  newMessage: { __typename?: 'Message' } & MessageFragmentFragment;
 };
 
 export type GetFeedQueryVariables = Exact<{ [key: string]: never }>;
@@ -397,23 +334,31 @@ export const UserFragmentFragmentDoc = gql`
     email
   }
 `;
+export const MessageFragmentFragmentDoc = gql`
+  fragment messageFragment on Message {
+    id
+    content
+    author {
+      id
+    }
+    createdAt
+    chatId
+  }
+`;
 export const ChatFragmentFragmentDoc = gql`
   fragment ChatFragment on Chat {
     id
     participants {
       id
     }
-  }
-`;
-export const MessageFragmentFragmentDoc = gql`
-  fragment messageFragment on Message {
-    id
-    author {
+    messages {
       id
+      content
+      author {
+        id
+      }
+      createdAt
     }
-    chatId
-    content
-
   }
 `;
 export const PostFragmentFragmentDoc = gql`
@@ -674,16 +619,10 @@ export type NewChatSubscriptionResult = Apollo.SubscriptionResult<NewChatSubscri
 export const GetChatByIdDocument = gql`
   query getChatById($chatId: ID!) {
     getChatById(chatId: $chatId) {
-      id
-      participants {
-        id
-      }
-      messages {
-        ...messageFragment
-      }
+      ...ChatFragment
     }
   }
-  ${MessageFragmentFragmentDoc}
+  ${ChatFragmentFragmentDoc}
 `;
 
 /**
@@ -737,10 +676,10 @@ export type GetChatByIdQueryResult = Apollo.QueryResult<
 export const CreateMessageDocument = gql`
   mutation CreateMessage($content: String!, $chatId: String!) {
     createMessage(content: $content, chatId: $chatId) {
-      ...messageFragment
+      ...ChatFragment
     }
   }
-  ${MessageFragmentFragmentDoc}
+  ${ChatFragmentFragmentDoc}
 `;
 export type CreateMessageMutationFn = Apollo.MutationFunction<
   CreateMessageMutation,
@@ -786,75 +725,8 @@ export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<
   CreateMessageMutationVariables
 >;
 export const NewMessageDocument = gql`
-  subscription NewMessage {
-    newMessage {
-      ...messageFragment
-    }
-  }
-export const GetMessagesDocument = gql`
-  query GetMessages($chatId: ID!) {
-    getMessages(chatId: $chatId) {
-      id
-      content
-      author {
-        id
-      }
-      createdAt
-    }
-  }
-`;
-
-/**
- * __useGetMessagesQuery__
- *
- * To run a query within a React component, call `useGetMessagesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMessagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMessagesQuery({
- *   variables: {
- *      chatId: // value for 'chatId'
- *   },
- * });
- */
-export function useGetMessagesQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetMessagesQuery,
-    GetMessagesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetMessagesQuery, GetMessagesQueryVariables>(
-    GetMessagesDocument,
-    options,
-  );
-}
-export function useGetMessagesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetMessagesQuery,
-    GetMessagesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetMessagesQuery, GetMessagesQueryVariables>(
-    GetMessagesDocument,
-    options,
-  );
-}
-export type GetMessagesQueryHookResult = ReturnType<typeof useGetMessagesQuery>;
-export type GetMessagesLazyQueryHookResult = ReturnType<
-  typeof useGetMessagesLazyQuery
->;
-export type GetMessagesQueryResult = Apollo.QueryResult<
-  GetMessagesQuery,
-  GetMessagesQueryVariables
->;
-export const NewMessageDocument = gql`
   subscription NewMessage($chatId: ID!) {
-    messageCreated(chatId: $chatId) {
+    newMessage(chatId: $chatId) {
       ...messageFragment
     }
   }
@@ -878,7 +750,6 @@ export const NewMessageDocument = gql`
  * });
  */
 export function useNewMessageSubscription(
-  baseOptions?: Apollo.SubscriptionHookOptions<
   baseOptions: Apollo.SubscriptionHookOptions<
     NewMessageSubscription,
     NewMessageSubscriptionVariables

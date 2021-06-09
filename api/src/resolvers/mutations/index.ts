@@ -107,7 +107,7 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
     );
 
     pubsub.publish(MESSAGE_CREATED, newMessage);
-    return newMessage;
+    return await ChatController.getChat(args.chatId);
   },
 };
 

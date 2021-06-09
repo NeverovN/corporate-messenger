@@ -26,10 +26,10 @@ type Query {
 
 type Mutation {
   createChat: Chat!
-  createMessage(content: String!, chatId: String!): Message!
+  createMessage(content: String!, chatId: String!): Chat!
 }
 
 type Subscription {
   newChat: Chat!
-  newMessage: Message!
+  newMessage(chatId: ID!): Message!
 }
