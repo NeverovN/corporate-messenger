@@ -13,6 +13,9 @@ fragment ChatFragment on Chat {
   participants {
     id
   }
+  messages {
+    ...MessageFragment
+  }
 }
 
 query getChatById($chatId: ID!) {
@@ -29,12 +32,6 @@ mutation CreateMessage($content: String!, $chatId: String!) {
 
 subscription NewMessage($chatId: ID!) {
   newMessage(chatId: $chatId) {
-    ...MessageFragment
-  }
-}
-
-query GetMessages($chatId: ID!) {
-  getMessages(chatId: $chatId) {
     ...MessageFragment
   }
 }
