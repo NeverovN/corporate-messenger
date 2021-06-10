@@ -1,8 +1,6 @@
 import {
   useCreatePostMutation,
-  GetPostsDocument,
-  GetPostsQuery,
-  CreatePostDocument,
+  PostFragmentFragmentDoc,
 } from 'common/types/gql.generated';
 
 export const useAddPost = () => {
@@ -13,13 +11,16 @@ export const useAddPost = () => {
       }
       cache.modify({
         fields: {
-          getPosts(exPosts) {
-            const newPost = cache.writeQuery({
-              query: GetPostsDocument,
-              data: data.createPost,
-            });
-
-            return [...exPosts, newPost];
+          getPosts(exPosts = []) {
+            try {
+              const newPost = cache.writeFragment({
+                fragment: PostFragmentFragmentDoc,
+                data: data.createPost,
+              });
+              return [...exPosts, newPost];
+            } catch (err) {
+              throw Error(`cache update error -> ${err}`);
+            }
           },
         },
       });

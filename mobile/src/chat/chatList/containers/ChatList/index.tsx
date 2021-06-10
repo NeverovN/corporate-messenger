@@ -1,5 +1,4 @@
 import React, { FC, memo } from 'react';
-import { useNavigation } from '@react-navigation/native';
 
 // components
 import ChatsView from 'chat/chatList/components/ChatList';
@@ -7,15 +6,10 @@ import ChatsView from 'chat/chatList/components/ChatList';
 // hooks
 import { useChatList } from 'chat/chatList/hooks/useChatList';
 
-// types
-import { SharedStackNavigationProp } from 'app/types/routes';
-
 interface IChatsContainerProps {}
 
 const ChatsContainer: FC<IChatsContainerProps> = () => {
-  const navigation = useNavigation<SharedStackNavigationProp>();
-
-  const chatsData = useChatList(navigation);
+  const chatsData = useChatList();
 
   return <ChatsView data={chatsData} />;
 };

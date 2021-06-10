@@ -1,28 +1,17 @@
-// types
-import { SharedStackNavigationProp } from '@/app/types/routes';
-
-// consts
-import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
 import {
   useGetChatsQuery,
   useNewChatSubscription,
 } from 'common/types/gql.generated';
-import { useEffect } from 'react';
 
-export const useChatList = (navigation: SharedStackNavigationProp) => {
-  const { data: queryData, refetch } = useGetChatsQuery();
-  const { data: subData } = useNewChatSubscription();
+export const useChatList = () => {
+  const { data } = useGetChatsQuery();
+  useNewChatSubscription();
 
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subData]);
-
-  if (!queryData || !queryData.getChats) {
+  if (!data || !data.getChats) {
     return [] as any;
   }
 
-  const chats = queryData.getChats.map((el) => {
+  const chats = data.getChats.map((el) => {
     if (!el) {
       return [] as any;
     }
@@ -31,12 +20,6 @@ export const useChatList = (navigation: SharedStackNavigationProp) => {
       title: el.id,
       participants: el.participants,
       id: el.id,
-      onPress: () => {
-        navigation.navigate(SHARED_STACK_NAME, {
-          screen: CHAT_STACK_NAME,
-          params: { screen: 'Chat', params: { chatId: el.id } },
-        });
-      },
     };
   });
 

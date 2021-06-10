@@ -1,44 +1,37 @@
-fragment messageFragment on Message {
+fragment MessageFragment on Message {
   id
   content
   author {
     id
   }
   createdAt
+  chatId
+}
+
+fragment ChatFragment on Chat {
+  id
+  participants {
+    id
+  }
+  messages {
+    ...MessageFragment
+  }
 }
 
 query getChatById($chatId: ID!) {
   getChatById(chatId: $chatId) {
-    id
-    participants {
-      id
-      # extract necessary fields
-    }
-    messages {
-      ...messageFragment
-    }
+    ...ChatFragment
   }
 }
 
 mutation CreateMessage($content: String!, $chatId: String!) {
   createMessage(content: $content, chatId: $chatId) {
-    ...messageFragment
-  }
-}
-
-query GetMessages($chatId: ID!) {
-  getMessages(chatId: $chatId) {
-    id
-    content
-    author {
-      id
-    }
-    createdAt
+    ...MessageFragment
   }
 }
 
 subscription NewMessage($chatId: ID!) {
-  messageCreated(chatId: $chatId) {
-    ...messageFragment
+  newMessage(chatId: $chatId) {
+    ...MessageFragment
   }
 }

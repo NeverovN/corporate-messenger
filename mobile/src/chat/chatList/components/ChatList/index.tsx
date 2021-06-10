@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { FlatList, View, ListRenderItem } from 'react-native';
 
-import ChatItem from 'chat/chatList/components/ChatItem';
+import ChatItem from 'chat/chatList/containers/ChatItem';
 
 // styles
 import styles from './styles';
@@ -14,7 +14,7 @@ interface IChatListViewProps {
 }
 
 const renderChatItem: ListRenderItem<IChatItem> = ({ item }) => {
-  return <ChatItem onPress={item.onPress} />;
+  return <ChatItem chatId={item.id} />;
 };
 
 const ChatListView: FC<IChatListViewProps> = (props) => {

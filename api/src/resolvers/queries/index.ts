@@ -54,9 +54,6 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
 
     return feed.flat(); // TODO: check if it works correctly (maybe we have to use lodash or ramda or somethings else)
   },
-  async getMessages(_, args) {
-    return await MessageController.getChatMessages(args.chatId);
-  },
 };
 
 export default queryResolvers;
