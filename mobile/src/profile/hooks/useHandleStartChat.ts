@@ -29,9 +29,12 @@ export const useHandleStartChat = (userId: string) => {
     return () => {};
   }
 
-  const chat = chats.getChats.find((chatEl) =>
-    chatEl?.participants.some((user) => user?.id === userId),
-  );
+  const chat = chats.getChats.find((chatEl) => {
+    if (chatEl?.isDialog) {
+      return chatEl?.participants.some((user) => user?.id === userId);
+    }
+    return false;
+  });
 
   return () => {
     if (!chat) {

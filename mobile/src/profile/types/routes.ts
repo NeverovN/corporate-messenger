@@ -14,7 +14,17 @@ export type ProfileStackParamList = {
 
 export type ProfileScreenNavigationProp = StackNavigationProp<
   ProfileStackParamList,
+  typeof PROFILE_SCREEN_NAME
+>;
+
+export type SearchScreenNavigationProp = StackNavigationProp<
+  ProfileStackParamList,
   typeof USER_SEARCH_SCREEN_NAME
+>;
+
+export type ThirdPartyUserScreenNavigationProp = StackNavigationProp<
+  ProfileStackParamList,
+  typeof THIRD_PARTY_USER_SCREEN_NAME
 >;
 
 export type ThirdPartyUserRouteProp = RouteProp<
