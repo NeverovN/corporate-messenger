@@ -4,13 +4,14 @@ import { ChatEntity } from '../../../models/Chat';
 
 // controllers
 import { ChatController } from '../../../controllers/Chat';
+import { MessageController } from '../../../controllers/Message';
 
 const chatResolvers: ChatResolvers = {
   id: (chat: ChatEntity) => chat._id,
   participants: async (chat: ChatEntity) =>
     await ChatController.getParticipants(chat),
   messages: async (chat: ChatEntity) => {
-    return await ChatController.getMessages(chat._id);
+    return await MessageController.getMessages(chat._id);
   },
 };
 

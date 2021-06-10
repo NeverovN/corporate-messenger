@@ -1,6 +1,6 @@
 import {
   useNewMessageSubscription,
-  useGetChatByIdQuery,
+  useGetMessagesQuery,
 } from '@/common/types/gql.generated';
 import { useRoute } from '@react-navigation/native';
 
@@ -14,7 +14,7 @@ export const useGetChatMessages = () => {
     throw Error('chat does not exist');
   }
 
-  const { data } = useGetChatByIdQuery({
+  const { data } = useGetMessagesQuery({
     variables: { chatId: params.chatId },
   });
 
@@ -22,11 +22,11 @@ export const useGetChatMessages = () => {
     variables: { chatId: params.chatId },
   });
 
-  if (!data || !data.getChatById || !data.getChatById.messages) {
+  if (!data || !data.getMessages) {
     return [] as any;
   }
 
-  const messages = data.getChatById.messages.map((el) => {
+  const messages = data.getMessages.map((el) => {
     if (!el) {
       return [] as any;
     }

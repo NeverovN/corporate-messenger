@@ -20,7 +20,7 @@ export const useSendPressHandler = (
       }
       cache.modify({
         fields: {
-          getChatById() {
+          getMessages() {
             try {
               cache.writeFragment({
                 fragment: MessageFragmentFragmentDoc,

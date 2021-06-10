@@ -22,12 +22,10 @@ class MessageModelController {
     return this.mapMessageWithFallback(message);
   }
 
-  async getMessages(ids: ID[]): Promise<Array<MessageEntity>> {
-    const messagesQuery = await MessageModel.find().exec();
+  async getMessages(chatId: ID): Promise<Array<MessageEntity>> {
+    const messagesQuery = await MessageModel.find({ chatId }).exec();
 
-    const result = messagesQuery.filter(({ id }) => ids.includes(id));
-
-    return result.map(mapMessageDocumentToMessageEntity);
+    return messagesQuery.map(mapMessageDocumentToMessageEntity);
   }
 
   async getMessagesByAuthor(author: ID): Promise<(MessageEntity | null)[]> {
@@ -49,10 +47,6 @@ class MessageModelController {
 
     const createdMessage = await MessageModel.create(newMessage);
     await createdMessage.save();
-
-    if (!(await ChatController.addMessage(chatId, createdMessage._id))) {
-      throw Error('message cannot be created');
-    }
 
     return mapMessageDocumentToMessageEntity(createdMessage);
   }

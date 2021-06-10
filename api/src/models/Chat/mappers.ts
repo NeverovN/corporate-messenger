@@ -8,6 +8,5 @@ export function mapChatDocumentToChatEntity(
     _id: document._id,
     logo: document.logo,
     participants: document.participants,
-    messages: document.messages,
   };
 }

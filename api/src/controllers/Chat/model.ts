@@ -54,38 +54,6 @@ class ChatModelController {
 
     return chat.participants;
   }
-
-  async getMessages(chatId: ID): Promise<MessageEntity[]> {
-    const chat = await this.getChat(chatId);
-
-    const { messages: messagesIds } = chat;
-
-    const messages = await MessageController.getMessages(messagesIds);
-
-    return messages;
-  }
-
-  async addMessage(chatId: ID, messageId: ID): Promise<boolean> {
-    try {
-      const chat = await ChatModel.findById(chatId).exec();
-
-      if (!chat) {
-        throw Error('chat not found');
-      }
-
-      chat.messages.push(messageId);
-
-      try {
-        await chat.save();
-      } catch {
-        throw Error('network error, message not saved');
-      }
-
-      return true;
-    } catch {
-      return false;
-    }
-  }
 }
 
 const chatModelController = new ChatModelController();

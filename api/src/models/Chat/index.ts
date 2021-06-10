@@ -19,13 +19,9 @@ export class ChatEntity {
   @prop({ required: true })
   participants: ID[];
 
-  @prop()
-  messages: ID[];
-
   constructor(participants: ID[]) {
     this.participants = participants;
     this.logo = null;
-    this.messages = [];
   }
 }
 
