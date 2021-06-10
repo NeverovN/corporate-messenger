@@ -11,7 +11,7 @@ interface IUserInfoContainerProps {
 }
 
 const UserInfoContainer: FC<IUserInfoContainerProps> = (props) => {
-  const userName = useGetUser(props.userId); // implement userId via road var through navigation
+  const userName = useGetUser(props.userId);
   return (
     <UserInfoView
       userName={userName}

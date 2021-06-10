@@ -6,12 +6,12 @@ import HeaderLeftView from 'profile/components/HeaderLeft';
 // hooks
 import { useSearchNavigation } from 'profile/hooks/useSearchNavigation';
 
-interface IHeaderRightContainerProps {}
+interface IHeaderLeftContainerProps {}
 
-const HeaderRight: FC<IHeaderRightContainerProps> = () => {
+const HeaderLeft: FC<IHeaderLeftContainerProps> = () => {
   const navigate = useSearchNavigation();
 
   return <HeaderLeftView size={25} onPress={navigate} />;
 };
 
-export default memo(HeaderRight);
+export default memo(HeaderLeft);
