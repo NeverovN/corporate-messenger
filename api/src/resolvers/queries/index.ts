@@ -14,10 +14,11 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
   async getUsers() {
     return await UserController.getAllUsers();
   },
-  async getPosts(_, __, { currentUserId }) {
-    if (!currentUserId) throw Error('Unauthorized');
+  async getPosts(_, args, { currentUserId }) {
+    const id = args.author ? args.author : currentUserId;
+    if (!id) throw Error('Unauthorized');
 
-    return await PostController.getPostsByAuthor(currentUserId);
+    return await PostController.getPostsByAuthor(id);
   },
   async getAllPosts() {
     return await PostController.getAllPosts();

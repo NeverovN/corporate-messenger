@@ -1,15 +1,32 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { View, FlatList, ListRenderItem } from 'react-native';
 
 // styles
 import styles from './styles';
 
-interface IThirdPartyUserViewProps {}
+// containers
+import { IPostItem } from '@/feed/types/feed';
 
-const ThirdPartyUserView: FC<IThirdPartyUserViewProps> = () => {
+// components
+import Tile from 'feed/components/Tile';
+import ThirdPartyTile from '../ThirdPartyTile';
+
+interface IThirdPartyUserViewProps {
+  data: IPostItem[];
+}
+
+const renderPostItem: ListRenderItem<IPostItem> = () => {
+  return <Tile />;
+};
+
+const ThirdPartyUserView: FC<IThirdPartyUserViewProps> = (props) => {
   return (
     <View style={styles.thirdPartyUserStyle}>
-      <Text>Third Party User Screen</Text>
+      <FlatList
+        ListHeaderComponent={ThirdPartyTile}
+        data={props.data}
+        renderItem={renderPostItem}
+      />
     </View>
   );
 };

@@ -23,8 +23,6 @@ export const useAddPost = () => {
           },
         },
       });
-      const query = cache.readQuery<GetPostsQuery>({ query: GetPostsDocument });
-      console.log(query?.getPosts?.length);
     },
   });
   return async () => {

@@ -12,8 +12,10 @@ interface IPost {
   id: number;
 }
 
-export const useUsersPosts = () => {
-  const { data: queryData } = useGetPostsQuery();
+export const useUsersPosts = (userId?: string) => {
+  const { data: queryData } = useGetPostsQuery({
+    variables: { author: userId || null },
+  });
   useNewPostSubscription();
 
   if (

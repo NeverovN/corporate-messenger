@@ -18,8 +18,8 @@ subscription NewPost {
   }
 }
 
-query GetPosts {
-  getPosts {
+query GetPosts($author: ID) {
+  getPosts(author: $author) {
     ...PostFragment
   }
 }

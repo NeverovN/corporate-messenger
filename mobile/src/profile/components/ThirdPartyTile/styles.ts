@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  thirdPartyUserStyle: {
-    flex: 1,
+  thirdPartyTileStyles: {
+    width: '100%',
+    backgroundColor: 'gray',
   },
 });
