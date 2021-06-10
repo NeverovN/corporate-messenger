@@ -14,7 +14,7 @@ export const useGetChatMessages = () => {
     throw Error('chat does not exist');
   }
 
-  const { data: queryData } = useGetChatByIdQuery({
+  const { data } = useGetChatByIdQuery({
     variables: { chatId: params.chatId },
   });
 
@@ -22,11 +22,11 @@ export const useGetChatMessages = () => {
     variables: { chatId: params.chatId },
   });
 
-  if (!queryData || !queryData.getChatById || !queryData.getChatById.messages) {
+  if (!data || !data.getChatById || !data.getChatById.messages) {
     return [] as any;
   }
 
-  const messages = queryData.getChatById.messages.map((el) => {
+  const messages = data.getChatById.messages.map((el) => {
     if (!el) {
       return [] as any;
     }

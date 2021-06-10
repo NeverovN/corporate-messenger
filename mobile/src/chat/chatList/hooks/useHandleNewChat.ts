@@ -12,14 +12,16 @@ export const useHandleNewChat = () => {
       cache.modify({
         fields: {
           getChats(exChats = []) {
-            console.log(exChats);
+            try {
+              const newChat = cache.writeFragment({
+                fragment: ChatFragmentFragmentDoc,
+                data: data.createChat,
+              });
 
-            const newChat = cache.writeFragment({
-              fragment: ChatFragmentFragmentDoc,
-              data: data.createChat,
-            });
-
-            return [...exChats, newChat];
+              return [...exChats, newChat];
+            } catch (err) {
+              throw Error(`cache update error -> ${err}`);
+            }
           },
         },
       });

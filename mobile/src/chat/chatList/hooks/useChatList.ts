@@ -9,14 +9,14 @@ import {
 } from 'common/types/gql.generated';
 
 export const useChatList = (navigation: SharedStackNavigationProp) => {
-  const { data: queryData } = useGetChatsQuery();
+  const { data } = useGetChatsQuery();
   useNewChatSubscription();
 
-  if (!queryData || !queryData.getChats) {
+  if (!data || !data.getChats) {
     return [] as any;
   }
 
-  const chats = queryData.getChats.map((el) => {
+  const chats = data.getChats.map((el) => {
     if (!el) {
       return [] as any;
     }

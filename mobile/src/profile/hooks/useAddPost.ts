@@ -19,8 +19,7 @@ export const useAddPost = () => {
               });
               return [...exPosts, newPost];
             } catch (err) {
-              console.log(err);
-              throw Error('post creation error');
+              throw Error(`cache update error -> ${err}`);
             }
           },
         },

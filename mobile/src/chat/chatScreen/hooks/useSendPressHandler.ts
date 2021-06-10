@@ -21,10 +21,14 @@ export const useSendPressHandler = (
       cache.modify({
         fields: {
           getChatById() {
-            cache.writeFragment({
-              fragment: MessageFragmentFragmentDoc,
-              data: data.createMessage,
-            });
+            try {
+              cache.writeFragment({
+                fragment: MessageFragmentFragmentDoc,
+                data: data.createMessage,
+              });
+            } catch (err) {
+              throw Error(`cache update error -> ${err}`);
+            }
           },
         },
       });
