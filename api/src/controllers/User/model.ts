@@ -19,6 +19,10 @@ class UserModelController {
     return this.mapUserWithFallback(user);
   }
 
+  async getAllUsers() {
+    return await UserModel.find().exec();
+  }
+
   async getUsers(ids: ID[]): Promise<Array<UserEntity>> {
     const usersQuery = await UserModel.find().exec();
 

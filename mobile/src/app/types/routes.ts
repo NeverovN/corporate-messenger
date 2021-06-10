@@ -17,6 +17,7 @@ import {
 import { RootStackParamList as FeedStackParamList } from 'feed/types/routes';
 import { AuthStackParamList } from 'auth/types/routes';
 import { ChatListStackParamList } from 'chat/chatList/types/routes';
+import { ProfileStackParamList } from 'profile/types/routes';
 
 export type RootStackParamList = {
   [SPLASH_SCREEN_NAME]: undefined;
@@ -62,5 +63,10 @@ export type ChatRouteProp = RouteProp<
 export type BottomTabParamList = {
   [FEED_STACK_NAME]: NavigatorScreenParams<FeedStackParamList>;
   [CHAT_LIST_STACK_NAME]: undefined;
-  [PROFILE_STACK_NAME]: undefined;
+  [PROFILE_STACK_NAME]: NavigatorScreenParams<ProfileStackParamList>;
 };
+
+export type ProfileStackRouteProp = StackNavigationProp<
+  BottomTabParamList,
+  typeof PROFILE_STACK_NAME
+>;
