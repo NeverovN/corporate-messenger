@@ -26,6 +26,7 @@ query GetPosts($author: ID) {
 
 query GetUser($id: ID) {
   getUser(id: $id) {
+    id
     firstName
     lastName
   }

@@ -434,7 +434,7 @@ export type GetUserQuery = (
   { __typename?: 'Query' }
   & { getUser: (
     { __typename?: 'User' }
-    & Pick<User, 'firstName' | 'lastName'>
+    & Pick<User, 'id' | 'firstName' | 'lastName'>
   ) }
 );
 
@@ -984,6 +984,7 @@ export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQuer
 export const GetUserDocument = gql`
     query GetUser($id: ID) {
   getUser(id: $id) {
+    id
     firstName
     lastName
   }

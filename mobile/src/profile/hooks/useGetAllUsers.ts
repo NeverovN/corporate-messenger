@@ -1,13 +1,30 @@
-import { useGetUsersQuery } from '@/common/types/gql.generated';
+import {
+  useGetUserQuery,
+  useGetUsersQuery,
+} from '@/common/types/gql.generated';
 
 export const useGetAllUsers = () => {
   const { data } = useGetUsersQuery();
+  const { data: currUser, loading } = useGetUserQuery();
 
   if (!data || !data.getUsers) {
     return [] as any;
   }
 
-  return data.getUsers.map((el) => {
+  if (loading) {
+    return [] as any;
+  }
+
+  if (!currUser || !currUser.getUser) {
+    throw Error('unauthorized user');
+  }
+
+  // removes current user out of list of all users
+  const filteredUsers = data.getUsers.filter(
+    (user) => user && user.id !== currUser.getUser.id,
+  );
+
+  return filteredUsers.map((el) => {
     if (!el) {
       return [] as any;
     }
