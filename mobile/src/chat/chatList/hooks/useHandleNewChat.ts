@@ -13,6 +13,9 @@ export const useHandleNewChat = () => {
         fields: {
           getChats(exChats = []) {
             try {
+              console.log(exChats);
+              console.log(data.createChat);
+
               const newChat = cache.writeFragment({
                 fragment: ChatFragmentFragmentDoc,
                 data: data.createChat,

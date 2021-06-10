@@ -22,5 +22,13 @@ fragment ChatFragment on Chat {
     id
   }
   isDialog
+  messages {
+    id
+    content
+    author {
+      id
+    }
+    createdAt
+    chatId
+  }
 }
-
