@@ -36,7 +36,6 @@ export const useGetChatMessages = () => {
       content: el.content,
       createdAt: el.createdAt,
       author: el.author,
-      onPress: () => console.log(`message ${el.id} pressed`),
     };
   });
 

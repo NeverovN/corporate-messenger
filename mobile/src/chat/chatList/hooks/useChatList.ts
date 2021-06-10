@@ -1,14 +1,9 @@
-// types
-import { SharedStackNavigationProp } from '@/app/types/routes';
-
-// consts
-import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
 import {
   useGetChatsQuery,
   useNewChatSubscription,
 } from 'common/types/gql.generated';
 
-export const useChatList = (navigation: SharedStackNavigationProp) => {
+export const useChatList = () => {
   const { data } = useGetChatsQuery();
   useNewChatSubscription();
 
@@ -25,12 +20,6 @@ export const useChatList = (navigation: SharedStackNavigationProp) => {
       title: el.id,
       participants: el.participants,
       id: el.id,
-      onPress: () => {
-        navigation.navigate(SHARED_STACK_NAME, {
-          screen: CHAT_STACK_NAME,
-          params: { screen: 'Chat', params: { chatId: el.id } },
-        });
-      },
     };
   });
 

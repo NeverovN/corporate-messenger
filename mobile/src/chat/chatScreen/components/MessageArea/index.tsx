@@ -7,15 +7,15 @@ import styles from './styles';
 // types
 import { IMessage } from 'chat/chatScreen/types/messages';
 
-// components
-import MessageView from '../Message';
+// containers
+import Message from '@/chat/chatScreen/containers/Message';
 
 interface IMessageAreaViewProps {
   data: IMessage[];
 }
 
 const renderMessage: ListRenderItem<IMessage> = ({ item }) => {
-  return <MessageView onPress={item.onPress} content={item.content} />;
+  return <Message messageId={item.id} content={item.content} />;
 };
 
 const MessageAreaView: FC<IMessageAreaViewProps> = (props) => {
