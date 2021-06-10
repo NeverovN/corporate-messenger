@@ -78,7 +78,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
   createChat: Chat;
-  createMessage: Chat;
+  createMessage: Message;
   createPost: Post;
   createUser: AuthenticationResult;
   getPost?: Maybe<Post>;
@@ -328,7 +328,7 @@ export type MessageResolvers<ContextType = any, ParentType extends ResolversPare
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddFriendArgs, 'input'>>;
   createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType>;
-  createMessage?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateMessageArgs, 'content' | 'chatId'>>;
+  createMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationCreateMessageArgs, 'content' | 'chatId'>>;
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
   createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationGetPostArgs, 'id'>>;

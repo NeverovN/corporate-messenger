@@ -1,14 +1,10 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -77,7 +73,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
   createChat: Chat;
-  createMessage: Chat;
+  createMessage: Message;
   createPost: Post;
   createUser: AuthenticationResult;
   getPost?: Maybe<Post>;
@@ -85,22 +81,27 @@ export type Mutation = {
   login: AuthenticationResult;
 };
 
+
 export type MutationAddFriendArgs = {
   input: AddFriendInput;
 };
+
 
 export type MutationCreateMessageArgs = {
   content: Scalars['String'];
   chatId: Scalars['String'];
 };
 
+
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };
 
+
 export type MutationGetPostArgs = {
   id: Scalars['ID'];
 };
+
 
 export type MutationLoginArgs = {
   input: LoginInput;
@@ -127,13 +128,16 @@ export type Query = {
   getUserById?: Maybe<User>;
 };
 
+
 export type QueryGetChatByIdArgs = {
   chatId: Scalars['ID'];
 };
 
+
 export type QueryGetPostArgs = {
   id: Scalars['ID'];
 };
+
 
 export type QueryGetUserByIdArgs = {
   id: Scalars['ID'];
@@ -145,6 +149,7 @@ export type Subscription = {
   newMessage: Message;
   newPost: Post;
 };
+
 
 export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
@@ -160,231 +165,285 @@ export type User = {
   friends: Array<User>;
 };
 
-export type UserFragmentFragment = { __typename?: 'User' } & Pick<
-  User,
-  'id' | 'firstName' | 'lastName' | 'email'
->;
+export type UserFragmentFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>
+);
 
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
 }>;
 
-export type LoginMutation = { __typename?: 'Mutation' } & {
-  login: { __typename?: 'AuthenticationResult' } & Pick<
-    AuthenticationResult,
-    'token'
-  > & { user: { __typename?: 'User' } & UserFragmentFragment };
-};
+
+export type LoginMutation = (
+  { __typename?: 'Mutation' }
+  & { login: (
+    { __typename?: 'AuthenticationResult' }
+    & Pick<AuthenticationResult, 'token'>
+    & { user: (
+      { __typename?: 'User' }
+      & UserFragmentFragment
+    ) }
+  ) }
+);
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
 }>;
 
-export type CreateUserMutation = { __typename?: 'Mutation' } & {
-  createUser: { __typename?: 'AuthenticationResult' } & Pick<
-    AuthenticationResult,
-    'token'
-  > & { user: { __typename?: 'User' } & UserFragmentFragment };
-};
 
-export type GetChatsQueryVariables = Exact<{ [key: string]: never }>;
+export type CreateUserMutation = (
+  { __typename?: 'Mutation' }
+  & { createUser: (
+    { __typename?: 'AuthenticationResult' }
+    & Pick<AuthenticationResult, 'token'>
+    & { user: (
+      { __typename?: 'User' }
+      & UserFragmentFragment
+    ) }
+  ) }
+);
 
-export type GetChatsQuery = { __typename?: 'Query' } & {
-  getChats?: Maybe<
-    Array<Maybe<{ __typename?: 'Chat' } & ChatFragmentFragment>>
-  >;
-};
+export type GetChatsQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type CreateChatMutationVariables = Exact<{ [key: string]: never }>;
 
-export type CreateChatMutation = { __typename?: 'Mutation' } & {
-  createChat: { __typename?: 'Chat' } & ChatFragmentFragment;
-};
+export type GetChatsQuery = (
+  { __typename?: 'Query' }
+  & { getChats?: Maybe<Array<Maybe<(
+    { __typename?: 'Chat' }
+    & ChatFragmentFragment
+  )>>> }
+);
 
-export type NewChatSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type CreateChatMutationVariables = Exact<{ [key: string]: never; }>;
 
-export type NewChatSubscription = { __typename?: 'Subscription' } & {
-  newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
-};
 
-export type MessageFragmentFragment = { __typename?: 'Message' } & Pick<
-  Message,
-  'id' | 'content' | 'createdAt' | 'chatId'
-> & { author: { __typename?: 'User' } & Pick<User, 'id'> };
+export type CreateChatMutation = (
+  { __typename?: 'Mutation' }
+  & { createChat: (
+    { __typename?: 'Chat' }
+    & ChatFragmentFragment
+  ) }
+);
 
-export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
-  Chat,
-  'id'
-> & {
-    participants: Array<Maybe<{ __typename?: 'User' } & Pick<User, 'id'>>>;
-    messages?: Maybe<
-      Array<
-        Maybe<
-          { __typename?: 'Message' } & Pick<
-            Message,
-            'id' | 'content' | 'createdAt'
-          > & { author: { __typename?: 'User' } & Pick<User, 'id'> }
-        >
-      >
-    >;
-  };
+export type NewChatSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NewChatSubscription = (
+  { __typename?: 'Subscription' }
+  & { newChat: (
+    { __typename?: 'Chat' }
+    & ChatFragmentFragment
+  ) }
+);
+
+export type MessageFragmentFragment = (
+  { __typename?: 'Message' }
+  & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId'>
+  & { author: (
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  ) }
+);
+
+export type ChatFragmentFragment = (
+  { __typename?: 'Chat' }
+  & Pick<Chat, 'id'>
+  & { participants: Array<Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  )>>, messages?: Maybe<Array<Maybe<(
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  )>>> }
+);
 
 export type GetChatByIdQueryVariables = Exact<{
   chatId: Scalars['ID'];
 }>;
 
-export type GetChatByIdQuery = { __typename?: 'Query' } & {
-  getChatById?: Maybe<{ __typename?: 'Chat' } & ChatFragmentFragment>;
-};
+
+export type GetChatByIdQuery = (
+  { __typename?: 'Query' }
+  & { getChatById?: Maybe<(
+    { __typename?: 'Chat' }
+    & ChatFragmentFragment
+  )> }
+);
 
 export type CreateMessageMutationVariables = Exact<{
   content: Scalars['String'];
   chatId: Scalars['String'];
 }>;
 
-export type CreateMessageMutation = { __typename?: 'Mutation' } & {
-  createMessage: { __typename?: 'Chat' } & ChatFragmentFragment;
-};
+
+export type CreateMessageMutation = (
+  { __typename?: 'Mutation' }
+  & { createMessage: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
 
 export type NewMessageSubscriptionVariables = Exact<{
   chatId: Scalars['ID'];
 }>;
 
-export type NewMessageSubscription = { __typename?: 'Subscription' } & {
-  newMessage: { __typename?: 'Message' } & MessageFragmentFragment;
-};
 
-export type GetFeedQueryVariables = Exact<{ [key: string]: never }>;
+export type NewMessageSubscription = (
+  { __typename?: 'Subscription' }
+  & { newMessage: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
 
-export type GetFeedQuery = { __typename?: 'Query' } & {
-  getAllPosts?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Post' } & Pick<Post, 'id'> & {
-            author: { __typename?: 'User' } & Pick<User, 'id'>;
-          }
-      >
-    >
-  >;
-};
+export type GetFeedQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetFriendFeedQuery = { __typename?: 'Query' } & {
-  getFriendPosts?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Post' } & Pick<Post, 'id'> & {
-            author: { __typename?: 'User' } & Pick<User, 'id'>;
-          }
-      >
-    >
-  >;
-};
+export type GetFeedQuery = (
+  { __typename?: 'Query' }
+  & { getAllPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ) }
+  )>>> }
+);
 
-export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
-  Post,
-  'id' | 'createdAt'
-> & { author: { __typename?: 'User' } & Pick<User, 'id'> };
+export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type CreatePostMutationVariables = Exact<{ [key: string]: never }>;
 
-export type CreatePostMutation = { __typename?: 'Mutation' } & {
-  createPost: { __typename?: 'Post' } & PostFragmentFragment;
-};
+export type GetFriendFeedQuery = (
+  { __typename?: 'Query' }
+  & { getFriendPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ) }
+  )>>> }
+);
 
-export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type PostFragmentFragment = (
+  { __typename?: 'Post' }
+  & Pick<Post, 'id' | 'createdAt'>
+  & { author: (
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  ) }
+);
 
-export type NewPostSubscription = { __typename?: 'Subscription' } & {
-  newPost: { __typename?: 'Post' } & PostFragmentFragment;
-};
+export type CreatePostMutationVariables = Exact<{ [key: string]: never; }>;
 
-export type GetPostsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetPostsQuery = { __typename?: 'Query' } & {
-  getPosts?: Maybe<
-    Array<Maybe<{ __typename?: 'Post' } & PostFragmentFragment>>
-  >;
-};
+export type CreatePostMutation = (
+  { __typename?: 'Mutation' }
+  & { createPost: (
+    { __typename?: 'Post' }
+    & PostFragmentFragment
+  ) }
+);
 
-export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never }>;
+export type NewPostSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
-export type GetCurrentUserQuery = { __typename?: 'Query' } & {
-  getCurrentUser: { __typename?: 'User' } & Pick<
-    User,
-    'firstName' | 'lastName'
-  >;
-};
+
+export type NewPostSubscription = (
+  { __typename?: 'Subscription' }
+  & { newPost: (
+    { __typename?: 'Post' }
+    & PostFragmentFragment
+  ) }
+);
+
+export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPostsQuery = (
+  { __typename?: 'Query' }
+  & { getPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & PostFragmentFragment
+  )>>> }
+);
+
+export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCurrentUserQuery = (
+  { __typename?: 'Query' }
+  & { getCurrentUser: (
+    { __typename?: 'User' }
+    & Pick<User, 'firstName' | 'lastName'>
+  ) }
+);
 
 export type GetUserByIdQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
-export type GetUserByIdQuery = { __typename?: 'Query' } & {
-  getUserById?: Maybe<
-    { __typename?: 'User' } & Pick<User, 'firstName' | 'lastName'>
-  >;
-};
+
+export type GetUserByIdQuery = (
+  { __typename?: 'Query' }
+  & { getUserById?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'firstName' | 'lastName'>
+  )> }
+);
 
 export const UserFragmentFragmentDoc = gql`
-  fragment UserFragment on User {
-    id
-    firstName
-    lastName
-    email
-  }
-`;
+    fragment UserFragment on User {
+  id
+  firstName
+  lastName
+  email
+}
+    `;
 export const MessageFragmentFragmentDoc = gql`
-  fragment messageFragment on Message {
+    fragment MessageFragment on Message {
+  id
+  content
+  author {
     id
-    content
-    author {
-      id
-    }
-    createdAt
-    chatId
   }
-`;
+  createdAt
+  chatId
+}
+    `;
 export const ChatFragmentFragmentDoc = gql`
-  fragment ChatFragment on Chat {
+    fragment ChatFragment on Chat {
+  id
+  participants {
     id
-    participants {
-      id
-    }
-    messages {
-      id
-      content
-      author {
-        id
-      }
-      createdAt
-    }
   }
-`;
+  messages {
+    ...MessageFragment
+  }
+}
+    ${MessageFragmentFragmentDoc}`;
 export const PostFragmentFragmentDoc = gql`
-  fragment PostFragment on Post {
+    fragment PostFragment on Post {
+  id
+  createdAt
+  author {
     id
-    createdAt
-    author {
-      id
-    }
   }
-`;
+}
+    `;
 export const LoginDocument = gql`
-  mutation Login($input: LoginInput!) {
-    login(input: $input) {
-      token
-      user {
-        ...UserFragment
-      }
+    mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    token
+    user {
+      ...UserFragment
     }
   }
-  ${UserFragmentFragmentDoc}
-`;
-export type LoginMutationFn = Apollo.MutationFunction<
-  LoginMutation,
-  LoginMutationVariables
->;
+}
+    ${UserFragmentFragmentDoc}`;
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
  * __useLoginMutation__
@@ -403,39 +462,24 @@ export type LoginMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useLoginMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    LoginMutation,
-    LoginMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
-    LoginDocument,
-    options,
-  );
-}
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+      }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
-export type LoginMutationOptions = Apollo.BaseMutationOptions<
-  LoginMutation,
-  LoginMutationVariables
->;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const CreateUserDocument = gql`
-  mutation CreateUser($input: CreateUserInput!) {
-    createUser(input: $input) {
-      token
-      user {
-        ...UserFragment
-      }
+    mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+    token
+    user {
+      ...UserFragment
     }
   }
-  ${UserFragmentFragmentDoc}
-`;
-export type CreateUserMutationFn = Apollo.MutationFunction<
-  CreateUserMutation,
-  CreateUserMutationVariables
->;
+}
+    ${UserFragmentFragmentDoc}`;
+export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 
 /**
  * __useCreateUserMutation__
@@ -454,34 +498,20 @@ export type CreateUserMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateUserMutation,
-    CreateUserMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
-    CreateUserDocument,
-    options,
-  );
-}
-export type CreateUserMutationHookResult = ReturnType<
-  typeof useCreateUserMutation
->;
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+      }
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
-  CreateUserMutation,
-  CreateUserMutationVariables
->;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
 export const GetChatsDocument = gql`
-  query GetChats {
-    getChats {
-      ...ChatFragment
-    }
+    query GetChats {
+  getChats {
+    ...ChatFragment
   }
-  ${ChatFragmentFragmentDoc}
-`;
+}
+    ${ChatFragmentFragmentDoc}`;
 
 /**
  * __useGetChatsQuery__
@@ -498,47 +528,25 @@ export const GetChatsDocument = gql`
  *   },
  * });
  */
-export function useGetChatsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetChatsQuery, GetChatsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetChatsQuery, GetChatsQueryVariables>(
-    GetChatsDocument,
-    options,
-  );
-}
-export function useGetChatsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetChatsQuery,
-    GetChatsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetChatsQuery, GetChatsQueryVariables>(
-    GetChatsDocument,
-    options,
-  );
-}
+export function useGetChatsQuery(baseOptions?: Apollo.QueryHookOptions<GetChatsQuery, GetChatsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetChatsQuery, GetChatsQueryVariables>(GetChatsDocument, options);
+      }
+export function useGetChatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetChatsQuery, GetChatsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetChatsQuery, GetChatsQueryVariables>(GetChatsDocument, options);
+        }
 export type GetChatsQueryHookResult = ReturnType<typeof useGetChatsQuery>;
-export type GetChatsLazyQueryHookResult = ReturnType<
-  typeof useGetChatsLazyQuery
->;
-export type GetChatsQueryResult = Apollo.QueryResult<
-  GetChatsQuery,
-  GetChatsQueryVariables
->;
+export type GetChatsLazyQueryHookResult = ReturnType<typeof useGetChatsLazyQuery>;
+export type GetChatsQueryResult = Apollo.QueryResult<GetChatsQuery, GetChatsQueryVariables>;
 export const CreateChatDocument = gql`
-  mutation CreateChat {
-    createChat {
-      ...ChatFragment
-    }
+    mutation CreateChat {
+  createChat {
+    ...ChatFragment
   }
-  ${ChatFragmentFragmentDoc}
-`;
-export type CreateChatMutationFn = Apollo.MutationFunction<
-  CreateChatMutation,
-  CreateChatMutationVariables
->;
+}
+    ${ChatFragmentFragmentDoc}`;
+export type CreateChatMutationFn = Apollo.MutationFunction<CreateChatMutation, CreateChatMutationVariables>;
 
 /**
  * __useCreateChatMutation__
@@ -556,34 +564,20 @@ export type CreateChatMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateChatMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateChatMutation,
-    CreateChatMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<CreateChatMutation, CreateChatMutationVariables>(
-    CreateChatDocument,
-    options,
-  );
-}
-export type CreateChatMutationHookResult = ReturnType<
-  typeof useCreateChatMutation
->;
+export function useCreateChatMutation(baseOptions?: Apollo.MutationHookOptions<CreateChatMutation, CreateChatMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateChatMutation, CreateChatMutationVariables>(CreateChatDocument, options);
+      }
+export type CreateChatMutationHookResult = ReturnType<typeof useCreateChatMutation>;
 export type CreateChatMutationResult = Apollo.MutationResult<CreateChatMutation>;
-export type CreateChatMutationOptions = Apollo.BaseMutationOptions<
-  CreateChatMutation,
-  CreateChatMutationVariables
->;
+export type CreateChatMutationOptions = Apollo.BaseMutationOptions<CreateChatMutation, CreateChatMutationVariables>;
 export const NewChatDocument = gql`
-  subscription NewChat {
-    newChat {
-      ...ChatFragment
-    }
+    subscription NewChat {
+  newChat {
+    ...ChatFragment
   }
-  ${ChatFragmentFragmentDoc}
-`;
+}
+    ${ChatFragmentFragmentDoc}`;
 
 /**
  * __useNewChatSubscription__
@@ -600,30 +594,19 @@ export const NewChatDocument = gql`
  *   },
  * });
  */
-export function useNewChatSubscription(
-  baseOptions?: Apollo.SubscriptionHookOptions<
-    NewChatSubscription,
-    NewChatSubscriptionVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSubscription<
-    NewChatSubscription,
-    NewChatSubscriptionVariables
-  >(NewChatDocument, options);
-}
-export type NewChatSubscriptionHookResult = ReturnType<
-  typeof useNewChatSubscription
->;
+export function useNewChatSubscription(baseOptions?: Apollo.SubscriptionHookOptions<NewChatSubscription, NewChatSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<NewChatSubscription, NewChatSubscriptionVariables>(NewChatDocument, options);
+      }
+export type NewChatSubscriptionHookResult = ReturnType<typeof useNewChatSubscription>;
 export type NewChatSubscriptionResult = Apollo.SubscriptionResult<NewChatSubscription>;
 export const GetChatByIdDocument = gql`
-  query getChatById($chatId: ID!) {
-    getChatById(chatId: $chatId) {
-      ...ChatFragment
-    }
+    query getChatById($chatId: ID!) {
+  getChatById(chatId: $chatId) {
+    ...ChatFragment
   }
-  ${ChatFragmentFragmentDoc}
-`;
+}
+    ${ChatFragmentFragmentDoc}`;
 
 /**
  * __useGetChatByIdQuery__
@@ -641,50 +624,25 @@ export const GetChatByIdDocument = gql`
  *   },
  * });
  */
-export function useGetChatByIdQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetChatByIdQuery,
-    GetChatByIdQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetChatByIdQuery, GetChatByIdQueryVariables>(
-    GetChatByIdDocument,
-    options,
-  );
-}
-export function useGetChatByIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetChatByIdQuery,
-    GetChatByIdQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetChatByIdQuery, GetChatByIdQueryVariables>(
-    GetChatByIdDocument,
-    options,
-  );
-}
+export function useGetChatByIdQuery(baseOptions: Apollo.QueryHookOptions<GetChatByIdQuery, GetChatByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetChatByIdQuery, GetChatByIdQueryVariables>(GetChatByIdDocument, options);
+      }
+export function useGetChatByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetChatByIdQuery, GetChatByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetChatByIdQuery, GetChatByIdQueryVariables>(GetChatByIdDocument, options);
+        }
 export type GetChatByIdQueryHookResult = ReturnType<typeof useGetChatByIdQuery>;
-export type GetChatByIdLazyQueryHookResult = ReturnType<
-  typeof useGetChatByIdLazyQuery
->;
-export type GetChatByIdQueryResult = Apollo.QueryResult<
-  GetChatByIdQuery,
-  GetChatByIdQueryVariables
->;
+export type GetChatByIdLazyQueryHookResult = ReturnType<typeof useGetChatByIdLazyQuery>;
+export type GetChatByIdQueryResult = Apollo.QueryResult<GetChatByIdQuery, GetChatByIdQueryVariables>;
 export const CreateMessageDocument = gql`
-  mutation CreateMessage($content: String!, $chatId: String!) {
-    createMessage(content: $content, chatId: $chatId) {
-      ...ChatFragment
-    }
+    mutation CreateMessage($content: String!, $chatId: String!) {
+  createMessage(content: $content, chatId: $chatId) {
+    ...MessageFragment
   }
-  ${ChatFragmentFragmentDoc}
-`;
-export type CreateMessageMutationFn = Apollo.MutationFunction<
-  CreateMessageMutation,
-  CreateMessageMutationVariables
->;
+}
+    ${MessageFragmentFragmentDoc}`;
+export type CreateMessageMutationFn = Apollo.MutationFunction<CreateMessageMutation, CreateMessageMutationVariables>;
 
 /**
  * __useCreateMessageMutation__
@@ -704,34 +662,20 @@ export type CreateMessageMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateMessageMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateMessageMutation,
-    CreateMessageMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateMessageMutation,
-    CreateMessageMutationVariables
-  >(CreateMessageDocument, options);
-}
-export type CreateMessageMutationHookResult = ReturnType<
-  typeof useCreateMessageMutation
->;
+export function useCreateMessageMutation(baseOptions?: Apollo.MutationHookOptions<CreateMessageMutation, CreateMessageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMessageMutation, CreateMessageMutationVariables>(CreateMessageDocument, options);
+      }
+export type CreateMessageMutationHookResult = ReturnType<typeof useCreateMessageMutation>;
 export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
-export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<
-  CreateMessageMutation,
-  CreateMessageMutationVariables
->;
+export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<CreateMessageMutation, CreateMessageMutationVariables>;
 export const NewMessageDocument = gql`
-  subscription NewMessage($chatId: ID!) {
-    newMessage(chatId: $chatId) {
-      ...messageFragment
-    }
+    subscription NewMessage($chatId: ID!) {
+  newMessage(chatId: $chatId) {
+    ...MessageFragment
   }
-  ${MessageFragmentFragmentDoc}
-`;
+}
+    ${MessageFragmentFragmentDoc}`;
 
 /**
  * __useNewMessageSubscription__
@@ -749,32 +693,22 @@ export const NewMessageDocument = gql`
  *   },
  * });
  */
-export function useNewMessageSubscription(
-  baseOptions: Apollo.SubscriptionHookOptions<
-    NewMessageSubscription,
-    NewMessageSubscriptionVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSubscription<
-    NewMessageSubscription,
-    NewMessageSubscriptionVariables
-  >(NewMessageDocument, options);
-}
-export type NewMessageSubscriptionHookResult = ReturnType<
-  typeof useNewMessageSubscription
->;
+export function useNewMessageSubscription(baseOptions: Apollo.SubscriptionHookOptions<NewMessageSubscription, NewMessageSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<NewMessageSubscription, NewMessageSubscriptionVariables>(NewMessageDocument, options);
+      }
+export type NewMessageSubscriptionHookResult = ReturnType<typeof useNewMessageSubscription>;
 export type NewMessageSubscriptionResult = Apollo.SubscriptionResult<NewMessageSubscription>;
 export const GetFeedDocument = gql`
-  query GetFeed {
-    getAllPosts {
+    query GetFeed {
+  getAllPosts {
+    id
+    author {
       id
-      author {
-        id
-      }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetFeedQuery__
@@ -791,43 +725,27 @@ export const GetFeedDocument = gql`
  *   },
  * });
  */
-export function useGetFeedQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetFeedQuery, GetFeedQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetFeedQuery, GetFeedQueryVariables>(
-    GetFeedDocument,
-    options,
-  );
-}
-export function useGetFeedLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetFeedQuery,
-    GetFeedQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetFeedQuery, GetFeedQueryVariables>(
-    GetFeedDocument,
-    options,
-  );
-}
+export function useGetFeedQuery(baseOptions?: Apollo.QueryHookOptions<GetFeedQuery, GetFeedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFeedQuery, GetFeedQueryVariables>(GetFeedDocument, options);
+      }
+export function useGetFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFeedQuery, GetFeedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFeedQuery, GetFeedQueryVariables>(GetFeedDocument, options);
+        }
 export type GetFeedQueryHookResult = ReturnType<typeof useGetFeedQuery>;
 export type GetFeedLazyQueryHookResult = ReturnType<typeof useGetFeedLazyQuery>;
-export type GetFeedQueryResult = Apollo.QueryResult<
-  GetFeedQuery,
-  GetFeedQueryVariables
->;
+export type GetFeedQueryResult = Apollo.QueryResult<GetFeedQuery, GetFeedQueryVariables>;
 export const GetFriendFeedDocument = gql`
-  query GetFriendFeed {
-    getFriendPosts {
+    query GetFriendFeed {
+  getFriendPosts {
+    id
+    author {
       id
-      author {
-        id
-      }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetFriendFeedQuery__
@@ -844,52 +762,25 @@ export const GetFriendFeedDocument = gql`
  *   },
  * });
  */
-export function useGetFriendFeedQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetFriendFeedQuery,
-    GetFriendFeedQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetFriendFeedQuery, GetFriendFeedQueryVariables>(
-    GetFriendFeedDocument,
-    options,
-  );
-}
-export function useGetFriendFeedLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetFriendFeedQuery,
-    GetFriendFeedQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetFriendFeedQuery, GetFriendFeedQueryVariables>(
-    GetFriendFeedDocument,
-    options,
-  );
-}
-export type GetFriendFeedQueryHookResult = ReturnType<
-  typeof useGetFriendFeedQuery
->;
-export type GetFriendFeedLazyQueryHookResult = ReturnType<
-  typeof useGetFriendFeedLazyQuery
->;
-export type GetFriendFeedQueryResult = Apollo.QueryResult<
-  GetFriendFeedQuery,
-  GetFriendFeedQueryVariables
->;
+export function useGetFriendFeedQuery(baseOptions?: Apollo.QueryHookOptions<GetFriendFeedQuery, GetFriendFeedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFriendFeedQuery, GetFriendFeedQueryVariables>(GetFriendFeedDocument, options);
+      }
+export function useGetFriendFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFriendFeedQuery, GetFriendFeedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFriendFeedQuery, GetFriendFeedQueryVariables>(GetFriendFeedDocument, options);
+        }
+export type GetFriendFeedQueryHookResult = ReturnType<typeof useGetFriendFeedQuery>;
+export type GetFriendFeedLazyQueryHookResult = ReturnType<typeof useGetFriendFeedLazyQuery>;
+export type GetFriendFeedQueryResult = Apollo.QueryResult<GetFriendFeedQuery, GetFriendFeedQueryVariables>;
 export const CreatePostDocument = gql`
-  mutation CreatePost {
-    createPost {
-      ...PostFragment
-    }
+    mutation CreatePost {
+  createPost {
+    ...PostFragment
   }
-  ${PostFragmentFragmentDoc}
-`;
-export type CreatePostMutationFn = Apollo.MutationFunction<
-  CreatePostMutation,
-  CreatePostMutationVariables
->;
+}
+    ${PostFragmentFragmentDoc}`;
+export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
 
 /**
  * __useCreatePostMutation__
@@ -907,34 +798,20 @@ export type CreatePostMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreatePostMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreatePostMutation,
-    CreatePostMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(
-    CreatePostDocument,
-    options,
-  );
-}
-export type CreatePostMutationHookResult = ReturnType<
-  typeof useCreatePostMutation
->;
+export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, options);
+      }
+export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
 export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
-export type CreatePostMutationOptions = Apollo.BaseMutationOptions<
-  CreatePostMutation,
-  CreatePostMutationVariables
->;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
 export const NewPostDocument = gql`
-  subscription NewPost {
-    newPost {
-      ...PostFragment
-    }
+    subscription NewPost {
+  newPost {
+    ...PostFragment
   }
-  ${PostFragmentFragmentDoc}
-`;
+}
+    ${PostFragmentFragmentDoc}`;
 
 /**
  * __useNewPostSubscription__
@@ -951,30 +828,19 @@ export const NewPostDocument = gql`
  *   },
  * });
  */
-export function useNewPostSubscription(
-  baseOptions?: Apollo.SubscriptionHookOptions<
-    NewPostSubscription,
-    NewPostSubscriptionVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSubscription<
-    NewPostSubscription,
-    NewPostSubscriptionVariables
-  >(NewPostDocument, options);
-}
-export type NewPostSubscriptionHookResult = ReturnType<
-  typeof useNewPostSubscription
->;
+export function useNewPostSubscription(baseOptions?: Apollo.SubscriptionHookOptions<NewPostSubscription, NewPostSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<NewPostSubscription, NewPostSubscriptionVariables>(NewPostDocument, options);
+      }
+export type NewPostSubscriptionHookResult = ReturnType<typeof useNewPostSubscription>;
 export type NewPostSubscriptionResult = Apollo.SubscriptionResult<NewPostSubscription>;
 export const GetPostsDocument = gql`
-  query GetPosts {
-    getPosts {
-      ...PostFragment
-    }
+    query GetPosts {
+  getPosts {
+    ...PostFragment
   }
-  ${PostFragmentFragmentDoc}
-`;
+}
+    ${PostFragmentFragmentDoc}`;
 
 /**
  * __useGetPostsQuery__
@@ -991,43 +857,25 @@ export const GetPostsDocument = gql`
  *   },
  * });
  */
-export function useGetPostsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(
-    GetPostsDocument,
-    options,
-  );
-}
-export function useGetPostsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetPostsQuery,
-    GetPostsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(
-    GetPostsDocument,
-    options,
-  );
-}
+export function useGetPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+      }
+export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+        }
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
-export type GetPostsLazyQueryHookResult = ReturnType<
-  typeof useGetPostsLazyQuery
->;
-export type GetPostsQueryResult = Apollo.QueryResult<
-  GetPostsQuery,
-  GetPostsQueryVariables
->;
+export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
+export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export const GetCurrentUserDocument = gql`
-  query GetCurrentUser {
-    getCurrentUser {
-      firstName
-      lastName
-    }
+    query GetCurrentUser {
+  getCurrentUser {
+    firstName
+    lastName
   }
-`;
+}
+    `;
 
 /**
  * __useGetCurrentUserQuery__
@@ -1044,48 +892,25 @@ export const GetCurrentUserDocument = gql`
  *   },
  * });
  */
-export function useGetCurrentUserQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetCurrentUserQuery,
-    GetCurrentUserQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(
-    GetCurrentUserDocument,
-    options,
-  );
-}
-export function useGetCurrentUserLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetCurrentUserQuery,
-    GetCurrentUserQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(
-    GetCurrentUserDocument,
-    options,
-  );
-}
-export type GetCurrentUserQueryHookResult = ReturnType<
-  typeof useGetCurrentUserQuery
->;
-export type GetCurrentUserLazyQueryHookResult = ReturnType<
-  typeof useGetCurrentUserLazyQuery
->;
-export type GetCurrentUserQueryResult = Apollo.QueryResult<
-  GetCurrentUserQuery,
-  GetCurrentUserQueryVariables
->;
+export function useGetCurrentUserQuery(baseOptions?: Apollo.QueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options);
+      }
+export function useGetCurrentUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options);
+        }
+export type GetCurrentUserQueryHookResult = ReturnType<typeof useGetCurrentUserQuery>;
+export type GetCurrentUserLazyQueryHookResult = ReturnType<typeof useGetCurrentUserLazyQuery>;
+export type GetCurrentUserQueryResult = Apollo.QueryResult<GetCurrentUserQuery, GetCurrentUserQueryVariables>;
 export const GetUserByIdDocument = gql`
-  query GetUserByID($id: ID!) {
-    getUserById(id: $id) {
-      firstName
-      lastName
-    }
+    query GetUserByID($id: ID!) {
+  getUserById(id: $id) {
+    firstName
+    lastName
   }
-`;
+}
+    `;
 
 /**
  * __useGetUserByIdQuery__
@@ -1103,35 +928,14 @@ export const GetUserByIdDocument = gql`
  *   },
  * });
  */
-export function useGetUserByIdQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetUserByIdQuery,
-    GetUserByIdQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(
-    GetUserByIdDocument,
-    options,
-  );
-}
-export function useGetUserByIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetUserByIdQuery,
-    GetUserByIdQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(
-    GetUserByIdDocument,
-    options,
-  );
-}
+export function useGetUserByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+      }
+export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+        }
 export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
-export type GetUserByIdLazyQueryHookResult = ReturnType<
-  typeof useGetUserByIdLazyQuery
->;
-export type GetUserByIdQueryResult = Apollo.QueryResult<
-  GetUserByIdQuery,
-  GetUserByIdQueryVariables
->;
+export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
+export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
