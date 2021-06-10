@@ -24,8 +24,8 @@ query GetPosts {
   }
 }
 
-query GetCurrentUser {
-  getCurrentUser {
+query GetUser($id: ID) {
+  getUser(id: $id) {
     firstName
     lastName
   }
@@ -35,5 +35,14 @@ query GetUserByID($id: ID!) {
   getUserById(id: $id) {
     firstName
     lastName
+  }
+}
+
+query GetUsers {
+  getUsers {
+    id
+    firstName
+    lastName
+    avatar
   }
 }

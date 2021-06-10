@@ -64,3 +64,8 @@ export type BottomTabParamList = {
   [CHAT_LIST_STACK_NAME]: undefined;
   [PROFILE_STACK_NAME]: undefined;
 };
+
+export type ProfileStackParamList = StackNavigationProp<
+  BottomTabParamList,
+  typeof PROFILE_STACK_NAME
+>;

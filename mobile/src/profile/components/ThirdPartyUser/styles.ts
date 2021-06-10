@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  userInfoViewStyle: {
-    width: '100%',
+  thirdPartyUserStyle: {
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 5,
   },
 });
