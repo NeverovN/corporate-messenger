@@ -1,16 +1,28 @@
 // Auth router (authentication level router)
 
 import React, { memo, FC } from 'react';
-import Screens from '../index';
 
 // constants
-import { PROFILE_SCREEN_NAME } from '@/profile/constants/routes';
+import {
+  PROFILE_SCREEN_NAME,
+  USER_SEARCH_SCREEN_NAME,
+  THIRD_PARTY_USER_SCREEN_NAME,
+} from '@/profile/constants/routes';
 
-// components
+// containers
 import Profile from 'profile/containers/Profile';
+import SearchUsersScreen from 'profile/containers/SearchUsersScreen';
+import ThirdPartyUser from 'profile/containers/ThirdPartyUser';
 
 // hocs
 import HeaderRight from '@/profile/containers/HeaderRight';
+import HeaderLeft from '@/profile/containers/HeaderLeft';
+
+// types
+import { ProfileStackParamList } from 'profile/types/routes';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Screens = createStackNavigator<ProfileStackParamList>();
 
 interface IProfileRouterProps {}
 
@@ -19,16 +31,27 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
     return <HeaderRight />;
   };
 
+  const headerLeft = () => {
+    return <HeaderLeft />;
+  };
+
   return (
-    <Screens.Navigator
-      initialRouteName={PROFILE_SCREEN_NAME}
-      screenOptions={{ headerLeft: () => null }}>
+    <Screens.Navigator initialRouteName={PROFILE_SCREEN_NAME}>
       <Screens.Screen
         name={PROFILE_SCREEN_NAME}
         component={Profile}
         options={{
           headerRight: headerRight, // perhaps it should be moved in its own file
+          headerLeft: headerLeft,
         }}
+      />
+      <Screens.Screen
+        name={USER_SEARCH_SCREEN_NAME}
+        component={SearchUsersScreen}
+      />
+      <Screens.Screen
+        name={THIRD_PARTY_USER_SCREEN_NAME}
+        component={ThirdPartyUser}
       />
     </Screens.Navigator>
   );

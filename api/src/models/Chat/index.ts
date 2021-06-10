@@ -19,8 +19,12 @@ export class ChatEntity {
   @prop({ required: true })
   participants: ID[];
 
+  @prop({ required: true })
+  isDialog: boolean;
+
   constructor(participants: ID[]) {
     this.participants = participants;
+    this.isDialog = participants.length === 2;
     this.logo = null;
   }
 }

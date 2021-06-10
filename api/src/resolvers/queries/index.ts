@@ -11,10 +11,14 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
   async getUserById(_, args) {
     return await UserController.getUser(args.id); // don't see principal difference between this query and getUser
   },
-  async getPosts(_, __, { currentUserId }) {
-    if (!currentUserId) throw Error('Unauthorized');
+  async getUsers() {
+    return await UserController.getAllUsers();
+  },
+  async getPosts(_, args, { currentUserId }) {
+    const id = args.author ? args.author : currentUserId;
+    if (!id) throw Error('Unauthorized');
 
-    return await PostController.getPostsByAuthor(currentUserId);
+    return await PostController.getPostsByAuthor(id);
   },
   async getAllPosts() {
     return await PostController.getAllPosts();
@@ -24,10 +28,11 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
 
     return await ChatController.getChats(currentUserId);
   },
-  async getCurrentUser(_, __, { currentUserId }) {
-    if (!currentUserId) throw Error('Unauthorized');
+  async getUser(_, args, { currentUserId }) {
+    const id = args.id ? args.id : currentUserId;
+    if (!id) throw Error('Unauthorized');
 
-    const user = await UserController.getUser(currentUserId);
+    const user = await UserController.getUser(id);
     if (!user) {
       throw Error('unauthorized user');
     }

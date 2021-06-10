@@ -1,5 +1,5 @@
 type Query {
-  getPosts: [Post]
+  getPosts(author: ID): [Post]
   getPost(id: ID!): Post
   getAllPosts: [Post]
   getFriendPosts: [Post]

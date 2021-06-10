@@ -28,7 +28,7 @@ export const useHandleNewChat = () => {
     },
   });
   return () => {
-    createChat();
+    createChat({ variables: { participants: [] } });
     console.log('new chat button pressed');
   };
 };

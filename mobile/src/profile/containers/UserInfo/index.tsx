@@ -6,10 +6,12 @@ import UserInfoView from 'profile/components/UserInfo';
 // hooks
 import { useGetUser } from '@/profile/hooks/useGetUser';
 
-interface IUserInfoContainerProps {}
+interface IUserInfoContainerProps {
+  userId?: string;
+}
 
-const UserInfoContainer: FC<IUserInfoContainerProps> = () => {
-  const userName = useGetUser(); // implement userId via road var through navigation
+const UserInfoContainer: FC<IUserInfoContainerProps> = (props) => {
+  const userName = useGetUser(props.userId);
   return (
     <UserInfoView
       userName={userName}
