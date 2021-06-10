@@ -8,16 +8,6 @@ fragment MessageFragment on Message {
   chatId
 }
 
-fragment ChatFragment on Chat {
-  id
-  participants {
-    id
-  }
-  messages {
-    ...MessageFragment
-  }
-}
-
 query getChatById($chatId: ID!) {
   getChatById(chatId: $chatId) {
     ...ChatFragment
