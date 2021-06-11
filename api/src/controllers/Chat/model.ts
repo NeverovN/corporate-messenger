@@ -7,6 +7,7 @@ import { mapChatDocumentToChatEntity } from '../../models/Chat/mappers';
 import ChatEntityController from './entity';
 import { UserEntity } from '../../models/User';
 import { UserController } from '../User';
+import { MessageController } from '../Message';
 
 class ChatModelController {
   private mapChatWithFallback(chat: ChatDocument | null): ChatEntity | null {
@@ -51,6 +52,16 @@ class ChatModelController {
     const chat = await this.getChat(chatId);
 
     return chat.participants;
+  }
+
+  async deleteChat(chatId: ID): Promise<boolean> {
+    try {
+      await ChatModel.findByIdAndDelete(chatId);
+      await MessageController.deleteMessages(chatId);
+      return true;
+    } catch (error) {
+      throw Error(`${error}`);
+    }
   }
 }
 

@@ -5,7 +5,6 @@ import { MessageDocument } from '../../models/Message/types';
 
 import { mapMessageDocumentToMessageEntity } from '../../models/Message/mappers';
 import MessageEntityController from './entity';
-import { ChatController } from '../Chat';
 
 class MessageModelController {
   private mapMessageWithFallback(
@@ -49,6 +48,15 @@ class MessageModelController {
     await createdMessage.save();
 
     return mapMessageDocumentToMessageEntity(createdMessage);
+  }
+
+  async deleteMessages(chatId: ID): Promise<boolean> {
+    try {
+      await MessageModel.deleteMany({ chatId });
+      return true;
+    } catch (error) {
+      throw Error(`${error}`);
+    }
   }
 }
 

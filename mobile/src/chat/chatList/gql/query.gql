@@ -10,6 +10,12 @@ mutation CreateChat($participants: [ID!]!) {
   }
 }
 
+mutation DeleteChatById($chatId: ID!) {
+  deleteChatById(chatId: $chatId) {
+    ...ChatFragment
+  }
+}
+
 subscription NewChat {
   newChat {
     ...ChatFragment
@@ -20,6 +26,8 @@ fragment ChatFragment on Chat {
   id
   participants {
     id
+    firstName
+    lastName
   }
   isDialog
   messages {

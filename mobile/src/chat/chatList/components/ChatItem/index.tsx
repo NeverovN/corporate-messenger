@@ -5,10 +5,13 @@ import { TouchableOpacity } from 'react-native';
 import styles from './styles';
 
 // components
+import UserImage from 'chat/chatList/components/UserImage';
+import ChatInfo from 'chat/chatList/containers/ChatInfo';
 
 export interface IChatItemViewProps {
   title?: string;
   onPress(): void;
+  chatId: string;
 }
 
 const ChatItemView: FC<IChatItemViewProps> = (props) => {
@@ -16,8 +19,10 @@ const ChatItemView: FC<IChatItemViewProps> = (props) => {
     <TouchableOpacity
       style={styles.chatItemStyle}
       activeOpacity={0.7}
-      onPress={props.onPress}
-    />
+      onPress={props.onPress}>
+      <UserImage />
+      <ChatInfo chatId={props.chatId} />
+    </TouchableOpacity>
   );
 };
 
