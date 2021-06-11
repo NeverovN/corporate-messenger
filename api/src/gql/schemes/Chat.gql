@@ -28,6 +28,7 @@ type Query {
 type Mutation {
   createChat(participants: [ID!]!): Chat!
   createMessage(content: String!, chatId: String!): Message!
+  deleteChatById(chatId: ID!): Chat!
 }
 
 type Subscription {

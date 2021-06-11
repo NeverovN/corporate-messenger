@@ -6994,6 +6994,16 @@ react-native-codegen@^0.0.6:
     jscodeshift "^0.11.0"
     nullthrows "^1.1.1"
 
+react-native-context-menu-strip@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-context-menu-strip/-/react-native-context-menu-strip-0.0.2.tgz#9e65ca26fb03bdb4d2b60624270a73440a4205f0"
+  integrity sha1-nmXKJvsDvbTStgYkJwpzRApCBfA=
+
+react-native-context-menu-view@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-context-menu-view/-/react-native-context-menu-view-1.2.1.tgz#0faf79127c5242fb852d4ce5cb3c6660c19291db"
+  integrity sha512-p6aslD1mTftJG57RRP2qVHHD/37A6oRN5H90n5UY151cWNfhYx5uCfD6B6Uou0MGuOStMKEWZ6h739AO/pPOOg==
+
 react-native-elements@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-3.4.1.tgz#74ea15a9369b05abf4f7421f0ce236ca01fedfe1"
