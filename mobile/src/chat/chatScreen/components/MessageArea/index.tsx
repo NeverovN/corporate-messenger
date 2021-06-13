@@ -15,7 +15,9 @@ interface IMessageAreaViewProps {
 }
 
 const renderMessage: ListRenderItem<IMessage> = ({ item }) => {
-  return <Message messageId={item.id} content={item.content} />;
+  return (
+    <Message messageId={item.id} content={item.content} author={item.author} />
+  );
 };
 
 const MessageAreaView: FC<IMessageAreaViewProps> = (props) => {

@@ -1,9 +1,17 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  messageStyle: {
+  incomingMessageStyle: {
     padding: 4,
     margin: 2,
-    backgroundColor: '#4bb3fd40',
+    backgroundColor: '#DBDADE',
   },
+  outgoingMessageStyle: {
+    padding: 4,
+    margin: 2,
+    backgroundColor: '#2D728F',
+    flexDirection: 'row-reverse',
+  },
+  incomingTextStyle: {},
+  outgoingTextStyle: { color: 'white' },
 });

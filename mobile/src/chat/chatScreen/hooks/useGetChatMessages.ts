@@ -35,7 +35,7 @@ export const useGetChatMessages = () => {
       id: el.id,
       content: el.content,
       createdAt: el.createdAt,
-      author: el.author,
+      author: el.author.id,
     };
   });
 
