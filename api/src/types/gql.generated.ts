@@ -84,6 +84,7 @@ export type Mutation = {
   createUser: AuthenticationResult;
   deleteChatById: Chat;
   deleteMessageById: Message;
+  editMessage: Message;
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
@@ -118,6 +119,12 @@ export type MutationDeleteChatByIdArgs = {
 
 export type MutationDeleteMessageByIdArgs = {
   messageId: Scalars['ID'];
+};
+
+
+export type MutationEditMessageArgs = {
+  messageId: Scalars['ID'];
+  newContent: Scalars['String'];
 };
 
 
@@ -179,9 +186,15 @@ export type QueryGetUserByIdArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  messageEdited: Message;
   newChat: Chat;
   newMessage: Message;
   newPost: Post;
+};
+
+
+export type SubscriptionMessageEditedArgs = {
+  messageId: Scalars['ID'];
 };
 
 
@@ -363,6 +376,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   deleteChatById?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationDeleteChatByIdArgs, 'chatId'>>;
   deleteMessageById?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationDeleteMessageByIdArgs, 'messageId'>>;
+  editMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationEditMessageArgs, 'messageId' | 'newContent'>>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationGetPostArgs, 'id'>>;
   getUsersPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
@@ -390,6 +404,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  messageEdited?: SubscriptionResolver<ResolversTypes['Message'], "messageEdited", ParentType, ContextType, RequireFields<SubscriptionMessageEditedArgs, 'messageId'>>;
   newChat?: SubscriptionResolver<ResolversTypes['Chat'], "newChat", ParentType, ContextType>;
   newMessage?: SubscriptionResolver<ResolversTypes['Message'], "newMessage", ParentType, ContextType, RequireFields<SubscriptionNewMessageArgs, 'chatId'>>;
   newPost?: SubscriptionResolver<ResolversTypes['Post'], "newPost", ParentType, ContextType>;

@@ -26,8 +26,20 @@ mutation DeleteMessage($messageId: ID!) {
   }
 }
 
+mutation EditMessage($messageId: ID!, $newContent: String!) {
+  editMessage(messageId: $messageId, newContent: $newContent) {
+    ...MessageFragment
+  }
+}
+
 subscription NewMessage($chatId: ID!) {
   newMessage(chatId: $chatId) {
+    ...MessageFragment
+  }
+}
+
+subscription MessageEdited($messageId: ID!) {
+  messageEdited(messageId: $messageId) {
     ...MessageFragment
   }
 }

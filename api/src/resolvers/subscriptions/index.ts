@@ -11,6 +11,7 @@ import {
   CHAT_CREATED,
   MESSAGE_CREATED,
   POST_CREATED,
+  MESSAGE_EDITED,
 } from '../../consts/events';
 
 // services
@@ -45,6 +46,22 @@ const subscriptionResolvers: SubscriptionResolvers = {
       return message;
     },
   },
+  messageEdited: {
+    subscribe: withFilter(
+      () => pubsub.asyncIterator([MESSAGE_EDITED]),
+      (message: MessageEntity, variables: MsgEditedVarType) => {
+        return message._id.toString() === variables.messageId;
+      },
+    ),
+
+    resolve: (message: MessageEntity) => {
+      return message;
+    },
+  },
+};
+
+type MsgEditedVarType = {
+  messageId: string;
 };
 
 export default subscriptionResolvers;

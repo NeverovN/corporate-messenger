@@ -5,7 +5,6 @@ import { QueryResolvers } from '../../types/gql.generated';
 import { UserController } from '../../controllers/User';
 import { PostController } from '../../controllers/Post';
 import { ChatController } from '../../controllers/Chat';
-import { MessageController } from '../../controllers/Message';
 
 const queryResolvers: QueryResolvers<ApolloContextType> = {
   async getUserById(_, args) {

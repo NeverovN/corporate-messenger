@@ -30,9 +30,11 @@ type Mutation {
   createMessage(content: String!, chatId: String!): Message!
   deleteChatById(chatId: ID!): Chat!
   deleteMessageById(messageId: ID!): Message!
+  editMessage(messageId: ID!, newContent: String!): Message!
 }
 
 type Subscription {
   newChat: Chat!
   newMessage(chatId: ID!): Message!
+  messageEdited(messageId: ID!): Message!
 }

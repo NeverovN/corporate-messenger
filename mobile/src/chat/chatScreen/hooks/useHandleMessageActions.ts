@@ -25,7 +25,17 @@ export const useHandleMessageActions = () => {
       case ACTIONS.DELETE: {
         console.log(messageId);
         deleteMessage({ variables: { messageId } });
+        break;
+      }
+      case ACTIONS.EDIT: {
       }
     }
   };
+};
+
+type MessageType = {
+  id: string;
+  content: string;
+  createdAt: string;
+  author: string;
 };

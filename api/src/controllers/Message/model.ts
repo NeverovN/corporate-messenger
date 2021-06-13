@@ -67,6 +67,24 @@ class MessageModelController {
       throw Error(`${error}`);
     }
   }
+
+  async editMessage(messageId: ID, newContent: string): Promise<MessageEntity> {
+    const message = await MessageModel.findById(messageId).exec();
+
+    if (!message) {
+      throw Error('message not found');
+    }
+
+    if (newContent !== message.content) {
+      message.content = newContent;
+    }
+
+    message.lastEdit = new Date().toString();
+
+    message.save();
+
+    return message;
+  }
 }
 
 const messageModelController = new MessageModelController();

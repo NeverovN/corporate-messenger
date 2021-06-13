@@ -11,6 +11,7 @@ import { useGetCurrentUserId } from '@/common/hooks/useGetCurrentUserId';
 
 // constants
 import ACTIONS from 'chat/chatScreen/constants/actions';
+import { useMessageEditedSubscription } from '@/common/types/gql.generated';
 
 interface IMessageContainerProps {
   messageId: string;
@@ -23,6 +24,10 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
   const direction = useDirection(props.author, currentUserId);
   const onPress = useOnMessagePressed(props.messageId);
   const actionHandler = useHandleMessageActions();
+
+  useMessageEditedSubscription({
+    variables: { messageId: props.messageId },
+  });
 
   return (
     <ContextMenu
