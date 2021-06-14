@@ -36,6 +36,8 @@ export const useGetChatMessages = () => {
       content: el.content,
       createdAt: el.createdAt,
       author: el.author.id,
+      name: `${el.author.firstName} ${el.author.lastName}`,
+      lastEdit: el.lastEdit,
     };
   });
 

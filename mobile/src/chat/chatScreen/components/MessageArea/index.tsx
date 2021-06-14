@@ -16,14 +16,21 @@ interface IMessageAreaViewProps {
 
 const renderMessage: ListRenderItem<IMessage> = ({ item }) => {
   return (
-    <Message messageId={item.id} content={item.content} author={item.author} />
+    <Message
+      messageId={item.id}
+      content={item.content}
+      author={item.author}
+      name={item.name}
+      lastEdit={item.lastEdit}
+      createdAt={item.createdAt}
+    />
   );
 };
 
 const MessageAreaView: FC<IMessageAreaViewProps> = (props) => {
   return (
     <View style={styles.messageAreaStyle}>
-      <FlatList renderItem={renderMessage} data={props.data} />
+      <FlatList renderItem={renderMessage} data={props.data} inverted={true} />
     </View>
   );
 };

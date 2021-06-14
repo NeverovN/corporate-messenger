@@ -3,8 +3,11 @@ fragment MessageFragment on Message {
   content
   author {
     id
+    firstName
+    lastName
   }
   createdAt
+  lastEdit
   chatId
 }
 

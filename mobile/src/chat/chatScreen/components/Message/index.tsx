@@ -1,16 +1,22 @@
 import React, { FC, memo } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 
 // styles
 import styles from './styles';
 
 interface IMessageViewProps {
   content: string;
+  author: string;
   direction: string;
+  createdAt: string;
+  lastEdit: string | null;
   onPress(): void;
 }
 
 const MessageView: FC<IMessageViewProps> = (props) => {
+  const lastEditText = props.lastEdit ? (
+    <Text>last edit: {props.lastEdit}</Text>
+  ) : null;
   const msgStyle =
     props.direction === 'outgoing'
       ? styles.outgoingMessageStyle
@@ -19,10 +25,23 @@ const MessageView: FC<IMessageViewProps> = (props) => {
     props.direction === 'outgoing'
       ? styles.outgoingTextStyle
       : styles.incomingTextStyle;
+  const viewStyle =
+    props.direction === 'outgoing'
+      ? styles.outgoingViewStyle
+      : styles.incomingViewStyle;
+
   return (
-    <TouchableOpacity style={msgStyle} onPress={props.onPress}>
-      <Text style={textStyle}>{props.content}</Text>
-    </TouchableOpacity>
+    <View style={viewStyle}>
+      <TouchableOpacity
+        style={{ ...msgStyle, ...styles.commonMessageStyle }}
+        onPress={props.onPress}>
+        <Text style={textStyle}>{props.content}</Text>
+        <Text style={textStyle} numberOfLines={4}>
+          {props.createdAt}
+        </Text>
+      </TouchableOpacity>
+      {lastEditText}
+    </View>
   );
 };
 

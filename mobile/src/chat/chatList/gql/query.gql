@@ -35,8 +35,11 @@ fragment ChatFragment on Chat {
     content
     author {
       id
+      firstName
+      lastName
     }
     createdAt
     chatId
+    lastEdit
   }
 }
