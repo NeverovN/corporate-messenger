@@ -1,13 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  startChatButtonViewStyle: {
+  friendButtonViewStyle: {
     width: '100%',
     height: 35,
     alignItems: 'center',
     marginBottom: 10,
   },
-  startChatButtonTouchStyles: {
+  friendButtonTouchStyles: {
     width: '80%',
     height: '100%',
     alignItems: 'center',
