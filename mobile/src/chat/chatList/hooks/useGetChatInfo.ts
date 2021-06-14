@@ -12,6 +12,7 @@ export const useGetChatInfo = (chatId: string) => {
     !chat ||
     !chat.getChatById ||
     !chat.getChatById.messages ||
+    !chat.getChatById.messages[0] ||
     !user ||
     !user.getUser
   ) {
@@ -25,10 +26,13 @@ export const useGetChatInfo = (chatId: string) => {
     (participant) => participant?.id !== user.getUser.id,
   )[0];
 
+  const lastMsg =
+    chat.getChatById.messages[0].content.length > 20
+      ? chat.getChatById.messages[0].content.slice(0, 20) + '...'
+      : chat.getChatById.messages[0].content;
+
   return {
     chatTitle: `${interlocutor?.firstName} ${interlocutor?.lastName}`,
-    lastMsg: `${
-      chat.getChatById.messages[chat.getChatById.messages.length - 1]?.content
-    }`,
+    lastMsg: lastMsg,
   };
 };

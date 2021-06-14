@@ -42,7 +42,7 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
 
   return (
     <ContextMenu
-      title={'Chat Actions'}
+      title={'Message Actions'}
       actions={[
         { title: ACTIONS.EDIT },
         { title: ACTIONS.DELETE, destructive: true },
