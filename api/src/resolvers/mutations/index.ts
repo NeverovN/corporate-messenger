@@ -82,8 +82,6 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       throw Error('unauthorized user');
     }
 
-    console.log('deleting');
-
     const removedFriend = await UserController.removeFriend(
       currentUserId,
       args.friendId,

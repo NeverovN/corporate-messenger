@@ -9,6 +9,15 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    User: {
+      fields: {
+        friends: {
+          merge(_, inc: any[]) {
+            return [...inc];
+          },
+        },
+      },
+    },
   },
 });
 

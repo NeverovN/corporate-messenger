@@ -5,12 +5,22 @@ import {
 } from '@/common/types/gql.generated';
 
 export const useOnFriendButtonHandler = (friendId: string) => {
-  const [addFriend] = useAddFriendMutation();
+  const [addFriend] = useAddFriendMutation({
+    update: (cache) => {
+      cache.modify({
+        fields: {
+          getUser() {},
+        },
+      });
+    },
+  });
+
   const [removeFriend] = useRemoveFriendMutation({
     update: (cache) => {
       cache.gc();
     },
   });
+
   const { data } = useGetUserQuery();
 
   if (!data || !data.getUser) {
