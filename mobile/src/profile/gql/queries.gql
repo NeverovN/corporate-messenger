@@ -26,9 +26,7 @@ query GetPosts($author: ID) {
 
 query GetUser($id: ID) {
   getUser(id: $id) {
-    id
-    firstName
-    lastName
+    ...UserFragment
   }
 }
 
@@ -45,5 +43,17 @@ query GetUsers {
     firstName
     lastName
     avatar
+  }
+}
+
+mutation AddFriend($friendId: ID!) {
+  addFriend(friendId: $friendId) {
+    ...UserFragment
+  }
+}
+
+mutation RemoveFriend($friendId: ID!) {
+  removeFriend(friendId: $friendId) {
+    ...UserFragment
   }
 }

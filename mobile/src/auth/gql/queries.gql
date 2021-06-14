@@ -3,6 +3,12 @@ fragment UserFragment on User {
   firstName
   lastName
   email
+  friends {
+    id
+    firstName
+    lastName
+    email
+  }
 }
 
 mutation Login($input: LoginInput!) {

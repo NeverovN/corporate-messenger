@@ -5,6 +5,7 @@ import { UserDocument } from '../../models/User/types';
 
 import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 import UserEntityController from './entity';
+import { CONNREFUSED } from 'dns';
 
 class UserModelController {
   private mapUserWithFallback(user: UserDocument | null): UserEntity | null {
@@ -55,6 +56,34 @@ class UserModelController {
     await UserModel.findByIdAndUpdate(friendId, newFriend);
 
     return this.mapUserWithFallback(userResult);
+  }
+
+  async removeFriend(userId: ID, friendId: ID): Promise<UserEntity> {
+    const user = await UserModel.findById(userId);
+    const friend = await UserModel.findById(friendId);
+
+    if (!user) {
+      throw Error('unauthorized user');
+    }
+
+    if (!friend) {
+      throw Error('friend not found');
+    }
+
+    user.friends = user.friends.filter(
+      (friend) => friend.toString() !== friendId,
+    );
+    friend.friends = friend.friends.filter(
+      (user) => user.toString() !== userId,
+    );
+
+    console.log(user.friends);
+    console.log(friend.friends);
+
+    user.save();
+    friend.save();
+
+    return user;
   }
 
   async getFriends(userId: ID): Promise<UserEntity[]> {

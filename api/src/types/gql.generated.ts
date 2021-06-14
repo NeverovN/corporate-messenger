@@ -19,10 +19,6 @@ export type Scalars = {
   Float: number;
 };
 
-export type AddFriendInput = {
-  friendId: Scalars['String'];
-};
-
 export type AuthenticationResult = {
   __typename?: 'AuthenticationResult';
   token: Scalars['String'];
@@ -86,11 +82,12 @@ export type Mutation = {
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
+  removeFriend?: Maybe<User>;
 };
 
 
 export type MutationAddFriendArgs = {
-  input: AddFriendInput;
+  friendId: Scalars['ID'];
 };
 
 
@@ -122,6 +119,11 @@ export type MutationGetPostArgs = {
 
 export type MutationLoginArgs = {
   input: LoginInput;
+};
+
+
+export type MutationRemoveFriendArgs = {
+  friendId: Scalars['ID'];
 };
 
 export type Post = {
@@ -271,9 +273,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  AddFriendInput: AddFriendInput;
-  String: ResolverTypeWrapper<Scalars['String']>;
   AuthenticationResult: ResolverTypeWrapper<Omit<AuthenticationResult, 'user'> & { user: ResolversTypes['User'] }>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Chat: ResolverTypeWrapper<ChatEntity>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -291,9 +292,8 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  AddFriendInput: AddFriendInput;
-  String: Scalars['String'];
   AuthenticationResult: Omit<AuthenticationResult, 'user'> & { user: ResolversParentTypes['User'] };
+  String: Scalars['String'];
   Chat: ChatEntity;
   ID: Scalars['ID'];
   Boolean: Scalars['Boolean'];
@@ -350,7 +350,7 @@ export type MessageResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddFriendArgs, 'input'>>;
+  addFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddFriendArgs, 'friendId'>>;
   createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateChatArgs, 'participants'>>;
   createMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationCreateMessageArgs, 'content' | 'chatId'>>;
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
@@ -359,6 +359,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationGetPostArgs, 'id'>>;
   getUsersPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
+  removeFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFriendArgs, 'friendId'>>;
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
