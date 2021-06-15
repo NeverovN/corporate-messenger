@@ -1,3 +1,5 @@
+import DIRECTION from '../constants/direction';
+
 export const useDirection = (author: string, currentUser: string) => {
-  return author === currentUser ? 'outgoing' : 'incoming';
+  return author === currentUser ? DIRECTION.OUTGOING : DIRECTION.INCOMING;
 };
