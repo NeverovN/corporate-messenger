@@ -5,7 +5,6 @@ import { UserDocument } from '../../models/User/types';
 
 import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 import UserEntityController from './entity';
-import { CONNREFUSED } from 'dns';
 
 class UserModelController {
   private mapUserWithFallback(user: UserDocument | null): UserEntity | null {
@@ -70,20 +69,23 @@ class UserModelController {
       throw Error('friend not found');
     }
 
-    user.friends = user.friends.filter(
-      (friend) => friend.toString() !== friendId,
+    const updatedUser = UserEntityController.removeFriend(
+      mapUserDocumentToUserEntity(user),
+      friendId,
     );
-    friend.friends = friend.friends.filter(
-      (user) => user.toString() !== userId,
+    const updatedFriend = UserEntityController.removeFriend(
+      mapUserDocumentToUserEntity(friend),
+      userId,
     );
 
-    console.log(user.friends);
-    console.log(friend.friends);
+    const newUser = await UserModel.findByIdAndUpdate(userId, updatedUser);
+    await UserModel.findByIdAndUpdate(friendId, updatedFriend);
 
-    user.save();
-    friend.save();
+    if (!newUser) {
+      throw Error('network error, update unsuccessful');
+    }
 
-    return user;
+    return newUser;
   }
 
   async getFriends(userId: ID): Promise<UserEntity[]> {
