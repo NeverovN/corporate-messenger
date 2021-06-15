@@ -3,13 +3,22 @@ import {
   useCreateChatMutation,
   ChatFragmentFragmentDoc,
 } from '@/common/types/gql.generated';
+import { useNavigation } from '@react-navigation/native';
+
+// types
+import { SharedStackNavigationProp } from '@/app/types/routes';
+
+// routes
+import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
 
 export const useHandleNewChat = () => {
+  const navigation = useNavigation<SharedStackNavigationProp>();
   const [createChat] = useCreateChatMutation({
     update: (cache, { data }) => {
       if (!data) {
         return;
       }
+
       cache.modify({
         fields: {
           getChats(exChats = []) {
@@ -26,14 +35,20 @@ export const useHandleNewChat = () => {
           },
         },
       });
+
+      navigation.navigate(SHARED_STACK_NAME, {
+        screen: CHAT_STACK_NAME,
+        params: { screen: 'Chat', params: { chatId: data.createChat.id } },
+      });
     },
   });
 
-  if (selectedFriendsVar().length === 0) {
-    return () => {};
-  }
-
   return () => {
+    console.log(selectedFriendsVar());
+    if (selectedFriendsVar().length === 0) {
+      return;
+    }
     createChat({ variables: { participants: selectedFriendsVar() } });
+    selectedFriendsVar([]);
   };
 };
