@@ -5,6 +5,7 @@ import { View, TouchableOpacity, Text } from 'react-native';
 import styles from './styles';
 
 interface IFriendButtonViewProps {
+  title: string;
   onPress(): void;
 }
 
@@ -14,7 +15,7 @@ const FriendButtonView: FC<IFriendButtonViewProps> = (props) => {
       <TouchableOpacity
         style={styles.friendButtonTouchStyles}
         onPress={props.onPress}>
-        <Text>Add friend</Text>
+        <Text>{props.title}</Text>
       </TouchableOpacity>
     </View>
   );

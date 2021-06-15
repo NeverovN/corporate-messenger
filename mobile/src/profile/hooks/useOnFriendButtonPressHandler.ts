@@ -4,7 +4,12 @@ import {
   useRemoveFriendMutation,
 } from '@/common/types/gql.generated';
 
-export const useOnFriendButtonHandler = (friendId: string) => {
+// consts
+import TITLES from '../constants/friendButtonTitles';
+
+export const useOnFriendButtonHandler = (
+  friendId: string,
+): [() => void, string] => {
   const [addFriend] = useAddFriendMutation({
     update: (cache) => {
       cache.modify({
@@ -28,14 +33,18 @@ export const useOnFriendButtonHandler = (friendId: string) => {
   }
 
   if (data.getUser.friends.find((user) => user.id === friendId)) {
-    return () => {
-      console.log('deleting friend');
-      removeFriend({ variables: { friendId } });
-    };
+    return [
+      () => {
+        removeFriend({ variables: { friendId } });
+      },
+      TITLES.REMOVE,
+    ];
   } else {
-    return () => {
-      console.log('adding friend');
-      addFriend({ variables: { friendId } });
-    };
+    return [
+      () => {
+        addFriend({ variables: { friendId } });
+      },
+      TITLES.ADD,
+    ];
   }
 };

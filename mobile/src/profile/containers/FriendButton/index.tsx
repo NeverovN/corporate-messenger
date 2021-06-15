@@ -14,9 +14,9 @@ interface IFriendButtonContainerProps {}
 
 const FriendButtonContainer: FC<IFriendButtonContainerProps> = () => {
   const { params } = useRoute<ThirdPartyUserRouteProp>();
-  const handleFriendButton = useOnFriendButtonHandler(params.userId);
+  const [handleFriendButton, title] = useOnFriendButtonHandler(params.userId);
 
-  return <FriendButtonView onPress={handleFriendButton} />;
+  return <FriendButtonView onPress={handleFriendButton} title={title} />;
 };
 
 export default memo(FriendButtonContainer);
