@@ -22,6 +22,12 @@ subscription NewChat {
   }
 }
 
+subscription MessageEdited($chatId: ID!) {
+  messageEdited(chatId: $chatId) {
+    ...MessageFragment
+  }
+}
+
 fragment ChatFragment on Chat {
   id
   participants {

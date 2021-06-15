@@ -178,7 +178,7 @@ export type Subscription = {
 };
 
 export type SubscriptionMessageEditedArgs = {
-  messageId: Scalars['ID'];
+  chatId: Scalars['ID'];
 };
 
 export type SubscriptionNewMessageArgs = {
@@ -250,6 +250,14 @@ export type NewChatSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type NewChatSubscription = { __typename?: 'Subscription' } & {
   newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
+};
+
+export type MessageEditedSubscriptionVariables = Exact<{
+  chatId: Scalars['ID'];
+}>;
+
+export type MessageEditedSubscription = { __typename?: 'Subscription' } & {
+  messageEdited: { __typename?: 'Message' } & MessageFragmentFragment;
 };
 
 export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
@@ -328,14 +336,6 @@ export type NewMessageSubscriptionVariables = Exact<{
 
 export type NewMessageSubscription = { __typename?: 'Subscription' } & {
   newMessage: { __typename?: 'Message' } & MessageFragmentFragment;
-};
-
-export type MessageEditedSubscriptionVariables = Exact<{
-  messageId: Scalars['ID'];
-}>;
-
-export type MessageEditedSubscription = { __typename?: 'Subscription' } & {
-  messageEdited: { __typename?: 'Message' } & MessageFragmentFragment;
 };
 
 export type GetFeedQueryVariables = Exact<{ [key: string]: never }>;
@@ -780,6 +780,47 @@ export type NewChatSubscriptionHookResult = ReturnType<
   typeof useNewChatSubscription
 >;
 export type NewChatSubscriptionResult = Apollo.SubscriptionResult<NewChatSubscription>;
+export const MessageEditedDocument = gql`
+  subscription MessageEdited($chatId: ID!) {
+    messageEdited(chatId: $chatId) {
+      ...MessageFragment
+    }
+  }
+  ${MessageFragmentFragmentDoc}
+`;
+
+/**
+ * __useMessageEditedSubscription__
+ *
+ * To run a query within a React component, call `useMessageEditedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useMessageEditedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessageEditedSubscription({
+ *   variables: {
+ *      chatId: // value for 'chatId'
+ *   },
+ * });
+ */
+export function useMessageEditedSubscription(
+  baseOptions: Apollo.SubscriptionHookOptions<
+    MessageEditedSubscription,
+    MessageEditedSubscriptionVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSubscription<
+    MessageEditedSubscription,
+    MessageEditedSubscriptionVariables
+  >(MessageEditedDocument, options);
+}
+export type MessageEditedSubscriptionHookResult = ReturnType<
+  typeof useMessageEditedSubscription
+>;
+export type MessageEditedSubscriptionResult = Apollo.SubscriptionResult<MessageEditedSubscription>;
 export const GetChatByIdDocument = gql`
   query getChatById($chatId: ID!) {
     getChatById(chatId: $chatId) {
@@ -1030,47 +1071,6 @@ export type NewMessageSubscriptionHookResult = ReturnType<
   typeof useNewMessageSubscription
 >;
 export type NewMessageSubscriptionResult = Apollo.SubscriptionResult<NewMessageSubscription>;
-export const MessageEditedDocument = gql`
-  subscription MessageEdited($messageId: ID!) {
-    messageEdited(messageId: $messageId) {
-      ...MessageFragment
-    }
-  }
-  ${MessageFragmentFragmentDoc}
-`;
-
-/**
- * __useMessageEditedSubscription__
- *
- * To run a query within a React component, call `useMessageEditedSubscription` and pass it any options that fit your needs.
- * When your component renders, `useMessageEditedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useMessageEditedSubscription({
- *   variables: {
- *      messageId: // value for 'messageId'
- *   },
- * });
- */
-export function useMessageEditedSubscription(
-  baseOptions: Apollo.SubscriptionHookOptions<
-    MessageEditedSubscription,
-    MessageEditedSubscriptionVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSubscription<
-    MessageEditedSubscription,
-    MessageEditedSubscriptionVariables
-  >(MessageEditedDocument, options);
-}
-export type MessageEditedSubscriptionHookResult = ReturnType<
-  typeof useMessageEditedSubscription
->;
-export type MessageEditedSubscriptionResult = Apollo.SubscriptionResult<MessageEditedSubscription>;
 export const GetFeedDocument = gql`
   query GetFeed {
     getAllPosts {

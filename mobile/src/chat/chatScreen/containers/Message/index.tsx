@@ -12,7 +12,6 @@ import { useGetCurrentUserId } from '@/common/hooks/useGetCurrentUserId';
 
 // constants
 import ACTIONS from 'chat/chatScreen/constants/actions';
-import { useMessageEditedSubscription } from '@/common/types/gql.generated';
 import { useParseDate } from '../../hooks/useParseDate';
 
 interface IMessageContainerProps {
@@ -31,10 +30,6 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
   const actionHandler = useHandleMessageActions();
   const createdAt = useParseDate(props.createdAt);
   const lastEdit = useParseDate(props.lastEdit);
-
-  useMessageEditedSubscription({
-    variables: { messageId: props.messageId },
-  });
 
   if (!createdAt) {
     throw Error('msg loading error');

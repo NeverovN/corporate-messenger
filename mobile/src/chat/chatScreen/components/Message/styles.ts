@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
   incomingViewStyle: { alignItems: 'flex-start', margin: 5 },
@@ -8,13 +9,13 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   incomingMessageStyle: {
-    backgroundColor: '#DBDADE',
+    backgroundColor: COLORS.incomingMsgColor,
   },
   outgoingMessageStyle: {
-    backgroundColor: '#2D728F',
+    backgroundColor: COLORS.outgoingMsgColor,
   },
   incomingTextStyle: {},
-  outgoingTextStyle: { color: 'white' },
+  outgoingTextStyle: { color: COLORS.white },
   nameStyle: {
     marginBottom: 3,
   },

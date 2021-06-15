@@ -7,7 +7,11 @@ import { mapMessageDocumentToMessageEntity } from '../../models/Message/mappers'
 import MessageEntityController from './entity';
 
 class MessageModelController {
-  private mapMessageWithFallback(message: MessageDocument): MessageEntity {
+  private mapMessageWithFallback(
+    message: MessageDocument | null,
+  ): MessageEntity | null {
+    if (!message) return null;
+
     return mapMessageDocumentToMessageEntity(message);
   }
 
@@ -18,7 +22,7 @@ class MessageModelController {
       throw Error('chat not found');
     }
 
-    return this.mapMessageWithFallback(message);
+    return mapMessageDocumentToMessageEntity(message);
   }
 
   async getMessages(chatId: ID): Promise<Array<MessageEntity>> {
@@ -75,15 +79,22 @@ class MessageModelController {
       throw Error('message not found');
     }
 
-    if (newContent !== message.content) {
-      message.content = newContent;
+    const msg = MessageEntityController.editMessage(
+      mapMessageDocumentToMessageEntity(message),
+      newContent,
+    );
+
+    await MessageModel.findByIdAndUpdate(messageId, msg).exec();
+
+    const newMessage = await MessageModel.findById(messageId);
+
+    // i have no idea why but only findByIdAndUpdate does not update value on execution. Result comes in time of next operation, so there is delay
+
+    if (!newMessage) {
+      throw Error('network error, update not complete');
     }
 
-    message.lastEdit = new Date().toString();
-
-    message.save();
-
-    return message;
+    return mapMessageDocumentToMessageEntity(newMessage);
   }
 }
 

@@ -40,9 +40,3 @@ subscription NewMessage($chatId: ID!) {
     ...MessageFragment
   }
 }
-
-subscription MessageEdited($messageId: ID!) {
-  messageEdited(messageId: $messageId) {
-    ...MessageFragment
-  }
-}

@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
+import { useSetMsgStyle } from '../../hooks/useSetMsgStyle';
 
 // styles
 import styles from './styles';
@@ -17,18 +18,8 @@ const MessageView: FC<IMessageViewProps> = (props) => {
   const lastEditText = props.lastEdit ? (
     <Text>last edit: {props.lastEdit}</Text>
   ) : null;
-  const msgStyle =
-    props.direction === 'outgoing'
-      ? styles.outgoingMessageStyle
-      : styles.incomingMessageStyle;
-  const textStyle =
-    props.direction === 'outgoing'
-      ? styles.outgoingTextStyle
-      : styles.incomingTextStyle;
-  const viewStyle =
-    props.direction === 'outgoing'
-      ? styles.outgoingViewStyle
-      : styles.incomingViewStyle;
+
+  const [msgStyle, textStyle, viewStyle] = useSetMsgStyle(props.direction);
 
   return (
     <View style={viewStyle}>

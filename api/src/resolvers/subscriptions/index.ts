@@ -1,4 +1,5 @@
 import { withFilter } from 'graphql-subscriptions';
+import { SubscriptionMessageEditedArgs } from '../../types/gql.generated';
 
 // types
 import { SubscriptionResolvers } from '../../types/gql.generated';
@@ -49,8 +50,8 @@ const subscriptionResolvers: SubscriptionResolvers = {
   messageEdited: {
     subscribe: withFilter(
       () => pubsub.asyncIterator([MESSAGE_EDITED]),
-      (message: MessageEntity, variables: MsgEditedVarType) => {
-        return message._id.toString() === variables.messageId;
+      (message: MessageEntity, variables: SubscriptionMessageEditedArgs) => {
+        return message.chatId === variables.chatId;
       },
     ),
 
@@ -58,10 +59,6 @@ const subscriptionResolvers: SubscriptionResolvers = {
       return message;
     },
   },
-};
-
-type MsgEditedVarType = {
-  messageId: string;
 };
 
 export default subscriptionResolvers;
