@@ -190,7 +190,11 @@ export type User = {
 
 export type UserFragmentFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>
+  & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>
+  & { friends: Array<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>
+  )> }
 );
 
 export type LoginMutationVariables = Exact<{
@@ -423,7 +427,7 @@ export type GetUserQuery = (
   { __typename?: 'Query' }
   & { getUser: (
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'firstName' | 'lastName'>
+    & UserFragmentFragment
   ) }
 );
 
@@ -457,6 +461,14 @@ export const UserFragmentFragmentDoc = gql`
   firstName
   lastName
   email
+  avatar
+  friends {
+    id
+    firstName
+    lastName
+    email
+    avatar
+  }
 }
     `;
 export const ChatFragmentFragmentDoc = gql`
@@ -972,12 +984,10 @@ export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQuer
 export const GetUserDocument = gql`
     query GetUser($id: ID) {
   getUser(id: $id) {
-    id
-    firstName
-    lastName
+    ...UserFragment
   }
 }
-    `;
+    ${UserFragmentFragmentDoc}`;
 
 /**
  * __useGetUserQuery__

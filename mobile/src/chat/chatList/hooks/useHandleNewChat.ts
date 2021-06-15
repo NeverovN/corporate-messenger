@@ -1,3 +1,4 @@
+import { selectedFriendsVar } from '@/common/cache/cache';
 import {
   useCreateChatMutation,
   ChatFragmentFragmentDoc,
@@ -27,8 +28,12 @@ export const useHandleNewChat = () => {
       });
     },
   });
+
+  if (selectedFriendsVar().length === 0) {
+    return () => {};
+  }
+
   return () => {
-    createChat({ variables: { participants: [] } });
-    console.log('new chat button pressed');
+    createChat({ variables: { participants: selectedFriendsVar() } });
   };
 };
