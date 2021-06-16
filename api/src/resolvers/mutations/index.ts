@@ -67,10 +67,20 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
   },
   async editEmail(_, args, { currentUserId }) {
     if (!currentUserId) {
-      console.log(currentUserId);
       throw Error('Unauthorized');
     }
     return await UserController.editEmail(currentUserId, args.newEmail);
+  },
+  async editUsername(_, args, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('Unauthorized');
+    }
+
+    return await UserController.editUsername(
+      currentUserId,
+      args.newFirstName,
+      args.newLastName,
+    );
   },
   async addFriend(_, args, { currentUserId }) {
     // TODO: handle unauthorized access
@@ -100,8 +110,6 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
     if (!currentUserId) {
       throw Error('unauthorized user');
     }
-
-    console.log(currentUserId);
 
     const post = await PostController.createPost(currentUserId);
 

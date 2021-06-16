@@ -1,15 +1,31 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 
 // styles
 import styles from './styles';
 
-interface IEditUsernameScreenViewProps {}
+interface IEditUsernameScreenViewProps {
+  firstName: string;
+  onChangeFirstName(fName: string): void;
 
-const EditUsernameScreenView: FC<IEditUsernameScreenViewProps> = () => {
+  lastName: string;
+  onChangeLastName(lName: string): void;
+}
+
+const EditUsernameScreenView: FC<IEditUsernameScreenViewProps> = (props) => {
   return (
     <View style={styles.editUsernameScreenStyle}>
-      <Text>Name screen</Text>
+      <Text style={styles.textStyle}>Edit username</Text>
+      <TextInput
+        style={styles.inputStyle}
+        value={props.firstName}
+        onChangeText={props.onChangeFirstName}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        value={props.lastName}
+        onChangeText={props.onChangeLastName}
+      />
     </View>
   );
 };

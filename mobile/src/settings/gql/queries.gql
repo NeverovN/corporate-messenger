@@ -3,3 +3,9 @@ mutation EditEmail($newEmail: String!) {
     ...UserFragment
   }
 }
+
+mutation EditUserName($newFirstName: String!, $newLastName: String!) {
+  editUsername(newFirstName: $newFirstName, newLastName: $newLastName) {
+    ...UserFragment
+  }
+}

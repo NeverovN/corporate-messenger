@@ -75,6 +75,7 @@ export type Mutation = {
   createUser: AuthenticationResult;
   deleteChatById: Chat;
   editEmail: User;
+  editUsername: User;
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
@@ -110,6 +111,12 @@ export type MutationDeleteChatByIdArgs = {
 
 export type MutationEditEmailArgs = {
   newEmail: Scalars['String'];
+};
+
+
+export type MutationEditUsernameArgs = {
+  newFirstName: Scalars['String'];
+  newLastName: Scalars['String'];
 };
 
 
@@ -501,6 +508,20 @@ export type EditEmailMutationVariables = Exact<{
 export type EditEmailMutation = (
   { __typename?: 'Mutation' }
   & { editEmail: (
+    { __typename?: 'User' }
+    & UserFragmentFragment
+  ) }
+);
+
+export type EditUserNameMutationVariables = Exact<{
+  newFirstName: Scalars['String'];
+  newLastName: Scalars['String'];
+}>;
+
+
+export type EditUserNameMutation = (
+  { __typename?: 'Mutation' }
+  & { editUsername: (
     { __typename?: 'User' }
     & UserFragmentFragment
   ) }
@@ -1242,3 +1263,37 @@ export function useEditEmailMutation(baseOptions?: Apollo.MutationHookOptions<Ed
 export type EditEmailMutationHookResult = ReturnType<typeof useEditEmailMutation>;
 export type EditEmailMutationResult = Apollo.MutationResult<EditEmailMutation>;
 export type EditEmailMutationOptions = Apollo.BaseMutationOptions<EditEmailMutation, EditEmailMutationVariables>;
+export const EditUserNameDocument = gql`
+    mutation EditUserName($newFirstName: String!, $newLastName: String!) {
+  editUsername(newFirstName: $newFirstName, newLastName: $newLastName) {
+    ...UserFragment
+  }
+}
+    ${UserFragmentFragmentDoc}`;
+export type EditUserNameMutationFn = Apollo.MutationFunction<EditUserNameMutation, EditUserNameMutationVariables>;
+
+/**
+ * __useEditUserNameMutation__
+ *
+ * To run a mutation, you first call `useEditUserNameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditUserNameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editUserNameMutation, { data, loading, error }] = useEditUserNameMutation({
+ *   variables: {
+ *      newFirstName: // value for 'newFirstName'
+ *      newLastName: // value for 'newLastName'
+ *   },
+ * });
+ */
+export function useEditUserNameMutation(baseOptions?: Apollo.MutationHookOptions<EditUserNameMutation, EditUserNameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditUserNameMutation, EditUserNameMutationVariables>(EditUserNameDocument, options);
+      }
+export type EditUserNameMutationHookResult = ReturnType<typeof useEditUserNameMutation>;
+export type EditUserNameMutationResult = Apollo.MutationResult<EditUserNameMutation>;
+export type EditUserNameMutationOptions = Apollo.BaseMutationOptions<EditUserNameMutation, EditUserNameMutationVariables>;

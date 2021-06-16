@@ -37,6 +37,17 @@ class UserEntityController {
     return user;
   }
 
+  editUsername(
+    user: UserEntity,
+    newFirstName: string,
+    newLastName: string,
+  ): UserEntity {
+    user.firstName = newFirstName;
+    user.lastName = newLastName;
+
+    return user;
+  }
+
   private addUserToFriends(user: UserEntity, friend: UserEntity): UserEntity {
     const newUserFriendIds = this.getNewFriendIds(user.friends, friend._id);
 

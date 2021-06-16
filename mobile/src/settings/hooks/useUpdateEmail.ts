@@ -9,16 +9,13 @@ export const useUpdateEmail = (newEmail: string) => {
 
   return () => {
     try {
-      if (!newEmail) {
-        return;
-      }
       if (data && data.getUser) {
         if (data.getUser.email === newEmail) {
           console.log('email is the same');
           return;
         }
       }
-      editEmail({ variables: { newEmail } });
+      editEmail({ variables: { newEmail: newEmail } });
     } catch (err) {
       console.log(err);
     }
