@@ -4,8 +4,6 @@ import {
 } from '@/common/types/gql.generated';
 
 export const useGetChatInfo = (chatId: string) => {
-  console.log(chatId);
-
   const { data: chat } = useGetChatByIdQuery({ variables: { chatId } });
 
   const { data: user } = useGetUserQuery();
