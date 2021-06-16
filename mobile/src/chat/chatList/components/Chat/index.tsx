@@ -13,7 +13,7 @@ const ChatView: FC<IChatComponentProps> = () => {
   return (
     <View style={styles.chatStyle}>
       <TopBarView />
-      <ChatList filter="" />
+      <ChatList />
     </View>
   );
 };
