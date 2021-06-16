@@ -12,7 +12,7 @@ import { useGetCurrentUserId } from '@/common/hooks/useGetCurrentUserId';
 
 // constants
 import ACTIONS from 'chat/chatScreen/constants/actions';
-import { useParseDate } from '../../hooks/useParseDate';
+import { parseDate } from '../../utils/parseDate';
 
 interface IMessageContainerProps {
   messageId: string;
@@ -28,8 +28,8 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
   const direction = useDirection(props.author, currentUserId);
   const onPress = useOnMessagePressed(props.messageId);
   const actionHandler = useHandleMessageActions();
-  const createdAt = useParseDate(props.createdAt);
-  const lastEdit = useParseDate(props.lastEdit);
+  const createdAt = parseDate(props.createdAt);
+  const lastEdit = parseDate(props.lastEdit);
 
   if (!createdAt) {
     throw Error('msg loading error');
