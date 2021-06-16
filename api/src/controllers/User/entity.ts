@@ -47,6 +47,13 @@ class UserEntityController {
 
     return [...existingFriendIds, newFriendId];
   }
+
+  removeFriend(user: UserEntity, friendId: ID): UserEntity {
+    user.friends = user.friends.filter(
+      (friend) => friend.toString() !== friendId,
+    );
+    return user;
+  }
 }
 
 const userEntityController = new UserEntityController();

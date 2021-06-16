@@ -18,10 +18,6 @@ export type Scalars = {
   Float: number;
 };
 
-export type AddFriendInput = {
-  friendId: Scalars['String'];
-};
-
 export type AuthenticationResult = {
   __typename?: 'AuthenticationResult';
   token: Scalars['String'];
@@ -85,10 +81,11 @@ export type Mutation = {
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
+  removeFriend?: Maybe<User>;
 };
 
 export type MutationAddFriendArgs = {
-  input: AddFriendInput;
+  friendId: Scalars['ID'];
 };
 
 export type MutationCreateChatArgs = {
@@ -114,6 +111,10 @@ export type MutationGetPostArgs = {
 
 export type MutationLoginArgs = {
   input: LoginInput;
+};
+
+export type MutationRemoveFriendArgs = {
+  friendId: Scalars['ID'];
 };
 
 export type Post = {
@@ -182,11 +183,13 @@ export type User = {
 export type UserFragmentFragment = { __typename?: 'User' } & Pick<
   User,
   'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
+
 > & {
     friends: Array<
       { __typename?: 'User' } & Pick<
         User,
         'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
+
       >
     >;
   };
@@ -243,6 +246,7 @@ export type NewChatSubscription = { __typename?: 'Subscription' } & {
   newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
 };
 
+
 export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
   Chat,
   'id' | 'isDialog'
@@ -293,6 +297,7 @@ export type NewMessageSubscriptionVariables = Exact<{
 export type NewMessageSubscription = { __typename?: 'Subscription' } & {
   newMessage: { __typename?: 'Message' } & MessageFragmentFragment;
 };
+
 
 export type GetFeedQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -382,6 +387,23 @@ export type GetUsersQuery = { __typename?: 'Query' } & {
   >;
 };
 
+
+export type AddFriendMutationVariables = Exact<{
+  friendId: Scalars['ID'];
+}>;
+
+export type AddFriendMutation = { __typename?: 'Mutation' } & {
+  addFriend?: Maybe<{ __typename?: 'User' } & UserFragmentFragment>;
+};
+
+export type RemoveFriendMutationVariables = Exact<{
+  friendId: Scalars['ID'];
+}>;
+
+export type RemoveFriendMutation = { __typename?: 'Mutation' } & {
+  removeFriend?: Maybe<{ __typename?: 'User' } & UserFragmentFragment>;
+};
+
 export const UserFragmentFragmentDoc = gql`
   fragment UserFragment on User {
     id
@@ -394,7 +416,6 @@ export const UserFragmentFragmentDoc = gql`
       firstName
       lastName
       email
-      avatar
     }
   }
 `;
@@ -1303,4 +1324,105 @@ export type GetUsersLazyQueryHookResult = ReturnType<
 export type GetUsersQueryResult = Apollo.QueryResult<
   GetUsersQuery,
   GetUsersQueryVariables
+>;
+
+export const AddFriendDocument = gql`
+  mutation AddFriend($friendId: ID!) {
+    addFriend(friendId: $friendId) {
+      ...UserFragment
+    }
+  }
+  ${UserFragmentFragmentDoc}
+`;
+export type AddFriendMutationFn = Apollo.MutationFunction<
+  AddFriendMutation,
+  AddFriendMutationVariables
+>;
+
+/**
+ * __useAddFriendMutation__
+ *
+ * To run a mutation, you first call `useAddFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFriendMutation, { data, loading, error }] = useAddFriendMutation({
+ *   variables: {
+ *      friendId: // value for 'friendId'
+ *   },
+ * });
+ */
+export function useAddFriendMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddFriendMutation,
+    AddFriendMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<AddFriendMutation, AddFriendMutationVariables>(
+    AddFriendDocument,
+    options,
+  );
+}
+export type AddFriendMutationHookResult = ReturnType<
+  typeof useAddFriendMutation
+>;
+export type AddFriendMutationResult = Apollo.MutationResult<AddFriendMutation>;
+export type AddFriendMutationOptions = Apollo.BaseMutationOptions<
+  AddFriendMutation,
+  AddFriendMutationVariables
+>;
+export const RemoveFriendDocument = gql`
+  mutation RemoveFriend($friendId: ID!) {
+    removeFriend(friendId: $friendId) {
+      ...UserFragment
+    }
+  }
+  ${UserFragmentFragmentDoc}
+`;
+export type RemoveFriendMutationFn = Apollo.MutationFunction<
+  RemoveFriendMutation,
+  RemoveFriendMutationVariables
+>;
+
+/**
+ * __useRemoveFriendMutation__
+ *
+ * To run a mutation, you first call `useRemoveFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
+ *   variables: {
+ *      friendId: // value for 'friendId'
+ *   },
+ * });
+ */
+export function useRemoveFriendMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemoveFriendMutation,
+    RemoveFriendMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    RemoveFriendMutation,
+    RemoveFriendMutationVariables
+  >(RemoveFriendDocument, options);
+}
+export type RemoveFriendMutationHookResult = ReturnType<
+  typeof useRemoveFriendMutation
+>;
+export type RemoveFriendMutationResult = Apollo.MutationResult<RemoveFriendMutation>;
+export type RemoveFriendMutationOptions = Apollo.BaseMutationOptions<
+  RemoveFriendMutation,
+  RemoveFriendMutationVariables
 >;

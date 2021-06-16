@@ -45,3 +45,15 @@ query GetUsers {
     avatar
   }
 }
+
+mutation AddFriend($friendId: ID!) {
+  addFriend(friendId: $friendId) {
+    ...UserFragment
+  }
+}
+
+mutation RemoveFriend($friendId: ID!) {
+  removeFriend(friendId: $friendId) {
+    ...UserFragment
+  }
+}

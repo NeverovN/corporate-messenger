@@ -57,6 +57,37 @@ class UserModelController {
     return this.mapUserWithFallback(userResult);
   }
 
+  async removeFriend(userId: ID, friendId: ID): Promise<UserEntity> {
+    const user = await UserModel.findById(userId);
+    const friend = await UserModel.findById(friendId);
+
+    if (!user) {
+      throw Error('unauthorized user');
+    }
+
+    if (!friend) {
+      throw Error('friend not found');
+    }
+
+    const updatedUser = UserEntityController.removeFriend(
+      mapUserDocumentToUserEntity(user),
+      friendId,
+    );
+    const updatedFriend = UserEntityController.removeFriend(
+      mapUserDocumentToUserEntity(friend),
+      userId,
+    );
+
+    const newUser = await UserModel.findByIdAndUpdate(userId, updatedUser);
+    await UserModel.findByIdAndUpdate(friendId, updatedFriend);
+
+    if (!newUser) {
+      throw Error('network error, update unsuccessful');
+    }
+
+    return newUser;
+  }
+
   async getFriends(userId: ID): Promise<UserEntity[]> {
     const user = await UserModel.findById(userId).exec();
     if (!user) {
