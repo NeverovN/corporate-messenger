@@ -8,7 +8,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: 50,
-    marginBottom: 10, // safe area imitating
     backgroundColor: COLORS.lightGray,
   },
   textInputStyle: {

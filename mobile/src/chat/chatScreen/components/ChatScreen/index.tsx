@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -12,10 +12,10 @@ interface IChatScreenViewProps {}
 
 const ChatScreenView: FC<IChatScreenViewProps> = () => {
   return (
-    <View style={styles.chatScreenStyle}>
+    <SafeAreaView style={styles.chatScreenStyle}>
       <MessageArea />
       <BottomBar />
-    </View>
+    </SafeAreaView>
   );
 };
 
