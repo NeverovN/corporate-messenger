@@ -7,8 +7,6 @@ export const useGetUserFriends = () => {
     return [] as any;
   }
 
-  console.log(data.getUser.friends.length);
-
   return data.getUser.friends.map((el) => {
     return {
       data: el,
