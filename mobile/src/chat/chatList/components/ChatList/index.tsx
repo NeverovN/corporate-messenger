@@ -1,5 +1,5 @@
-import React, { FC, memo } from 'react';
-import { FlatList, View, ListRenderItem } from 'react-native';
+import React, { FC, memo, useEffect, useState } from 'react';
+import { FlatList, View, ListRenderItem, Text } from 'react-native';
 
 import ChatItem from 'chat/chatList/containers/ChatItem';
 
@@ -17,12 +17,30 @@ const renderChatItem: ListRenderItem<IChatItem> = ({ item }) => {
   return <ChatItem chatId={item.id} />;
 };
 
-const ChatListView: FC<IChatListViewProps> = (props) => {
-  return (
-    <View style={styles.chatsStyle}>
-      <FlatList renderItem={renderChatItem} data={props.data} />
-    </View>
-  );
+const ChatListView: FC<IChatListViewProps> = ({ data }) => {
+  const [isAnyChats, setIsAnyChats] = useState<boolean>(data.length > 0);
+
+  useEffect(() => {
+    if (data.length === 0) {
+      setIsAnyChats(false);
+    } else {
+      setIsAnyChats(true);
+    }
+  }, [data]);
+
+  if (isAnyChats) {
+    return (
+      <View style={styles.existingChatsStyle}>
+        <FlatList renderItem={renderChatItem} data={data} />
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.missingChatsStyle}>
+        <Text style={styles.textStyle}>No chats found :(</Text>
+      </View>
+    );
+  }
 };
 
 export default memo(ChatListView);
