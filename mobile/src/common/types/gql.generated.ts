@@ -182,12 +182,14 @@ export type User = {
 
 export type UserFragmentFragment = { __typename?: 'User' } & Pick<
   User,
-  'id' | 'firstName' | 'lastName' | 'email'
+  'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
+
 > & {
     friends: Array<
       { __typename?: 'User' } & Pick<
         User,
-        'id' | 'firstName' | 'lastName' | 'email'
+        'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
+
       >
     >;
   };
@@ -244,6 +246,7 @@ export type NewChatSubscription = { __typename?: 'Subscription' } & {
   newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
 };
 
+
 export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
   Chat,
   'id' | 'isDialog'
@@ -294,6 +297,7 @@ export type NewMessageSubscriptionVariables = Exact<{
 export type NewMessageSubscription = { __typename?: 'Subscription' } & {
   newMessage: { __typename?: 'Message' } & MessageFragmentFragment;
 };
+
 
 export type GetFeedQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -383,6 +387,7 @@ export type GetUsersQuery = { __typename?: 'Query' } & {
   >;
 };
 
+
 export type AddFriendMutationVariables = Exact<{
   friendId: Scalars['ID'];
 }>;
@@ -405,6 +410,7 @@ export const UserFragmentFragmentDoc = gql`
     firstName
     lastName
     email
+    avatar
     friends {
       id
       firstName
@@ -1319,6 +1325,7 @@ export type GetUsersQueryResult = Apollo.QueryResult<
   GetUsersQuery,
   GetUsersQueryVariables
 >;
+
 export const AddFriendDocument = gql`
   mutation AddFriend($friendId: ID!) {
     addFriend(friendId: $friendId) {

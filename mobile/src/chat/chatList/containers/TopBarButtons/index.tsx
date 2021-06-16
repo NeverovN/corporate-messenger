@@ -6,18 +6,18 @@ import TopBarButtonsView from 'chat/chatList/components/TopBarButtons';
 
 // hooks
 import { useHandleSearch } from 'chat/chatList/hooks/useHandleSearch';
-import { useHandleNewChat } from 'chat/chatList/hooks/useHandleNewChat';
+import { useHandleNewPlusPressed } from 'chat/chatList/hooks/useHandlePlusPressed';
 
 interface ITopBarButtonsContainerProps {}
 
 const TopBarButtonsContainer: FC<ITopBarButtonsContainerProps> = () => {
   const handleSearch = useHandleSearch();
-  const handleNewChat = useHandleNewChat();
+  const handlePlusButton = useHandleNewPlusPressed();
 
   return (
     <TopBarButtonsView
       onSearchPress={handleSearch}
-      onNewChatPress={handleNewChat}
+      onNewChatPress={handlePlusButton}
     />
   );
 };

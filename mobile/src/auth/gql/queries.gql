@@ -3,11 +3,13 @@ fragment UserFragment on User {
   firstName
   lastName
   email
+  avatar
   friends {
     id
     firstName
     lastName
     email
+
   }
 }
 

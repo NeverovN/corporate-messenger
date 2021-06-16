@@ -1,4 +1,4 @@
-import { InMemoryCache, makeVar } from '@apollo/client';
+import { InMemoryCache, makeVar, ReactiveVar } from '@apollo/client';
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -6,6 +6,9 @@ export const cache = new InMemoryCache({
       fields: {
         token() {
           return tokenVar();
+        },
+        selectedFriends() {
+          return selectedFriendsVar();
         },
       },
     },
@@ -22,3 +25,4 @@ export const cache = new InMemoryCache({
 });
 
 export const tokenVar = makeVar('');
+export const selectedFriendsVar: ReactiveVar<string[]> = makeVar([]);
