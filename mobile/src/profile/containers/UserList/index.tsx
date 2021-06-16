@@ -4,12 +4,14 @@ import React, { FC, memo } from 'react';
 import UserListView from 'profile/components/UserList';
 
 // hooks
-import { useGetAllUsers } from 'profile/hooks/useGetAllUsers';
+import { useGetFilteredUsers } from '@/profile/hooks/useGetFilteredUsers';
 
-interface IUserListContainerProps {}
+interface IUserListContainerProps {
+  filter: string;
+}
 
-const UserListContainer: FC<IUserListContainerProps> = () => {
-  const usersData = useGetAllUsers();
+const UserListContainer: FC<IUserListContainerProps> = (props) => {
+  const usersData = useGetFilteredUsers(props.filter);
 
   return <UserListView data={usersData} />;
 };
