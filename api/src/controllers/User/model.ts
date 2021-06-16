@@ -118,6 +118,28 @@ class UserModelController {
 
     return mapUserDocumentToUserEntity(createdUser);
   }
+
+  async editEmail(userId: ID, newEmail: string): Promise<UserEntity> {
+    const user = await UserModel.findById(userId).exec();
+
+    if (!user) {
+      throw Error('unauthorized');
+    }
+
+    const updUser = UserEntityController.editEmail(
+      mapUserDocumentToUserEntity(user),
+      newEmail,
+    );
+
+    await UserModel.findByIdAndUpdate(userId, updUser).exec();
+    const newUser = await UserModel.findById(userId).exec();
+
+    if (!newUser) {
+      throw Error('network error, update failed');
+    }
+
+    return mapUserDocumentToUserEntity(newUser);
+  }
 }
 
 const userModelController = new UserModelController();

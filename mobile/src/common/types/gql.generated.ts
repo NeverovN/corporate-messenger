@@ -74,6 +74,7 @@ export type Mutation = {
   createPost: Post;
   createUser: AuthenticationResult;
   deleteChatById: Chat;
+  editEmail: User;
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
@@ -104,6 +105,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeleteChatByIdArgs = {
   chatId: Scalars['ID'];
+};
+
+
+export type MutationEditEmailArgs = {
+  newEmail: Scalars['String'];
 };
 
 
@@ -195,7 +201,11 @@ export type UserFragmentFragment = (
   & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>
   & { friends: Array<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>
+    & { friends: Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )> }
   )> }
 );
 
@@ -483,6 +493,19 @@ export type RemoveFriendMutation = (
   )> }
 );
 
+export type EditEmailMutationVariables = Exact<{
+  newEmail: Scalars['String'];
+}>;
+
+
+export type EditEmailMutation = (
+  { __typename?: 'Mutation' }
+  & { editEmail: (
+    { __typename?: 'User' }
+    & UserFragmentFragment
+  ) }
+);
+
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on User {
   id
@@ -495,6 +518,10 @@ export const UserFragmentFragmentDoc = gql`
     firstName
     lastName
     email
+    avatar
+    friends {
+      id
+    }
   }
 }
     `;
@@ -1182,3 +1209,36 @@ export function useRemoveFriendMutation(baseOptions?: Apollo.MutationHookOptions
 export type RemoveFriendMutationHookResult = ReturnType<typeof useRemoveFriendMutation>;
 export type RemoveFriendMutationResult = Apollo.MutationResult<RemoveFriendMutation>;
 export type RemoveFriendMutationOptions = Apollo.BaseMutationOptions<RemoveFriendMutation, RemoveFriendMutationVariables>;
+export const EditEmailDocument = gql`
+    mutation EditEmail($newEmail: String!) {
+  editEmail(newEmail: $newEmail) {
+    ...UserFragment
+  }
+}
+    ${UserFragmentFragmentDoc}`;
+export type EditEmailMutationFn = Apollo.MutationFunction<EditEmailMutation, EditEmailMutationVariables>;
+
+/**
+ * __useEditEmailMutation__
+ *
+ * To run a mutation, you first call `useEditEmailMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditEmailMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editEmailMutation, { data, loading, error }] = useEditEmailMutation({
+ *   variables: {
+ *      newEmail: // value for 'newEmail'
+ *   },
+ * });
+ */
+export function useEditEmailMutation(baseOptions?: Apollo.MutationHookOptions<EditEmailMutation, EditEmailMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditEmailMutation, EditEmailMutationVariables>(EditEmailDocument, options);
+      }
+export type EditEmailMutationHookResult = ReturnType<typeof useEditEmailMutation>;
+export type EditEmailMutationResult = Apollo.MutationResult<EditEmailMutation>;
+export type EditEmailMutationOptions = Apollo.BaseMutationOptions<EditEmailMutation, EditEmailMutationVariables>;

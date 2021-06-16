@@ -1,10 +1,11 @@
 import React, { FC, memo } from 'react';
-import { View, Text, Button } from 'react-native';
+import { SafeAreaView, View, Button } from 'react-native';
 
 import styles from './styles';
 
 // containers
 import AccountSettingsButton from 'settings/containers/AccountSettingsButton';
+import UserTile from '@/settings/containers/UserTile';
 
 interface ISettingsComponentProps {
   logout(): void;
@@ -12,11 +13,13 @@ interface ISettingsComponentProps {
 
 const SettingsView: FC<ISettingsComponentProps> = (props) => {
   return (
-    <View style={styles.settingsStyle}>
-      <Text>Settings Screen</Text>
-      <AccountSettingsButton />
-      <Button title="Log out" onPress={props.logout} />
-    </View>
+    <SafeAreaView style={styles.safeAreaStyle}>
+      <View style={styles.settingsStyle}>
+        <UserTile />
+        <AccountSettingsButton />
+      </View>
+      <Button title="Log out" onPress={props.logout} color="red" />
+    </SafeAreaView>
   );
 };
 

@@ -1,15 +1,23 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 
 // styles
 import styles from './styles';
 
-interface IEditEmailScreenViewProps {}
+interface IEditEmailScreenViewProps {
+  email: string;
+  onEmailChange(email: string): void;
+}
 
-const EditEmailScreenView: FC<IEditEmailScreenViewProps> = () => {
+const EditEmailScreenView: FC<IEditEmailScreenViewProps> = (props) => {
   return (
     <View style={styles.editEmailScreenStyle}>
-      <Text>Email screen</Text>
+      <Text style={styles.textStyle}>Edit email</Text>
+      <TextInput
+        style={styles.inputStyle}
+        value={props.email}
+        onChangeText={props.onEmailChange}
+      />
     </View>
   );
 };

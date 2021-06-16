@@ -4,6 +4,10 @@ export default StyleSheet.create({
   accountScreenStyle: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 30,
+  },
+  textStyle: {
+    marginBottom: 20,
+    fontSize: 20,
   },
 });

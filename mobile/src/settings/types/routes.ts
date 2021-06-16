@@ -1,4 +1,5 @@
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/core';
 
 import {
   SETTINGS_STACK_NAME,
@@ -8,7 +9,6 @@ import {
   EDIT_PASSWORD_SCREEN_NAME,
   EDIT_USERNAME_SCREEN_NAME,
 } from '@/settings/constants/routes';
-import { Directions } from 'react-native-gesture-handler';
 
 export type SettingsStackParamList = {
   [SETTINGS_STACK_NAME]: undefined;
@@ -17,7 +17,7 @@ export type SettingsStackParamList = {
 
 export type AccountSettingsParamList = {
   [ACCOUNT_SCREEN_NAME]: undefined;
-  [EDIT_EMAIL_SCREEN_NAME]: undefined;
+  [EDIT_EMAIL_SCREEN_NAME]: { newEmail: string };
   [EDIT_PASSWORD_SCREEN_NAME]: undefined;
   [EDIT_USERNAME_SCREEN_NAME]: undefined;
 };
@@ -33,6 +33,11 @@ export type AccountSettingsScreenNavigationProp = StackNavigationProp<
 >;
 
 export type EditNavigationProp = StackNavigationProp<
+  AccountSettingsParamList,
+  typeof EDIT_EMAIL_SCREEN_NAME
+>;
+
+export type EditRouteProp = RouteProp<
   AccountSettingsParamList,
   typeof EDIT_EMAIL_SCREEN_NAME
 >;

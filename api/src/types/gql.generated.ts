@@ -79,6 +79,7 @@ export type Mutation = {
   createPost: Post;
   createUser: AuthenticationResult;
   deleteChatById: Chat;
+  editEmail: User;
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
@@ -109,6 +110,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeleteChatByIdArgs = {
   chatId: Scalars['ID'];
+};
+
+
+export type MutationEditEmailArgs = {
+  newEmail: Scalars['String'];
 };
 
 
@@ -356,6 +362,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
   createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   deleteChatById?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationDeleteChatByIdArgs, 'chatId'>>;
+  editEmail?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditEmailArgs, 'newEmail'>>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationGetPostArgs, 'id'>>;
   getUsersPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
