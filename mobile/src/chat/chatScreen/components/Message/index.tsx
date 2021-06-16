@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
+import Directions from '../../constants/direction';
 import { useSetMsgStyle } from '../../hooks/useSetMsgStyle';
 
 // styles
@@ -8,7 +9,7 @@ import styles from './styles';
 interface IMessageViewProps {
   content: string;
   author: string;
-  direction: string;
+  direction: Directions;
   createdAt: string;
   lastEdit: string | null;
   onPress(): void;

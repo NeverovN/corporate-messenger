@@ -1,4 +1,6 @@
-export default {
-  INCOMING: 'incoming',
-  OUTGOING: 'outgoing',
-};
+enum Directions {
+  INCOMING,
+  OUTGOING,
+}
+
+export default Directions;

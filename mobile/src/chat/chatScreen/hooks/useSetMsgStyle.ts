@@ -1,7 +1,8 @@
 import styles from 'chat/chatScreen/components/Message/styles';
+import Directions from '../constants/direction';
 import DIRECTION from '../constants/direction';
 
-export const useSetMsgStyle = (direction: string) => {
+export const useSetMsgStyle = (direction: Directions) => {
   const msgStyle =
     direction === DIRECTION.OUTGOING
       ? styles.outgoingMessageStyle
