@@ -1,5 +1,6 @@
 import React, { memo, FC } from 'react';
 import { View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // styles
 import styles from './styles';
@@ -17,6 +18,11 @@ interface IRegisterScreenProps {
 
   passwordRepeat: string;
   onChangePasswordRepeat(password: string): void;
+
+  isHidden: boolean;
+
+  iconName: string;
+  onIconPress(): void;
 
   firstName: string;
   onChangeFirstName(firstName: string): void;
@@ -45,16 +51,24 @@ const RegisterView: FC<IRegisterScreenProps> = (props) => {
         value={props.lastName}
         onChangeText={props.onChangeLastName}
       />
-      <AuthInput
-        placeholder="enter your password"
-        value={props.password}
-        onChangeText={props.onChangePassword}
-      />
-      <AuthInput
-        placeholder="confirm your password"
-        value={props.passwordRepeat}
-        onChangeText={props.onChangePasswordRepeat}
-      />
+      <View style={styles.passwordStyle}>
+        <AuthInput
+          placeholder="enter your password"
+          value={props.password}
+          onChangeText={props.onChangePassword}
+          secure={props.isHidden}
+        />
+        <Icon name={props.iconName} size={25} onPress={props.onIconPress} />
+      </View>
+      <View style={styles.passwordStyle}>
+        <AuthInput
+          placeholder="confirm your password"
+          value={props.passwordRepeat}
+          onChangeText={props.onChangePasswordRepeat}
+          secure={props.isHidden}
+        />
+        <Icon name={props.iconName} size={25} onPress={props.onIconPress} />
+      </View>
       <SignButton title="SIGN UP" onPress={props.handleRegistration} />
     </View>
   );

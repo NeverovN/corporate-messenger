@@ -5,20 +5,23 @@ import { TextInput } from 'react-native';
 import styles from './styles';
 
 interface IAuthInput {
-  placeholder?: string;
+  placeholder: string;
   value: string;
   onChangeText(value: string): void;
+  secure?: boolean;
 }
 
 const AuthInput: React.FC<IAuthInput> = (props) => {
   return (
     <TextInput
-      // {...props}
+      {...props}
       style={styles.inputStyle}
       value={props.value}
       onChangeText={props.onChangeText}
       autoCapitalize="none"
       autoCorrect={false}
+      placeholder={props.placeholder}
+      secureTextEntry={props.secure || false}
     />
   );
 };
