@@ -18,10 +18,6 @@ export type Scalars = {
   Float: number;
 };
 
-export type AddFriendInput = {
-  friendId: Scalars['String'];
-};
-
 export type AuthenticationResult = {
   __typename?: 'AuthenticationResult';
   token: Scalars['String'];
@@ -87,10 +83,11 @@ export type Mutation = {
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
+  removeFriend?: Maybe<User>;
 };
 
 export type MutationAddFriendArgs = {
-  input: AddFriendInput;
+  friendId: Scalars['ID'];
 };
 
 export type MutationCreateChatArgs = {
@@ -119,12 +116,17 @@ export type MutationEditMessageArgs = {
   newContent: Scalars['String'];
 };
 
+
 export type MutationGetPostArgs = {
   id: Scalars['ID'];
 };
 
 export type MutationLoginArgs = {
   input: LoginInput;
+};
+
+export type MutationRemoveFriendArgs = {
+  friendId: Scalars['ID'];
 };
 
 export type Post = {
@@ -181,6 +183,7 @@ export type SubscriptionMessageEditedArgs = {
   chatId: Scalars['ID'];
 };
 
+
 export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
 };
@@ -197,8 +200,18 @@ export type User = {
 
 export type UserFragmentFragment = { __typename?: 'User' } & Pick<
   User,
-  'id' | 'firstName' | 'lastName' | 'email'
->;
+
+  'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
+
+> & {
+    friends: Array<
+      { __typename?: 'User' } & Pick<
+        User,
+        'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
+
+      >
+    >;
+  };
 
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
@@ -246,7 +259,39 @@ export type DeleteChatByIdMutation = { __typename?: 'Mutation' } & {
   deleteChatById: { __typename?: 'Chat' } & ChatFragmentFragment;
 };
 
+
 export type NewChatSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type NewChatSubscription = { __typename?: 'Subscription' } & {
+  newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
+};
+
+
+export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
+  Chat,
+  'id' | 'isDialog'
+> & {
+    participants: Array<
+      Maybe<
+        { __typename?: 'User' } & Pick<User, 'id' | 'firstName' | 'lastName'>
+      >
+    >;
+    messages?: Maybe<
+      Array<
+        Maybe<
+          { __typename?: 'Message' } & Pick<
+            Message,
+            'id' | 'content' | 'createdAt' | 'chatId'
+          > & { author: { __typename?: 'User' } & Pick<User, 'id'> }
+        >
+      >
+    >;
+  };
+
+export type MessageFragmentFragment = { __typename?: 'Message' } & Pick<
+  Message,
+  'id' | 'content' | 'createdAt' | 'chatId'
+> & { author: { __typename?: 'User' } & Pick<User, 'id'> };
 
 export type NewChatSubscription = { __typename?: 'Subscription' } & {
   newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
@@ -300,6 +345,7 @@ export type GetChatByIdQueryVariables = Exact<{
   chatId: Scalars['ID'];
 }>;
 
+
 export type GetChatByIdQuery = { __typename?: 'Query' } & {
   getChatById?: Maybe<{ __typename?: 'Chat' } & ChatFragmentFragment>;
 };
@@ -329,6 +375,7 @@ export type EditMessageMutationVariables = Exact<{
 export type EditMessageMutation = { __typename?: 'Mutation' } & {
   editMessage: { __typename?: 'Message' } & MessageFragmentFragment;
 };
+
 
 export type NewMessageSubscriptionVariables = Exact<{
   chatId: Scalars['ID'];
@@ -377,6 +424,7 @@ export type CreatePostMutation = { __typename?: 'Mutation' } & {
   createPost: { __typename?: 'Post' } & PostFragmentFragment;
 };
 
+
 export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type NewPostSubscription = { __typename?: 'Subscription' } & {
@@ -402,6 +450,7 @@ export type GetUserQuery = { __typename?: 'Query' } & {
     User,
     'id' | 'firstName' | 'lastName'
   >;
+
 };
 
 export type GetUserByIdQueryVariables = Exact<{
@@ -413,6 +462,7 @@ export type GetUserByIdQuery = { __typename?: 'Query' } & {
     { __typename?: 'User' } & Pick<User, 'firstName' | 'lastName'>
   >;
 };
+
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -427,6 +477,23 @@ export type GetUsersQuery = { __typename?: 'Query' } & {
       >
     >
   >;
+};
+
+
+export type AddFriendMutationVariables = Exact<{
+  friendId: Scalars['ID'];
+}>;
+
+export type AddFriendMutation = { __typename?: 'Mutation' } & {
+  addFriend?: Maybe<{ __typename?: 'User' } & UserFragmentFragment>;
+};
+
+export type RemoveFriendMutationVariables = Exact<{
+  friendId: Scalars['ID'];
+}>;
+
+export type RemoveFriendMutation = { __typename?: 'Mutation' } & {
+  removeFriend?: Maybe<{ __typename?: 'User' } & UserFragmentFragment>;
 };
 
 export const UserFragmentFragmentDoc = gql`
@@ -460,6 +527,7 @@ export const ChatFragmentFragmentDoc = gql`
     }
   }
 `;
+
 export const MessageFragmentFragmentDoc = gql`
   fragment MessageFragment on Message {
     id
@@ -827,6 +895,7 @@ export const GetChatByIdDocument = gql`
       ...ChatFragment
     }
   }
+
   ${ChatFragmentFragmentDoc}
 `;
 
@@ -932,6 +1001,7 @@ export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<
 export const DeleteMessageDocument = gql`
   mutation DeleteMessage($messageId: ID!) {
     deleteMessageById(messageId: $messageId) {
+
       ...MessageFragment
     }
   }
@@ -1038,6 +1108,7 @@ export const NewMessageDocument = gql`
   }
   ${MessageFragmentFragmentDoc}
 `;
+
 
 /**
  * __useNewMessageSubscription__
@@ -1335,6 +1406,7 @@ export const GetUserDocument = gql`
       lastName
     }
   }
+
 `;
 
 /**
@@ -1491,4 +1563,106 @@ export type GetUsersLazyQueryHookResult = ReturnType<
 export type GetUsersQueryResult = Apollo.QueryResult<
   GetUsersQuery,
   GetUsersQueryVariables
+>;
+
+
+export const AddFriendDocument = gql`
+  mutation AddFriend($friendId: ID!) {
+    addFriend(friendId: $friendId) {
+      ...UserFragment
+    }
+  }
+  ${UserFragmentFragmentDoc}
+`;
+export type AddFriendMutationFn = Apollo.MutationFunction<
+  AddFriendMutation,
+  AddFriendMutationVariables
+>;
+
+/**
+ * __useAddFriendMutation__
+ *
+ * To run a mutation, you first call `useAddFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFriendMutation, { data, loading, error }] = useAddFriendMutation({
+ *   variables: {
+ *      friendId: // value for 'friendId'
+ *   },
+ * });
+ */
+export function useAddFriendMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddFriendMutation,
+    AddFriendMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<AddFriendMutation, AddFriendMutationVariables>(
+    AddFriendDocument,
+    options,
+  );
+}
+export type AddFriendMutationHookResult = ReturnType<
+  typeof useAddFriendMutation
+>;
+export type AddFriendMutationResult = Apollo.MutationResult<AddFriendMutation>;
+export type AddFriendMutationOptions = Apollo.BaseMutationOptions<
+  AddFriendMutation,
+  AddFriendMutationVariables
+>;
+export const RemoveFriendDocument = gql`
+  mutation RemoveFriend($friendId: ID!) {
+    removeFriend(friendId: $friendId) {
+      ...UserFragment
+    }
+  }
+  ${UserFragmentFragmentDoc}
+`;
+export type RemoveFriendMutationFn = Apollo.MutationFunction<
+  RemoveFriendMutation,
+  RemoveFriendMutationVariables
+>;
+
+/**
+ * __useRemoveFriendMutation__
+ *
+ * To run a mutation, you first call `useRemoveFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
+ *   variables: {
+ *      friendId: // value for 'friendId'
+ *   },
+ * });
+ */
+export function useRemoveFriendMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemoveFriendMutation,
+    RemoveFriendMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    RemoveFriendMutation,
+    RemoveFriendMutationVariables
+  >(RemoveFriendDocument, options);
+}
+export type RemoveFriendMutationHookResult = ReturnType<
+  typeof useRemoveFriendMutation
+>;
+export type RemoveFriendMutationResult = Apollo.MutationResult<RemoveFriendMutation>;
+export type RemoveFriendMutationOptions = Apollo.BaseMutationOptions<
+  RemoveFriendMutation,
+  RemoveFriendMutationVariables
 >;

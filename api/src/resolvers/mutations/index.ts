@@ -66,17 +66,29 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     return { token: token, user };
   },
-  async addFriend(_, { input }, context: ApolloContextType) {
+  async addFriend(_, args, { currentUserId }) {
     // TODO: handle unauthorized access
-    if (!context.currentUserId) throw new Error('Unauthorized Access');
+    if (!currentUserId) throw new Error('Unauthorized Access');
 
     // TODO: handle model controller issues
     const newUser = await UserController.addFriend(
-      context.currentUserId,
-      input.friendId,
+      currentUserId,
+      args.friendId,
     );
 
     return newUser;
+  },
+  async removeFriend(_, args, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('unauthorized user');
+    }
+
+    const removedFriend = await UserController.removeFriend(
+      currentUserId,
+      args.friendId,
+    );
+
+    return removedFriend;
   },
   async createPost(_, __, { currentUserId }: ApolloContextType) {
     if (!currentUserId) {

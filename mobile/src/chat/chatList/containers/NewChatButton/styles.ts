@@ -1,18 +1,18 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  startChatButtonViewStyle: {
+  newChatButtonViewStyle: {
     width: '100%',
     height: 35,
     alignItems: 'center',
-    marginBottom: 10,
+    marginVertical: 10,
   },
-  startChatButtonTouchStyles: {
+  newChatButtonTouchStyles: {
     width: '80%',
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#EAEAEA',
+    backgroundColor: '#C4C7CD',
     borderRadius: 10,
   },
 });

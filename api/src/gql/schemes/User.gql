@@ -22,7 +22,8 @@ type Query {
 type Mutation {
   login(input: LoginInput!): AuthenticationResult!
   createUser(input: CreateUserInput!): AuthenticationResult!
-  addFriend(input: AddFriendInput!): User
+  addFriend(friendId: ID!): User
+  removeFriend(friendId: ID!): User
 }
 
 input LoginInput {
@@ -40,8 +41,4 @@ input CreateUserInput {
 type AuthenticationResult {
   token: String!
   user: User!
-}
-
-input AddFriendInput {
-  friendId: String!
 }
