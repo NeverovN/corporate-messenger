@@ -10,7 +10,7 @@ import styles from './styles';
 import { IUserItem } from 'profile/types/user';
 
 interface IUserListViewProps {
-  data: IUserItem[];
+  data: IUserItem[] | [];
 }
 
 const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
