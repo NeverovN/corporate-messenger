@@ -14,7 +14,12 @@ interface IUserListViewProps {
 }
 
 const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
-  return <UserItem userId={item.id} />;
+  return (
+    <UserItem
+      userId={item.id}
+      username={item.firstName + ' ' + item.lastName}
+    />
+  );
 };
 
 const UserListView: FC<IUserListViewProps> = ({ data }) => {

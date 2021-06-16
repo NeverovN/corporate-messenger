@@ -10,6 +10,7 @@ type Message {
 type Chat {
   id: ID!
   isDialog: Boolean!
+  title: String!
   participants: [User]!
   logo: String
   messages: [Message] # pagination will live here (it will become a sub-query)
@@ -26,7 +27,7 @@ type Query {
 }
 
 type Mutation {
-  createChat(participants: [ID!]!): Chat!
+  createChat(participants: [ID!]!, title: String!): Chat!
   createMessage(content: String!, chatId: String!): Message!
   deleteChatById(chatId: ID!): Chat!
   deleteMessageById(messageId: ID!): Message!

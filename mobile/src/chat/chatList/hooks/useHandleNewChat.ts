@@ -44,12 +44,15 @@ export const useHandleNewChat = () => {
     },
   });
 
-  return () => {
+  return async () => {
     if (selectedFriendsVar().length === 0) {
       Alert.alert('Error', 'Please, choose any participants');
       return;
     }
-    createChat({ variables: { participants: selectedFriendsVar() } });
+    await createChat({
+      variables: { participants: selectedFriendsVar(), title: 'TempTitle' },
+    });
+
     selectedFriendsVar([]);
   };
 };

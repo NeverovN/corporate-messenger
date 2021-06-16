@@ -24,6 +24,7 @@ export type Chat = {
   __typename?: 'Chat';
   id: Scalars['ID'];
   isDialog: Scalars['Boolean'];
+  title: Scalars['String'];
   participants: Array<Maybe<User>>;
   logo?: Maybe<Scalars['String']>;
   messages?: Maybe<Array<Maybe<Message>>>;
@@ -90,6 +91,7 @@ export type MutationAddFriendArgs = {
 
 export type MutationCreateChatArgs = {
   participants: Array<Scalars['ID']>;
+  title: Scalars['String'];
 };
 
 
@@ -265,6 +267,7 @@ export type GetChatsQuery = (
 
 export type CreateChatMutationVariables = Exact<{
   participants: Array<Scalars['ID']> | Scalars['ID'];
+  title: Scalars['String'];
 }>;
 
 
@@ -315,7 +318,7 @@ export type MessageEditedSubscription = (
 
 export type ChatFragmentFragment = (
   { __typename?: 'Chat' }
-  & Pick<Chat, 'id' | 'isDialog'>
+  & Pick<Chat, 'id' | 'isDialog' | 'title'>
   & { participants: Array<Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'firstName' | 'lastName'>
@@ -567,6 +570,7 @@ export const ChatFragmentFragmentDoc = gql`
     lastName
   }
   isDialog
+  title
   messages {
     id
     content
@@ -711,8 +715,8 @@ export type GetChatsQueryHookResult = ReturnType<typeof useGetChatsQuery>;
 export type GetChatsLazyQueryHookResult = ReturnType<typeof useGetChatsLazyQuery>;
 export type GetChatsQueryResult = Apollo.QueryResult<GetChatsQuery, GetChatsQueryVariables>;
 export const CreateChatDocument = gql`
-    mutation CreateChat($participants: [ID!]!) {
-  createChat(participants: $participants) {
+    mutation CreateChat($participants: [ID!]!, $title: String!) {
+  createChat(participants: $participants, title: $title) {
     ...ChatFragment
   }
 }
@@ -733,6 +737,7 @@ export type CreateChatMutationFn = Apollo.MutationFunction<CreateChatMutation, C
  * const [createChatMutation, { data, loading, error }] = useCreateChatMutation({
  *   variables: {
  *      participants: // value for 'participants'
+ *      title: // value for 'title'
  *   },
  * });
  */

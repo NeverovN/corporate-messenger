@@ -11,9 +11,10 @@ import { SharedStackNavigationProp } from 'app/types/routes';
 // consts
 import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
 
-export const useHandleStartChat = (userId: string) => {
+export const useHandleStartChat = (userId: string, username: string) => {
   const { data: chats } = useGetChatsQuery();
   const navigation = useNavigation<SharedStackNavigationProp>();
+
   const [createChat] = useCreateChatMutation({
     update: (cache, { data }) => {
       if (!data || !data?.createChat) {
@@ -55,7 +56,12 @@ export const useHandleStartChat = (userId: string) => {
 
   return () => {
     if (!chat) {
-      createChat({ variables: { participants: [userId] } });
+      createChat({
+        variables: {
+          participants: [userId],
+          title: username,
+        },
+      });
     } else {
       navigation.navigate(SHARED_STACK_NAME, {
         screen: CHAT_STACK_NAME,
