@@ -1,5 +1,11 @@
 import React, { FC, memo } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 
 // styles
 import styles from './styles';
@@ -14,19 +20,23 @@ interface IEditUsernameScreenViewProps {
 
 const EditUsernameScreenView: FC<IEditUsernameScreenViewProps> = (props) => {
   return (
-    <View style={styles.editUsernameScreenStyle}>
-      <Text style={styles.textStyle}>Edit username</Text>
-      <TextInput
-        style={styles.inputStyle}
-        value={props.firstName}
-        onChangeText={props.onChangeFirstName}
-      />
-      <TextInput
-        style={styles.inputStyle}
-        value={props.lastName}
-        onChangeText={props.onChangeLastName}
-      />
-    </View>
+    <TouchableWithoutFeedback
+      style={styles.dismissStyle}
+      onPress={() => Keyboard.dismiss()}>
+      <View style={styles.editUsernameScreenStyle}>
+        <Text style={styles.textStyle}>Edit username</Text>
+        <TextInput
+          style={styles.inputStyle}
+          value={props.firstName}
+          onChangeText={props.onChangeFirstName}
+        />
+        <TextInput
+          style={styles.inputStyle}
+          value={props.lastName}
+          onChangeText={props.onChangeLastName}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

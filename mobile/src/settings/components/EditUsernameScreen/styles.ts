@@ -16,4 +16,7 @@ export default StyleSheet.create({
     fontSize: 20,
     marginBottom: 25,
   },
+  dismissStyle: {
+    flex: 1,
+  },
 });
