@@ -1,2 +1,6 @@
-export const useSetUserStyle = (isSelected: boolean) =>
-  isSelected ? { backgroundColor: '#4bb3fd40' } : {};
+import { selectedFriendsVar } from '@/common/cache/cache';
+
+export const useSetUserStyle = (userId: string) => {
+  const isSelected = selectedFriendsVar().includes(userId);
+  return isSelected ? { backgroundColor: '#4bb3fd40' } : {};
+};

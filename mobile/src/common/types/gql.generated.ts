@@ -214,7 +214,7 @@ export type UserFragmentFragment = (
   & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>
   & { friends: Array<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>
   )> }
 );
 
@@ -554,6 +554,7 @@ export const UserFragmentFragmentDoc = gql`
     firstName
     lastName
     email
+    avatar
   }
 }
     `;

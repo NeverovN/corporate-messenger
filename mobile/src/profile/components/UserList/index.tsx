@@ -37,7 +37,7 @@ const UserListView: FC<IUserListViewProps> = ({ data }) => {
   } else {
     return (
       <View style={styles.absentUsersStyle}>
-        <Text style={styles.testStyle}>Nothing has found :(</Text>
+        <Text style={styles.textStyle}>Nothing has found :(</Text>
       </View>
     );
   }

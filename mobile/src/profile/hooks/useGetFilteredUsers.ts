@@ -11,11 +11,11 @@ export const useGetFilteredUsers = (searchString: string) => {
   const { data: currUser, loading } = useGetUserQuery();
 
   if (!data || !data.getUsers) {
-    return [] as any;
+    return [];
   }
 
   if (loading) {
-    return [] as any;
+    return [];
   }
 
   if (!currUser || !currUser.getUser) {
@@ -29,13 +29,13 @@ export const useGetFilteredUsers = (searchString: string) => {
 
   const mappedUsers = usersWithoutCurrent.map((el) => {
     if (!el) {
-      return [] as any;
+      return;
     }
     return {
       id: el.id,
       firstName: el.firstName,
       lastName: el.lastName,
-      avatar: el.avatar,
+      avatar: el.avatar || '',
     };
   });
 

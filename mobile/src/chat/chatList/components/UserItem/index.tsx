@@ -12,12 +12,11 @@ import styles from './styles';
 
 interface IUserViewProps {
   userId: string;
-  isSelected: boolean;
   onUserPressed(): void;
 }
 
 const UserView: FC<IUserViewProps> = (props) => {
-  const style = useSetUserStyle(props.isSelected);
+  const style = useSetUserStyle(props.userId);
   return (
     <TouchableOpacity
       style={{ ...styles.userStyle, ...style }}

@@ -9,7 +9,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  testStyle: {
+  textStyle: {
     fontSize: 20,
   },
 });
