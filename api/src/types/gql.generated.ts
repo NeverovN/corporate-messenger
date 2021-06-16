@@ -86,6 +86,8 @@ export type Mutation = {
   createPost: Post;
   createUser: AuthenticationResult;
   deleteChatById: Chat;
+  deleteMessageById: Message;
+  editMessage: Message;
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
@@ -112,6 +114,19 @@ export type MutationCreateUserArgs = {
 export type MutationDeleteChatByIdArgs = {
   chatId: Scalars['ID'];
 };
+
+
+export type MutationDeleteMessageByIdArgs = {
+  messageId: Scalars['ID'];
+};
+
+
+export type MutationEditMessageArgs = {
+  messageId: Scalars['ID'];
+  newContent: Scalars['String'];
+};
+
+
 
 export type MutationGetPostArgs = {
   id: Scalars['ID'];
@@ -169,10 +184,18 @@ export type QueryGetUserByIdArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  messageEdited: Message;
   newChat: Chat;
   newMessage: Message;
   newPost: Post;
 };
+
+
+export type SubscriptionMessageEditedArgs = {
+  chatId: Scalars['ID'];
+};
+
+
 
 export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
@@ -450,6 +473,7 @@ export type MutationResolvers<
     RequireFields<MutationCreateMessageArgs, 'content' | 'chatId'>
   >;
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
+
   createUser?: Resolver<
     ResolversTypes['AuthenticationResult'],
     ParentType,
@@ -502,6 +526,7 @@ export type PostResolvers<
   >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
+
 
 export type QueryResolvers<
   ContextType = any,

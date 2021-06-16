@@ -3,34 +3,19 @@ import {
   useGetUserQuery,
 } from '@/common/types/gql.generated';
 
+// utils
+import { setInterlocutor } from 'chat/chatList/utils/setInterlocutor';
+import { setLastMessage } from 'chat/chatList/utils/setLastMessage';
+
 export const useGetChatInfo = (chatId: string) => {
-  console.log(chatId);
+  const chatResult = useGetChatByIdQuery({ variables: { chatId } });
+  const userResult = useGetUserQuery();
 
-  const { data: chat } = useGetChatByIdQuery({ variables: { chatId } });
-
-  const { data: user } = useGetUserQuery();
-
-  if (
-    !chat ||
-    !chat.getChatById ||
-    !chat.getChatById.messages ||
-    !user ||
-    !user.getUser
-  ) {
-    return {
-      chatTitle: 'defChatTitle',
-      lastMsg: 'defLastMsg',
-    };
-  }
-
-  const interlocutor = chat.getChatById.participants.filter(
-    (participant) => participant?.id !== user.getUser.id,
-  )[0];
+  const interlocutor = setInterlocutor(chatResult, userResult);
+  const lastMsg = setLastMessage(chatResult);
 
   return {
-    chatTitle: `${interlocutor?.firstName} ${interlocutor?.lastName}`,
-    lastMsg: `${
-      chat.getChatById.messages[chat.getChatById.messages.length - 1]?.content
-    }`,
+    chatTitle: interlocutor,
+    lastMsg: lastMsg,
   };
 };

@@ -3,8 +3,11 @@ fragment MessageFragment on Message {
   content
   author {
     id
+    firstName
+    lastName
   }
   createdAt
+  lastEdit
   chatId
 }
 
@@ -16,6 +19,18 @@ query getChatById($chatId: ID!) {
 
 mutation CreateMessage($content: String!, $chatId: String!) {
   createMessage(content: $content, chatId: $chatId) {
+    ...MessageFragment
+  }
+}
+
+mutation DeleteMessage($messageId: ID!) {
+  deleteMessageById(messageId: $messageId) {
+    ...MessageFragment
+  }
+}
+
+mutation EditMessage($messageId: ID!, $newContent: String!) {
+  editMessage(messageId: $messageId, newContent: $newContent) {
     ...MessageFragment
   }
 }

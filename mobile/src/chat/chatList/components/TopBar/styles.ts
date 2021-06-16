@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
   topBarStyle: {
@@ -7,6 +8,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: 50,
-    backgroundColor: 'gray',
+    backgroundColor: COLORS.lightGray,
   },
 });
