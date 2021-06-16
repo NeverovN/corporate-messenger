@@ -26,6 +26,7 @@ type Mutation {
   removeFriend(friendId: ID!): User
   editEmail(newEmail: String!): User!
   editUsername(newFirstName: String!, newLastName: String!): User!
+  editPassword(input: UpdatePasswordInput!): User!
 }
 
 input LoginInput {
@@ -38,6 +39,11 @@ input CreateUserInput {
   password: String!
   firstName: String!
   lastName: String!
+}
+
+input UpdatePasswordInput {
+  oldPassword: String!
+  newPassword: String!
 }
 
 type AuthenticationResult {

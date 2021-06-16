@@ -5,6 +5,8 @@ import { UserDocument } from '../../models/User/types';
 
 import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 import UserEntityController from './entity';
+import verifyPasswordHash from '../../utils/verifyPasswordHash';
+import createPasswordHash from '../../utils/createPasswordHash';
 
 class UserModelController {
   private mapUserWithFallback(user: UserDocument | null): UserEntity | null {
@@ -132,6 +134,40 @@ class UserModelController {
     );
 
     await UserModel.findByIdAndUpdate(userId, updUser).exec();
+    const newUser = await UserModel.findById(userId).exec();
+
+    if (!newUser) {
+      throw Error('network error, update failed');
+    }
+
+    return mapUserDocumentToUserEntity(newUser);
+  }
+
+  async editPassword(userId: string, oldPassword: string, newPassword: string) {
+    const user = await UserModel.findById(userId).exec();
+
+    if (!user) {
+      throw Error('unauthorized');
+    }
+
+    const isOldPasswordCorrect = await verifyPasswordHash(
+      user.password,
+      oldPassword,
+    );
+
+    if (!isOldPasswordCorrect) {
+      console.log(oldPassword);
+      throw Error('You provided wrong old password');
+    }
+
+    const hashedPassword = await createPasswordHash(newPassword);
+
+    const updUser = UserEntityController.editPassword(
+      mapUserDocumentToUserEntity(user),
+      hashedPassword,
+    );
+
+    await UserModel.findByIdAndUpdate(userId, updUser);
     const newUser = await UserModel.findById(userId).exec();
 
     if (!newUser) {

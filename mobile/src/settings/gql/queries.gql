@@ -9,3 +9,9 @@ mutation EditUserName($newFirstName: String!, $newLastName: String!) {
     ...UserFragment
   }
 }
+
+mutation EditPassword($input: UpdatePasswordInput!) {
+  editPassword(input: $input) {
+    ...UserFragment
+  }
+}

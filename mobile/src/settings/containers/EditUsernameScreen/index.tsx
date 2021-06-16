@@ -7,10 +7,13 @@ import EditUsernameScreenView from '@/settings/components/EditUsernameScreen';
 // hooks
 import { useNavigation } from '@react-navigation/native';
 
+// types
+import { EditUsernameNavigationProp } from 'settings/types/routes';
+
 interface IEditUsernameScreenContainerProps {}
 
 const EditUsernameScreenContainer: FC<IEditUsernameScreenContainerProps> = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<EditUsernameNavigationProp>();
   const { data } = useGetUserQuery();
   const [firstName, setFirstName] = useState<string>(
     data?.getUser.firstName || '',

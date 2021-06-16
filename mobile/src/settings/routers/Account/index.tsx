@@ -24,6 +24,7 @@ import {} from 'common/hooks/useBackButtonNavigation';
 // hocs
 import HeaderRightEmail from '@/settings/containers/HeaderRightEmail';
 import HeaderRightUsername from 'settings/containers/HeaderRightUsername';
+import HeaderRightPassword from '@/settings/containers/HeaderRightPassword';
 
 interface ISettingsNavigatorProps {}
 
@@ -32,6 +33,8 @@ const Screens = createStackNavigator<AccountSettingsParamList>();
 const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
   const emailHeaderRight = () => <HeaderRightEmail />;
   const usernameHeaderRight = () => <HeaderRightUsername />;
+  const passwordHeaderRight = () => <HeaderRightPassword />;
+
   return (
     <Screens.Navigator initialRouteName={ACCOUNT_SCREEN_NAME}>
       <Screens.Screen name={ACCOUNT_SCREEN_NAME} component={AccountScreen} />
@@ -43,6 +46,7 @@ const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
       <Screens.Screen
         name={EDIT_PASSWORD_SCREEN_NAME}
         component={EditPasswordScreen}
+        options={{ headerRight: passwordHeaderRight }}
       />
       <Screens.Screen
         name={EDIT_USERNAME_SCREEN_NAME}

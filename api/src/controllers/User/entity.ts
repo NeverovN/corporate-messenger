@@ -37,6 +37,12 @@ class UserEntityController {
     return user;
   }
 
+  editPassword(user: UserEntity, newPassword: string): UserEntity {
+    user.password = newPassword;
+
+    return user;
+  }
+
   editUsername(
     user: UserEntity,
     newFirstName: string,

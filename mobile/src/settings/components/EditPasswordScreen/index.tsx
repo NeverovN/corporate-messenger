@@ -1,17 +1,41 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 
 // styles
 import styles from './styles';
 
-interface IEditPasswordScreenViewProps {}
+interface IEditPasswordScreenViewProps {
+  oldPassword: string;
+  onChangeOldPassword(oPassword: string): void;
 
-const EditPasswordScreenView: FC<IEditPasswordScreenViewProps> = () => {
+  newPassword: string;
+  onChangeNewPassword(nPassword: string): void;
+
+  newPasswordRep: string;
+  onChangeNewPasswordRep(nPasswordRep: string): void;
+}
+
+const EditUsernameScreenView: FC<IEditPasswordScreenViewProps> = (props) => {
   return (
     <View style={styles.editPasswordScreenStyle}>
-      <Text>Password screen</Text>
+      <Text style={styles.textStyle}>Edit password</Text>
+      <TextInput
+        style={styles.inputStyle}
+        value={props.oldPassword}
+        onChangeText={props.onChangeOldPassword}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        value={props.newPassword}
+        onChangeText={props.onChangeNewPassword}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        value={props.newPasswordRep}
+        onChangeText={props.onChangeNewPasswordRep}
+      />
     </View>
   );
 };
 
-export default memo(EditPasswordScreenView);
+export default memo(EditUsernameScreenView);

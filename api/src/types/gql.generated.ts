@@ -80,6 +80,7 @@ export type Mutation = {
   createUser: AuthenticationResult;
   deleteChatById: Chat;
   editEmail: User;
+  editPassword: User;
   editUsername: User;
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
@@ -116,6 +117,11 @@ export type MutationDeleteChatByIdArgs = {
 
 export type MutationEditEmailArgs = {
   newEmail: Scalars['String'];
+};
+
+
+export type MutationEditPasswordArgs = {
+  input: UpdatePasswordInput;
 };
 
 
@@ -196,6 +202,11 @@ export type Subscription = {
 
 export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
+};
+
+export type UpdatePasswordInput = {
+  oldPassword: Scalars['String'];
+  newPassword: Scalars['String'];
 };
 
 export type User = {
@@ -300,6 +311,7 @@ export type ResolversTypes = {
   Post: ResolverTypeWrapper<PostEntity>;
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
+  UpdatePasswordInput: UpdatePasswordInput;
   User: ResolverTypeWrapper<UserEntity>;
 };
 
@@ -319,6 +331,7 @@ export type ResolversParentTypes = {
   Post: PostEntity;
   Query: {};
   Subscription: {};
+  UpdatePasswordInput: UpdatePasswordInput;
   User: UserEntity;
 };
 
@@ -370,6 +383,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   deleteChatById?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationDeleteChatByIdArgs, 'chatId'>>;
   editEmail?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditEmailArgs, 'newEmail'>>;
+  editPassword?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditPasswordArgs, 'input'>>;
   editUsername?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditUsernameArgs, 'newFirstName' | 'newLastName'>>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationGetPostArgs, 'id'>>;
   getUsersPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;

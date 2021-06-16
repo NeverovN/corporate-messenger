@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import Directions from 'settings/constants/directions';
 
 // types
-import { EditNavigationProp } from 'settings/types/routes';
+import { EditPasswordNavigationProp } from 'settings/types/routes';
 
 // routers
 import {
@@ -14,7 +14,7 @@ import { useGetUserQuery } from '@/common/types/gql.generated';
 
 export const useHandleEditNavigation = (screen: Directions) => {
   const { data } = useGetUserQuery();
-  const navigation = useNavigation<EditNavigationProp>();
+  const navigation = useNavigation<EditPasswordNavigationProp>();
 
   switch (screen) {
     case Directions.EMAIL: {
@@ -24,7 +24,12 @@ export const useHandleEditNavigation = (screen: Directions) => {
         });
     }
     case Directions.PASSWORD: {
-      return () => navigation.navigate(EDIT_PASSWORD_SCREEN_NAME);
+      return () =>
+        navigation.navigate(EDIT_PASSWORD_SCREEN_NAME, {
+          old: '',
+          new: '',
+          newRep: '',
+        });
     }
     case Directions.USERNAME: {
       return () =>

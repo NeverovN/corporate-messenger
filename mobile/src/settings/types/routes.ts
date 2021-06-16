@@ -18,7 +18,7 @@ export type SettingsStackParamList = {
 export type AccountSettingsParamList = {
   [ACCOUNT_SCREEN_NAME]: undefined;
   [EDIT_EMAIL_SCREEN_NAME]: { newEmail: string };
-  [EDIT_PASSWORD_SCREEN_NAME]: undefined;
+  [EDIT_PASSWORD_SCREEN_NAME]: { old: string; new: string; newRep: string };
   [EDIT_USERNAME_SCREEN_NAME]: { newFirstName: string; newLastName: string };
 };
 
@@ -32,14 +32,29 @@ export type AccountSettingsScreenNavigationProp = StackNavigationProp<
   typeof ACCOUNT_STACK_NAME
 >;
 
-export type EditNavigationProp = StackNavigationProp<
+export type EditEmailNavigationProp = StackNavigationProp<
   AccountSettingsParamList,
   typeof EDIT_EMAIL_SCREEN_NAME
+>;
+
+export type EditPasswordNavigationProp = StackNavigationProp<
+  AccountSettingsParamList,
+  typeof EDIT_PASSWORD_SCREEN_NAME
+>;
+
+export type EditUsernameNavigationProp = StackNavigationProp<
+  AccountSettingsParamList,
+  typeof EDIT_USERNAME_SCREEN_NAME
 >;
 
 export type EditEmailRouteProp = RouteProp<
   AccountSettingsParamList,
   typeof EDIT_EMAIL_SCREEN_NAME
+>;
+
+export type EditPasswordRouteProp = RouteProp<
+  AccountSettingsParamList,
+  typeof EDIT_PASSWORD_SCREEN_NAME
 >;
 
 export type EditUsernameRouteProp = RouteProp<

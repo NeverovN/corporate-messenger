@@ -71,6 +71,17 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
     }
     return await UserController.editEmail(currentUserId, args.newEmail);
   },
+  async editPassword(_, { input }, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('unauthorized');
+    }
+
+    return await UserController.editPassword(
+      currentUserId,
+      input.oldPassword,
+      input.newPassword,
+    );
+  },
   async editUsername(_, args, { currentUserId }) {
     if (!currentUserId) {
       throw Error('Unauthorized');
