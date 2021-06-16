@@ -44,7 +44,6 @@ export const useHandleNewChat = () => {
   });
 
   return () => {
-    console.log(selectedFriendsVar());
     if (selectedFriendsVar().length === 0) {
       return;
     }
