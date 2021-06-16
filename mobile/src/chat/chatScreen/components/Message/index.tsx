@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useMemo } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import Directions from '../../constants/direction';
 import { useSetMsgStyle } from '../../hooks/useSetMsgStyle';
@@ -16,9 +16,10 @@ interface IMessageViewProps {
 }
 
 const MessageView: FC<IMessageViewProps> = (props) => {
-  const lastEditText = props.lastEdit ? (
-    <Text>last edit: {props.lastEdit}</Text>
-  ) : null;
+  const lastEditText = useMemo(
+    () => (props.lastEdit ? <Text>last edit: {props.lastEdit}</Text> : null),
+    [props.lastEdit],
+  );
 
   const [msgStyle, textStyle, viewStyle] = useSetMsgStyle(props.direction);
 
