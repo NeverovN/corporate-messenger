@@ -1,11 +1,21 @@
+import { Alert } from 'react-native';
 import {
   useEditEmailMutation,
   useGetUserQuery,
 } from '@/common/types/gql.generated';
 
+// utils
+import validateEmail from '@/auth/utils/validateEmail';
+
 export const useUpdateEmail = (newEmail: string) => {
   const [editEmail] = useEditEmailMutation();
   const { data } = useGetUserQuery();
+
+  if (!validateEmail(newEmail)) {
+    return () => {
+      Alert.alert('Error', 'Invalid email');
+    };
+  }
 
   return () => {
     try {
