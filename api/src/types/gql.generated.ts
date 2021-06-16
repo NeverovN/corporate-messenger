@@ -82,6 +82,8 @@ export type Mutation = {
   editEmail: User;
   editPassword: User;
   editUsername: User;
+  deleteMessageById: Message;
+  editMessage: Message;
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
@@ -129,6 +131,7 @@ export type MutationEditUsernameArgs = {
   newFirstName: Scalars['String'];
   newLastName: Scalars['String'];
 };
+
 
 
 export type MutationGetPostArgs = {
@@ -194,10 +197,18 @@ export type QueryGetUserByIdArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  messageEdited: Message;
   newChat: Chat;
   newMessage: Message;
   newPost: Post;
 };
+
+
+
+export type SubscriptionMessageEditedArgs = {
+  chatId: Scalars['ID'];
+};
+
 
 
 export type SubscriptionNewMessageArgs = {
@@ -380,18 +391,48 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateChatArgs, 'participants'>>;
   createMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationCreateMessageArgs, 'content' | 'chatId'>>;
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
-  createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
-  deleteChatById?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationDeleteChatByIdArgs, 'chatId'>>;
-  editEmail?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditEmailArgs, 'newEmail'>>;
-  editPassword?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditPasswordArgs, 'input'>>;
-  editUsername?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditUsernameArgs, 'newFirstName' | 'newLastName'>>;
-  getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationGetPostArgs, 'id'>>;
-  getUsersPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
-  login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
-  removeFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFriendArgs, 'friendId'>>;
+
+  createUser?: Resolver<
+    ResolversTypes['AuthenticationResult'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateUserArgs, 'input'>
+  >;
+  deleteChatById?: Resolver<
+    ResolversTypes['Chat'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteChatByIdArgs, 'chatId'>
+  >;
+  getPost?: Resolver<
+    Maybe<ResolversTypes['Post']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationGetPostArgs, 'id'>
+  >;
+  getUsersPosts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
+    ParentType,
+    ContextType
+  >;
+  login?: Resolver<
+    ResolversTypes['AuthenticationResult'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationLoginArgs, 'input'>
+  >;
+  removeFriend?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationRemoveFriendArgs, 'friendId'>
+  >;
 };
 
-export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
+export type PostResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']
+> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -400,25 +441,93 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getAllPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
-  getChatById?: Resolver<Maybe<ResolversTypes['Chat']>, ParentType, ContextType, RequireFields<QueryGetChatByIdArgs, 'chatId'>>;
-  getChats?: Resolver<Maybe<Array<Maybe<ResolversTypes['Chat']>>>, ParentType, ContextType>;
-  getFriendPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
-  getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetPostArgs, 'id'>>;
-  getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostsArgs, never>>;
-  getUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryGetUserArgs, never>>;
-  getUserById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
-  getUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+
+
+export type QueryResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
+> = {
+  getAllPosts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
+    ParentType,
+    ContextType
+  >;
+  getChatById?: Resolver<
+    Maybe<ResolversTypes['Chat']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetChatByIdArgs, 'chatId'>
+  >;
+  getChats?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Chat']>>>,
+    ParentType,
+    ContextType
+  >;
+  getFriendPosts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
+    ParentType,
+    ContextType
+  >;
+  getPost?: Resolver<
+    Maybe<ResolversTypes['Post']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetPostArgs, 'id'>
+  >;
+  getPosts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetPostsArgs, never>
+  >;
+  getUser?: Resolver<
+    ResolversTypes['User'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetUserArgs, never>
+  >;
+  getUserById?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetUserByIdArgs, 'id'>
+  >;
+  getUsers?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['User']>>>,
+    ParentType,
+    ContextType
+  >;
 };
 
-export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  newChat?: SubscriptionResolver<ResolversTypes['Chat'], "newChat", ParentType, ContextType>;
-  newMessage?: SubscriptionResolver<ResolversTypes['Message'], "newMessage", ParentType, ContextType, RequireFields<SubscriptionNewMessageArgs, 'chatId'>>;
-  newPost?: SubscriptionResolver<ResolversTypes['Post'], "newPost", ParentType, ContextType>;
+export type SubscriptionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
+> = {
+  newChat?: SubscriptionResolver<
+    ResolversTypes['Chat'],
+    'newChat',
+    ParentType,
+    ContextType
+  >;
+  newMessage?: SubscriptionResolver<
+    ResolversTypes['Message'],
+    'newMessage',
+    ParentType,
+    ContextType,
+    RequireFields<SubscriptionNewMessageArgs, 'chatId'>
+  >;
+  newPost?: SubscriptionResolver<
+    ResolversTypes['Post'],
+    'newPost',
+    ParentType,
+    ContextType
+  >;
 };
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+export type UserResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
+> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

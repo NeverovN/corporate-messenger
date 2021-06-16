@@ -77,6 +77,8 @@ export type Mutation = {
   editEmail: User;
   editPassword: User;
   editUsername: User;
+  deleteMessageById: Message;
+  editMessage: Message;
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
@@ -123,6 +125,7 @@ export type MutationEditPasswordArgs = {
 export type MutationEditUsernameArgs = {
   newFirstName: Scalars['String'];
   newLastName: Scalars['String'];
+
 };
 
 
@@ -189,9 +192,15 @@ export type QueryGetUserByIdArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  messageEdited: Message;
   newChat: Chat;
   newMessage: Message;
   newPost: Post;
+};
+
+
+export type SubscriptionMessageEditedArgs = {
+  chatId: Scalars['ID'];
 };
 
 
@@ -226,6 +235,20 @@ export type UserFragmentFragment = (
     )> }
   )> }
 );
+export type UserFragmentFragment = { __typename?: 'User' } & Pick<
+  User,
+
+  'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
+
+> & {
+    friends: Array<
+      { __typename?: 'User' } & Pick<
+        User,
+        'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
+
+      >
+    >;
+  };
 
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
@@ -289,6 +312,17 @@ export type DeleteChatByIdMutationVariables = Exact<{
   chatId: Scalars['ID'];
 }>;
 
+export type DeleteChatByIdMutation = { __typename?: 'Mutation' } & {
+  deleteChatById: { __typename?: 'Chat' } & ChatFragmentFragment;
+};
+
+
+export type NewChatSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type NewChatSubscription = { __typename?: 'Subscription' } & {
+  newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
+};
+
 
 export type DeleteChatByIdMutation = (
   { __typename?: 'Mutation' }
@@ -334,6 +368,54 @@ export type MessageFragmentFragment = (
   ) }
 );
 
+export type NewChatSubscription = { __typename?: 'Subscription' } & {
+  newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
+};
+
+export type MessageEditedSubscriptionVariables = Exact<{
+  chatId: Scalars['ID'];
+}>;
+
+export type MessageEditedSubscription = { __typename?: 'Subscription' } & {
+  messageEdited: { __typename?: 'Message' } & MessageFragmentFragment;
+};
+
+export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
+  Chat,
+  'id' | 'isDialog'
+> & {
+    participants: Array<
+      Maybe<
+        { __typename?: 'User' } & Pick<User, 'id' | 'firstName' | 'lastName'>
+      >
+    >;
+    messages?: Maybe<
+      Array<
+        Maybe<
+          { __typename?: 'Message' } & Pick<
+            Message,
+            'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit'
+          > & {
+              author: { __typename?: 'User' } & Pick<
+                User,
+                'id' | 'firstName' | 'lastName'
+              >;
+            }
+        >
+      >
+    >;
+  };
+
+export type MessageFragmentFragment = { __typename?: 'Message' } & Pick<
+  Message,
+  'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId'
+> & {
+    author: { __typename?: 'User' } & Pick<
+      User,
+      'id' | 'firstName' | 'lastName'
+    >;
+  };
+
 export type GetChatByIdQueryVariables = Exact<{
   chatId: Scalars['ID'];
 }>;
@@ -360,6 +442,24 @@ export type CreateMessageMutation = (
     & MessageFragmentFragment
   ) }
 );
+
+export type DeleteMessageMutationVariables = Exact<{
+  messageId: Scalars['ID'];
+}>;
+
+export type DeleteMessageMutation = { __typename?: 'Mutation' } & {
+  deleteMessageById: { __typename?: 'Message' } & MessageFragmentFragment;
+};
+
+export type EditMessageMutationVariables = Exact<{
+  messageId: Scalars['ID'];
+  newContent: Scalars['String'];
+}>;
+
+export type EditMessageMutation = { __typename?: 'Mutation' } & {
+  editMessage: { __typename?: 'Message' } & MessageFragmentFragment;
+};
+
 
 export type NewMessageSubscriptionVariables = Exact<{
   chatId: Scalars['ID'];
@@ -434,6 +534,55 @@ export type NewPostSubscription = (
     & PostFragmentFragment
   ) }
 );
+export type NewMessageSubscription = { __typename?: 'Subscription' } & {
+  newMessage: { __typename?: 'Message' } & MessageFragmentFragment;
+};
+
+export type GetFeedQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetFeedQuery = { __typename?: 'Query' } & {
+  getAllPosts?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Post' } & Pick<Post, 'id'> & {
+            author: { __typename?: 'User' } & Pick<User, 'id'>;
+          }
+      >
+    >
+  >;
+};
+
+export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetFriendFeedQuery = { __typename?: 'Query' } & {
+  getFriendPosts?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Post' } & Pick<Post, 'id'> & {
+            author: { __typename?: 'User' } & Pick<User, 'id'>;
+          }
+      >
+    >
+  >;
+};
+
+export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
+  Post,
+  'id' | 'createdAt'
+> & { author: { __typename?: 'User' } & Pick<User, 'id'> };
+
+export type CreatePostMutationVariables = Exact<{ [key: string]: never }>;
+
+export type CreatePostMutation = { __typename?: 'Mutation' } & {
+  createPost: { __typename?: 'Post' } & PostFragmentFragment;
+};
+
+
+export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type NewPostSubscription = { __typename?: 'Subscription' } & {
+  newPost: { __typename?: 'Post' } & PostFragmentFragment;
+};
 
 export type GetPostsQueryVariables = Exact<{
   author?: Maybe<Scalars['ID']>;
@@ -461,6 +610,7 @@ export type GetUserQuery = (
   ) }
 );
 
+
 export type GetUserByIdQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -475,6 +625,7 @@ export type GetUserByIdQuery = (
 );
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
 
 
 export type GetUsersQuery = (
@@ -567,6 +718,7 @@ export const UserFragmentFragmentDoc = gql`
     friends {
       id
     }
+
   }
 }
     `;
@@ -575,17 +727,38 @@ export const ChatFragmentFragmentDoc = gql`
   id
   participants {
     id
-    firstName
-    lastName
+    participants {
+      id
+      firstName
+      lastName
+    }
+    isDialog
+    messages {
+      id
+      content
+      author {
+        id
+        firstName
+        lastName
+      }
+      createdAt
+      chatId
+      lastEdit
+    }
   }
-  isDialog
-  messages {
+`;
+
+export const MessageFragmentFragmentDoc = gql`
+  fragment MessageFragment on Message {
     id
     content
     author {
       id
+      firstName
+      lastName
     }
     createdAt
+    lastEdit
     chatId
   }
 }
@@ -811,6 +984,47 @@ export function useNewChatSubscription(baseOptions?: Apollo.SubscriptionHookOpti
       }
 export type NewChatSubscriptionHookResult = ReturnType<typeof useNewChatSubscription>;
 export type NewChatSubscriptionResult = Apollo.SubscriptionResult<NewChatSubscription>;
+export const MessageEditedDocument = gql`
+  subscription MessageEdited($chatId: ID!) {
+    messageEdited(chatId: $chatId) {
+      ...MessageFragment
+    }
+  }
+  ${MessageFragmentFragmentDoc}
+`;
+
+/**
+ * __useMessageEditedSubscription__
+ *
+ * To run a query within a React component, call `useMessageEditedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useMessageEditedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessageEditedSubscription({
+ *   variables: {
+ *      chatId: // value for 'chatId'
+ *   },
+ * });
+ */
+export function useMessageEditedSubscription(
+  baseOptions: Apollo.SubscriptionHookOptions<
+    MessageEditedSubscription,
+    MessageEditedSubscriptionVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSubscription<
+    MessageEditedSubscription,
+    MessageEditedSubscriptionVariables
+  >(MessageEditedDocument, options);
+}
+export type MessageEditedSubscriptionHookResult = ReturnType<
+  typeof useMessageEditedSubscription
+>;
+export type MessageEditedSubscriptionResult = Apollo.SubscriptionResult<MessageEditedSubscription>;
 export const GetChatByIdDocument = gql`
     query getChatById($chatId: ID!) {
   getChatById(chatId: $chatId) {
@@ -818,6 +1032,7 @@ export const GetChatByIdDocument = gql`
   }
 }
     ${ChatFragmentFragmentDoc}`;
+
 
 /**
  * __useGetChatByIdQuery__
@@ -879,7 +1094,113 @@ export function useCreateMessageMutation(baseOptions?: Apollo.MutationHookOption
       }
 export type CreateMessageMutationHookResult = ReturnType<typeof useCreateMessageMutation>;
 export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
-export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<CreateMessageMutation, CreateMessageMutationVariables>;
+
+export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<
+  CreateMessageMutation,
+  CreateMessageMutationVariables
+>;
+export const DeleteMessageDocument = gql`
+  mutation DeleteMessage($messageId: ID!) {
+    deleteMessageById(messageId: $messageId) {
+
+      ...MessageFragment
+    }
+  }
+  ${MessageFragmentFragmentDoc}
+`;
+export type DeleteMessageMutationFn = Apollo.MutationFunction<
+  DeleteMessageMutation,
+  DeleteMessageMutationVariables
+>;
+
+/**
+ * __useDeleteMessageMutation__
+ *
+ * To run a mutation, you first call `useDeleteMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMessageMutation, { data, loading, error }] = useDeleteMessageMutation({
+ *   variables: {
+ *      messageId: // value for 'messageId'
+ *   },
+ * });
+ */
+export function useDeleteMessageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteMessageMutation,
+    DeleteMessageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteMessageMutation,
+    DeleteMessageMutationVariables
+  >(DeleteMessageDocument, options);
+}
+export type DeleteMessageMutationHookResult = ReturnType<
+  typeof useDeleteMessageMutation
+>;
+export type DeleteMessageMutationResult = Apollo.MutationResult<DeleteMessageMutation>;
+export type DeleteMessageMutationOptions = Apollo.BaseMutationOptions<
+  DeleteMessageMutation,
+  DeleteMessageMutationVariables
+>;
+export const EditMessageDocument = gql`
+  mutation EditMessage($messageId: ID!, $newContent: String!) {
+    editMessage(messageId: $messageId, newContent: $newContent) {
+      ...MessageFragment
+    }
+  }
+  ${MessageFragmentFragmentDoc}
+`;
+export type EditMessageMutationFn = Apollo.MutationFunction<
+  EditMessageMutation,
+  EditMessageMutationVariables
+>;
+
+/**
+ * __useEditMessageMutation__
+ *
+ * To run a mutation, you first call `useEditMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editMessageMutation, { data, loading, error }] = useEditMessageMutation({
+ *   variables: {
+ *      messageId: // value for 'messageId'
+ *      newContent: // value for 'newContent'
+ *   },
+ * });
+ */
+export function useEditMessageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditMessageMutation,
+    EditMessageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<EditMessageMutation, EditMessageMutationVariables>(
+    EditMessageDocument,
+    options,
+  );
+}
+export type EditMessageMutationHookResult = ReturnType<
+  typeof useEditMessageMutation
+>;
+export type EditMessageMutationResult = Apollo.MutationResult<EditMessageMutation>;
+export type EditMessageMutationOptions = Apollo.BaseMutationOptions<
+  EditMessageMutation,
+  EditMessageMutationVariables
+>;
 export const NewMessageDocument = gql`
     subscription NewMessage($chatId: ID!) {
   newMessage(chatId: $chatId) {
@@ -887,6 +1208,7 @@ export const NewMessageDocument = gql`
   }
 }
     ${MessageFragmentFragmentDoc}`;
+
 
 /**
  * __useNewMessageSubscription__
@@ -1088,6 +1410,7 @@ export const GetUserDocument = gql`
 }
     ${UserFragmentFragmentDoc}`;
 
+
 /**
  * __useGetUserQuery__
  *
@@ -1188,6 +1511,7 @@ export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
 export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
+
 export const AddFriendDocument = gql`
     mutation AddFriend($friendId: ID!) {
   addFriend(friendId: $friendId) {

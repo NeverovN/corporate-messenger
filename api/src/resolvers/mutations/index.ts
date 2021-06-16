@@ -17,6 +17,7 @@ import {
   CHAT_CREATED,
   MESSAGE_CREATED,
   POST_CREATED,
+  MESSAGE_EDITED,
 } from '../../consts/events';
 
 // services
@@ -160,6 +161,29 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     pubsub.publish(MESSAGE_CREATED, newMessage);
     return newMessage;
+  },
+  async deleteMessageById(_, args) {
+    try {
+      const deletedMessage = await MessageController.getMessage(args.messageId);
+      await MessageController.deleteMessage(args.messageId);
+      return deletedMessage;
+    } catch (error) {
+      throw Error(`${error}`);
+    }
+  },
+  async editMessage(_, args) {
+    try {
+      const editedMessage = await MessageController.editMessage(
+        args.messageId,
+        args.newContent,
+      );
+
+      pubsub.publish(MESSAGE_EDITED, editedMessage);
+
+      return editedMessage;
+    } catch (error) {
+      throw Error(`${error}`);
+    }
   },
 };
 

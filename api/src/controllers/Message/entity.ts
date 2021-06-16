@@ -8,6 +8,16 @@ class MessageEntityController {
 
     return newMessage;
   }
+
+  editMessage(msg: MessageEntity, content: string): MessageEntity {
+    if (content !== msg.content) {
+      msg.content = content;
+    }
+
+    msg.lastEdit = new Date().toString();
+
+    return msg;
+  }
 }
 
 const messageEntityController = new MessageEntityController();

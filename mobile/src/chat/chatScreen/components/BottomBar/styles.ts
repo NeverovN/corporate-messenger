@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
   bottomBarStyle: {
@@ -7,8 +8,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: 50,
-    marginBottom: 10, // safe area imitating
-    backgroundColor: '#CBCBD4',
+    backgroundColor: COLORS.lightGray,
   },
   textInputStyle: {
     flex: 1,

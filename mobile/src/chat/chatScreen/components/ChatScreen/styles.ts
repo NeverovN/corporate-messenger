@@ -4,6 +4,5 @@ export default StyleSheet.create({
   chatScreenStyle: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });

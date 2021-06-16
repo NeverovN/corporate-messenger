@@ -1,6 +1,8 @@
 export interface IMessage {
   id: string;
   author: string;
-  receivers: string[];
   content: string;
+  createdAt: string;
+  lastEdit: string | null;
+  name: string;
 }

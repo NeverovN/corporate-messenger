@@ -11,7 +11,7 @@ const chatResolvers: ChatResolvers = {
   participants: async (chat: ChatEntity) =>
     await ChatController.getParticipants(chat),
   messages: async (chat: ChatEntity) => {
-    return await MessageController.getMessages(chat._id);
+    return (await MessageController.getMessages(chat._id)).reverse();
   },
 };
 
