@@ -6,4 +6,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  touchStyle: {
+    flex: 1,
+  },
 });
