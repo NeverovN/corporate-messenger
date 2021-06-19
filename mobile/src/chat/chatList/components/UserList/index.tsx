@@ -18,15 +18,7 @@ const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
 };
 
 const UserListView: FC<IUserListViewProps> = ({ data }) => {
-  const [isSomeUsers, setIsSomeUsers] = useState<boolean>(!!data);
-
-  useEffect(() => {
-    if (data.length === 0) {
-      setIsSomeUsers(false);
-    } else {
-      setIsSomeUsers(true);
-    }
-  }, [data]);
+  const isSomeUsers = !!data;
 
   if (isSomeUsers) {
     return (
