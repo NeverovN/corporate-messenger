@@ -12,7 +12,7 @@ export const useGetUsersData = (): IUser => {
     firstName: data?.getUser.firstName || '',
     lastName: data?.getUser.lastName || '',
     avatar:
-      data?.getUser.lastName ||
+      data?.getUser.avatar ||
       'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
     friends: data?.getUser.friends || [],
   };
