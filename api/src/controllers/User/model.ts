@@ -7,6 +7,7 @@ import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 import UserEntityController from './entity';
 import verifyPasswordHash from '../../utils/verifyPasswordHash';
 import createPasswordHash from '../../utils/createPasswordHash';
+import { getNewPassword } from '../../utils/getNewPassword';
 
 class UserModelController {
   private mapUserWithFallback(user: UserDocument | null): UserEntity | null {
@@ -156,11 +157,14 @@ class UserModelController {
     );
 
     if (!isOldPasswordCorrect) {
-      console.log(oldPassword);
       throw Error('You provided wrong old password');
     }
 
-    const hashedPassword = await createPasswordHash(newPassword);
+    const hashedPassword = await getNewPassword(
+      oldPassword,
+      user.password,
+      newPassword,
+    );
 
     const updUser = UserEntityController.editPassword(
       mapUserDocumentToUserEntity(user),
