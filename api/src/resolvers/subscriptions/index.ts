@@ -1,4 +1,5 @@
 import { withFilter } from 'graphql-subscriptions';
+import { SubscriptionMessageEditedArgs } from '../../types/gql.generated';
 
 // types
 import { SubscriptionResolvers } from '../../types/gql.generated';
@@ -11,6 +12,7 @@ import {
   CHAT_CREATED,
   MESSAGE_CREATED,
   POST_CREATED,
+  MESSAGE_EDITED,
 } from '../../consts/events';
 
 // services
@@ -40,6 +42,18 @@ const subscriptionResolvers: SubscriptionResolvers = {
   },
   newMessage: {
     subscribe: () => pubsub.asyncIterator([MESSAGE_CREATED]),
+
+    resolve: (message: MessageEntity) => {
+      return message;
+    },
+  },
+  messageEdited: {
+    subscribe: withFilter(
+      () => pubsub.asyncIterator([MESSAGE_EDITED]),
+      (message: MessageEntity, variables: SubscriptionMessageEditedArgs) => {
+        return message.chatId === variables.chatId;
+      },
+    ),
 
     resolve: (message: MessageEntity) => {
       return message;

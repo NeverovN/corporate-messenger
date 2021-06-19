@@ -7,9 +7,11 @@ export const useInitialEmail = () => {
     data?.getUser.email || '',
   );
 
+  const receivedEmail = data?.getUser.email || '';
+  
   useEffect(() => {
-    setInitialEmail(data?.getUser.email || '');
-  }, [data]);
+    setInitialEmail(receivedEmail);
+  }, [receivedEmail]);
 
   return initialEmail;
 };

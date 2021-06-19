@@ -18,7 +18,11 @@ class MessageModelController {
   async getMessage(id: ID) {
     const message = await MessageModel.findById(id);
 
-    return this.mapMessageWithFallback(message);
+    if (!message) {
+      throw Error('chat not found');
+    }
+
+    return mapMessageDocumentToMessageEntity(message);
   }
 
   async getMessages(chatId: ID): Promise<Array<MessageEntity>> {
@@ -50,6 +54,15 @@ class MessageModelController {
     return mapMessageDocumentToMessageEntity(createdMessage);
   }
 
+  async deleteMessage(msgId: ID): Promise<boolean> {
+    try {
+      await MessageModel.findByIdAndDelete(msgId);
+      return true;
+    } catch (error) {
+      throw Error(`${error}`);
+    }
+  }
+
   async deleteMessages(chatId: ID): Promise<boolean> {
     try {
       await MessageModel.deleteMany({ chatId });
@@ -57,6 +70,31 @@ class MessageModelController {
     } catch (error) {
       throw Error(`${error}`);
     }
+  }
+
+  async editMessage(messageId: ID, newContent: string): Promise<MessageEntity> {
+    const message = await MessageModel.findById(messageId).exec();
+
+    if (!message) {
+      throw Error('message not found');
+    }
+
+    const msg = MessageEntityController.editMessage(
+      mapMessageDocumentToMessageEntity(message),
+      newContent,
+    );
+
+    await MessageModel.findByIdAndUpdate(messageId, msg).exec();
+
+    const newMessage = await MessageModel.findById(messageId);
+
+    // i have no idea why but only findByIdAndUpdate does not update value on execution. Result comes in time of next operation, so there is delay
+
+    if (!newMessage) {
+      throw Error('network error, update not complete');
+    }
+
+    return mapMessageDocumentToMessageEntity(newMessage);
   }
 }
 
