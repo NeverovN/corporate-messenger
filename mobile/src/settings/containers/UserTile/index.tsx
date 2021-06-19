@@ -10,7 +10,7 @@ import { setUserName } from '@/settings/utils/setUserName';
 interface IUserTileContainerProps {}
 
 const UserTileContainer: FC<IUserTileContainerProps> = () => {
-  const { firstName, lastName, email } = useGetUsersData();
+  const { firstName, lastName, email, avatar } = useGetUsersData();
   const username = setUserName(firstName, lastName);
   return <UserTileView username={username} email={email} />;
 };

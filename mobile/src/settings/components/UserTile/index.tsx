@@ -6,6 +6,7 @@ import styles from './styles';
 interface IUserTileViewProps {
   username: string;
   email: string;
+  avatar: string;
 }
 
 const UserTileView: FC<IUserTileViewProps> = (props) => {
@@ -14,8 +15,7 @@ const UserTileView: FC<IUserTileViewProps> = (props) => {
       <Image
         style={styles.userImageImageStyle}
         source={{
-          uri:
-            'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
+          uri: props.avatar,
         }}
       />
       <View style={styles.userInfoStyle}>

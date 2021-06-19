@@ -3,7 +3,7 @@ interface IUserWithoutFriends {
   email: string;
   firstName: string;
   lastName: string;
-  avatar?: string | null;
+  avatar: string;
 }
 
 export interface IUser extends IUserWithoutFriends {
