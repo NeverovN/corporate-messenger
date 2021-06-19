@@ -9,5 +9,8 @@ export default StyleSheet.create({
   passwordStyle: {
     flexDirection: 'row',
     alignItems: 'center',
+},
+  touchStyle: {
+    flex: 1,
   },
 });

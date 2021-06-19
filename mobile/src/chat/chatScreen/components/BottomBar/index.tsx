@@ -26,6 +26,8 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
         placeholder="Message"
         value={props.value}
         onChangeText={props.onValueChange}
+        multiline={true}
+        scrollEnabled={true}
       />
       <IconButton
         icon="paperclip"
