@@ -14,7 +14,7 @@ const AddPostButtonView: FC<IAddPostButtonViewProps> = (props) => {
       <TouchableOpacity
         style={styles.addPostButtonTouchStyle}
         onPress={props.onPress}>
-        <Text>Add new post</Text>
+        <Text>Create new post</Text>
       </TouchableOpacity>
     </View>
   );

@@ -4,12 +4,14 @@ import {
   PROFILE_SCREEN_NAME,
   USER_SEARCH_SCREEN_NAME,
   THIRD_PARTY_USER_SCREEN_NAME,
+  CREATE_POST_SCREEN_NAME,
 } from 'profile/constants/routes';
 
 export type ProfileStackParamList = {
   [PROFILE_SCREEN_NAME]: undefined;
   [USER_SEARCH_SCREEN_NAME]: undefined;
   [THIRD_PARTY_USER_SCREEN_NAME]: { userId: string };
+  [CREATE_POST_SCREEN_NAME]: undefined;
 };
 
 export type ProfileScreenNavigationProp = StackNavigationProp<
@@ -25,6 +27,11 @@ export type SearchScreenNavigationProp = StackNavigationProp<
 export type ThirdPartyUserScreenNavigationProp = StackNavigationProp<
   ProfileStackParamList,
   typeof THIRD_PARTY_USER_SCREEN_NAME
+>;
+
+export type CreatePostScreenNavigationProp = StackNavigationProp<
+  ProfileStackParamList,
+  typeof CREATE_POST_SCREEN_NAME
 >;
 
 export type ThirdPartyUserRouteProp = RouteProp<

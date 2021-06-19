@@ -25,6 +25,8 @@ type Post {
   createdAt: String!
   lastEdit: String
   comments: [CommentModel]
+  textContent: String
+  mediaContent: [String]
 }
 
 type CommentModel {

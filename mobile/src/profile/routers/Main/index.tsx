@@ -7,12 +7,14 @@ import {
   PROFILE_SCREEN_NAME,
   USER_SEARCH_SCREEN_NAME,
   THIRD_PARTY_USER_SCREEN_NAME,
+  CREATE_POST_SCREEN_NAME,
 } from '@/profile/constants/routes';
 
 // containers
 import Profile from 'profile/containers/Profile';
 import SearchUsersScreen from 'profile/containers/SearchUsersScreen';
 import ThirdPartyUser from 'profile/containers/ThirdPartyUser';
+import CreatePostScreen from '@/profile/containers/CreatePostScreen';
 
 // hocs
 import HeaderRight from '@/profile/containers/HeaderRight';
@@ -52,6 +54,10 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
       <Screens.Screen
         name={THIRD_PARTY_USER_SCREEN_NAME}
         component={ThirdPartyUser}
+      />
+      <Screens.Screen
+        name={CREATE_POST_SCREEN_NAME}
+        component={CreatePostScreen}
       />
     </Screens.Navigator>
   );
