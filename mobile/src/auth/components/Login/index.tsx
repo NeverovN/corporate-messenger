@@ -1,10 +1,12 @@
 import React, { memo, FC } from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
 } from 'react-native';
+
 
 // components
 import AuthInput from '../AuthInput';
@@ -19,6 +21,11 @@ interface ILoginViewProps {
 
   password: string;
   onChangePassword(password: string): void;
+
+  isHidden: boolean;
+
+  iconName: string;
+  onIconPress(): void;
 
   handleLogin(): void;
 
@@ -37,11 +44,15 @@ const LoginView: FC<ILoginViewProps> = (props) => {
             value={props.email}
             onChangeText={props.onChangeEmail}
           />
-          <AuthInput
-            placeholder="enter your password"
-            value={props.password}
-            onChangeText={props.onChangePassword}
-          />
+          <View style={styles.passwordStyle}>
+            <AuthInput
+              placeholder="enter your password"
+              value={props.password}
+              onChangeText={props.onChangePassword}
+              secure={props.isHidden}
+            />
+            <Icon name={props.iconName} size={25} onPress={props.onIconPress} />
+          </View>
           <SignButton title="SIGN IN" onPress={props.handleLogin} />
           <SignButton title="SIGN UP" onPress={props.handleSignUpRedirection} />
         </View>
