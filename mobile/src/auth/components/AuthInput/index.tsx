@@ -23,7 +23,7 @@ const AuthInput: React.FC<IAuthInput> = (props) => {
       autoCapitalize="none"
       autoCorrect={false}
       placeholder={props.placeholder}
-      secureTextEntry={props.secure || false}
+      secureTextEntry={isSecureEnabled}
     />
   );
 };
