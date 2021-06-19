@@ -18,15 +18,7 @@ const renderChatItem: ListRenderItem<IChatItem> = ({ item }) => {
 };
 
 const ChatListView: FC<IChatListViewProps> = ({ data }) => {
-  const [isAnyChats, setIsAnyChats] = useState<boolean>(data.length > 0);
-
-  useEffect(() => {
-    if (data.length === 0) {
-      setIsAnyChats(false);
-    } else {
-      setIsAnyChats(true);
-    }
-  }, [data]);
+  const isAnyChats = !!data.length;
 
   if (isAnyChats) {
     return (
