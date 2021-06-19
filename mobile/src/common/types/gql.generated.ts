@@ -74,11 +74,11 @@ export type Mutation = {
   createPost: Post;
   createUser: AuthenticationResult;
   deleteChatById: Chat;
+  deleteMessageById: Message;
   editEmail: User;
+  editMessage: Message;
   editPassword: User;
   editUsername: User;
-  deleteMessageById: Message;
-  editMessage: Message;
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
@@ -112,8 +112,19 @@ export type MutationDeleteChatByIdArgs = {
 };
 
 
+export type MutationDeleteMessageByIdArgs = {
+  messageId: Scalars['ID'];
+};
+
+
 export type MutationEditEmailArgs = {
   newEmail: Scalars['String'];
+};
+
+
+export type MutationEditMessageArgs = {
+  messageId: Scalars['ID'];
+  newContent: Scalars['String'];
 };
 
 
@@ -125,8 +136,6 @@ export type MutationEditPasswordArgs = {
 export type MutationEditUsernameArgs = {
   newFirstName: Scalars['String'];
   newLastName: Scalars['String'];
-
-
 };
 
 
@@ -236,21 +245,6 @@ export type UserFragmentFragment = (
     )> }
   )> }
 );
-export type UserFragmentFragment = { __typename?: 'User' } & Pick<
-  User,
-
-  'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
-
-> & {
-    friends: Array<
-      { __typename?: 'User' } & Pick<
-        User,
-        'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
-
-      >
-    >;
-  };
-
 
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
@@ -325,15 +319,6 @@ export type DeleteChatByIdMutation = (
 
 export type NewChatSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
-export type DeleteChatByIdMutation = (
-  { __typename?: 'Mutation' }
-  & { deleteChatById: (
-    { __typename?: 'Chat' }
-    & ChatFragmentFragment
-  ) }
-);
-
-export type NewChatSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 export type NewChatSubscription = (
   { __typename?: 'Subscription' }
@@ -342,35 +327,6 @@ export type NewChatSubscription = (
     & ChatFragmentFragment
   ) }
 );
-
-export type ChatFragmentFragment = (
-  { __typename?: 'Chat' }
-  & Pick<Chat, 'id' | 'isDialog'>
-  & { participants: Array<Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'firstName' | 'lastName'>
-  )>>, messages?: Maybe<Array<Maybe<(
-    { __typename?: 'Message' }
-    & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId'>
-    & { author: (
-      { __typename?: 'User' }
-      & Pick<User, 'id'>
-    ) }
-  )>>> }
-);
-
-export type MessageFragmentFragment = (
-  { __typename?: 'Message' }
-  & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId'>
-  & { author: (
-    { __typename?: 'User' }
-    & Pick<User, 'id'>
-  ) }
-);
-
-export type NewChatSubscription = { __typename?: 'Subscription' } & {
-  newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
-};
 
 export type MessageEditedSubscriptionVariables = Exact<{
   chatId: Scalars['ID'];
@@ -468,105 +424,6 @@ export type NewMessageSubscriptionVariables = Exact<{
   chatId: Scalars['ID'];
 }>;
 
-export type NewMessageSubscription = (
-  { __typename?: 'Subscription' }
-  & { newMessage: (
-    { __typename?: 'Message' }
-    & MessageFragmentFragment
-  ) }
-);
-
-export type GetFeedQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetFeedQuery = (
-  { __typename?: 'Query' }
-  & { getAllPosts?: Maybe<Array<Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id'>
-    & { author: (
-      { __typename?: 'User' }
-      & Pick<User, 'id'>
-    ) }
-  )>>> }
-);
-
-export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetFriendFeedQuery = (
-  { __typename?: 'Query' }
-  & { getFriendPosts?: Maybe<Array<Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id'>
-    & { author: (
-      { __typename?: 'User' }
-      & Pick<User, 'id'>
-    ) }
-  )>>> }
-);
-
-export type PostFragmentFragment = (
-  { __typename?: 'Post' }
-  & Pick<Post, 'id' | 'createdAt'>
-  & { author: (
-    { __typename?: 'User' }
-    & Pick<User, 'id'>
-  ) }
-);
-
-export type CreatePostMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CreatePostMutation = (
-  { __typename?: 'Mutation' }
-  & { createPost: (
-    { __typename?: 'Post' }
-    & PostFragmentFragment
-  ) }
-);
-
-export type NewPostSubscriptionVariables = Exact<{ [key: string]: never; }>;
-
-
-export type NewPostSubscription = (
-  { __typename?: 'Subscription' }
-  & { newPost: (
-    { __typename?: 'Post' }
-    & PostFragmentFragment
-  ) }
-);
-export type NewMessageSubscription = { __typename?: 'Subscription' } & {
-  newMessage: { __typename?: 'Message' } & MessageFragmentFragment;
-};
-
-export type GetFeedQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetFeedQuery = { __typename?: 'Query' } & {
-  getAllPosts?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Post' } & Pick<Post, 'id'> & {
-            author: { __typename?: 'User' } & Pick<User, 'id'>;
-          }
-      >
-    >
-  >;
-};
-
-export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetFriendFeedQuery = { __typename?: 'Query' } & {
-  getFriendPosts?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Post' } & Pick<Post, 'id'> & {
-            author: { __typename?: 'User' } & Pick<User, 'id'>;
-          }
-      >
-    >
-  >;
-};
 
 export type NewMessageSubscription = (
   { __typename?: 'Subscription' }
@@ -678,6 +535,7 @@ export type GetUserByIdQuery = (
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
+
 export type GetUsersQuery = (
   { __typename?: 'Query' }
   & { getUsers?: Maybe<Array<Maybe<(
@@ -768,7 +626,6 @@ export const UserFragmentFragmentDoc = gql`
     friends {
       id
     }
-
   }
 }
     `;
@@ -803,15 +660,6 @@ export const MessageFragmentFragmentDoc = gql`
     id
     firstName
     lastName
-  }
-}
-    `;
-export const MessageFragmentFragmentDoc = gql`
-    fragment MessageFragment on Message {
-  id
-  content
-  author {
-    id
   }
   createdAt
   lastEdit
@@ -1126,12 +974,7 @@ export function useCreateMessageMutation(baseOptions?: Apollo.MutationHookOption
       }
 export type CreateMessageMutationHookResult = ReturnType<typeof useCreateMessageMutation>;
 export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
-
-export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<
-  CreateMessageMutation,
-  CreateMessageMutationVariables
->;
-
+export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<CreateMessageMutation, CreateMessageMutationVariables>;
 export const DeleteMessageDocument = gql`
     mutation DeleteMessage($messageId: ID!) {
   deleteMessageById(messageId: $messageId) {
@@ -1507,7 +1350,6 @@ export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
 export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
-
 export const AddFriendDocument = gql`
     mutation AddFriend($friendId: ID!) {
   addFriend(friendId: $friendId) {
@@ -1674,4 +1516,3 @@ export function useEditPasswordMutation(baseOptions?: Apollo.MutationHookOptions
 export type EditPasswordMutationHookResult = ReturnType<typeof useEditPasswordMutation>;
 export type EditPasswordMutationResult = Apollo.MutationResult<EditPasswordMutation>;
 export type EditPasswordMutationOptions = Apollo.BaseMutationOptions<EditPasswordMutation, EditPasswordMutationVariables>;
-
