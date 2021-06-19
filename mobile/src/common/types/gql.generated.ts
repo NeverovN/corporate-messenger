@@ -126,6 +126,7 @@ export type MutationEditUsernameArgs = {
   newFirstName: Scalars['String'];
   newLastName: Scalars['String'];
 
+
 };
 
 
@@ -250,6 +251,7 @@ export type UserFragmentFragment = { __typename?: 'User' } & Pick<
     >;
   };
 
+
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
 }>;
@@ -312,17 +314,6 @@ export type DeleteChatByIdMutationVariables = Exact<{
   chatId: Scalars['ID'];
 }>;
 
-export type DeleteChatByIdMutation = { __typename?: 'Mutation' } & {
-  deleteChatById: { __typename?: 'Chat' } & ChatFragmentFragment;
-};
-
-
-export type NewChatSubscriptionVariables = Exact<{ [key: string]: never }>;
-
-export type NewChatSubscription = { __typename?: 'Subscription' } & {
-  newChat: { __typename?: 'Chat' } & ChatFragmentFragment;
-};
-
 
 export type DeleteChatByIdMutation = (
   { __typename?: 'Mutation' }
@@ -334,6 +325,15 @@ export type DeleteChatByIdMutation = (
 
 export type NewChatSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
+export type DeleteChatByIdMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteChatById: (
+    { __typename?: 'Chat' }
+    & ChatFragmentFragment
+  ) }
+);
+
+export type NewChatSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 export type NewChatSubscription = (
   { __typename?: 'Subscription' }
@@ -376,45 +376,39 @@ export type MessageEditedSubscriptionVariables = Exact<{
   chatId: Scalars['ID'];
 }>;
 
-export type MessageEditedSubscription = { __typename?: 'Subscription' } & {
-  messageEdited: { __typename?: 'Message' } & MessageFragmentFragment;
-};
 
-export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
-  Chat,
-  'id' | 'isDialog'
-> & {
-    participants: Array<
-      Maybe<
-        { __typename?: 'User' } & Pick<User, 'id' | 'firstName' | 'lastName'>
-      >
-    >;
-    messages?: Maybe<
-      Array<
-        Maybe<
-          { __typename?: 'Message' } & Pick<
-            Message,
-            'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit'
-          > & {
-              author: { __typename?: 'User' } & Pick<
-                User,
-                'id' | 'firstName' | 'lastName'
-              >;
-            }
-        >
-      >
-    >;
-  };
+export type MessageEditedSubscription = (
+  { __typename?: 'Subscription' }
+  & { messageEdited: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
 
-export type MessageFragmentFragment = { __typename?: 'Message' } & Pick<
-  Message,
-  'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId'
-> & {
-    author: { __typename?: 'User' } & Pick<
-      User,
-      'id' | 'firstName' | 'lastName'
-    >;
-  };
+export type ChatFragmentFragment = (
+  { __typename?: 'Chat' }
+  & Pick<Chat, 'id' | 'isDialog'>
+  & { participants: Array<Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'firstName' | 'lastName'>
+  )>>, messages?: Maybe<Array<Maybe<(
+    { __typename?: 'Message' }
+    & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'firstName' | 'lastName'>
+    ) }
+  )>>> }
+);
+
+export type MessageFragmentFragment = (
+  { __typename?: 'Message' }
+  & Pick<Message, 'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId'>
+  & { author: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'firstName' | 'lastName'>
+  ) }
+);
 
 export type GetChatByIdQueryVariables = Exact<{
   chatId: Scalars['ID'];
@@ -447,24 +441,32 @@ export type DeleteMessageMutationVariables = Exact<{
   messageId: Scalars['ID'];
 }>;
 
-export type DeleteMessageMutation = { __typename?: 'Mutation' } & {
-  deleteMessageById: { __typename?: 'Message' } & MessageFragmentFragment;
-};
+
+export type DeleteMessageMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteMessageById: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
 
 export type EditMessageMutationVariables = Exact<{
   messageId: Scalars['ID'];
   newContent: Scalars['String'];
 }>;
 
-export type EditMessageMutation = { __typename?: 'Mutation' } & {
-  editMessage: { __typename?: 'Message' } & MessageFragmentFragment;
-};
 
+export type EditMessageMutation = (
+  { __typename?: 'Mutation' }
+  & { editMessage: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
 
 export type NewMessageSubscriptionVariables = Exact<{
   chatId: Scalars['ID'];
 }>;
-
 
 export type NewMessageSubscription = (
   { __typename?: 'Subscription' }
@@ -566,23 +568,74 @@ export type GetFriendFeedQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
-  Post,
-  'id' | 'createdAt'
-> & { author: { __typename?: 'User' } & Pick<User, 'id'> };
+export type NewMessageSubscription = (
+  { __typename?: 'Subscription' }
+  & { newMessage: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
 
-export type CreatePostMutationVariables = Exact<{ [key: string]: never }>;
-
-export type CreatePostMutation = { __typename?: 'Mutation' } & {
-  createPost: { __typename?: 'Post' } & PostFragmentFragment;
-};
+export type GetFeedQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type GetFeedQuery = (
+  { __typename?: 'Query' }
+  & { getAllPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ) }
+  )>>> }
+);
 
-export type NewPostSubscription = { __typename?: 'Subscription' } & {
-  newPost: { __typename?: 'Post' } & PostFragmentFragment;
-};
+export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFriendFeedQuery = (
+  { __typename?: 'Query' }
+  & { getFriendPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ) }
+  )>>> }
+);
+
+export type PostFragmentFragment = (
+  { __typename?: 'Post' }
+  & Pick<Post, 'id' | 'createdAt'>
+  & { author: (
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  ) }
+);
+
+export type CreatePostMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CreatePostMutation = (
+  { __typename?: 'Mutation' }
+  & { createPost: (
+    { __typename?: 'Post' }
+    & PostFragmentFragment
+  ) }
+);
+
+export type NewPostSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NewPostSubscription = (
+  { __typename?: 'Subscription' }
+  & { newPost: (
+    { __typename?: 'Post' }
+    & PostFragmentFragment
+  ) }
+);
 
 export type GetPostsQueryVariables = Exact<{
   author?: Maybe<Scalars['ID']>;
@@ -610,7 +663,6 @@ export type GetUserQuery = (
   ) }
 );
 
-
 export type GetUserByIdQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -625,8 +677,6 @@ export type GetUserByIdQuery = (
 );
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
 
 export type GetUsersQuery = (
   { __typename?: 'Query' }
@@ -727,29 +777,11 @@ export const ChatFragmentFragmentDoc = gql`
   id
   participants {
     id
-    participants {
-      id
-      firstName
-      lastName
-    }
-    isDialog
-    messages {
-      id
-      content
-      author {
-        id
-        firstName
-        lastName
-      }
-      createdAt
-      chatId
-      lastEdit
-    }
+    firstName
+    lastName
   }
-`;
-
-export const MessageFragmentFragmentDoc = gql`
-  fragment MessageFragment on Message {
+  isDialog
+  messages {
     id
     content
     author {
@@ -758,8 +790,19 @@ export const MessageFragmentFragmentDoc = gql`
       lastName
     }
     createdAt
-    lastEdit
     chatId
+    lastEdit
+  }
+}
+    `;
+export const MessageFragmentFragmentDoc = gql`
+    fragment MessageFragment on Message {
+  id
+  content
+  author {
+    id
+    firstName
+    lastName
   }
 }
     `;
@@ -771,6 +814,7 @@ export const MessageFragmentFragmentDoc = gql`
     id
   }
   createdAt
+  lastEdit
   chatId
 }
     `;
@@ -985,13 +1029,12 @@ export function useNewChatSubscription(baseOptions?: Apollo.SubscriptionHookOpti
 export type NewChatSubscriptionHookResult = ReturnType<typeof useNewChatSubscription>;
 export type NewChatSubscriptionResult = Apollo.SubscriptionResult<NewChatSubscription>;
 export const MessageEditedDocument = gql`
-  subscription MessageEdited($chatId: ID!) {
-    messageEdited(chatId: $chatId) {
-      ...MessageFragment
-    }
+    subscription MessageEdited($chatId: ID!) {
+  messageEdited(chatId: $chatId) {
+    ...MessageFragment
   }
-  ${MessageFragmentFragmentDoc}
-`;
+}
+    ${MessageFragmentFragmentDoc}`;
 
 /**
  * __useMessageEditedSubscription__
@@ -1009,21 +1052,11 @@ export const MessageEditedDocument = gql`
  *   },
  * });
  */
-export function useMessageEditedSubscription(
-  baseOptions: Apollo.SubscriptionHookOptions<
-    MessageEditedSubscription,
-    MessageEditedSubscriptionVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSubscription<
-    MessageEditedSubscription,
-    MessageEditedSubscriptionVariables
-  >(MessageEditedDocument, options);
-}
-export type MessageEditedSubscriptionHookResult = ReturnType<
-  typeof useMessageEditedSubscription
->;
+export function useMessageEditedSubscription(baseOptions: Apollo.SubscriptionHookOptions<MessageEditedSubscription, MessageEditedSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<MessageEditedSubscription, MessageEditedSubscriptionVariables>(MessageEditedDocument, options);
+      }
+export type MessageEditedSubscriptionHookResult = ReturnType<typeof useMessageEditedSubscription>;
 export type MessageEditedSubscriptionResult = Apollo.SubscriptionResult<MessageEditedSubscription>;
 export const GetChatByIdDocument = gql`
     query getChatById($chatId: ID!) {
@@ -1032,7 +1065,6 @@ export const GetChatByIdDocument = gql`
   }
 }
     ${ChatFragmentFragmentDoc}`;
-
 
 /**
  * __useGetChatByIdQuery__
@@ -1099,19 +1131,15 @@ export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<
   CreateMessageMutation,
   CreateMessageMutationVariables
 >;
-export const DeleteMessageDocument = gql`
-  mutation DeleteMessage($messageId: ID!) {
-    deleteMessageById(messageId: $messageId) {
 
-      ...MessageFragment
-    }
+export const DeleteMessageDocument = gql`
+    mutation DeleteMessage($messageId: ID!) {
+  deleteMessageById(messageId: $messageId) {
+    ...MessageFragment
   }
-  ${MessageFragmentFragmentDoc}
-`;
-export type DeleteMessageMutationFn = Apollo.MutationFunction<
-  DeleteMessageMutation,
-  DeleteMessageMutationVariables
->;
+}
+    ${MessageFragmentFragmentDoc}`;
+export type DeleteMessageMutationFn = Apollo.MutationFunction<DeleteMessageMutation, DeleteMessageMutationVariables>;
 
 /**
  * __useDeleteMessageMutation__
@@ -1130,38 +1158,21 @@ export type DeleteMessageMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useDeleteMessageMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    DeleteMessageMutation,
-    DeleteMessageMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    DeleteMessageMutation,
-    DeleteMessageMutationVariables
-  >(DeleteMessageDocument, options);
-}
-export type DeleteMessageMutationHookResult = ReturnType<
-  typeof useDeleteMessageMutation
->;
+export function useDeleteMessageMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMessageMutation, DeleteMessageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteMessageMutation, DeleteMessageMutationVariables>(DeleteMessageDocument, options);
+      }
+export type DeleteMessageMutationHookResult = ReturnType<typeof useDeleteMessageMutation>;
 export type DeleteMessageMutationResult = Apollo.MutationResult<DeleteMessageMutation>;
-export type DeleteMessageMutationOptions = Apollo.BaseMutationOptions<
-  DeleteMessageMutation,
-  DeleteMessageMutationVariables
->;
+export type DeleteMessageMutationOptions = Apollo.BaseMutationOptions<DeleteMessageMutation, DeleteMessageMutationVariables>;
 export const EditMessageDocument = gql`
-  mutation EditMessage($messageId: ID!, $newContent: String!) {
-    editMessage(messageId: $messageId, newContent: $newContent) {
-      ...MessageFragment
-    }
+    mutation EditMessage($messageId: ID!, $newContent: String!) {
+  editMessage(messageId: $messageId, newContent: $newContent) {
+    ...MessageFragment
   }
-  ${MessageFragmentFragmentDoc}
-`;
-export type EditMessageMutationFn = Apollo.MutationFunction<
-  EditMessageMutation,
-  EditMessageMutationVariables
->;
+}
+    ${MessageFragmentFragmentDoc}`;
+export type EditMessageMutationFn = Apollo.MutationFunction<EditMessageMutation, EditMessageMutationVariables>;
 
 /**
  * __useEditMessageMutation__
@@ -1181,26 +1192,13 @@ export type EditMessageMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useEditMessageMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    EditMessageMutation,
-    EditMessageMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<EditMessageMutation, EditMessageMutationVariables>(
-    EditMessageDocument,
-    options,
-  );
-}
-export type EditMessageMutationHookResult = ReturnType<
-  typeof useEditMessageMutation
->;
+export function useEditMessageMutation(baseOptions?: Apollo.MutationHookOptions<EditMessageMutation, EditMessageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditMessageMutation, EditMessageMutationVariables>(EditMessageDocument, options);
+      }
+export type EditMessageMutationHookResult = ReturnType<typeof useEditMessageMutation>;
 export type EditMessageMutationResult = Apollo.MutationResult<EditMessageMutation>;
-export type EditMessageMutationOptions = Apollo.BaseMutationOptions<
-  EditMessageMutation,
-  EditMessageMutationVariables
->;
+export type EditMessageMutationOptions = Apollo.BaseMutationOptions<EditMessageMutation, EditMessageMutationVariables>;
 export const NewMessageDocument = gql`
     subscription NewMessage($chatId: ID!) {
   newMessage(chatId: $chatId) {
@@ -1208,7 +1206,6 @@ export const NewMessageDocument = gql`
   }
 }
     ${MessageFragmentFragmentDoc}`;
-
 
 /**
  * __useNewMessageSubscription__
@@ -1409,7 +1406,6 @@ export const GetUserDocument = gql`
   }
 }
     ${UserFragmentFragmentDoc}`;
-
 
 /**
  * __useGetUserQuery__
@@ -1678,3 +1674,4 @@ export function useEditPasswordMutation(baseOptions?: Apollo.MutationHookOptions
 export type EditPasswordMutationHookResult = ReturnType<typeof useEditPasswordMutation>;
 export type EditPasswordMutationResult = Apollo.MutationResult<EditPasswordMutation>;
 export type EditPasswordMutationOptions = Apollo.BaseMutationOptions<EditPasswordMutation, EditPasswordMutationVariables>;
+
