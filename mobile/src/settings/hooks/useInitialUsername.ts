@@ -10,13 +10,16 @@ export const useInitialUsername = (): [string, string] => {
     data?.getUser.lastName || '',
   );
 
-  useEffect(() => {
-    setInitialFirstName(data?.getUser.firstName || '');
-  }, [data?.getUser.firstName]);
+  const receivedFirstName = data?.getUser.firstName || '';
+  const receivedLastName = data?.getUser.lastName || '';
 
   useEffect(() => {
-    setInitialLastName(data?.getUser.lastName || '');
-  }, [data?.getUser.lastName]);
+    setInitialFirstName(receivedFirstName);
+  }, [receivedFirstName]);
+
+  useEffect(() => {
+    setInitialLastName(receivedLastName);
+  }, [receivedLastName]);
 
   return [initialFirstName, initialLastName];
 };
