@@ -28,18 +28,13 @@ export const useUpdatePassword = (
   }
 
   return async () => {
-    try {
-      await editPassword({
-        variables: {
-          input: {
-            oldPassword,
-            newPassword,
-          },
+    await editPassword({
+      variables: {
+        input: {
+          oldPassword,
+          newPassword,
         },
-      });
-    } catch (err) {
-      console.log('rejected', `${err}`);
-      Alert.alert('Error', `${err}`);
-    }
+      },
+    });
   };
 };
