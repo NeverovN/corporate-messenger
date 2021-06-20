@@ -14,7 +14,7 @@ const AccountSettingsButtonContainer: FC<IAccountSettingsButtonContainerProps> =
 
   return (
     <View style={styles.accountSettingsButtonViewStyle}>
-      <TouchableOpacity
+      <TouchableOpacity // TODO: use common button
         style={styles.accountSettingsButtonTouchStyles}
         onPress={navigate}>
         <Text>Account settings</Text>

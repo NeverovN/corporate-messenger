@@ -24,25 +24,26 @@ import { useBackButtonNavigation } from 'common/hooks/useBackButtonNavigation';
 
 interface ISettingsNavigatorProps {}
 
-const Screens = createStackNavigator<SettingsStackParamList>();
+const SettingsStack = createStackNavigator<SettingsStackParamList>();
 
 const SettingsMainNavigator: FC<ISettingsNavigatorProps> = () => {
   const accountSettingsBack = useBackButtonNavigation();
+
   return (
-    <Screens.Navigator initialRouteName={SETTINGS_STACK_NAME}>
-      <Screens.Screen
+    <SettingsStack.Navigator initialRouteName={SETTINGS_STACK_NAME}>
+      <SettingsStack.Screen
         name={SETTINGS_STACK_NAME}
         component={Settings}
         options={{
           headerLeft: () => <HeaderBackButton onPress={accountSettingsBack} />,
         }}
       />
-      <Screens.Screen
+      <SettingsStack.Screen
         name={ACCOUNT_STACK_NAME}
         component={AccountRouter}
         options={{ headerShown: false }}
       />
-    </Screens.Navigator>
+    </SettingsStack.Navigator>
   );
 };
 

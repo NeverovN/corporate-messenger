@@ -12,6 +12,7 @@ interface IUserTileContainerProps {}
 const UserTileContainer: FC<IUserTileContainerProps> = () => {
   const { firstName, lastName, email, avatar } = useGetUsersData();
   const username = getUserName(firstName, lastName);
+
   return <UserTileView username={username} email={email} avatar={avatar} />;
 };
 

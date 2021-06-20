@@ -3,8 +3,9 @@ import { useGetUserQuery } from '@/common/types/gql.generated';
 // types;
 import { IUser } from 'settings/types/user';
 
+// TODO: rename to `useGetCurrentUser`
 export const useGetUsersData = (): IUser => {
-  const { data } = useGetUserQuery();
+  const { data } = useGetUserQuery(); // TODO: rename to `useGetCurrentUserQuery`
 
   return {
     id: data?.getUser.id || '',
