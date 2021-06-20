@@ -8,18 +8,15 @@ import styles from './styles';
 
 // types
 import { IUserItem } from 'profile/types/user';
+import { getUsername } from '@/profile/utils/getUsername';
 
 interface IUserListViewProps {
   data: IUserItem[];
 }
 
 const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
-  return (
-    <UserItem
-      userId={item.id}
-      username={item.firstName + ' ' + item.lastName}
-    />
-  );
+  const name = getUsername(item.firstName, item.lastName);
+  return <UserItem userId={item.id} username={name} />;
 };
 
 const UserListView: FC<IUserListViewProps> = ({ data }) => {
