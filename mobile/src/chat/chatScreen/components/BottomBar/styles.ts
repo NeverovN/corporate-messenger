@@ -5,13 +5,16 @@ export default StyleSheet.create({
   bottomBarStyle: {
     paddingLeft: 15,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     width: '100%',
-    height: 50,
+    minHeight: 50,
+    maxHeight: 120,
+    paddingVertical: 15,
     backgroundColor: COLORS.lightGray,
   },
   textInputStyle: {
     flex: 1,
+    marginRight: 10,
   },
   commonStyle: {
     paddingRight: 15,

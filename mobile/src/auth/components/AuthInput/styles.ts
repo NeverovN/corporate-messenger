@@ -7,5 +7,6 @@ export default StyleSheet.create({
     height: 30,
     margin: 15,
     width: 200,
+    fontSize: 20,
   },
 });
