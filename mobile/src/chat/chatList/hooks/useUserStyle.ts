@@ -1,6 +1,7 @@
 import { selectedFriendsVar } from '@/common/cache/cache';
+import COLORS from '@/common/constants/colors';
 
 export const useUserStyle = (userId: string) => {
   const isSelected = selectedFriendsVar().includes(userId);
-  return isSelected ? { backgroundColor: '#4bb3fd40' } : {};
+  return isSelected ? { backgroundColor: COLORS.lightBlue } : {};
 };
