@@ -8,10 +8,10 @@ import styles from './styles';
 import { useHandleEditNavigation } from 'settings/hooks/useHandleEditNavigation';
 
 // constants
-import Directions from 'settings/constants/directions';
+import Operations from '@/settings/constants/operations';
 
 interface IEditButtonContainerProps {
-  screen: Directions;
+  screen: Operations;
   title: string;
 }
 
