@@ -1,39 +1,52 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useRoute } from '@react-navigation/core';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
-// types
-import { EditEmailRouteProp } from 'settings/types/routes';
+// common components
+import IconButton from '@/common/components/Button/IconButton';
+import Icon from '@/common/components/Icon';
 
 // styles
 import styles from './styles';
-import { useUpdateEmail } from '@/settings/hooks/useUpdateEmail';
-import { useInitialEmail } from '@/settings/hooks/useInitialEmail';
+import { IconType } from '@/common/types/styles';
 
-const HeaderRightEmail: FC = () => {
+interface IHeaderProps {
+  initialValue: string;
+  currentState: string;
+  edit(): void;
+}
+
+const HeaderRightEmail: FC<IHeaderProps> = ({
+  initialValue,
+  currentState,
+  edit,
+}) => {
   const [isChanged, setIsChanged] = useState<boolean>(false);
-  const { params } = useRoute<EditEmailRouteProp>();
-  const initialEmail = useInitialEmail();
-  const edit = useUpdateEmail(params.newEmail);
 
   useEffect(() => {
-    if (initialEmail === params.newEmail) {
+    if (initialValue === currentState) {
       setIsChanged(false);
     } else {
       setIsChanged(true);
     }
-  }, [params, initialEmail]);
+  }, [currentState, initialValue]);
 
   if (isChanged) {
     return (
-      <TouchableOpacity onPress={edit}>
-        <Icon name="check" style={styles.activeIconStyle} size={25} />
-      </TouchableOpacity>
+      <IconButton
+        containerStyle={styles.activeIconStyle}
+        onPress={edit}
+        iconType={IconType.LARGE}
+        icon="check"
+      />
     );
   }
 
-  return <Icon name="check" style={styles.disabledIconStile} size={25} />;
+  return (
+    <Icon
+      name="check"
+      customStyle={styles.disabledIconStile}
+      type={IconType.LARGE}
+    />
+  );
 };
 
 export default memo(HeaderRightEmail);

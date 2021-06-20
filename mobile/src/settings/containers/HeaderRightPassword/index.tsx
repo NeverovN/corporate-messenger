@@ -1,39 +1,54 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useRoute } from '@react-navigation/core';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
-// hooks
-import { useUpdatePassword } from 'settings/hooks/useUpdatePassword';
-
-// types
-import { EditPasswordRouteProp } from 'settings/types/routes';
+// common components
+import IconButton from '@/common/components/Button/IconButton';
+import Icon from '@/common/components/Icon';
 
 // styles
 import styles from './styles';
+import { IconType } from '@/common/types/styles';
 
-const HeaderRightPassword: FC = () => {
-  const { params } = useRoute<EditPasswordRouteProp>();
+interface IHeaderProps {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordRep: string;
+  edit(): void;
+}
+
+const HeaderRightPassword: FC<IHeaderProps> = ({
+  oldPassword,
+  newPassword,
+  newPasswordRep,
+  edit,
+}) => {
   const [isChanged, setIsChanged] = useState<boolean>(false);
-  const edit = useUpdatePassword(params.old, params.new, params.newRep);
 
   useEffect(() => {
-    if (params.old === '' || params.new === '' || params.newRep === '') {
+    if (oldPassword === '' || newPassword === '' || newPasswordRep === '') {
       setIsChanged(false);
     } else {
       setIsChanged(true);
     }
-  }, [params]);
+  }, [oldPassword, newPassword, newPasswordRep]);
 
   if (isChanged) {
     return (
-      <TouchableOpacity onPress={edit}>
-        <Icon name="check" style={styles.activeIconStyle} size={25} />
-      </TouchableOpacity>
+      <IconButton
+        icon="check"
+        containerStyle={styles.activeIconStyle}
+        onPress={edit}
+        iconType={IconType.LARGE}
+      />
     );
   }
 
-  return <Icon name="check" style={styles.disabledIconStile} size={25} />;
+  return (
+    <Icon
+      name="check"
+      customStyle={styles.disabledIconStile}
+      type={IconType.LARGE}
+    />
+  );
 };
 
 export default memo(HeaderRightPassword);

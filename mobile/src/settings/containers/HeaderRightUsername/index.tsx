@@ -1,44 +1,54 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useRoute } from '@react-navigation/core';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
-// hooks
-import { useUpdateUsername } from 'settings/hooks/useUpdateUsername';
-import { useInitialUsername } from '@/settings/hooks/useInitialUsername';
-
-// types
-import { EditUsernameRouteProp } from 'settings/types/routes';
+// common components
+import IconButton from '@/common/components/Button/IconButton';
+import Icon from '@/common/components/Icon';
 
 // styles
 import styles from './styles';
+import { IconType } from '@/common/types/styles';
 
-const HeaderRightUsername: FC = () => {
-  const { params } = useRoute<EditUsernameRouteProp>();
-  const [initialFirstName, initialLastName] = useInitialUsername();
+interface IHeaderProps {
+  initialNames: [string, string];
+  newNames: [string, string];
+  edit(): void;
+}
+
+const HeaderRightUsername: FC<IHeaderProps> = ({
+  initialNames,
+  newNames,
+  edit,
+}) => {
+  const [initialFirstName, initialLastName] = initialNames;
+  const [newFirstName, newLastName] = newNames;
   const [isChanged, setIsChanged] = useState<boolean>(false);
-  const edit = useUpdateUsername(params.newFirstName, params?.newLastName);
 
   useEffect(() => {
-    if (
-      initialFirstName === params.newFirstName &&
-      initialLastName === params.newLastName
-    ) {
+    if (initialFirstName === newFirstName && initialLastName === newLastName) {
       setIsChanged(false);
     } else {
       setIsChanged(true);
     }
-  }, [params, initialFirstName, initialLastName]);
+  }, [initialFirstName, initialLastName, newFirstName, newLastName]);
 
   if (isChanged) {
     return (
-      <TouchableOpacity onPress={edit}>
-        <Icon name="check" style={styles.activeIconStyle} size={25} />
-      </TouchableOpacity>
+      <IconButton
+        icon="check"
+        containerStyle={styles.activeIconStyle}
+        onPress={edit}
+        iconType={IconType.LARGE}
+      />
     );
   }
 
-  return <Icon name="check" style={styles.disabledIconStile} size={25} />;
+  return (
+    <Icon
+      name="check"
+      customStyle={styles.disabledIconStile}
+      type={IconType.LARGE}
+    />
+  );
 };
 
 export default memo(HeaderRightUsername);

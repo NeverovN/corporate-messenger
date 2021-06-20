@@ -1,5 +1,7 @@
 import React, { FC, memo } from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+
+// common components
+import TextButton from '@/common/components/Button/TextButton';
 
 // styles
 import styles from './styles';
@@ -19,11 +21,11 @@ const EditButtonContainer: FC<IEditButtonContainerProps> = (props) => {
   const navigate = useHandleEditNavigation(props.screen);
 
   return (
-    <View style={styles.editButtonViewStyle}>
-      <TouchableOpacity style={styles.editButtonTouchStyles} onPress={navigate}>
-        <Text>{props.title}</Text>
-      </TouchableOpacity>
-    </View>
+    <TextButton
+      containerStyle={styles.editButtonViewStyle}
+      onPress={navigate}
+      label={props.title}
+    />
   );
 };
 

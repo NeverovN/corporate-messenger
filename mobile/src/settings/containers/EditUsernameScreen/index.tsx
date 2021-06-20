@@ -6,15 +6,19 @@ import EditUsernameScreenView from '@/settings/components/EditUsernameScreen';
 
 // hooks
 import { useNavigation } from '@react-navigation/native';
+import { useInitialUsername } from '@/settings/hooks/useInitialUsername';
+import { useUpdateUsername } from '@/settings/hooks/useUpdateUsername';
 
 // types
 import { EditUsernameNavigationProp } from 'settings/types/routes';
+import HeaderRightUsername from '../HeaderRightUsername';
 
 interface IEditUsernameScreenContainerProps {}
 
 const EditUsernameScreenContainer: FC<IEditUsernameScreenContainerProps> = () => {
   const navigation = useNavigation<EditUsernameNavigationProp>();
   const { data } = useGetUserQuery();
+  const names = useInitialUsername();
   const [firstName, setFirstName] = useState<string>(
     data?.getUser.firstName || '',
   );
@@ -22,9 +26,19 @@ const EditUsernameScreenContainer: FC<IEditUsernameScreenContainerProps> = () =>
     data?.getUser.lastName || '',
   );
 
+  const edit = useUpdateUsername(firstName, lastName);
+
   useEffect(() => {
-    navigation.setParams({ newFirstName: firstName, newLastName: lastName });
-  }, [navigation, firstName, lastName]);
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderRightUsername
+          initialNames={names}
+          newNames={[firstName, lastName]}
+          edit={edit}
+        />
+      ),
+    });
+  }, [navigation, names, firstName, lastName, edit]);
 
   return (
     <EditUsernameScreenView

@@ -1,5 +1,7 @@
 import React, { FC, memo } from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+
+// common components
+import TextButton from '@/common/components/Button/TextButton';
 
 // styles
 import styles from './styles';
@@ -13,13 +15,11 @@ const AccountSettingsButtonContainer: FC<IAccountSettingsButtonContainerProps> =
   const navigate = useHandleAccountSettingsNavigation();
 
   return (
-    <View style={styles.accountSettingsButtonViewStyle}>
-      <TouchableOpacity // TODO: use common button
-        style={styles.accountSettingsButtonTouchStyles}
-        onPress={navigate}>
-        <Text>Account settings</Text>
-      </TouchableOpacity>
-    </View>
+    <TextButton
+      containerStyle={styles.accountSettingsButtonStyles}
+      onPress={navigate}
+      label="Account settings"
+    />
   );
 };
 
