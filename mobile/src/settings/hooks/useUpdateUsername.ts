@@ -6,8 +6,8 @@ export const useUpdateUsername = (
 ) => {
   const [editUsername] = useEditUserNameMutation();
 
-  return async () => {
-    await editUsername({
+  return () => {
+    editUsername({
       variables: {
         newFirstName,
         newLastName,
