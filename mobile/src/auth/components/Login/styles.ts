@@ -6,4 +6,11 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  passwordStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+},
+  touchStyle: {
+    flex: 1,
+  },
 });

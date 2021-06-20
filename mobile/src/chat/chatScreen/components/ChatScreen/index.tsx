@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, KeyboardAvoidingView } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -13,8 +13,14 @@ interface IChatScreenViewProps {}
 const ChatScreenView: FC<IChatScreenViewProps> = () => {
   return (
     <SafeAreaView style={styles.chatScreenStyle}>
-      <MessageArea />
-      <BottomBar />
+      <KeyboardAvoidingView
+        style={styles.chatScreenStyle}
+        behavior="padding"
+        enabled
+        keyboardVerticalOffset={65}>
+        <MessageArea />
+        <BottomBar />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
