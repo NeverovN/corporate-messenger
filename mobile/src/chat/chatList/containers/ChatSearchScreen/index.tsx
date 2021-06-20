@@ -4,17 +4,17 @@ import React, { FC, memo, useState } from 'react';
 import ChatSearchScreenView from 'chat/chatList/components/ChatSearchScreen';
 
 // hooks
-import { useGetSearch } from 'chat/chatList/hooks/useGetSearch';
+import { useSearch } from '@/chat/chatList/hooks/useSearch';
 
 interface IChatSearchScreenContainerProps {}
 
 const ChatSearchScreenContainer: FC<IChatSearchScreenContainerProps> = () => {
-  const [searchString, setSearchString] = useState<string>('');
-  const search = useGetSearch(searchString);
+  const [filter, setFilter] = useState<string>('');
+  const search = useSearch(filter);
   return (
     <ChatSearchScreenView
-      filter={searchString}
-      onChangeFilter={setSearchString}
+      filter={filter}
+      onChangeFilter={setFilter}
       search={search}
     />
   );

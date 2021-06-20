@@ -1,7 +1,7 @@
 import { useGetUserQuery } from '@/common/types/gql.generated';
 import { filterUsers } from '@/profile/utils/filterUsers';
 
-export const useGetUserFriends = (searchString: string) => {
+export const useGetUserFriends = (filter: string) => {
   const { data } = useGetUserQuery();
 
   if (!data || !data.getUser) {
@@ -17,7 +17,7 @@ export const useGetUserFriends = (searchString: string) => {
     };
   });
 
-  const filteredFriends = filterUsers(friends, searchString);
+  const filteredFriends = filterUsers(friends, filter);
 
   return filteredFriends;
 };

@@ -5,12 +5,12 @@ import NewChatScreenView from 'chat/chatList/components/NewChatScreen';
 interface INewChatScreenContainerProps {}
 
 const NewChatScreenContainer: FC<INewChatScreenContainerProps> = () => {
-  const [searchString, setSearchString] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
   return (
     <NewChatScreenView
       search={() => console.log('search pressed')}
-      filter={searchString}
-      onChangeFilter={setSearchString}
+      filter={filter}
+      onChangeFilter={setFilter}
     />
   );
 };

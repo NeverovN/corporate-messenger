@@ -9,13 +9,13 @@ import { useGetSearch } from 'profile/hooks/useGetSearch';
 interface ISearchUsersScreenContainerProp {}
 
 const SearchUsersScreenContainer: FC<ISearchUsersScreenContainerProp> = () => {
-  const [searchString, setSearchString] = useState<string>('');
-  const search = useGetSearch(searchString);
+  const [filter, setFilter] = useState<string>('');
+  const search = useGetSearch(filter);
   return (
     <SearchUsersScreenView
       search={search}
-      filter={searchString}
-      onChangeFilter={setSearchString}
+      filter={filter}
+      onChangeFilter={setFilter}
     />
   );
 };

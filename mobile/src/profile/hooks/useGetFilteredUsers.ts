@@ -6,7 +6,7 @@ import {
 // utils
 import { filterUsers } from 'profile/utils/filterUsers';
 
-export const useGetFilteredUsers = (searchString: string) => {
+export const useGetFilteredUsers = (filter: string) => {
   const { data } = useGetUsersQuery();
   const { data: currUser, loading } = useGetUserQuery();
 
@@ -39,7 +39,7 @@ export const useGetFilteredUsers = (searchString: string) => {
     };
   });
 
-  const filteredUsers = filterUsers(mappedUsers, searchString);
+  const filteredUsers = filterUsers(mappedUsers, filter);
 
   return filteredUsers;
 };

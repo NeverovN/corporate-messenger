@@ -1,7 +1,7 @@
 import { useGetFilteredUsers } from 'profile/hooks/useGetFilteredUsers';
 
-export const useGetSearch = (searchString: string) => {
-  const users = useGetFilteredUsers(searchString);
+export const useGetSearch = (filter: string) => {
+  const users = useGetFilteredUsers(filter);
 
   return () => users;
 };

@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import Text from '@/common/components/Text';
 
 // styles
 import styles from './styles';
