@@ -5,7 +5,7 @@ export const useGetUserFriends = (filter: string) => {
   const { data } = useGetUserQuery();
 
   if (!data || !data.getUser) {
-    return [];
+    return null;
   }
 
   const friends = data.getUser.friends.map((el) => {

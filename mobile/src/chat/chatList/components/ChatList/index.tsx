@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo } from 'react';
 import { FlatList, View, ListRenderItem, Text } from 'react-native';
 
 import ChatItem from 'chat/chatList/containers/ChatItem';

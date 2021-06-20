@@ -1,4 +1,4 @@
-import React, { FC, memo, useState, useEffect } from 'react';
+import React, { FC, memo } from 'react';
 import { FlatList, View, Text, ListRenderItem } from 'react-native';
 
 import UserItem from 'profile/containers/User';
@@ -11,7 +11,7 @@ import { IUserItem } from 'profile/types/user';
 import { getUsername } from '@/profile/utils/getUsername';
 
 interface IUserListViewProps {
-  data: IUserItem[];
+  data: IUserItem[] | null;
 }
 
 const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
@@ -20,15 +20,7 @@ const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
 };
 
 const UserListView: FC<IUserListViewProps> = ({ data }) => {
-  const [isSomeUsers, setIsSomeUsers] = useState<boolean>(!!data);
-
-  useEffect(() => {
-    if (data.length === 0) {
-      setIsSomeUsers(false);
-    } else {
-      setIsSomeUsers(true);
-    }
-  }, [data]);
+  const isSomeUsers = !!data;
 
   if (isSomeUsers) {
     return (
