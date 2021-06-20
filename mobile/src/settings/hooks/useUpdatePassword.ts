@@ -27,8 +27,8 @@ export const useUpdatePassword = (
     };
   }
 
-  return async () => {
-    await editPassword({
+  return () => {
+    editPassword({
       variables: {
         input: {
           oldPassword,
