@@ -1,11 +1,11 @@
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
+import Text from '@/common/components/Text';
 
 // styles
 import styles from './styles';
 
 // containers
-import TopBarText from 'chat/chatList/containers/TopBarText';
 import TopBarButtons from 'chat/chatList/containers/TopBarButtons';
 
 interface ITopBarViewProps {}
@@ -13,7 +13,9 @@ interface ITopBarViewProps {}
 const TopBarView: FC<ITopBarViewProps> = () => {
   return (
     <View style={styles.topBarStyle}>
-      <TopBarText />
+      <View style={styles.topBarTextViewStyle}>
+        <Text style={styles.textStyle}>Chats</Text>
+      </View>
       <TopBarButtons />
     </View>
   );

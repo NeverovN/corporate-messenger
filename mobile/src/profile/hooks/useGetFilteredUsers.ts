@@ -3,16 +3,19 @@ import {
   useGetUsersQuery,
 } from '@/common/types/gql.generated';
 
-export const useGetAllUsers = () => {
+// utils
+import { filterUsers } from 'profile/utils/filterUsers';
+
+export const useGetFilteredUsers = (filter: string) => {
   const { data } = useGetUsersQuery();
   const { data: currUser, loading } = useGetUserQuery();
 
   if (!data || !data.getUsers) {
-    return [] as any;
+    return [];
   }
 
   if (loading) {
-    return [] as any;
+    return [];
   }
 
   if (!currUser || !currUser.getUser) {
@@ -20,20 +23,23 @@ export const useGetAllUsers = () => {
   }
 
   // removes current user out of list of all users
-  const filteredUsers = data.getUsers.filter(
+  const usersWithoutCurrent = data.getUsers.filter(
     (user) => user && user.id !== currUser.getUser.id,
   );
 
-  return filteredUsers.map((el) => {
+  const mappedUsers = usersWithoutCurrent.map((el) => {
     if (!el) {
-      return [] as any;
+      return;
     }
     return {
-      data: el,
       id: el.id,
       firstName: el.firstName,
       lastName: el.lastName,
-      avatar: el.avatar,
+      avatar: el.avatar || '',
     };
   });
+
+  const filteredUsers = filterUsers(mappedUsers, filter);
+
+  return filteredUsers;
 };

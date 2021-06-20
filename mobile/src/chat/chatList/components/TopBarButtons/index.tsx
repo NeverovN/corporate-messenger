@@ -1,9 +1,9 @@
 import React, { memo, FC } from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import {} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View } from 'react-native';
+import IconButton from 'common/components/Button/IconButton';
 
 import styles from './styles';
+import { IconType } from '@/common/types/styles';
 
 interface ITopBarButtonsViewProps {
   onNewChatPress(): void;
@@ -13,12 +13,18 @@ interface ITopBarButtonsViewProps {
 const TopBarButtonsView: FC<ITopBarButtonsViewProps> = (props) => {
   return (
     <View style={styles.topBarButtonsStyle}>
-      <TouchableOpacity onPress={props.onNewChatPress}>
-        <Icon name="plus" size={17} style={styles.buttonStyle} />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={props.onSearchPress}>
-        <Icon name="search" size={17} style={styles.buttonStyle} />
-      </TouchableOpacity>
+      <IconButton
+        icon="plus"
+        iconType={IconType.LARGE}
+        containerStyle={styles.buttonStyle}
+        onPress={props.onNewChatPress}
+      />
+      <IconButton
+        icon="search"
+        iconType={IconType.LARGE}
+        containerStyle={styles.buttonStyle}
+        onPress={props.onSearchPress}
+      />
     </View>
   );
 };

@@ -2,11 +2,16 @@ import React, { memo, FC } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // constants
-import { CHAT_SCREEN_NAME, NEW_CHAT_SCREEN } from '../../constants/routes';
+import {
+  CHAT_SCREEN_NAME,
+  NEW_CHAT_SCREEN,
+  SEARCH_CHAT_SCREEN,
+} from '../../constants/routes';
 
 // containers
 import ChatScreen from 'chat/chatScreen/containers/ChatScreen';
 import NewChatScreen from 'chat/chatList/containers/NewChatScreen';
+import ChatSearchScreen from '../../containers/ChatSearchScreen';
 
 // types
 import { ChatListStackParamList } from 'chat/chatList/types/routes';
@@ -25,6 +30,13 @@ const ChatNavigator: FC<IAppScreenProps> = () => {
       <Screens.Screen
         name={NEW_CHAT_SCREEN}
         component={NewChatScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screens.Screen
+        name={SEARCH_CHAT_SCREEN}
+        component={ChatSearchScreen}
         options={{
           headerShown: false,
         }}

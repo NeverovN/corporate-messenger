@@ -104,10 +104,10 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
   async createChat(_, args, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');
 
-    const newChat = await ChatController.createChat([
-      currentUserId,
-      ...args.participants,
-    ]);
+    const newChat = await ChatController.createChat(
+      [currentUserId, ...args.participants],
+      args.title,
+    );
 
     pubsub.publish(CHAT_CREATED, newChat);
 
