@@ -13,7 +13,7 @@ export const useUpdateEmail = (newEmail: string) => {
     };
   }
 
-  return async () => {
-    await editEmail({ variables: { newEmail: newEmail } });
+  return () => {
+    editEmail({ variables: { newEmail: newEmail } });
   };
 };
