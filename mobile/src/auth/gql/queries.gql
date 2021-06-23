@@ -10,6 +10,9 @@ fragment UserFragment on User {
     lastName
     email
     avatar
+    friends {
+      id
+    }
   }
 }
 

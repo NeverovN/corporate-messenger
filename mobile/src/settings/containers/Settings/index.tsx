@@ -10,6 +10,7 @@ interface ISettingsContainerProps {}
 
 const Settings: FC<ISettingsContainerProps> = () => {
   const logout = useLogOut();
+
   return <SettingsView logout={logout} />;
 };
 

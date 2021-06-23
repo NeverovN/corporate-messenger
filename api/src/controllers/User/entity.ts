@@ -31,6 +31,29 @@ class UserEntityController {
     return newUser;
   }
 
+  editEmail(user: UserEntity, newEmail: string): UserEntity {
+    user.email = newEmail;
+
+    return user;
+  }
+
+  editPassword(user: UserEntity, newPassword: string): UserEntity {
+    user.password = newPassword;
+
+    return user;
+  }
+
+  editUsername(
+    user: UserEntity,
+    newFirstName: string,
+    newLastName: string,
+  ): UserEntity {
+    user.firstName = newFirstName;
+    user.lastName = newLastName;
+
+    return user;
+  }
+
   private addUserToFriends(user: UserEntity, friend: UserEntity): UserEntity {
     const newUserFriendIds = this.getNewFriendIds(user.friends, friend._id);
 
