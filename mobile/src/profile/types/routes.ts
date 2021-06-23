@@ -9,7 +9,7 @@ import {
 export type ProfileStackParamList = {
   [PROFILE_SCREEN_NAME]: undefined;
   [USER_SEARCH_SCREEN_NAME]: undefined;
-  [THIRD_PARTY_USER_SCREEN_NAME]: { userId: string };
+  [THIRD_PARTY_USER_SCREEN_NAME]: { userId: string; username: string };
 };
 
 export type ProfileScreenNavigationProp = StackNavigationProp<

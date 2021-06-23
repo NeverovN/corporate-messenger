@@ -4,8 +4,8 @@ query GetChats {
   }
 }
 
-mutation CreateChat($participants: [ID!]!) {
-  createChat(participants: $participants) {
+mutation CreateChat($participants: [ID!]!, $title: String!) {
+  createChat(participants: $participants, title: $title) {
     ...ChatFragment
   }
 }
@@ -36,6 +36,7 @@ fragment ChatFragment on Chat {
     lastName
   }
   isDialog
+  title
   messages {
     id
     content
