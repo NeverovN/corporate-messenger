@@ -13,14 +13,20 @@ import NewChatButton from 'chat/chatList/containers/NewChatButton';
 
 interface INewChatScreenViewProp {
   search(): void;
+  filter: string;
+  onChangeFilter(filter: string): void;
 }
 
 const NewChatScreenView: FC<INewChatScreenViewProp> = (props) => {
   return (
     <View style={styles.newChatScreenStyle}>
-      <NewChatTopBar onPress={props.search} />
+      <NewChatTopBar
+        onPress={props.search}
+        filter={props.filter}
+        onChangeFilter={props.onChangeFilter}
+      />
       <NewChatButton />
-      <UserList />
+      <UserList filter={props.filter} />
     </View>
   );
 };

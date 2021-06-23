@@ -7,7 +7,6 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-
 // components
 import AuthInput from '../AuthInput';
 import SignButton from '../SignButton';
@@ -38,24 +37,35 @@ const LoginView: FC<ILoginViewProps> = (props) => {
       <TouchableWithoutFeedback
         style={styles.touchStyle}
         onPress={() => Keyboard.dismiss()}>
-        <View style={styles.loginStyle}>
-          <AuthInput
-            placeholder="enter your login"
-            value={props.email}
-            onChangeText={props.onChangeEmail}
-          />
-          <View style={styles.passwordStyle}>
+        <>
+          <View style={styles.loginStyle}>
             <AuthInput
-              placeholder="enter your password"
-              value={props.password}
-              onChangeText={props.onChangePassword}
-              secure={props.isHidden}
+              placeholder="enter your login"
+              value={props.email}
+              onChangeText={props.onChangeEmail}
             />
-            <Icon name={props.iconName} size={25} onPress={props.onIconPress} />
+            <View style={styles.passwordStyle}>
+              <AuthInput
+                placeholder="enter your password"
+                value={props.password}
+                onChangeText={props.onChangePassword}
+                secure={props.isHidden}
+              />
+              <Icon
+                name={props.iconName}
+                size={25}
+                onPress={props.onIconPress}
+              />
+            </View>
           </View>
-          <SignButton title="SIGN IN" onPress={props.handleLogin} />
-          <SignButton title="SIGN UP" onPress={props.handleSignUpRedirection} />
-        </View>
+          <View style={styles.authButtons}>
+            <SignButton title="SIGN IN" onPress={props.handleLogin} />
+            <SignButton
+              title="SIGN UP"
+              onPress={props.handleSignUpRedirection}
+            />
+          </View>
+        </>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );

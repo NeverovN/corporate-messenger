@@ -1,5 +1,8 @@
 import React, { FC, memo } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View } from 'react-native';
+
+// common components
+import Button from '@/common/components/Button/TextButton';
 
 // styles
 import styles from './styles';
@@ -10,12 +13,12 @@ interface IEditButtonViewProps {
 
 const EditButtonView: FC<IEditButtonViewProps> = (props) => {
   return (
-    <View style={styles.editButtonViewStyle}>
-      <TouchableOpacity
-        style={styles.editButtonTouchStyles}
-        onPress={props.onPress}>
-        <Text>Edit</Text>
-      </TouchableOpacity>
+    <View style={styles.wrapperStyle}>
+      <Button
+        label="Edit"
+        containerStyle={styles.editButtonStyle}
+        onPress={props.onPress}
+      />
     </View>
   );
 };

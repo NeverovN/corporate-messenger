@@ -6,10 +6,12 @@ import ChatsView from 'chat/chatList/components/ChatList';
 // hooks
 import { useChatList } from 'chat/chatList/hooks/useChatList';
 
-interface IChatsContainerProps {}
+interface IChatsContainerProps {
+  filter?: string;
+}
 
-const ChatsContainer: FC<IChatsContainerProps> = () => {
-  const chatsData = useChatList();
+const ChatsContainer: FC<IChatsContainerProps> = (props) => {
+  const chatsData = useChatList(props.filter || '');
 
   return <ChatsView data={chatsData} />;
 };

@@ -24,6 +24,7 @@ export type Chat = {
   __typename?: 'Chat';
   id: Scalars['ID'];
   isDialog: Scalars['Boolean'];
+  title: Scalars['String'];
   participants: Array<Maybe<User>>;
   logo?: Maybe<Scalars['String']>;
   messages?: Maybe<Array<Maybe<Message>>>;
@@ -75,7 +76,10 @@ export type Mutation = {
   createUser: AuthenticationResult;
   deleteChatById: Chat;
   deleteMessageById: Message;
+  editEmail: User;
   editMessage: Message;
+  editPassword: User;
+  editUsername: User;
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
@@ -90,6 +94,7 @@ export type MutationAddFriendArgs = {
 
 export type MutationCreateChatArgs = {
   participants: Array<Scalars['ID']>;
+  title: Scalars['String'];
 };
 
 
@@ -120,9 +125,25 @@ export type MutationDeleteMessageByIdArgs = {
 };
 
 
+export type MutationEditEmailArgs = {
+  newEmail: Scalars['String'];
+};
+
+
 export type MutationEditMessageArgs = {
   messageId: Scalars['ID'];
   newContent: Scalars['String'];
+};
+
+
+export type MutationEditPasswordArgs = {
+  input: UpdatePasswordInput;
+};
+
+
+export type MutationEditUsernameArgs = {
+  newFirstName: Scalars['String'];
+  newLastName: Scalars['String'];
 };
 
 
@@ -207,6 +228,11 @@ export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
 };
 
+export type UpdatePasswordInput = {
+  oldPassword: Scalars['String'];
+  newPassword: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
@@ -222,7 +248,11 @@ export type UserFragmentFragment = (
   & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>
   & { friends: Array<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>
+    & { friends: Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )> }
   )> }
 );
 
@@ -273,6 +303,7 @@ export type GetChatsQuery = (
 
 export type CreateChatMutationVariables = Exact<{
   participants: Array<Scalars['ID']> | Scalars['ID'];
+  title: Scalars['String'];
 }>;
 
 
@@ -323,7 +354,7 @@ export type MessageEditedSubscription = (
 
 export type ChatFragmentFragment = (
   { __typename?: 'Chat' }
-  & Pick<Chat, 'id' | 'isDialog'>
+  & Pick<Chat, 'id' | 'isDialog' | 'title'>
   & { participants: Array<Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'firstName' | 'lastName'>
@@ -553,6 +584,46 @@ export type RemoveFriendMutation = (
   )> }
 );
 
+export type EditEmailMutationVariables = Exact<{
+  newEmail: Scalars['String'];
+}>;
+
+
+export type EditEmailMutation = (
+  { __typename?: 'Mutation' }
+  & { editEmail: (
+    { __typename?: 'User' }
+    & UserFragmentFragment
+  ) }
+);
+
+export type EditUserNameMutationVariables = Exact<{
+  newFirstName: Scalars['String'];
+  newLastName: Scalars['String'];
+}>;
+
+
+export type EditUserNameMutation = (
+  { __typename?: 'Mutation' }
+  & { editUsername: (
+    { __typename?: 'User' }
+    & UserFragmentFragment
+  ) }
+);
+
+export type EditPasswordMutationVariables = Exact<{
+  input: UpdatePasswordInput;
+}>;
+
+
+export type EditPasswordMutation = (
+  { __typename?: 'Mutation' }
+  & { editPassword: (
+    { __typename?: 'User' }
+    & UserFragmentFragment
+  ) }
+);
+
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on User {
   id
@@ -565,6 +636,10 @@ export const UserFragmentFragmentDoc = gql`
     firstName
     lastName
     email
+    avatar
+    friends {
+      id
+    }
   }
 }
     `;
@@ -577,6 +652,7 @@ export const ChatFragmentFragmentDoc = gql`
     lastName
   }
   isDialog
+  title
   messages {
     id
     content
@@ -726,8 +802,8 @@ export type GetChatsQueryHookResult = ReturnType<typeof useGetChatsQuery>;
 export type GetChatsLazyQueryHookResult = ReturnType<typeof useGetChatsLazyQuery>;
 export type GetChatsQueryResult = Apollo.QueryResult<GetChatsQuery, GetChatsQueryVariables>;
 export const CreateChatDocument = gql`
-    mutation CreateChat($participants: [ID!]!) {
-  createChat(participants: $participants) {
+    mutation CreateChat($participants: [ID!]!, $title: String!) {
+  createChat(participants: $participants, title: $title) {
     ...ChatFragment
   }
 }
@@ -748,6 +824,7 @@ export type CreateChatMutationFn = Apollo.MutationFunction<CreateChatMutation, C
  * const [createChatMutation, { data, loading, error }] = useCreateChatMutation({
  *   variables: {
  *      participants: // value for 'participants'
+ *      title: // value for 'title'
  *   },
  * });
  */
@@ -1368,3 +1445,103 @@ export function useRemoveFriendMutation(baseOptions?: Apollo.MutationHookOptions
 export type RemoveFriendMutationHookResult = ReturnType<typeof useRemoveFriendMutation>;
 export type RemoveFriendMutationResult = Apollo.MutationResult<RemoveFriendMutation>;
 export type RemoveFriendMutationOptions = Apollo.BaseMutationOptions<RemoveFriendMutation, RemoveFriendMutationVariables>;
+export const EditEmailDocument = gql`
+    mutation EditEmail($newEmail: String!) {
+  editEmail(newEmail: $newEmail) {
+    ...UserFragment
+  }
+}
+    ${UserFragmentFragmentDoc}`;
+export type EditEmailMutationFn = Apollo.MutationFunction<EditEmailMutation, EditEmailMutationVariables>;
+
+/**
+ * __useEditEmailMutation__
+ *
+ * To run a mutation, you first call `useEditEmailMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditEmailMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editEmailMutation, { data, loading, error }] = useEditEmailMutation({
+ *   variables: {
+ *      newEmail: // value for 'newEmail'
+ *   },
+ * });
+ */
+export function useEditEmailMutation(baseOptions?: Apollo.MutationHookOptions<EditEmailMutation, EditEmailMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditEmailMutation, EditEmailMutationVariables>(EditEmailDocument, options);
+      }
+export type EditEmailMutationHookResult = ReturnType<typeof useEditEmailMutation>;
+export type EditEmailMutationResult = Apollo.MutationResult<EditEmailMutation>;
+export type EditEmailMutationOptions = Apollo.BaseMutationOptions<EditEmailMutation, EditEmailMutationVariables>;
+export const EditUserNameDocument = gql`
+    mutation EditUserName($newFirstName: String!, $newLastName: String!) {
+  editUsername(newFirstName: $newFirstName, newLastName: $newLastName) {
+    ...UserFragment
+  }
+}
+    ${UserFragmentFragmentDoc}`;
+export type EditUserNameMutationFn = Apollo.MutationFunction<EditUserNameMutation, EditUserNameMutationVariables>;
+
+/**
+ * __useEditUserNameMutation__
+ *
+ * To run a mutation, you first call `useEditUserNameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditUserNameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editUserNameMutation, { data, loading, error }] = useEditUserNameMutation({
+ *   variables: {
+ *      newFirstName: // value for 'newFirstName'
+ *      newLastName: // value for 'newLastName'
+ *   },
+ * });
+ */
+export function useEditUserNameMutation(baseOptions?: Apollo.MutationHookOptions<EditUserNameMutation, EditUserNameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditUserNameMutation, EditUserNameMutationVariables>(EditUserNameDocument, options);
+      }
+export type EditUserNameMutationHookResult = ReturnType<typeof useEditUserNameMutation>;
+export type EditUserNameMutationResult = Apollo.MutationResult<EditUserNameMutation>;
+export type EditUserNameMutationOptions = Apollo.BaseMutationOptions<EditUserNameMutation, EditUserNameMutationVariables>;
+export const EditPasswordDocument = gql`
+    mutation EditPassword($input: UpdatePasswordInput!) {
+  editPassword(input: $input) {
+    ...UserFragment
+  }
+}
+    ${UserFragmentFragmentDoc}`;
+export type EditPasswordMutationFn = Apollo.MutationFunction<EditPasswordMutation, EditPasswordMutationVariables>;
+
+/**
+ * __useEditPasswordMutation__
+ *
+ * To run a mutation, you first call `useEditPasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditPasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editPasswordMutation, { data, loading, error }] = useEditPasswordMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useEditPasswordMutation(baseOptions?: Apollo.MutationHookOptions<EditPasswordMutation, EditPasswordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditPasswordMutation, EditPasswordMutationVariables>(EditPasswordDocument, options);
+      }
+export type EditPasswordMutationHookResult = ReturnType<typeof useEditPasswordMutation>;
+export type EditPasswordMutationResult = Apollo.MutationResult<EditPasswordMutation>;
+export type EditPasswordMutationOptions = Apollo.BaseMutationOptions<EditPasswordMutation, EditPasswordMutationVariables>;

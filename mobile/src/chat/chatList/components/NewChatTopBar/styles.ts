@@ -14,5 +14,6 @@ export default StyleSheet.create({
   inputStyle: {
     marginLeft: 10,
     flex: 1,
+    fontSize: 20,
   },
 });

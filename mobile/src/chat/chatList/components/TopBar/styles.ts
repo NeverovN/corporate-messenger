@@ -10,4 +10,13 @@ export default StyleSheet.create({
     height: 50,
     backgroundColor: COLORS.lightGray,
   },
+  topBarTextViewStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 10,
+    // backgroundColor: 'black',
+  },
+  textStyle: {
+    fontSize: 20,
+  },
 });

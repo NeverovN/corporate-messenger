@@ -6,10 +6,12 @@ import UserListView from 'chat/chatList/components/UserList';
 // hooks
 import { useGetUserFriends } from 'chat/chatList/hooks/useGetUserFriends';
 
-interface IUserListContainerProps {}
+interface IUserListContainerProps {
+  filter: string;
+}
 
-const UserListContainer: FC<IUserListContainerProps> = () => {
-  const friends = useGetUserFriends();
+const UserListContainer: FC<IUserListContainerProps> = (props) => {
+  const friends = useGetUserFriends(props.filter);
   return <UserListView data={friends} />;
 };
 

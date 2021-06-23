@@ -4,6 +4,8 @@ export default StyleSheet.create({
   settingsStyle: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  safeAreaStyle: {
+    flex: 1,
   },
 });

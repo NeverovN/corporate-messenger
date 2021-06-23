@@ -1,0 +1,17 @@
+mutation EditEmail($newEmail: String!) {
+  editEmail(newEmail: $newEmail) {
+    ...UserFragment
+  }
+}
+
+mutation EditUserName($newFirstName: String!, $newLastName: String!) {
+  editUsername(newFirstName: $newFirstName, newLastName: $newLastName) {
+    ...UserFragment
+  }
+}
+
+mutation EditPassword($input: UpdatePasswordInput!) {
+  editPassword(input: $input) {
+    ...UserFragment
+  }
+}

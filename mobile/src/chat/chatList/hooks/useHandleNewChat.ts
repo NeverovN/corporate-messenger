@@ -10,6 +10,7 @@ import { SharedStackNavigationProp } from '@/app/types/routes';
 
 // routes
 import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
+import { Alert } from 'react-native';
 
 export const useHandleNewChat = () => {
   const navigation = useNavigation<SharedStackNavigationProp>();
@@ -43,11 +44,15 @@ export const useHandleNewChat = () => {
     },
   });
 
-  return () => {
+  return async () => {
     if (selectedFriendsVar().length === 0) {
+      Alert.alert('Error', 'Please, choose any participants');
       return;
     }
-    createChat({ variables: { participants: selectedFriendsVar() } });
+    await createChat({
+      variables: { participants: selectedFriendsVar(), title: 'TempTitle' },
+    });
+
     selectedFriendsVar([]);
   };
 };
