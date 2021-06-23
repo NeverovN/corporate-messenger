@@ -95,13 +95,12 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       throw Error('unauthorized user');
     }
 
-    args.textContent = args.textContent ? args.textContent : '';
-    args.mediaContent = args.mediaContent?.length ? args.mediaContent : null;
+    const text = args.textContent ? args.textContent : '';
+    // setup for future implementation
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const media = args.mediaContent?.length ? args.mediaContent : null;
 
-    const post = await PostController.createPost(
-      currentUserId,
-      args.textContent,
-    );
+    const post = await PostController.createPost(currentUserId, text);
 
     pubsub.publish(POST_CREATED, post);
 
