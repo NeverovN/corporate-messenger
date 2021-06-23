@@ -38,6 +38,9 @@ export class PostEntity {
   repost: Nullable<URL>;
 
   @prop()
+  text: string;
+
+  @prop()
   media: Array<PostMedia>;
 
   @prop()
@@ -46,8 +49,9 @@ export class PostEntity {
   @prop()
   comments: Array<CommentModel>;
 
-  constructor(authorId: ID) {
+  constructor(authorId: ID, textContent: string) {
     this.author = authorId;
+    this.text = textContent;
     this.createdAt = new Date().toString();
     this.lastEdit = null;
     this.comments = [];

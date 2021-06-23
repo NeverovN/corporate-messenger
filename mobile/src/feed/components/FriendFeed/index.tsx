@@ -8,14 +8,21 @@ import Tile from '../Tile';
 import styles from './styles';
 
 // types
-import { IPostItem } from 'feed/types/feed';
+import { IPostItem } from 'profile/types/post';
 
 interface IFriendFeedListViewProps {
   data: IPostItem[];
 }
 
-const renderFeedItem: ListRenderItem<IPostItem> = () => {
-  return <Tile />;
+const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
+  return (
+    <Tile
+      username={item.author}
+      avatar={item.avatar}
+      createdAt={item.createdAt}
+      textContent={item.textContent}
+    />
+  );
 };
 
 const FriendFeedView: FC<IFriendFeedListViewProps> = (props) => {

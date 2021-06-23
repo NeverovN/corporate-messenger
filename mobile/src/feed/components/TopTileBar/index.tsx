@@ -8,13 +8,17 @@ import styles from './styles';
 import UserDataView from '../UserData';
 import UserIconView from '../UserIcon';
 
-interface ITopTileBarViewProps {}
+interface ITopTileBarViewProps {
+  imgUrl: string;
+  username: string;
+  createdAt: string;
+}
 
-const TopTileBarView: FC<ITopTileBarViewProps> = () => {
+const TopTileBarView: FC<ITopTileBarViewProps> = (props) => {
   return (
     <TouchableOpacity style={styles.topTileBarStyle}>
-      <UserIconView />
-      <UserDataView />
+      <UserIconView imgUrl={props.imgUrl} />
+      <UserDataView username={props.username} createdAt={props.createdAt} />
     </TouchableOpacity>
   );
 };

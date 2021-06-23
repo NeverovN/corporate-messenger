@@ -14,6 +14,7 @@ const postResolvers: PostResolvers = {
 
     return author;
   },
+  textContent: async (post: PostEntity) => post.text,
 };
 
 export default postResolvers;

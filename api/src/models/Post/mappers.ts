@@ -10,6 +10,7 @@ export function mapPostDocumentToPostEntity(
     createdAt: document.createdAt,
     lastEdit: document.lastEdit,
 
+    text: document.text,
     media: document.media,
 
     comments: document.comments,

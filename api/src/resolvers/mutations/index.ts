@@ -90,12 +90,18 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     return removedFriend;
   },
-  async createPost(_, __, { currentUserId }: ApolloContextType) {
+  async createPost(_, args, { currentUserId }: ApolloContextType) {
     if (!currentUserId) {
       throw Error('unauthorized user');
     }
 
-    const post = await PostController.createPost(currentUserId);
+    args.textContent = args.textContent ? args.textContent : '';
+    args.mediaContent = args.mediaContent?.length ? args.mediaContent : null;
+
+    const post = await PostController.createPost(
+      currentUserId,
+      args.textContent,
+    );
 
     pubsub.publish(POST_CREATED, post);
 

@@ -14,7 +14,7 @@ type Subscription {
 }
 
 type Mutation {
-  createPost: Post!
+  createPost(textContent: String, mediaContent: [String]): Post!
   getUsersPosts: [Post]
   getPost(id: ID!): Post
 }

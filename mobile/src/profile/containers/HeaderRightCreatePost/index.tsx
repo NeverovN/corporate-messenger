@@ -1,32 +1,38 @@
-import React, { FC, memo, useEffect, useMemo, useState } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { FC, memo } from 'react';
+
+// common components
+import IconButton from '@/common/components/Button/IconButton';
+import Icon from '@/common/components/Icon';
 
 // styles
 import styles from './styles';
 import { Post } from '@/common/types/gql.generated';
-import { newPost } from '@/common/cache/cache';
-import { useAddPost } from '@/profile/hooks/useAddPost';
+import { IconType } from '@/common/types/styles';
 
-const HeaderRightEmail: FC = () => {
-  const [post, setPost] = useState<Post>(newPost());
-  const addPost = useAddPost();
+interface IHeaderRightProps {
+  post: Post | null;
+  create(): void;
+}
 
-  const cachedPost = useMemo(() => newPost(), [newPost()]);
-
-  useEffect(() => {
-    setPost(newPost());
-  }, [cachedPost]);
-
-  if (post) {
+const HeaderRightEmail: FC<IHeaderRightProps> = (props) => {
+  if (props.post) {
     return (
-      <TouchableOpacity onPress={addPost}>
-        <Icon name="check" style={styles.activeIconStyle} size={25} />
-      </TouchableOpacity>
+      <IconButton
+        icon="check"
+        containerStyle={styles.activeIconStyle}
+        iconType={IconType.LARGE}
+        onPress={props.create}
+      />
     );
   }
 
-  return <Icon name="check" style={styles.disabledIconStile} size={25} />;
+  return (
+    <Icon
+      name="check"
+      customStyle={styles.disabledIconStile}
+      type={IconType.LARGE}
+    />
+  );
 };
 
 export default memo(HeaderRightEmail);

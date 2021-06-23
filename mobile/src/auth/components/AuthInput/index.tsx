@@ -11,8 +11,6 @@ interface IAuthInput {
   secure?: boolean;
 }
 
-const isSecureEnabled = props.secure || false;
-
 const AuthInput: React.FC<IAuthInput> = (props) => {
   return (
     <TextInput
@@ -23,7 +21,7 @@ const AuthInput: React.FC<IAuthInput> = (props) => {
       autoCapitalize="none"
       autoCorrect={false}
       placeholder={props.placeholder}
-      secureTextEntry={isSecureEnabled}
+      secureTextEntry={props.secure || false}
     />
   );
 };

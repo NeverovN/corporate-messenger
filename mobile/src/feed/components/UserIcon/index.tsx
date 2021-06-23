@@ -4,16 +4,17 @@ import { View, Image } from 'react-native';
 // styles
 import styles from './styles';
 
-interface IUserIconViewProps {}
+interface IUserIconViewProps {
+  imgUrl: string;
+}
 
-const UserIconView: FC<IUserIconViewProps> = () => {
+const UserIconView: FC<IUserIconViewProps> = (props) => {
   return (
     <View style={styles.userIconViewStyle}>
       <Image
         style={styles.userIconImageStyle}
         source={{
-          uri:
-            'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
+          uri: props.imgUrl,
         }}
       />
     </View>

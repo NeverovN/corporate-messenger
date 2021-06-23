@@ -99,6 +99,12 @@ export type MutationCreateMessageArgs = {
 };
 
 
+export type MutationCreatePostArgs = {
+  textContent?: Maybe<Scalars['String']>;
+  mediaContent?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };
@@ -141,6 +147,8 @@ export type Post = {
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
   comments?: Maybe<Array<Maybe<CommentModel>>>;
+  textContent?: Maybe<Scalars['String']>;
+  mediaContent?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type Query = {
@@ -412,10 +420,10 @@ export type GetFeedQuery = (
   { __typename?: 'Query' }
   & { getAllPosts?: Maybe<Array<Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id'>
+    & Pick<Post, 'id' | 'createdAt' | 'textContent' | 'mediaContent'>
     & { author: (
       { __typename?: 'User' }
-      & Pick<User, 'id'>
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
     ) }
   )>>> }
 );
@@ -437,14 +445,17 @@ export type GetFriendFeedQuery = (
 
 export type PostFragmentFragment = (
   { __typename?: 'Post' }
-  & Pick<Post, 'id' | 'createdAt'>
+  & Pick<Post, 'id' | 'createdAt' | 'textContent' | 'mediaContent'>
   & { author: (
     { __typename?: 'User' }
-    & Pick<User, 'id'>
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
   ) }
 );
 
-export type CreatePostMutationVariables = Exact<{ [key: string]: never; }>;
+export type CreatePostMutationVariables = Exact<{
+  textContent?: Maybe<Scalars['String']>;
+  mediaContent?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+}>;
 
 
 export type CreatePostMutation = (
@@ -600,7 +611,12 @@ export const PostFragmentFragmentDoc = gql`
   createdAt
   author {
     id
+    firstName
+    lastName
+    avatar
   }
+  textContent
+  mediaContent
 }
     `;
 export const LoginDocument = gql`
@@ -1006,7 +1022,13 @@ export const GetFeedDocument = gql`
     id
     author {
       id
+      firstName
+      lastName
+      avatar
     }
+    createdAt
+    textContent
+    mediaContent
   }
 }
     `;
@@ -1075,8 +1097,8 @@ export type GetFriendFeedQueryHookResult = ReturnType<typeof useGetFriendFeedQue
 export type GetFriendFeedLazyQueryHookResult = ReturnType<typeof useGetFriendFeedLazyQuery>;
 export type GetFriendFeedQueryResult = Apollo.QueryResult<GetFriendFeedQuery, GetFriendFeedQueryVariables>;
 export const CreatePostDocument = gql`
-    mutation CreatePost {
-  createPost {
+    mutation CreatePost($textContent: String, $mediaContent: [String]) {
+  createPost(textContent: $textContent, mediaContent: $mediaContent) {
     ...PostFragment
   }
 }
@@ -1096,6 +1118,8 @@ export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, C
  * @example
  * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
  *   variables: {
+ *      textContent: // value for 'textContent'
+ *      mediaContent: // value for 'mediaContent'
  *   },
  * });
  */

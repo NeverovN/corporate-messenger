@@ -3,7 +3,13 @@ query GetFeed {
     id
     author {
       id
+      firstName
+      lastName
+      avatar
     }
+    createdAt
+    textContent
+    mediaContent
   }
 }
 

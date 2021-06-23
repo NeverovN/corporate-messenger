@@ -104,6 +104,12 @@ export type MutationCreateMessageArgs = {
 };
 
 
+export type MutationCreatePostArgs = {
+  textContent?: Maybe<Scalars['String']>;
+  mediaContent?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };
@@ -146,6 +152,8 @@ export type Post = {
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
   comments?: Maybe<Array<Maybe<CommentModel>>>;
+  textContent?: Maybe<Scalars['String']>;
+  mediaContent?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type Query = {
@@ -372,7 +380,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   addFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddFriendArgs, 'friendId'>>;
   createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateChatArgs, 'participants'>>;
   createMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationCreateMessageArgs, 'content' | 'chatId'>>;
-  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
+  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, never>>;
   createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   deleteChatById?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationDeleteChatByIdArgs, 'chatId'>>;
   deleteMessageById?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationDeleteMessageByIdArgs, 'messageId'>>;
@@ -389,6 +397,8 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentModel']>>>, ParentType, ContextType>;
+  textContent?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  mediaContent?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

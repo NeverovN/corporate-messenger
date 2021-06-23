@@ -10,14 +10,21 @@ import MainTile from 'profile/containers/MainTile';
 import Tile from 'feed/components/Tile';
 
 // types
-import { IPostItem } from 'feed/types/feed';
+import { IPostItem } from 'profile/types/post';
 
 interface IProfileViewProps {
   data: Array<IPostItem>;
 }
 
-const renderPostItem: ListRenderItem<IPostItem> = () => {
-  return <Tile />;
+const renderPostItem: ListRenderItem<IPostItem> = ({ item }) => {
+  return (
+    <Tile
+      username={item.author}
+      createdAt={item.createdAt}
+      avatar={item.avatar}
+      textContent={item.textContent}
+    />
+  );
 };
 
 const ProfileView: FC<IProfileViewProps> = (props) => {

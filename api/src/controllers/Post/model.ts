@@ -37,8 +37,11 @@ class PostModelController {
     return posts.map((el) => this.mapPostWithFallback(el));
   }
 
-  async createPost(authorId: ID): Promise<PostEntity> {
-    const newPost = PostEntityController.createPostEntity(authorId);
+  async createPost(authorId: ID, textContent: string): Promise<PostEntity> {
+    const newPost = PostEntityController.createPostEntity(
+      authorId,
+      textContent,
+    );
 
     const createdPost = await PostModel.create(newPost);
 

@@ -9,13 +9,23 @@ import TopTileBarView from '../TopTileBar';
 import ContentView from '../Content';
 import BottomTileBarView from '../BottomTileBar';
 
-export interface ITileViewProps {}
+export interface ITileViewProps {
+  username: string;
+  createdAt: string;
+  avatar: string;
 
-const TileView: FC<ITileViewProps> = () => {
+  textContent: string;
+}
+
+const TileView: FC<ITileViewProps> = (props) => {
   return (
     <View style={styles.tileStyle}>
-      <TopTileBarView />
-      <ContentView />
+      <TopTileBarView
+        username={props.username}
+        createdAt={props.createdAt}
+        imgUrl={props.avatar}
+      />
+      <ContentView text={props.textContent} />
       <BottomTileBarView />
     </View>
   );
