@@ -22,7 +22,6 @@ const AuthInput: React.FC<IAuthInput> = (props) => {
       autoCorrect={false}
       placeholder={props.placeholder}
       secureTextEntry={props.secure || false}
-      // you tried to use props.secure out of it's context
     />
   );
 };
