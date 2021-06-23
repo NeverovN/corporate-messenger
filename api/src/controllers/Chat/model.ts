@@ -36,8 +36,8 @@ class ChatModelController {
     return result.map(mapChatDocumentToChatEntity);
   }
 
-  async createChat(participants: ID[]): Promise<ChatEntity> {
-    const newChat = ChatEntityController.createChatEntity(participants);
+  async createChat(participants: ID[], title: string): Promise<ChatEntity> {
+    const newChat = ChatEntityController.createChatEntity(participants, title);
 
     const createdChat = await ChatModel.create(newChat);
 

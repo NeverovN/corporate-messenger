@@ -14,7 +14,7 @@ interface IStartChatButtonContainerProps {}
 
 const StartChatButtonContainer: FC<IStartChatButtonContainerProps> = () => {
   const { params } = useRoute<ThirdPartyUserRouteProp>();
-  const handleStartChat = useHandleStartChat(params.userId);
+  const handleStartChat = useHandleStartChat(params.userId, params.username);
 
   return <StartChatButtonView onPress={handleStartChat} />;
 };

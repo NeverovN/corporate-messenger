@@ -2,8 +2,9 @@ import {
   useGetChatsQuery,
   useNewChatSubscription,
 } from 'common/types/gql.generated';
+import { filterChats } from '../utils/filterChats';
 
-export const useChatList = () => {
+export const useChatList = (filter: string) => {
   const { data } = useGetChatsQuery();
   useNewChatSubscription();
 
@@ -17,11 +18,13 @@ export const useChatList = () => {
     }
     return {
       data: el,
-      title: el.id,
+      title: el.title,
       participants: el.participants,
       id: el.id,
     };
   });
 
-  return chats;
+  const filteredChats = filterChats(chats, filter);
+
+  return filteredChats;
 };

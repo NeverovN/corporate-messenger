@@ -13,6 +13,7 @@ export default StyleSheet.create({
   },
   inputStyle: {
     marginLeft: 10,
+    fontSize: 20,
     flex: 1,
   },
 });

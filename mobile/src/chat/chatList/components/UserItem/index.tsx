@@ -6,18 +6,17 @@ import UserImage from '@/profile/containers/UserImage';
 import UserInfo from '@/profile/containers/UserInfo';
 
 // hooks
-import { useSetUserStyle } from 'chat/chatList/hooks/useSetUserStyle';
+import { useUserStyle } from '@/chat/chatList/hooks/useUserStyle';
 // styles
 import styles from './styles';
 
 interface IUserViewProps {
   userId: string;
-  isSelected: boolean;
   onUserPressed(): void;
 }
 
 const UserView: FC<IUserViewProps> = (props) => {
-  const style = useSetUserStyle(props.isSelected);
+  const style = useUserStyle(props.userId);
   return (
     <TouchableOpacity
       style={{ ...styles.userStyle, ...style }}
