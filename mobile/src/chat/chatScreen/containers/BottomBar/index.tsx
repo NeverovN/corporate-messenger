@@ -12,7 +12,8 @@ import { useSendPressHandler } from 'chat/chatScreen/hooks/useSendPressHandler';
 
 const BottomBarContainer: FC<IBottomBarContainerProps> = () => {
   const [message, setMessage] = useState<string>('');
-  const onClipPress = useClipPressHandler();
+  const [media, setMedia] = useState<any>(null);
+  const onClipPress = useClipPressHandler(setMedia);
   const onEmojiPress = useEmojiPressHandler();
   const onSendPress = useSendPressHandler(message, setMessage);
 

@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View } from 'react-native';
 
 // common components
 import TextButton from '@/common/components/Button/TextButton';
@@ -13,12 +13,12 @@ interface IAddPostButtonViewProps {
 
 const AddPostButtonView: FC<IAddPostButtonViewProps> = (props) => {
   return (
-    <View style={styles.addPostButtonViewStyle}>
-      <TouchableOpacity
-        style={styles.addPostButtonTouchStyle}
-        onPress={props.onPress}>
-        <Text>Create new post</Text>
-      </TouchableOpacity>
+    <View style={styles.wrapperStyle}>
+      <TextButton
+        containerStyle={styles.addPostButtonStyle}
+        label="Create new post"
+        onPress={props.onPress}
+      />
     </View>
   );
 };
