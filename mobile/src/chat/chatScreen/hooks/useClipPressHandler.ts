@@ -6,9 +6,7 @@ export const useClipPressHandler = (setResponse: (resp: any) => void) => {
       const image = await ImageCropPicker.openPicker({
         width: 300,
         height: 400,
-        cropping: true,
         multiple: true,
-        compressImageQuality: 0,
       });
 
       setResponse(image);
