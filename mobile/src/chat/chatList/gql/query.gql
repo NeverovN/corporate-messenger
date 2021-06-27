@@ -16,6 +16,12 @@ mutation DeleteChatById($chatId: ID!) {
   }
 }
 
+mutation markRead($messageId: ID!) {
+  markRead(messageId: $messageId) {
+    ...MessageFragment
+  }
+}
+
 subscription NewChat {
   newChat {
     ...ChatFragment

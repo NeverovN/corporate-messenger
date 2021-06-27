@@ -327,6 +327,19 @@ export type DeleteChatByIdMutation = (
   ) }
 );
 
+export type MarkReadMutationVariables = Exact<{
+  messageId: Scalars['ID'];
+}>;
+
+
+export type MarkReadMutation = (
+  { __typename?: 'Mutation' }
+  & { markRead: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
+
 export type NewChatSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -861,6 +874,39 @@ export function useDeleteChatByIdMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteChatByIdMutationHookResult = ReturnType<typeof useDeleteChatByIdMutation>;
 export type DeleteChatByIdMutationResult = Apollo.MutationResult<DeleteChatByIdMutation>;
 export type DeleteChatByIdMutationOptions = Apollo.BaseMutationOptions<DeleteChatByIdMutation, DeleteChatByIdMutationVariables>;
+export const MarkReadDocument = gql`
+    mutation markRead($messageId: ID!) {
+  markRead(messageId: $messageId) {
+    ...MessageFragment
+  }
+}
+    ${MessageFragmentFragmentDoc}`;
+export type MarkReadMutationFn = Apollo.MutationFunction<MarkReadMutation, MarkReadMutationVariables>;
+
+/**
+ * __useMarkReadMutation__
+ *
+ * To run a mutation, you first call `useMarkReadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMarkReadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [markReadMutation, { data, loading, error }] = useMarkReadMutation({
+ *   variables: {
+ *      messageId: // value for 'messageId'
+ *   },
+ * });
+ */
+export function useMarkReadMutation(baseOptions?: Apollo.MutationHookOptions<MarkReadMutation, MarkReadMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MarkReadMutation, MarkReadMutationVariables>(MarkReadDocument, options);
+      }
+export type MarkReadMutationHookResult = ReturnType<typeof useMarkReadMutation>;
+export type MarkReadMutationResult = Apollo.MutationResult<MarkReadMutation>;
+export type MarkReadMutationOptions = Apollo.BaseMutationOptions<MarkReadMutation, MarkReadMutationVariables>;
 export const NewChatDocument = gql`
     subscription NewChat {
   newChat {

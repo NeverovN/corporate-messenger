@@ -1,5 +1,10 @@
-import React, { FC, memo } from 'react';
-import { View, FlatList, ListRenderItem } from 'react-native';
+import React, { FC, memo, useRef } from 'react';
+import {
+  View,
+  FlatList,
+  ListRenderItem,
+  ViewabilityConfigCallbackPair,
+} from 'react-native';
 
 // styles
 import styles from './styles';
@@ -12,6 +17,7 @@ import Message from '@/chat/chatScreen/containers/Message';
 
 interface IMessageAreaViewProps {
   data: IMessage[];
+  onViewed: ViewabilityConfigCallbackPair[];
 }
 
 const renderMessage: ListRenderItem<IMessage> = ({ item }) => {
@@ -28,9 +34,15 @@ const renderMessage: ListRenderItem<IMessage> = ({ item }) => {
 };
 
 const MessageAreaView: FC<IMessageAreaViewProps> = (props) => {
+  const view = useRef(props.onViewed);
   return (
     <View style={styles.messageAreaStyle}>
-      <FlatList renderItem={renderMessage} data={props.data} inverted={true} />
+      <FlatList
+        renderItem={renderMessage}
+        data={props.data}
+        inverted={true}
+        viewabilityConfigCallbackPairs={view.current}
+      />
     </View>
   );
 };
