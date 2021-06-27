@@ -48,5 +48,6 @@ fragment ChatFragment on Chat {
     createdAt
     chatId
     lastEdit
+    read
   }
 }

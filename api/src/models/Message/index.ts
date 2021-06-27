@@ -30,6 +30,9 @@ export class MessageEntity {
   createdAt: string;
 
   @prop()
+  readBy: ID[];
+
+  @prop()
   lastEdit: string;
 
   @prop()
@@ -37,6 +40,7 @@ export class MessageEntity {
 
   constructor(author: ID, chatId: ID, content: string) {
     this.author = author;
+    this.readBy = [];
     this.chatId = chatId;
     this.content = content;
     this.createdAt = new Date().toString();

@@ -13,6 +13,7 @@ import ACTIONS from 'chat/chatList/constants/actions';
 
 interface IChatItemContainerProps {
   chatId: string;
+  unreadCount: number;
 }
 
 const ChatItemContainer: FC<IChatItemContainerProps> = (props) => {
@@ -28,7 +29,11 @@ const ChatItemContainer: FC<IChatItemContainerProps> = (props) => {
         { title: ACTIONS.DELETE, destructive: true },
       ]}
       onPress={(e) => actionHandler(e.nativeEvent.name, props.chatId)}>
-      <ChatItemView onPress={redirect} chatId={props.chatId} />
+      <ChatItemView
+        onPress={redirect}
+        chatId={props.chatId}
+        count={props.unreadCount}
+      />
     </ContextMenu>
   );
 };

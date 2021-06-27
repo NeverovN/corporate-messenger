@@ -64,6 +64,7 @@ export type Message = {
   author: User;
   chatId: Scalars['ID'];
   createdAt: Scalars['String'];
+  read: Scalars['Boolean'];
   lastEdit?: Maybe<Scalars['String']>;
 };
 
@@ -83,6 +84,7 @@ export type Mutation = {
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
+  markRead: Message;
   removeFriend?: Maybe<User>;
 };
 
@@ -148,6 +150,11 @@ export type MutationGetPostArgs = {
 
 export type MutationLoginArgs = {
   input: LoginInput;
+};
+
+
+export type MutationMarkReadArgs = {
+  messageId: Scalars['ID'];
 };
 
 
@@ -352,7 +359,7 @@ export type ChatFragmentFragment = (
     & Pick<User, 'id' | 'firstName' | 'lastName'>
   )>>, messages?: Maybe<Array<Maybe<(
     { __typename?: 'Message' }
-    & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit'>
+    & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit' | 'read'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'firstName' | 'lastName'>
@@ -362,7 +369,7 @@ export type ChatFragmentFragment = (
 
 export type MessageFragmentFragment = (
   { __typename?: 'Message' }
-  & Pick<Message, 'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId'>
+  & Pick<Message, 'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId' | 'read'>
   & { author: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'firstName' | 'lastName'>
@@ -653,6 +660,7 @@ export const ChatFragmentFragmentDoc = gql`
     createdAt
     chatId
     lastEdit
+    read
   }
 }
     `;
@@ -668,6 +676,7 @@ export const MessageFragmentFragmentDoc = gql`
   createdAt
   lastEdit
   chatId
+  read
 }
     `;
 export const PostFragmentFragmentDoc = gql`

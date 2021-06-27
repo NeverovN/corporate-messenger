@@ -185,6 +185,13 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       throw Error(`${error}`);
     }
   },
+  async markRead(_, args, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('Unauthorized');
+    }
+
+    return await MessageController.markRead(args.messageId, currentUserId);
+  },
 };
 
 export default mutationResolvers;
