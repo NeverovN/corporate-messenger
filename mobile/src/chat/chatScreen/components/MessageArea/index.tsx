@@ -28,6 +28,7 @@ const renderMessage: ListRenderItem<IMessage> = ({ item }) => {
       author={item.author}
       name={item.name}
       lastEdit={item.lastEdit}
+      isRead={item.isRead}
       createdAt={item.createdAt}
     />
   );

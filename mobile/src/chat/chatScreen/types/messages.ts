@@ -4,5 +4,6 @@ export interface IMessage {
   content: string;
   createdAt: string;
   lastEdit: string | null;
+  isRead: boolean;
   name: string;
 }
