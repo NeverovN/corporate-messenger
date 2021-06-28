@@ -28,6 +28,7 @@ const MessageView: FC<IMessageViewProps> = (props) => {
     [props.lastEdit],
   );
 
+  // works incorrect
   const isReadIndicator = useMemo(
     () => (!props.isRead ? <Text>unread</Text> : null),
     [props.isRead],

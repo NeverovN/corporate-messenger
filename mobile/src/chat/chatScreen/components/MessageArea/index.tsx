@@ -36,6 +36,7 @@ const renderMessage: ListRenderItem<IMessage> = ({ item }) => {
 
 const MessageAreaView: FC<IMessageAreaViewProps> = (props) => {
   const view = useRef(props.onViewed);
+
   return (
     <View style={styles.messageAreaStyle}>
       <FlatList
