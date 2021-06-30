@@ -14,8 +14,8 @@ interface IFriendFeedListViewProps {
   data: IPostItem[];
 }
 
-const renderFeedItem: ListRenderItem<IPostItem> = () => {
-  return <Tile />;
+const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
+  return <Tile id={item.id} />;
 };
 
 const FriendFeedView: FC<IFriendFeedListViewProps> = (props) => {

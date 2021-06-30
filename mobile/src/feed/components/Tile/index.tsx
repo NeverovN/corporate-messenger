@@ -7,16 +7,18 @@ import styles from './styles';
 // components
 import TopTileBarView from '../TopTileBar';
 import ContentView from '../Content';
-import BottomTileBarView from '../BottomTileBar';
+import BottomTileBarView from 'feed/containers/BottomTileBar';
 
-export interface ITileViewProps {}
+export interface ITileViewProps {
+  id: string;
+}
 
-const TileView: FC<ITileViewProps> = () => {
+const TileView: FC<ITileViewProps> = (props) => {
   return (
     <View style={styles.tileStyle}>
       <TopTileBarView />
       <ContentView />
-      <BottomTileBarView />
+      <BottomTileBarView postId={props.id} />
     </View>
   );
 };

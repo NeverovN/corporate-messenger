@@ -24,7 +24,7 @@ type Post {
   author: User!
   createdAt: String!
   lastEdit: String
-  comments: [CommentModel]
+  comments: [CommentModel!]
 }
 
 type CommentModel {

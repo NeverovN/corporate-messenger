@@ -166,7 +166,7 @@ export type Post = {
   author: User;
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
-  comments?: Maybe<Array<Maybe<CommentModel>>>;
+  comments?: Maybe<Array<CommentModel>>;
 };
 
 export type Query = {
@@ -420,7 +420,7 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentModel']>>>, ParentType, ContextType>;
+  comments?: Resolver<Maybe<Array<ResolversTypes['CommentModel']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
