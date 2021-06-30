@@ -19,6 +19,15 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
 
     return await PostController.getPostsByAuthor(id);
   },
+  async getPost(_, args) {
+    const post = PostController.getPost(args.id);
+
+    if (!post) {
+      throw Error('post not found');
+    }
+
+    return post;
+  },
   async getAllPosts() {
     return await PostController.getAllPosts();
   },

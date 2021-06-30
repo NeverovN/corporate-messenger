@@ -17,6 +17,7 @@ type Mutation {
   createPost: Post!
   getUsersPosts: [Post]
   getPost(id: ID!): Post
+  mutateLike(id: ID!): Post!
 }
 
 type Post {
@@ -25,6 +26,7 @@ type Post {
   createdAt: String!
   lastEdit: String
   comments: [CommentModel]
+  likes: [User!]
 }
 
 type CommentModel {

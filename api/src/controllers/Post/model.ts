@@ -46,6 +46,28 @@ class PostModelController {
 
     return mapPostDocumentToPostEntity(createdPost);
   }
+
+  async mutateLike(postId: ID, likeAuthor: ID): Promise<PostEntity> {
+    const post = await PostModel.findById(postId).exec();
+
+    if (!post) {
+      throw Error('post not found');
+    }
+
+    const updatedPostEntity = PostEntityController.mutateLikes(
+      mapPostDocumentToPostEntity(post),
+      likeAuthor,
+    );
+
+    await PostModel.findByIdAndUpdate(postId, updatedPostEntity).exec();
+    const updatedPost = await PostModel.findById(postId).exec();
+
+    if (!updatedPost) {
+      throw Error('network error, like was not added');
+    }
+
+    return mapPostDocumentToPostEntity(updatedPost);
+  }
 }
 
 const postModelController = new PostModelController();

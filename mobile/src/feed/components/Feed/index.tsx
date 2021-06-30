@@ -14,8 +14,8 @@ interface IFeedListViewProps {
   data: IPostItem[];
 }
 
-const renderFeedItem: ListRenderItem<IPostItem> = () => {
-  return <Tile />;
+const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
+  return <Tile postId={item.id} />;
 };
 
 const FeedView: FC<IFeedListViewProps> = (props) => {

@@ -15,3 +15,27 @@ query GetFriendFeed {
     }
   }
 }
+
+query GetPostById($id: ID!) {
+  getPost(id: $id) {
+    id
+    likes {
+      id
+    }
+    author {
+      id
+    }
+  }
+}
+
+mutation MutateLike($id: ID!) {
+  mutateLike(id: $id) {
+    id
+    likes {
+      id
+    }
+    author {
+      id
+    }
+  }
+}

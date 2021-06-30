@@ -129,6 +129,13 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     return post;
   },
+  async mutateLike(_, args, { currentUserId }) {
+    if (!currentUserId) throw Error('Unauthorized');
+
+    const post = PostController.mutateLike(args.id, currentUserId);
+
+    return post;
+  },
   async createChat(_, args, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');
 
