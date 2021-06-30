@@ -3,7 +3,11 @@ query GetFeed {
     id
     author {
       id
+      firstName
+      lastName
+      avatar
     }
+    createdAt
   }
 }
 
@@ -12,6 +16,10 @@ query GetFriendFeed {
     id
     author {
       id
+      firstName
+      lastName
+      avatar
     }
+    createdAt
   }
 }

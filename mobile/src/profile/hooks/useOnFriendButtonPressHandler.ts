@@ -26,7 +26,11 @@ export const useOnFriendButtonHandler = (
     },
   });
 
-  const { data } = useGetUserQuery();
+  const { loading, data } = useGetUserQuery();
+
+  if (loading) {
+    return [() => {}, ''];
+  }
 
   if (!data || !data.getUser) {
     throw Error('network error');

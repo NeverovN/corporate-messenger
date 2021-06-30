@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   userIconViewStyle: {
+    marginRight: 10,
     overflow: 'hidden',
     borderRadius: 25,
   },

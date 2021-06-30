@@ -5,16 +5,24 @@ import { View } from 'react-native';
 import styles from './styles';
 
 // components
-import TopTileBarView from '../TopTileBar';
+import TopTileBarContainer from 'feed/containers/TopBar';
 import ContentView from '../Content';
 import BottomTileBarView from '../BottomTileBar';
 
-export interface ITileViewProps {}
+export interface ITileViewProps {
+  author: string;
+  createdAt: string;
+  avatar: string;
+}
 
-const TileView: FC<ITileViewProps> = () => {
+const TileView: FC<ITileViewProps> = (props) => {
   return (
     <View style={styles.tileStyle}>
-      <TopTileBarView />
+      <TopTileBarContainer
+        author={props.author}
+        createdAt={props.createdAt}
+        avatar={props.avatar}
+      />
       <ContentView />
       <BottomTileBarView />
     </View>
