@@ -3,6 +3,7 @@ type Query {
   getPost(id: ID!): Post
   getAllPosts: [Post]
   getFriendPosts: [Post]
+  getComment(id: ID!): Comment
 }
 
 type Subscription {
@@ -16,7 +17,9 @@ type Subscription {
 type Mutation {
   createPost: Post!
   getUsersPosts: [Post]
-  getPost(id: ID!): Post
+  createComment(postId: ID!, content: String!): Comment!
+  likeComment(commentId: ID!): Comment!
+  deleteCommentById(id: ID!): Comment!
 }
 
 type Post {
@@ -24,13 +27,15 @@ type Post {
   author: User!
   createdAt: String!
   lastEdit: String
-  comments: [CommentModel]
+  comments: [Comment!]
 }
 
-type CommentModel {
+type Comment {
   id: ID!
+  postId: ID!
   author: User!
+  content: String!
   createdAt: String!
   lastEdit: String
-  likes: [User]
+  likes: [User!]
 }

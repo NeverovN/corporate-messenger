@@ -1,6 +1,3 @@
-export const getUsername = (
-  first: string,
-  last: string,
-): string => {
+export const getUsername = (first: string, last: string): string => {
   return `${first} ${last}`;
 };

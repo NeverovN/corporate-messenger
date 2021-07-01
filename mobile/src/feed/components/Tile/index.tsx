@@ -7,9 +7,10 @@ import styles from './styles';
 // components
 import TopTileBarContainer from 'feed/containers/TopBar';
 import ContentView from '../Content';
-import BottomTileBarView from '../BottomTileBar';
+import BottomTileBarView from 'feed/containers/BottomTileBar';
 
 export interface ITileViewProps {
+  id: string;
   author: string;
   createdAt: string;
   avatar: string;
@@ -24,7 +25,7 @@ const TileView: FC<ITileViewProps> = (props) => {
         avatar={props.avatar}
       />
       <ContentView />
-      <BottomTileBarView />
+      <BottomTileBarView postId={props.id} />
     </View>
   );
 };

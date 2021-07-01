@@ -43,18 +43,13 @@ export class PostEntity {
   @prop()
   likes: Array<ID>;
 
-  @prop()
-  comments: Array<CommentModel>;
-
   constructor(authorId: ID) {
     this.author = authorId;
     this.createdAt = new Date().toString();
     this.lastEdit = null;
-    this.comments = [];
     this.repost = null;
     this.media = [];
     this.likes = [];
-    this.comments = [];
   }
 }
 

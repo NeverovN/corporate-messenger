@@ -8,12 +8,4 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  containerStyle: {
-    marginLeft: 10,
-    alignItems: 'center',
-  },
-  labelStyle: {
-    marginLeft: 5,
-    fontSize: 18,
-  },
 });
