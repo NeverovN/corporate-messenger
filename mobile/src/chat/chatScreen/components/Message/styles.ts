@@ -19,4 +19,10 @@ export default StyleSheet.create({
   nameStyle: {
     marginBottom: 3,
   },
+  readIndicatorStyle: {
+    height: 3,
+    width: 3,
+    borderRadius: 2,
+    backgroundColor: COLORS.lightBlue,
+  },
 });

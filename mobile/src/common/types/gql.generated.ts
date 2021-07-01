@@ -66,6 +66,7 @@ export type Message = {
   author: User;
   chatId: Scalars['ID'];
   createdAt: Scalars['String'];
+  read: Scalars['Boolean'];
   lastEdit?: Maybe<Scalars['String']>;
 };
 
@@ -87,6 +88,7 @@ export type Mutation = {
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   likeComment: Comment;
   login: AuthenticationResult;
+  markRead: Message;
   removeFriend?: Maybe<User>;
 };
 
@@ -163,6 +165,11 @@ export type MutationLikeCommentArgs = {
 
 export type MutationLoginArgs = {
   input: LoginInput;
+};
+
+
+export type MutationMarkReadArgs = {
+  messageId: Scalars['ID'];
 };
 
 
@@ -341,6 +348,19 @@ export type DeleteChatByIdMutation = (
   ) }
 );
 
+export type MarkReadMutationVariables = Exact<{
+  messageId: Scalars['ID'];
+}>;
+
+
+export type MarkReadMutation = (
+  { __typename?: 'Mutation' }
+  & { markRead: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
+
 export type NewChatSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -373,7 +393,7 @@ export type ChatFragmentFragment = (
     & Pick<User, 'id' | 'firstName' | 'lastName'>
   )>>, messages?: Maybe<Array<Maybe<(
     { __typename?: 'Message' }
-    & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit'>
+    & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit' | 'read'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'firstName' | 'lastName'>
@@ -383,7 +403,7 @@ export type ChatFragmentFragment = (
 
 export type MessageFragmentFragment = (
   { __typename?: 'Message' }
-  & Pick<Message, 'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId'>
+  & Pick<Message, 'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId' | 'read'>
   & { author: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'firstName' | 'lastName'>
@@ -464,10 +484,10 @@ export type GetFeedQuery = (
   { __typename?: 'Query' }
   & { getAllPosts?: Maybe<Array<Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id'>
+    & Pick<Post, 'id' | 'createdAt'>
     & { author: (
       { __typename?: 'User' }
-      & Pick<User, 'id'>
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
     ) }
   )>>> }
 );
@@ -479,10 +499,10 @@ export type GetFriendFeedQuery = (
   { __typename?: 'Query' }
   & { getFriendPosts?: Maybe<Array<Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id'>
+    & Pick<Post, 'id' | 'createdAt'>
     & { author: (
       { __typename?: 'User' }
-      & Pick<User, 'id'>
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
     ) }
   )>>> }
 );
@@ -763,6 +783,7 @@ export const ChatFragmentFragmentDoc = gql`
     createdAt
     chatId
     lastEdit
+    read
   }
 }
     `;
@@ -778,6 +799,7 @@ export const MessageFragmentFragmentDoc = gql`
   createdAt
   lastEdit
   chatId
+  read
 }
     `;
 export const CommentFragmentFragmentDoc = gql`
@@ -978,6 +1000,39 @@ export function useDeleteChatByIdMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteChatByIdMutationHookResult = ReturnType<typeof useDeleteChatByIdMutation>;
 export type DeleteChatByIdMutationResult = Apollo.MutationResult<DeleteChatByIdMutation>;
 export type DeleteChatByIdMutationOptions = Apollo.BaseMutationOptions<DeleteChatByIdMutation, DeleteChatByIdMutationVariables>;
+export const MarkReadDocument = gql`
+    mutation markRead($messageId: ID!) {
+  markRead(messageId: $messageId) {
+    ...MessageFragment
+  }
+}
+    ${MessageFragmentFragmentDoc}`;
+export type MarkReadMutationFn = Apollo.MutationFunction<MarkReadMutation, MarkReadMutationVariables>;
+
+/**
+ * __useMarkReadMutation__
+ *
+ * To run a mutation, you first call `useMarkReadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMarkReadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [markReadMutation, { data, loading, error }] = useMarkReadMutation({
+ *   variables: {
+ *      messageId: // value for 'messageId'
+ *   },
+ * });
+ */
+export function useMarkReadMutation(baseOptions?: Apollo.MutationHookOptions<MarkReadMutation, MarkReadMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MarkReadMutation, MarkReadMutationVariables>(MarkReadDocument, options);
+      }
+export type MarkReadMutationHookResult = ReturnType<typeof useMarkReadMutation>;
+export type MarkReadMutationResult = Apollo.MutationResult<MarkReadMutation>;
+export type MarkReadMutationOptions = Apollo.BaseMutationOptions<MarkReadMutation, MarkReadMutationVariables>;
 export const NewChatDocument = gql`
     subscription NewChat {
   newChat {
@@ -1209,7 +1264,11 @@ export const GetFeedDocument = gql`
     id
     author {
       id
+      firstName
+      lastName
+      avatar
     }
+    createdAt
   }
 }
     `;
@@ -1246,7 +1305,11 @@ export const GetFriendFeedDocument = gql`
     id
     author {
       id
+      firstName
+      lastName
+      avatar
     }
+    createdAt
   }
 }
     `;

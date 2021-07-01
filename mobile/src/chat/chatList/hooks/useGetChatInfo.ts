@@ -10,7 +10,7 @@ export const useGetChatInfo = (chatId: string) => {
   const lastMsg = setLastMessage(chatResult);
 
   return {
-    chatTitle: title,
-    lastMsg: lastMsg,
+    chatTitle: title || '',
+    lastMsg: lastMsg || '',
   };
 };

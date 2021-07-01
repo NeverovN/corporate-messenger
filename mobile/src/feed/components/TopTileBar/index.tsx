@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -8,14 +8,21 @@ import styles from './styles';
 import UserDataView from '../UserData';
 import UserIconView from '../UserIcon';
 
-interface ITopTileBarViewProps {}
+interface ITopTileBarViewProps {
+  onPress(): void;
+  avatar: string;
+  author: string;
+  createdAt: string;
+}
 
-const TopTileBarView: FC<ITopTileBarViewProps> = () => {
+const TopTileBarView: FC<ITopTileBarViewProps> = (props) => {
   return (
-    <TouchableOpacity style={styles.topTileBarStyle}>
-      <UserIconView />
-      <UserDataView />
-    </TouchableOpacity>
+    <View style={styles.topTileBarStyle}>
+      <TouchableOpacity style={styles.touchableStyle} onPress={props.onPress}>
+        <UserIconView avatar={props.avatar} />
+        <UserDataView author={props.author} createdAt={props.createdAt} />
+      </TouchableOpacity>
+    </View>
   );
 };
 

@@ -1,8 +1,11 @@
 // component
-import TileView from '@/feed/components/Tile';
 import { useGetFriendFeedQuery } from '@/common/types/gql.generated';
+import { getUsername } from '@/profile/utils/getUsername';
 
-export const useFriendFeedList = () => {
+// types
+import { IPostItem } from 'feed/types/feed';
+
+export const useFriendFeedList = (): IPostItem[] => {
   const { data } = useGetFriendFeedQuery();
 
   if (!data || !data.getFriendPosts) {
@@ -10,12 +13,16 @@ export const useFriendFeedList = () => {
   }
 
   return data.getFriendPosts.map((el) => {
-    if (!el) {
-      return [] as any;
-    }
+    const username = getUsername(el?.author.firstName, el?.author.lastName);
+
     return {
-      data: TileView,
-      id: el.id,
+      id: el?.id || '',
+      authorId: el?.author.id || '',
+      author: username,
+      avatar:
+        el?.author.avatar ||
+        'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
+      createdAt: el?.createdAt || '',
     };
   });
 };

@@ -4,6 +4,7 @@ type Message {
   author: User!
   chatId: ID!
   createdAt: String!
+  read: Boolean!
   lastEdit: String
 }
 
@@ -32,6 +33,7 @@ type Mutation {
   deleteChatById(chatId: ID!): Chat!
   deleteMessageById(messageId: ID!): Message!
   editMessage(messageId: ID!, newContent: String!): Message!
+  markRead(messageId: ID!): Message!
 }
 
 type Subscription {
