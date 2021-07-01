@@ -104,7 +104,7 @@ class MessageModelController {
     }
 
     if (message.readBy.includes(userId)) {
-      return message;
+      return mapMessageDocumentToMessageEntity(message);
     }
 
     const msgEntity = MessageEntityController.addReader(
