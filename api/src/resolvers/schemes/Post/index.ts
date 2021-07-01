@@ -16,7 +16,7 @@ const postResolvers: PostResolvers = {
 
     return author;
   },
-  likes: (post: PostEntity) => {
+  likes: async (post: PostEntity) => {
     const likes = post.likes.map(async (userId) => {
       const user = await UserModel.findById(userId).exec();
       if (!user) {
@@ -26,7 +26,7 @@ const postResolvers: PostResolvers = {
       return user;
     });
 
-    return Promise.all(likes);
+    return await Promise.all(likes);
   },
 };
 
