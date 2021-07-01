@@ -69,6 +69,7 @@ export type Message = {
   author: User;
   chatId: Scalars['ID'];
   createdAt: Scalars['String'];
+  read: Scalars['Boolean'];
   lastEdit?: Maybe<Scalars['String']>;
 };
 
@@ -88,6 +89,7 @@ export type Mutation = {
   getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
+  markRead: Message;
   removeFriend?: Maybe<User>;
 };
 
@@ -153,6 +155,11 @@ export type MutationGetPostArgs = {
 
 export type MutationLoginArgs = {
   input: LoginInput;
+};
+
+
+export type MutationMarkReadArgs = {
+  messageId: Scalars['ID'];
 };
 
 
@@ -393,6 +400,7 @@ export type MessageResolvers<ContextType = any, ParentType extends ResolversPare
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   chatId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  read?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -412,6 +420,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationGetPostArgs, 'id'>>;
   getUsersPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
+  markRead?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationMarkReadArgs, 'messageId'>>;
   removeFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFriendArgs, 'friendId'>>;
 };
 
