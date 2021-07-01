@@ -40,9 +40,10 @@ export type CommentModel = {
   __typename?: 'CommentModel';
   id: Scalars['ID'];
   author: User;
+  content: Scalars['String'];
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
-  likes?: Maybe<Array<Maybe<User>>>;
+  likes?: Maybe<Array<User>>;
 };
 
 export type CreateUserInput = {
@@ -71,6 +72,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
   createChat: Chat;
+  createComment: CommentModel;
   createMessage: Message;
   createPost: Post;
   createUser: AuthenticationResult;
@@ -80,7 +82,6 @@ export type Mutation = {
   editMessage: Message;
   editPassword: User;
   editUsername: User;
-  getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   login: AuthenticationResult;
   removeFriend?: Maybe<User>;
@@ -95,6 +96,12 @@ export type MutationAddFriendArgs = {
 export type MutationCreateChatArgs = {
   participants: Array<Scalars['ID']>;
   title: Scalars['String'];
+};
+
+
+export type MutationCreateCommentArgs = {
+  id: Scalars['ID'];
+  content: Scalars['String'];
 };
 
 
@@ -141,11 +148,6 @@ export type MutationEditUsernameArgs = {
 };
 
 
-export type MutationGetPostArgs = {
-  id: Scalars['ID'];
-};
-
-
 export type MutationLoginArgs = {
   input: LoginInput;
 };
@@ -161,7 +163,7 @@ export type Post = {
   author: User;
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
-  comments?: Maybe<Array<Maybe<CommentModel>>>;
+  comments?: Maybe<Array<CommentModel>>;
 };
 
 export type Query = {
@@ -169,6 +171,7 @@ export type Query = {
   getAllPosts?: Maybe<Array<Maybe<Post>>>;
   getChatById?: Maybe<Chat>;
   getChats?: Maybe<Array<Maybe<Chat>>>;
+  getComments: Array<Maybe<CommentModel>>;
   getFriendPosts?: Maybe<Array<Maybe<Post>>>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
@@ -180,6 +183,11 @@ export type Query = {
 
 export type QueryGetChatByIdArgs = {
   chatId: Scalars['ID'];
+};
+
+
+export type QueryGetCommentsArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -466,6 +474,66 @@ export type GetFriendFeedQuery = (
   )>>> }
 );
 
+export type GetPostByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetPostByIdQuery = (
+  { __typename?: 'Query' }
+  & { getPost?: Maybe<(
+    { __typename?: 'Post' }
+    & { comments?: Maybe<Array<(
+      { __typename?: 'CommentModel' }
+      & Pick<CommentModel, 'id'>
+    )>> }
+  )> }
+);
+
+export type GetCommentsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetCommentsQuery = (
+  { __typename?: 'Query' }
+  & { getComments: Array<Maybe<(
+    { __typename?: 'CommentModel' }
+    & Pick<CommentModel, 'id' | 'content' | 'createdAt'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
+    ) }
+  )>> }
+);
+
+export type CreateCommentMutationVariables = Exact<{
+  id: Scalars['ID'];
+  content: Scalars['String'];
+}>;
+
+
+export type CreateCommentMutation = (
+  { __typename?: 'Mutation' }
+  & { createComment: (
+    { __typename?: 'CommentModel' }
+    & Pick<CommentModel, 'id' | 'content' | 'createdAt'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
+    ) }
+  ) }
+);
+
+export type CommentFragmentFragment = (
+  { __typename?: 'CommentModel' }
+  & Pick<CommentModel, 'id' | 'content' | 'createdAt'>
+  & { author: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
+  ) }
+);
+
 export type PostFragmentFragment = (
   { __typename?: 'Post' }
   & Pick<Post, 'id' | 'createdAt'>
@@ -668,6 +736,19 @@ export const MessageFragmentFragmentDoc = gql`
   createdAt
   lastEdit
   chatId
+}
+    `;
+export const CommentFragmentFragmentDoc = gql`
+    fragment CommentFragment on CommentModel {
+  id
+  author {
+    id
+    firstName
+    lastName
+    avatar
+  }
+  content
+  createdAt
 }
     `;
 export const PostFragmentFragmentDoc = gql`
@@ -1151,6 +1232,128 @@ export function useGetFriendFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetFriendFeedQueryHookResult = ReturnType<typeof useGetFriendFeedQuery>;
 export type GetFriendFeedLazyQueryHookResult = ReturnType<typeof useGetFriendFeedLazyQuery>;
 export type GetFriendFeedQueryResult = Apollo.QueryResult<GetFriendFeedQuery, GetFriendFeedQueryVariables>;
+export const GetPostByIdDocument = gql`
+    query GetPostById($id: ID!) {
+  getPost(id: $id) {
+    comments {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostByIdQuery__
+ *
+ * To run a query within a React component, call `useGetPostByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPostByIdQuery(baseOptions: Apollo.QueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
+      }
+export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
+        }
+export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
+export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
+export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+export const GetCommentsDocument = gql`
+    query GetComments($id: ID!) {
+  getComments(id: $id) {
+    id
+    author {
+      id
+      firstName
+      lastName
+      avatar
+    }
+    content
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useGetCommentsQuery__
+ *
+ * To run a query within a React component, call `useGetCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommentsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetCommentsQuery(baseOptions: Apollo.QueryHookOptions<GetCommentsQuery, GetCommentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCommentsQuery, GetCommentsQueryVariables>(GetCommentsDocument, options);
+      }
+export function useGetCommentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommentsQuery, GetCommentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCommentsQuery, GetCommentsQueryVariables>(GetCommentsDocument, options);
+        }
+export type GetCommentsQueryHookResult = ReturnType<typeof useGetCommentsQuery>;
+export type GetCommentsLazyQueryHookResult = ReturnType<typeof useGetCommentsLazyQuery>;
+export type GetCommentsQueryResult = Apollo.QueryResult<GetCommentsQuery, GetCommentsQueryVariables>;
+export const CreateCommentDocument = gql`
+    mutation CreateComment($id: ID!, $content: String!) {
+  createComment(id: $id, content: $content) {
+    id
+    author {
+      id
+      firstName
+      lastName
+      avatar
+    }
+    content
+    createdAt
+  }
+}
+    `;
+export type CreateCommentMutationFn = Apollo.MutationFunction<CreateCommentMutation, CreateCommentMutationVariables>;
+
+/**
+ * __useCreateCommentMutation__
+ *
+ * To run a mutation, you first call `useCreateCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCommentMutation, { data, loading, error }] = useCreateCommentMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+export function useCreateCommentMutation(baseOptions?: Apollo.MutationHookOptions<CreateCommentMutation, CreateCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCommentMutation, CreateCommentMutationVariables>(CreateCommentDocument, options);
+      }
+export type CreateCommentMutationHookResult = ReturnType<typeof useCreateCommentMutation>;
+export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMutation>;
+export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
 export const CreatePostDocument = gql`
     mutation CreatePost {
   createPost {

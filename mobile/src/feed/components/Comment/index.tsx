@@ -1,16 +1,28 @@
 import React, { FC, memo } from 'react';
 import { View, Text } from 'react-native';
+import { Image } from 'react-native-elements/dist/image/Image';
 
 import styles from './styles';
 
 interface ICommentViewProps {
-  text: string;
+  content: string;
+  authorName: string;
+  authorAvatar: string;
+  createdAt: string;
 }
 
 const CommentView: FC<ICommentViewProps> = (props) => {
   return (
     <View style={styles.feedStyle}>
-      <Text>{props.text}</Text>
+      <Image
+        style={styles.userIconImageStyle}
+        source={{ uri: props.authorAvatar }}
+      />
+      <View>
+        <Text>{props.authorName}</Text>
+        <Text>{props.content}</Text>
+        <Text>{props.createdAt}</Text>
+      </View>
     </View>
   );
 };

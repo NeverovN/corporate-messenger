@@ -6,15 +6,22 @@ import styles from './styles';
 
 // components
 import Tile from '../Tile';
-import Comment from '../Comment';
+import Comment from 'feed/containers/Comment';
 import { ICommentItem } from '@/feed/types/comment';
+import CommentInput from 'feed/containers/CommentInput';
 
 interface IPostScreenViewProps {
   data: ICommentItem[];
 }
 
 const renderPostItem: ListRenderItem<ICommentItem> = ({ item }) => {
-  return <Comment text={item.text} />;
+  return (
+    <Comment
+      content={item.content}
+      author={item.author.id}
+      createdAt={item.createdAt}
+    />
+  );
 };
 
 const PostScreenView: FC<IPostScreenViewProps> = (props) => {
@@ -25,6 +32,7 @@ const PostScreenView: FC<IPostScreenViewProps> = (props) => {
         data={props.data}
         renderItem={renderPostItem}
       />
+      <CommentInput />
     </View>
   );
 };

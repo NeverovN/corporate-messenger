@@ -15,3 +15,51 @@ query GetFriendFeed {
     }
   }
 }
+
+query GetPostById($id: ID!) {
+  getPost(id: $id) {
+    comments {
+      id
+    }
+  }
+}
+
+query GetComments($id: ID!) {
+  getComments(id: $id) {
+    id
+    author {
+      id
+      firstName
+      lastName
+      avatar
+    }
+    content
+    createdAt
+  }
+}
+
+mutation CreateComment($id: ID!, $content: String!) {
+  createComment(id: $id, content: $content) {
+    id
+    author {
+      id
+      firstName
+      lastName
+      avatar
+    }
+    content
+    createdAt
+  }
+}
+
+fragment CommentFragment on CommentModel {
+  id
+  author {
+    id
+    firstName
+    lastName
+    avatar
+  }
+  content
+  createdAt
+}

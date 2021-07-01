@@ -5,5 +5,6 @@ export default StyleSheet.create({
     alignItems: 'stretch',
     width: '100%',
     padding: 3,
+    height: '100%',
   },
 });

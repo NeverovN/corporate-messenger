@@ -10,7 +10,7 @@ interface IPostScreenContainerProps {}
 
 const PostScreenContainer: FC<IPostScreenContainerProps> = () => {
   const commentList = useGetComments();
-  return <PostScreenView data={[]} />;
+  return <PostScreenView data={commentList} />;
 };
 
 export default memo(PostScreenContainer);
