@@ -17,8 +17,8 @@ export const useGetCommentInfo = (userId: string, commentId: string) => {
   };
 
   comment.username = getUsername(
-    user?.getUserById?.firstName,
-    user?.getUserById?.lastName,
+    user?.getUserById?.firstName || '',
+    user?.getUserById?.lastName || '',
   );
 
   comment.userAvatar =
