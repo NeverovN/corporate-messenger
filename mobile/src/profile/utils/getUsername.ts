@@ -1,6 +1,6 @@
 export const getUsername = (
-  first: string | undefined,
-  last: string | undefined,
+  first: string,
+  last: string,
 ): string => {
-  return first + ' ' + last;
+  return `${first} ${last}`;
 };
