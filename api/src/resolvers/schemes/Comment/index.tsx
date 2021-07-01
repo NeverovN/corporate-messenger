@@ -1,13 +1,13 @@
 // types
 import { CommentEntity } from '../../../models/Comment';
-import { CommentModelResolvers } from '../../../types/gql.generated';
+import { CommentResolvers } from '../../../types/gql.generated';
 
 // controllers
 import { UserController } from '../../../controllers/User';
 import UserModel from '../../../models/User';
 import { mapUserDocumentToUserEntity } from '../../../models/User/mappers';
 
-const commentResolvers: CommentModelResolvers = {
+const commentResolvers: CommentResolvers = {
   id: (comment: CommentEntity) => comment._id,
   author: async (comment: CommentEntity) => {
     const author = await UserController.getUser(comment.author);

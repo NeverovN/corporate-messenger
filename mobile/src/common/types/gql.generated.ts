@@ -36,8 +36,8 @@ export type ChatSettings = {
   testField?: Maybe<Scalars['String']>;
 };
 
-export type CommentModel = {
-  __typename?: 'CommentModel';
+export type Comment = {
+  __typename?: 'Comment';
   id: Scalars['ID'];
   postId: Scalars['ID'];
   author: User;
@@ -73,19 +73,19 @@ export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
   createChat: Chat;
-  createComment: CommentModel;
+  createComment: Comment;
   createMessage: Message;
   createPost: Post;
   createUser: AuthenticationResult;
   deleteChatById: Chat;
-  deleteCommentById: CommentModel;
+  deleteCommentById: Comment;
   deleteMessageById: Message;
   editEmail: User;
   editMessage: Message;
   editPassword: User;
   editUsername: User;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
-  likeComment: CommentModel;
+  likeComment: Comment;
   login: AuthenticationResult;
   removeFriend?: Maybe<User>;
 };
@@ -176,7 +176,7 @@ export type Post = {
   author: User;
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
-  comments?: Maybe<Array<CommentModel>>;
+  comments?: Maybe<Array<Comment>>;
 };
 
 export type Query = {
@@ -184,7 +184,7 @@ export type Query = {
   getAllPosts?: Maybe<Array<Maybe<Post>>>;
   getChatById?: Maybe<Chat>;
   getChats?: Maybe<Array<Maybe<Chat>>>;
-  getComment?: Maybe<CommentModel>;
+  getComment?: Maybe<Comment>;
   getFriendPosts?: Maybe<Array<Maybe<Post>>>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
@@ -497,7 +497,7 @@ export type GetPostByIdQuery = (
   & { getPost?: Maybe<(
     { __typename?: 'Post' }
     & { comments?: Maybe<Array<(
-      { __typename?: 'CommentModel' }
+      { __typename?: 'Comment' }
       & CommentFragmentFragment
     )>> }
   )> }
@@ -512,8 +512,8 @@ export type CreateCommentMutationVariables = Exact<{
 export type CreateCommentMutation = (
   { __typename?: 'Mutation' }
   & { createComment: (
-    { __typename?: 'CommentModel' }
-    & Pick<CommentModel, 'id' | 'content' | 'createdAt'>
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'id' | 'content' | 'createdAt'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
@@ -529,8 +529,8 @@ export type DeleteCommentByIdMutationVariables = Exact<{
 export type DeleteCommentByIdMutation = (
   { __typename?: 'Mutation' }
   & { deleteCommentById: (
-    { __typename?: 'CommentModel' }
-    & Pick<CommentModel, 'id' | 'content' | 'createdAt'>
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'id' | 'content' | 'createdAt'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
@@ -546,7 +546,7 @@ export type LikeCommentMutationVariables = Exact<{
 export type LikeCommentMutation = (
   { __typename?: 'Mutation' }
   & { likeComment: (
-    { __typename?: 'CommentModel' }
+    { __typename?: 'Comment' }
     & CommentFragmentFragment
   ) }
 );
@@ -559,14 +559,14 @@ export type GetCommentByIdQueryVariables = Exact<{
 export type GetCommentByIdQuery = (
   { __typename?: 'Query' }
   & { getComment?: Maybe<(
-    { __typename?: 'CommentModel' }
+    { __typename?: 'Comment' }
     & CommentFragmentFragment
   )> }
 );
 
 export type CommentFragmentFragment = (
-  { __typename?: 'CommentModel' }
-  & Pick<CommentModel, 'id' | 'content' | 'createdAt'>
+  { __typename?: 'Comment' }
+  & Pick<Comment, 'id' | 'content' | 'createdAt'>
   & { author: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
@@ -781,7 +781,7 @@ export const MessageFragmentFragmentDoc = gql`
 }
     `;
 export const CommentFragmentFragmentDoc = gql`
-    fragment CommentFragment on CommentModel {
+    fragment CommentFragment on Comment {
   id
   author {
     id

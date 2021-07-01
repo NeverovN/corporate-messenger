@@ -64,7 +64,7 @@ query GetCommentById($id: ID!) {
   }
 }
 
-fragment CommentFragment on CommentModel {
+fragment CommentFragment on Comment {
   id
   author {
     id

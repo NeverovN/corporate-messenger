@@ -18,7 +18,7 @@ const resolvers: Resolvers = {
   Chat: chatResolvers,
   Post: postResolvers,
   Message: messageResolvers,
-  CommentModel: commentResolvers,
+  Comment: commentResolvers,
 };
 
 export default resolvers;
