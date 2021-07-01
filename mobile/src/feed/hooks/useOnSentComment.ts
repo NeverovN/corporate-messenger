@@ -20,7 +20,7 @@ export const useOnSentComment = (
       }
       cache.modify({
         fields: {
-          getPostById() {
+          getPost() {
             try {
               cache.writeFragment({
                 fragment: CommentFragmentFragmentDoc,
