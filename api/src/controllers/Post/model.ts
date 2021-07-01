@@ -47,14 +47,14 @@ class PostModelController {
     return mapPostDocumentToPostEntity(createdPost);
   }
 
-  async mutateLike(postId: ID, likeAuthor: ID): Promise<PostEntity> {
+  async toggleLike(postId: ID, likeAuthor: ID): Promise<PostEntity> {
     const post = await PostModel.findById(postId).exec();
 
     if (!post) {
       throw Error('post not found');
     }
 
-    const updatedPostEntity = PostEntityController.mutateLikes(
+    const updatedPostEntity = PostEntityController.toggleLikes(
       mapPostDocumentToPostEntity(post),
       likeAuthor,
     );

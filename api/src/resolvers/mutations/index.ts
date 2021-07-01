@@ -132,7 +132,7 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
   async toggleLike(_, args, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');
 
-    const post = PostController.mutateLike(args.id, currentUserId);
+    const post = PostController.toggleLike(args.id, currentUserId);
 
     return post;
   },

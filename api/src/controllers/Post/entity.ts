@@ -9,7 +9,7 @@ class PostEntityController {
     return newPost;
   }
 
-  mutateLikes(post: PostEntity, likeAuthor: ID): PostEntity {
+  toggleLikes(post: PostEntity, likeAuthor: ID): PostEntity {
     if (post.likes.includes(likeAuthor)) {
       return this.removeLike(post, likeAuthor);
     } else {
