@@ -8,6 +8,8 @@ query GetFeed {
       avatar
     }
     createdAt
+    textContent
+    mediaContent
   }
 }
 

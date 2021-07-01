@@ -1,3 +1,4 @@
+import { getDate } from '@/profile/utils/getDate';
 import React, { FC, memo } from 'react';
 import { View, Text } from 'react-native';
 

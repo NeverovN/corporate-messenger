@@ -1,3 +1,4 @@
+import { newPost } from '@/common/cache/cache';
 import {
   useCreatePostMutation,
   PostFragmentFragmentDoc,
@@ -28,7 +29,13 @@ export const useAddPost = () => {
   });
   return async () => {
     try {
-      createPost();
+      const post = newPost();
+      createPost({
+        variables: {
+          textContent: post.textContent,
+          mediaContent: post.mediaContent,
+        },
+      });
     } catch (err) {
       console.log(err);
     }

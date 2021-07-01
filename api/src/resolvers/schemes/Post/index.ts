@@ -17,6 +17,7 @@ const postResolvers: PostResolvers = {
 
     return author;
   },
+  textContent: async (post: PostEntity) => post.text,
   likes: async (post: PostEntity) => {
     const likes = post.likes.map(async (userId) => {
       const user = await UserModel.findById(userId).exec();

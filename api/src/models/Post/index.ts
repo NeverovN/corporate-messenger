@@ -38,13 +38,20 @@ export class PostEntity {
   repost: Nullable<URL>;
 
   @prop()
+  text: string;
+
+  @prop()
   media: Array<PostMedia>;
 
   @prop()
   likes: Array<ID>;
 
-  constructor(authorId: ID) {
+  @prop()
+  comments: Array<CommentModel>;
+
+  constructor(authorId: ID, textContent: string) {
     this.author = authorId;
+    this.text = textContent;
     this.createdAt = new Date().toString();
     this.lastEdit = null;
     this.repost = null;

@@ -1,4 +1,5 @@
-import { InMemoryCache, makeVar, ReactiveVar } from '@apollo/client';
+import { InMemoryCache, makeVar } from '@apollo/client';
+import { Post } from 'common/types/gql.generated';
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -24,5 +25,6 @@ export const cache = new InMemoryCache({
   },
 });
 
-export const tokenVar = makeVar('');
-export const selectedFriendsVar: ReactiveVar<string[]> = makeVar([]);
+export const tokenVar = makeVar<string>('');
+export const selectedFriendsVar = makeVar<string[]>([]);
+export const newPost = makeVar<Post>({} as Post);

@@ -119,12 +119,17 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     return removedFriend;
   },
-  async createPost(_, __, { currentUserId }: ApolloContextType) {
+  async createPost(_, args, { currentUserId }: ApolloContextType) {
     if (!currentUserId) {
       throw Error('unauthorized user');
     }
 
-    const post = await PostController.createPost(currentUserId);
+    const text = args.textContent ? args.textContent : '';
+    // setup for future implementation
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const media = args.mediaContent?.length ? args.mediaContent : null;
+
+    const post = await PostController.createPost(currentUserId, text);
 
     pubsub.publish(POST_CREATED, post);
 

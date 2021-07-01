@@ -3,8 +3,8 @@ import { ID } from '../../types/common';
 import { PostEntity } from '../../models/Post';
 
 class PostEntityController {
-  createPostEntity(authorId: ID): PostEntity {
-    const newPost = new PostEntity(authorId);
+  createPostEntity(authorId: ID, textContent: string): PostEntity {
+    const newPost = new PostEntity(authorId, textContent);
 
     return newPost;
   }

@@ -15,7 +15,7 @@ type Subscription {
 }
 
 type Mutation {
-  createPost: Post!
+  createPost(textContent: String, mediaContent: [String]): Post!
   getUsersPosts: [Post]
   getPost(id: ID!): Post
   toggleLike(id: ID!): Post!
@@ -29,6 +29,8 @@ type Post {
   author: User!
   createdAt: String!
   lastEdit: String
+  textContent: String
+  mediaContent: [String]
   likes: [User!]
   comments: [Comment!]
 }

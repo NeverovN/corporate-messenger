@@ -3,11 +3,16 @@ fragment PostFragment on Post {
   createdAt
   author {
     id
+    firstName
+    lastName
+    avatar
   }
+  textContent
+  mediaContent
 }
 
-mutation CreatePost {
-  createPost {
+mutation CreatePost($textContent: String, $mediaContent: [String]) {
+  createPost(textContent: $textContent, mediaContent: $mediaContent) {
     ...PostFragment
   }
 }
