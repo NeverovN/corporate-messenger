@@ -7,7 +7,7 @@ export const getName = (
   lastName: string | undefined,
 ) => {
   if (firstName && lastName) {
-    return firstName + ' ' + lastName;
+    return `${firstName} ${lastName}`;
   }
 
   return '';
