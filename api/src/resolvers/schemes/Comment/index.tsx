@@ -25,7 +25,7 @@ const commentResolvers: CommentModelResolvers = {
 
       return mapUserDocumentToUserEntity(user);
     });
-    return Promise.all(likes);
+    return await Promise.all(likes);
   },
 };
 
