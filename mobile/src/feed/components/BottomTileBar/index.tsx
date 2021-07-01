@@ -14,16 +14,28 @@ import TouchableIconView from '../TouchableIcon';
 import { IconType } from '@/common/types/styles';
 
 interface IBottomTileBarViewProps {
+  likeCount: number;
+  onLikePressed(): void;
   commentCount: number;
   onCommentPressed(): void;
 }
 
 const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
+
   const comments = props.commentCount > 0 ? props.commentCount.toString() : '';
+
+  const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
 
   return (
     <View style={styles.bottomTileBarStyle}>
-      <TouchableIconView name="heart" size={30} />
+      <IconWithTextButton
+        onPress={props.onLikePressed}
+        label={likes}
+        iconType={IconType.LARGE}
+        icon="heart"
+        containerStyle={styles.containerStyle}
+        labelStyle={styles.labelStyle}
+      />
       <IconWithTextButton
         onPress={props.onCommentPressed}
         label={comments}

@@ -96,6 +96,7 @@ export type Mutation = {
   login: AuthenticationResult;
   markRead: Message;
   removeFriend?: Maybe<User>;
+  toggleLike: Post;
 };
 
 
@@ -183,12 +184,18 @@ export type MutationRemoveFriendArgs = {
   friendId: Scalars['ID'];
 };
 
+
+export type MutationToggleLikeArgs = {
+  id: Scalars['ID'];
+};
+
 export type Post = {
   __typename?: 'Post';
   id: Scalars['ID'];
   author: User;
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
+  likes?: Maybe<Array<User>>;
   comments?: Maybe<Array<Comment>>;
 };
 
@@ -448,6 +455,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
   markRead?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationMarkReadArgs, 'messageId'>>;
   removeFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFriendArgs, 'friendId'>>;
+  toggleLike?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationToggleLikeArgs, 'id'>>;
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
@@ -455,6 +463,7 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  likes?: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>;
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

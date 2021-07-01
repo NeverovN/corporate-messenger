@@ -10,7 +10,7 @@ import ContentView from '../Content';
 import BottomTileBarView from 'feed/containers/BottomTileBar';
 
 export interface ITileViewProps {
-  id: string;
+  postId: string;
   author: string;
   createdAt: string;
   avatar: string;
@@ -25,7 +25,8 @@ const TileView: FC<ITileViewProps> = (props) => {
         avatar={props.avatar}
       />
       <ContentView />
-      <BottomTileBarView postId={props.id} />
+      <BottomTileBarContainer postId={props.postId} />
+
     </View>
   );
 };

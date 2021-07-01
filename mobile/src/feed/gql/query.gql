@@ -86,3 +86,27 @@ fragment CommentFragment on Comment {
     id
   }
 }
+
+query GetPostById($id: ID!) {
+  getPost(id: $id) {
+    id
+    likes {
+      id
+    }
+    author {
+      id
+    }
+  }
+}
+
+mutation ToggleLike($id: ID!) {
+  toggleLike(id: $id) {
+    id
+    likes {
+      id
+    }
+    author {
+      id
+    }
+  }
+}

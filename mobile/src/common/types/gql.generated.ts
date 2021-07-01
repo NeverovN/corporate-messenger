@@ -90,6 +90,7 @@ export type Mutation = {
   login: AuthenticationResult;
   markRead: Message;
   removeFriend?: Maybe<User>;
+  toggleLike: Post;
 };
 
 
@@ -177,12 +178,18 @@ export type MutationRemoveFriendArgs = {
   friendId: Scalars['ID'];
 };
 
+
+export type MutationToggleLikeArgs = {
+  id: Scalars['ID'];
+};
+
 export type Post = {
   __typename?: 'Post';
   id: Scalars['ID'];
   author: User;
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
+  likes?: Maybe<Array<User>>;
   comments?: Maybe<Array<Comment>>;
 };
 
@@ -516,44 +523,33 @@ export type GetPostByIdQuery = (
   { __typename?: 'Query' }
   & { getPost?: Maybe<(
     { __typename?: 'Post' }
-    & { comments?: Maybe<Array<(
-      { __typename?: 'Comment' }
-      & CommentFragmentFragment
-    )>> }
+    & Pick<Post, 'id'>
+    & { likes?: Maybe<Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )>>, author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ) }
   )> }
 );
 
-export type CreateCommentMutationVariables = Exact<{
-  postId: Scalars['ID'];
-  content: Scalars['String'];
-}>;
-
-
-export type CreateCommentMutation = (
-  { __typename?: 'Mutation' }
-  & { createComment: (
-    { __typename?: 'Comment' }
-    & Pick<Comment, 'id' | 'content' | 'createdAt'>
-    & { author: (
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
-    ) }
-  ) }
-);
-
-export type DeleteCommentByIdMutationVariables = Exact<{
+export type ToggleLikeMutationVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type DeleteCommentByIdMutation = (
+export type ToggleLikeMutation = (
   { __typename?: 'Mutation' }
-  & { deleteCommentById: (
-    { __typename?: 'Comment' }
-    & Pick<Comment, 'id' | 'content' | 'createdAt'>
-    & { author: (
+  & { toggleLike: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { likes?: Maybe<Array<(
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
+      & Pick<User, 'id'>
+    )>>, author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
     ) }
   ) }
 );
@@ -1343,13 +1339,16 @@ export type GetFriendFeedQueryResult = Apollo.QueryResult<GetFriendFeedQuery, Ge
 export const GetPostByIdDocument = gql`
     query GetPostById($id: ID!) {
   getPost(id: $id) {
-    comments {
-      ...CommentFragment
+    id
+    likes {
+      id
+    }
+    author {
+      id
     }
   }
 }
-    ${CommentFragmentFragmentDoc}`;
-
+    `;
 /**
  * __useGetPostByIdQuery__
  *
@@ -1377,6 +1376,7 @@ export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
 export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
 export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+
 export const CreateCommentDocument = gql`
     mutation CreateComment($postId: ID!, $content: String!) {
   createComment(postId: $postId, content: $content) {
@@ -1480,6 +1480,7 @@ export type LikeCommentMutationFn = Apollo.MutationFunction<LikeCommentMutation,
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
+
  * const [likeCommentMutation, { data, loading, error }] = useLikeCommentMutation({
  *   variables: {
  *      commentId: // value for 'commentId'
@@ -1517,17 +1518,14 @@ export const GetCommentByIdDocument = gql`
  *   },
  * });
  */
-export function useGetCommentByIdQuery(baseOptions: Apollo.QueryHookOptions<GetCommentByIdQuery, GetCommentByIdQueryVariables>) {
+export function useToggleLikeMutation(baseOptions?: Apollo.MutationHookOptions<ToggleLikeMutation, ToggleLikeMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCommentByIdQuery, GetCommentByIdQueryVariables>(GetCommentByIdDocument, options);
+        return Apollo.useMutation<ToggleLikeMutation, ToggleLikeMutationVariables>(ToggleLikeDocument, options);
       }
-export function useGetCommentByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommentByIdQuery, GetCommentByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCommentByIdQuery, GetCommentByIdQueryVariables>(GetCommentByIdDocument, options);
-        }
-export type GetCommentByIdQueryHookResult = ReturnType<typeof useGetCommentByIdQuery>;
-export type GetCommentByIdLazyQueryHookResult = ReturnType<typeof useGetCommentByIdLazyQuery>;
-export type GetCommentByIdQueryResult = Apollo.QueryResult<GetCommentByIdQuery, GetCommentByIdQueryVariables>;
+export type ToggleLikeMutationHookResult = ReturnType<typeof useToggleLikeMutation>;
+export type ToggleLikeMutationResult = Apollo.MutationResult<ToggleLikeMutation>;
+export type ToggleLikeMutationOptions = Apollo.BaseMutationOptions<ToggleLikeMutation, ToggleLikeMutationVariables>;
+
 export const CreatePostDocument = gql`
     mutation CreatePost {
   createPost {
