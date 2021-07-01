@@ -8,6 +8,7 @@ import chatResolvers from './schemes/Chat';
 import messageResolvers from './schemes/Message';
 import postResolvers from './schemes/Post';
 import userResolvers from './schemes/User';
+import commentResolvers from './schemes/Comment';
 
 const resolvers: Resolvers = {
   Mutation: mutationResolvers,
@@ -17,6 +18,7 @@ const resolvers: Resolvers = {
   Chat: chatResolvers,
   Post: postResolvers,
   Message: messageResolvers,
+  Comment: commentResolvers,
 };
 
 export default resolvers;

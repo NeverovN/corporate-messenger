@@ -17,10 +17,11 @@ interface IFeedListViewProps {
 const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
   return (
     <Tile
-      username={item.author}
-      avatar={item.avatar}
-      createdAt={item.createdAt}
       textContent={item.textContent}
+      author={item.author}
+      postId={item.id}
+      createdAt={item.createdAt}
+      avatar={item.avatar}
     />
   );
 };

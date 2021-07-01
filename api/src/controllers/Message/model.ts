@@ -96,6 +96,31 @@ class MessageModelController {
 
     return mapMessageDocumentToMessageEntity(newMessage);
   }
+
+  async markRead(messageId: string, userId: string): Promise<MessageEntity> {
+    const message = await MessageModel.findById(messageId).exec();
+    if (!message) {
+      throw Error('message not found');
+    }
+
+    if (message.readBy.includes(userId)) {
+      return mapMessageDocumentToMessageEntity(message);
+    }
+
+    const msgEntity = MessageEntityController.addReader(
+      mapMessageDocumentToMessageEntity(message),
+      userId,
+    );
+
+    await MessageModel.findByIdAndUpdate(messageId, msgEntity).exec();
+    const updatedMessage = await MessageModel.findById(messageId).exec();
+
+    if (!updatedMessage) {
+      throw Error('network error, update not complete');
+    }
+
+    return mapMessageDocumentToMessageEntity(updatedMessage);
+  }
 }
 
 const messageModelController = new MessageModelController();

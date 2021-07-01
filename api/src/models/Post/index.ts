@@ -54,11 +54,9 @@ export class PostEntity {
     this.text = textContent;
     this.createdAt = new Date().toString();
     this.lastEdit = null;
-    this.comments = [];
     this.repost = null;
     this.media = [];
     this.likes = [];
-    this.comments = [];
   }
 }
 

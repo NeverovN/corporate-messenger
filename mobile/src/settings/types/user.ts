@@ -4,5 +4,5 @@ export interface IUser {
   firstName: string;
   lastName: string;
   avatar: string;
-  friends: Array<string>
+  friends: Array<string>;
 }

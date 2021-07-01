@@ -36,13 +36,15 @@ export type ChatSettings = {
   testField?: Maybe<Scalars['String']>;
 };
 
-export type CommentModel = {
-  __typename?: 'CommentModel';
+export type Comment = {
+  __typename?: 'Comment';
   id: Scalars['ID'];
+  postId: Scalars['ID'];
   author: User;
+  content: Scalars['String'];
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
-  likes?: Maybe<Array<Maybe<User>>>;
+  likes?: Maybe<Array<User>>;
 };
 
 export type CreateUserInput = {
@@ -64,6 +66,7 @@ export type Message = {
   author: User;
   chatId: Scalars['ID'];
   createdAt: Scalars['String'];
+  read: Scalars['Boolean'];
   lastEdit?: Maybe<Scalars['String']>;
 };
 
@@ -71,19 +74,23 @@ export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
   createChat: Chat;
+  createComment: Comment;
   createMessage: Message;
   createPost: Post;
   createUser: AuthenticationResult;
   deleteChatById: Chat;
+  deleteCommentById: Comment;
   deleteMessageById: Message;
   editEmail: User;
   editMessage: Message;
   editPassword: User;
   editUsername: User;
-  getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
+  likeComment: Comment;
   login: AuthenticationResult;
+  markRead: Message;
   removeFriend?: Maybe<User>;
+  toggleLike: Post;
 };
 
 
@@ -95,6 +102,12 @@ export type MutationAddFriendArgs = {
 export type MutationCreateChatArgs = {
   participants: Array<Scalars['ID']>;
   title: Scalars['String'];
+};
+
+
+export type MutationCreateCommentArgs = {
+  postId: Scalars['ID'];
+  content: Scalars['String'];
 };
 
 
@@ -117,6 +130,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeleteChatByIdArgs = {
   chatId: Scalars['ID'];
+};
+
+
+export type MutationDeleteCommentByIdArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -147,8 +165,8 @@ export type MutationEditUsernameArgs = {
 };
 
 
-export type MutationGetPostArgs = {
-  id: Scalars['ID'];
+export type MutationLikeCommentArgs = {
+  commentId: Scalars['ID'];
 };
 
 
@@ -157,8 +175,18 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationMarkReadArgs = {
+  messageId: Scalars['ID'];
+};
+
+
 export type MutationRemoveFriendArgs = {
   friendId: Scalars['ID'];
+};
+
+
+export type MutationToggleLikeArgs = {
+  id: Scalars['ID'];
 };
 
 export type Post = {
@@ -167,9 +195,10 @@ export type Post = {
   author: User;
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
-  comments?: Maybe<Array<Maybe<CommentModel>>>;
   textContent?: Maybe<Scalars['String']>;
   mediaContent?: Maybe<Array<Maybe<Scalars['String']>>>;
+  likes?: Maybe<Array<User>>;
+  comments?: Maybe<Array<Comment>>;
 };
 
 export type Query = {
@@ -177,6 +206,7 @@ export type Query = {
   getAllPosts?: Maybe<Array<Maybe<Post>>>;
   getChatById?: Maybe<Chat>;
   getChats?: Maybe<Array<Maybe<Chat>>>;
+  getComment?: Maybe<Comment>;
   getFriendPosts?: Maybe<Array<Maybe<Post>>>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
@@ -188,6 +218,11 @@ export type Query = {
 
 export type QueryGetChatByIdArgs = {
   chatId: Scalars['ID'];
+};
+
+
+export type QueryGetCommentArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -328,6 +363,19 @@ export type DeleteChatByIdMutation = (
   ) }
 );
 
+export type MarkReadMutationVariables = Exact<{
+  messageId: Scalars['ID'];
+}>;
+
+
+export type MarkReadMutation = (
+  { __typename?: 'Mutation' }
+  & { markRead: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
+
 export type NewChatSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -360,7 +408,7 @@ export type ChatFragmentFragment = (
     & Pick<User, 'id' | 'firstName' | 'lastName'>
   )>>, messages?: Maybe<Array<Maybe<(
     { __typename?: 'Message' }
-    & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit'>
+    & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit' | 'read'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'firstName' | 'lastName'>
@@ -370,7 +418,7 @@ export type ChatFragmentFragment = (
 
 export type MessageFragmentFragment = (
   { __typename?: 'Message' }
-  & Pick<Message, 'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId'>
+  & Pick<Message, 'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId' | 'read'>
   & { author: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'firstName' | 'lastName'>
@@ -466,12 +514,90 @@ export type GetFriendFeedQuery = (
   { __typename?: 'Query' }
   & { getFriendPosts?: Maybe<Array<Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id'>
+    & Pick<Post, 'id' | 'createdAt'>
     & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
+    ) }
+  )>>> }
+);
+
+export type GetPostByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetPostByIdQuery = (
+  { __typename?: 'Query' }
+  & { getPost?: Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { likes?: Maybe<Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )>>, author: (
       { __typename?: 'User' }
       & Pick<User, 'id'>
     ) }
-  )>>> }
+  )> }
+);
+
+export type ToggleLikeMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ToggleLikeMutation = (
+  { __typename?: 'Mutation' }
+  & { toggleLike: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { likes?: Maybe<Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )>>, author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ) }
+  ) }
+);
+
+export type LikeCommentMutationVariables = Exact<{
+  commentId: Scalars['ID'];
+}>;
+
+
+export type LikeCommentMutation = (
+  { __typename?: 'Mutation' }
+  & { likeComment: (
+    { __typename?: 'Comment' }
+    & CommentFragmentFragment
+  ) }
+);
+
+export type GetCommentByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetCommentByIdQuery = (
+  { __typename?: 'Query' }
+  & { getComment?: Maybe<(
+    { __typename?: 'Comment' }
+    & CommentFragmentFragment
+  )> }
+);
+
+export type CommentFragmentFragment = (
+  { __typename?: 'Comment' }
+  & Pick<Comment, 'id' | 'content' | 'createdAt'>
+  & { author: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
+  ), likes?: Maybe<Array<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  )>> }
 );
 
 export type PostFragmentFragment = (
@@ -664,6 +790,7 @@ export const ChatFragmentFragmentDoc = gql`
     createdAt
     chatId
     lastEdit
+    read
   }
 }
     `;
@@ -679,6 +806,23 @@ export const MessageFragmentFragmentDoc = gql`
   createdAt
   lastEdit
   chatId
+  read
+}
+    `;
+export const CommentFragmentFragmentDoc = gql`
+    fragment CommentFragment on Comment {
+  id
+  author {
+    id
+    firstName
+    lastName
+    avatar
+  }
+  content
+  createdAt
+  likes {
+    id
+  }
 }
     `;
 export const PostFragmentFragmentDoc = gql`
@@ -868,6 +1012,39 @@ export function useDeleteChatByIdMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteChatByIdMutationHookResult = ReturnType<typeof useDeleteChatByIdMutation>;
 export type DeleteChatByIdMutationResult = Apollo.MutationResult<DeleteChatByIdMutation>;
 export type DeleteChatByIdMutationOptions = Apollo.BaseMutationOptions<DeleteChatByIdMutation, DeleteChatByIdMutationVariables>;
+export const MarkReadDocument = gql`
+    mutation markRead($messageId: ID!) {
+  markRead(messageId: $messageId) {
+    ...MessageFragment
+  }
+}
+    ${MessageFragmentFragmentDoc}`;
+export type MarkReadMutationFn = Apollo.MutationFunction<MarkReadMutation, MarkReadMutationVariables>;
+
+/**
+ * __useMarkReadMutation__
+ *
+ * To run a mutation, you first call `useMarkReadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMarkReadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [markReadMutation, { data, loading, error }] = useMarkReadMutation({
+ *   variables: {
+ *      messageId: // value for 'messageId'
+ *   },
+ * });
+ */
+export function useMarkReadMutation(baseOptions?: Apollo.MutationHookOptions<MarkReadMutation, MarkReadMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MarkReadMutation, MarkReadMutationVariables>(MarkReadDocument, options);
+      }
+export type MarkReadMutationHookResult = ReturnType<typeof useMarkReadMutation>;
+export type MarkReadMutationResult = Apollo.MutationResult<MarkReadMutation>;
+export type MarkReadMutationOptions = Apollo.BaseMutationOptions<MarkReadMutation, MarkReadMutationVariables>;
 export const NewChatDocument = gql`
     subscription NewChat {
   newChat {
@@ -1142,7 +1319,11 @@ export const GetFriendFeedDocument = gql`
     id
     author {
       id
+      firstName
+      lastName
+      avatar
     }
+    createdAt
   }
 }
     `;
@@ -1173,6 +1354,196 @@ export function useGetFriendFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetFriendFeedQueryHookResult = ReturnType<typeof useGetFriendFeedQuery>;
 export type GetFriendFeedLazyQueryHookResult = ReturnType<typeof useGetFriendFeedLazyQuery>;
 export type GetFriendFeedQueryResult = Apollo.QueryResult<GetFriendFeedQuery, GetFriendFeedQueryVariables>;
+export const GetPostByIdDocument = gql`
+    query GetPostById($id: ID!) {
+  getPost(id: $id) {
+    id
+    likes {
+      id
+    }
+    author {
+      id
+    }
+  }
+}
+    `;
+/**
+ * __useGetPostByIdQuery__
+ *
+ * To run a query within a React component, call `useGetPostByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPostByIdQuery(baseOptions: Apollo.QueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
+      }
+export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
+        }
+export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
+export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
+export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+
+export const CreateCommentDocument = gql`
+    mutation CreateComment($postId: ID!, $content: String!) {
+  createComment(postId: $postId, content: $content) {
+    id
+    author {
+      id
+      firstName
+      lastName
+      avatar
+    }
+    content
+    createdAt
+  }
+}
+    `;
+export type CreateCommentMutationFn = Apollo.MutationFunction<CreateCommentMutation, CreateCommentMutationVariables>;
+
+/**
+ * __useCreateCommentMutation__
+ *
+ * To run a mutation, you first call `useCreateCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCommentMutation, { data, loading, error }] = useCreateCommentMutation({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+export function useCreateCommentMutation(baseOptions?: Apollo.MutationHookOptions<CreateCommentMutation, CreateCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCommentMutation, CreateCommentMutationVariables>(CreateCommentDocument, options);
+      }
+export type CreateCommentMutationHookResult = ReturnType<typeof useCreateCommentMutation>;
+export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMutation>;
+export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
+export const DeleteCommentByIdDocument = gql`
+    mutation DeleteCommentById($id: ID!) {
+  deleteCommentById(id: $id) {
+    id
+    author {
+      id
+      firstName
+      lastName
+      avatar
+    }
+    content
+    createdAt
+  }
+}
+    `;
+export type DeleteCommentByIdMutationFn = Apollo.MutationFunction<DeleteCommentByIdMutation, DeleteCommentByIdMutationVariables>;
+
+/**
+ * __useDeleteCommentByIdMutation__
+ *
+ * To run a mutation, you first call `useDeleteCommentByIdMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCommentByIdMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCommentByIdMutation, { data, loading, error }] = useDeleteCommentByIdMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteCommentByIdMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCommentByIdMutation, DeleteCommentByIdMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteCommentByIdMutation, DeleteCommentByIdMutationVariables>(DeleteCommentByIdDocument, options);
+      }
+export type DeleteCommentByIdMutationHookResult = ReturnType<typeof useDeleteCommentByIdMutation>;
+export type DeleteCommentByIdMutationResult = Apollo.MutationResult<DeleteCommentByIdMutation>;
+export type DeleteCommentByIdMutationOptions = Apollo.BaseMutationOptions<DeleteCommentByIdMutation, DeleteCommentByIdMutationVariables>;
+export const LikeCommentDocument = gql`
+    mutation LikeComment($commentId: ID!) {
+  likeComment(commentId: $commentId) {
+    ...CommentFragment
+  }
+}
+    ${CommentFragmentFragmentDoc}`;
+export type LikeCommentMutationFn = Apollo.MutationFunction<LikeCommentMutation, LikeCommentMutationVariables>;
+
+/**
+ * __useLikeCommentMutation__
+ *
+ * To run a mutation, you first call `useLikeCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLikeCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+
+ * const [likeCommentMutation, { data, loading, error }] = useLikeCommentMutation({
+ *   variables: {
+ *      commentId: // value for 'commentId'
+ *   },
+ * });
+ */
+export function useLikeCommentMutation(baseOptions?: Apollo.MutationHookOptions<LikeCommentMutation, LikeCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LikeCommentMutation, LikeCommentMutationVariables>(LikeCommentDocument, options);
+      }
+export type LikeCommentMutationHookResult = ReturnType<typeof useLikeCommentMutation>;
+export type LikeCommentMutationResult = Apollo.MutationResult<LikeCommentMutation>;
+export type LikeCommentMutationOptions = Apollo.BaseMutationOptions<LikeCommentMutation, LikeCommentMutationVariables>;
+export const GetCommentByIdDocument = gql`
+    query GetCommentById($id: ID!) {
+  getComment(id: $id) {
+    ...CommentFragment
+  }
+}
+    ${CommentFragmentFragmentDoc}`;
+
+/**
+ * __useGetCommentByIdQuery__
+ *
+ * To run a query within a React component, call `useGetCommentByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommentByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommentByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useToggleLikeMutation(baseOptions?: Apollo.MutationHookOptions<ToggleLikeMutation, ToggleLikeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ToggleLikeMutation, ToggleLikeMutationVariables>(ToggleLikeDocument, options);
+      }
+export type ToggleLikeMutationHookResult = ReturnType<typeof useToggleLikeMutation>;
+export type ToggleLikeMutationResult = Apollo.MutationResult<ToggleLikeMutation>;
+export type ToggleLikeMutationOptions = Apollo.BaseMutationOptions<ToggleLikeMutation, ToggleLikeMutationVariables>;
+
 export const CreatePostDocument = gql`
     mutation CreatePost($textContent: String, $mediaContent: [String]) {
   createPost(textContent: $textContent, mediaContent: $mediaContent) {

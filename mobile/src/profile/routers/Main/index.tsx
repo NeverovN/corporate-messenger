@@ -21,14 +21,28 @@ import HeaderRight from '@/profile/containers/HeaderRight';
 import HeaderLeft from '@/profile/containers/HeaderLeft';
 
 // types
+import { MainBottomTabNavigationProp } from 'app/types/routes';
 import { ProfileStackParamList } from 'profile/types/routes';
 import { createStackNavigator } from '@react-navigation/stack';
+import { StackActions, useNavigation } from '@react-navigation/native';
 
 const Screens = createStackNavigator<ProfileStackParamList>();
 
 interface IProfileRouterProps {}
 
 const ProfileRouter: FC<IProfileRouterProps> = () => {
+  const navigation = useNavigation<MainBottomTabNavigationProp>();
+  navigation.addListener('tabPress', (e) => {
+    e.preventDefault();
+
+    navigation.dispatch(
+      StackActions.replace('BottomTab', {
+        screen: 'ProfileStack',
+        params: { screen: 'Profile' },
+      }),
+    );
+  });
+
   const headerRight = () => {
     return <HeaderRight />;
   };

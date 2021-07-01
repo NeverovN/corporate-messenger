@@ -18,6 +18,12 @@ class MessageEntityController {
 
     return msg;
   }
+
+  addReader(msg: MessageEntity, user: ID): MessageEntity {
+    msg.readBy.push(user);
+
+    return msg;
+  }
 }
 
 const messageEntityController = new MessageEntityController();

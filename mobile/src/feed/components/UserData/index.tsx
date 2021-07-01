@@ -6,15 +6,15 @@ import { View, Text } from 'react-native';
 import styles from './styles';
 
 interface IUserDataViewProps {
-  username: string;
+  author: string;
   createdAt: string;
 }
 
 const UserDataView: FC<IUserDataViewProps> = (props) => {
   return (
     <View style={styles.userDataStyle}>
-      <Text>{props.username}</Text>
-      <Text>{getDate(props.createdAt)}</Text>
+      <Text>{props.author}</Text>
+      <Text>{props.createdAt}</Text>
     </View>
   );
 };

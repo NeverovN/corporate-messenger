@@ -18,6 +18,97 @@ query GetFriendFeed {
     id
     author {
       id
+      firstName
+      lastName
+      avatar
+    }
+    createdAt
+  }
+}
+
+query GetPostById($id: ID!) {
+  getPost(id: $id) {
+    comments {
+      ...CommentFragment
+    }
+  }
+}
+
+mutation CreateComment($postId: ID!, $content: String!) {
+  createComment(postId: $postId, content: $content) {
+    id
+    author {
+      id
+      firstName
+      lastName
+      avatar
+    }
+    content
+    createdAt
+  }
+}
+
+mutation DeleteCommentById($id: ID!) {
+  deleteCommentById(id: $id) {
+    id
+    author {
+      id
+      firstName
+      lastName
+      avatar
+    }
+    content
+    createdAt
+  }
+}
+
+mutation LikeComment($commentId: ID!) {
+  likeComment(commentId: $commentId) {
+    ...CommentFragment
+  }
+}
+
+query GetCommentById($id: ID!) {
+  getComment(id: $id) {
+    ...CommentFragment
+  }
+}
+
+fragment CommentFragment on Comment {
+  id
+  author {
+    id
+    firstName
+    lastName
+    avatar
+  }
+  content
+  createdAt
+  likes {
+    id
+  }
+}
+
+query GetPostById($id: ID!) {
+  getPost(id: $id) {
+    id
+    likes {
+      id
+    }
+    author {
+      id
+    }
+  }
+}
+
+mutation ToggleLike($id: ID!) {
+  toggleLike(id: $id) {
+    id
+    likes {
+      id
+    }
+    author {
+      id
     }
   }
 }

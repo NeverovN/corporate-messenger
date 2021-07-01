@@ -1,6 +1,7 @@
-import { FC } from 'react';
-
 export interface IPostItem {
-  data: FC;
-  id: number;
+  id: string;
+  authorId: string;
+  createdAt: string;
+  author: string;
+  avatar: string;
 }

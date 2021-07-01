@@ -9,6 +9,7 @@ generates:
         Post: ../models/Post/index#PostEntity
         Chat: ../models/Chat/index#ChatEntity
         Message: ../models/Message/index#MessageEntity
+        Comment: ../models/Comment/index#CommentEntity
 
     plugins:
       - "typescript"

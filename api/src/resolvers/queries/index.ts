@@ -5,6 +5,7 @@ import { QueryResolvers } from '../../types/gql.generated';
 import { UserController } from '../../controllers/User';
 import { PostController } from '../../controllers/Post';
 import { ChatController } from '../../controllers/Chat';
+import { CommentController } from '../../controllers/Comment';
 
 const queryResolvers: QueryResolvers<ApolloContextType> = {
   async getUserById(_, args) {
@@ -19,8 +20,20 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
 
     return await PostController.getPostsByAuthor(id);
   },
+  async getPost(_, args) {
+    const post = PostController.getPost(args.id);
+
+    if (!post) {
+      throw Error('post not found');
+    }
+
+    return post;
+  },
   async getAllPosts() {
     return await PostController.getAllPosts();
+  },
+  async getComment(_, args) {
+    return await CommentController.getComment(args.id);
   },
   async getChats(_, __, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');
