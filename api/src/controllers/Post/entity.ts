@@ -10,20 +10,22 @@ class PostEntityController {
   }
 
   mutateLikes(post: PostEntity, likeAuthor: ID): PostEntity {
-    const newPost = { ...post };
-
-    // is this logic necessary
-    const { likes } = newPost;
-    let newLikesArr;
-    if (likes.includes(likeAuthor)) {
-      newLikesArr = likes.filter((like) => like !== likeAuthor);
+    if (post.likes.includes(likeAuthor)) {
+      return this.removeLike(post, likeAuthor);
     } else {
-      newLikesArr = [...likes];
-      newLikesArr.push(likeAuthor);
+      return this.addLike(post, likeAuthor);
     }
+  }
 
-    newPost.likes = newLikesArr;
+  private addLike(post: PostEntity, author: ID): PostEntity {
+    const newPost = { ...post };
+    newPost.likes.push(author);
+    return newPost;
+  }
 
+  private removeLike(post: PostEntity, author: ID): PostEntity {
+    const newPost = { ...post };
+    newPost.likes = newPost.likes.filter((userId) => userId !== author);
     return newPost;
   }
 }
