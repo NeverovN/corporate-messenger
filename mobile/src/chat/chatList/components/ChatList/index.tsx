@@ -14,7 +14,7 @@ interface IChatListViewProps {
 }
 
 const renderChatItem: ListRenderItem<IChatItem> = ({ item }) => {
-  return <ChatItem chatId={item.id} />;
+  return <ChatItem chatId={item.id} unreadCount={item.unreadCount} />;
 };
 
 const ChatListView: FC<IChatListViewProps> = ({ data }) => {

@@ -11,7 +11,7 @@ export function mapMessageDocumentToMessageEntity(
     chatId: document.chatId,
     createdAt: document.createdAt,
     lastEdit: document.lastEdit,
-
+    readBy: document.readBy,
     media: document.media,
   };
 }

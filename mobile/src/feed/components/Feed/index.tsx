@@ -15,7 +15,14 @@ interface IFeedListViewProps {
 }
 
 const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
-  return <Tile postId={item.id} />;
+  return (
+    <Tile
+      author={item.author}
+      postId={item.id}
+      createdAt={item.createdAt}
+      avatar={item.avatar}
+    />
+  );
 };
 
 const FeedView: FC<IFeedListViewProps> = (props) => {

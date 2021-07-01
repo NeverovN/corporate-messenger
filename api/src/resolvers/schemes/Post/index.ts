@@ -6,6 +6,7 @@ import { PostResolvers } from '../../../types/gql.generated';
 import { UserController } from '../../../controllers/User';
 import { post } from '@typegoose/typegoose';
 import UserModel from '../../../models/User';
+import { CommentController } from '../../../controllers/Comment';
 
 const postResolvers: PostResolvers = {
   id: (post: PostEntity) => post._id,
@@ -27,6 +28,9 @@ const postResolvers: PostResolvers = {
     });
 
     return await Promise.all(likes);
+  },
+  comments: async (post: PostEntity) => {
+    return await CommentController.getCommentsByPostId(post._id);
   },
 };
 

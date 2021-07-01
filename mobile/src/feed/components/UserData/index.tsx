@@ -4,13 +4,16 @@ import { View, Text } from 'react-native';
 // styles
 import styles from './styles';
 
-interface IUserDataViewProps {}
+interface IUserDataViewProps {
+  author: string;
+  createdAt: string;
+}
 
-const UserDataView: FC<IUserDataViewProps> = () => {
+const UserDataView: FC<IUserDataViewProps> = (props) => {
   return (
     <View style={styles.userDataStyle}>
-      <Text>balbla</Text>
-      <Text>abrakadabra</Text>
+      <Text>{props.author}</Text>
+      <Text>{props.createdAt}</Text>
     </View>
   );
 };

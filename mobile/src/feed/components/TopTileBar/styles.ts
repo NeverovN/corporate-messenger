@@ -2,10 +2,14 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   topTileBarStyle: {
-    flexDirection: 'row',
     width: '100%',
     maxHeight: 50, // random number for now
-    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#EBD5B0',
+  },
+  touchableStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
   },
 });

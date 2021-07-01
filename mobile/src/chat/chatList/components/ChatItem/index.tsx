@@ -7,11 +7,13 @@ import styles from './styles';
 // components
 import UserImage from 'chat/chatList/components/UserImage';
 import ChatInfo from 'chat/chatList/containers/ChatInfo';
+import UnreadCount from '../UnreadCount';
 
 export interface IChatItemViewProps {
   title?: string;
   onPress(): void;
   chatId: string;
+  count: number;
 }
 
 const ChatItemView: FC<IChatItemViewProps> = (props) => {
@@ -22,6 +24,7 @@ const ChatItemView: FC<IChatItemViewProps> = (props) => {
       onPress={props.onPress}>
       <UserImage />
       <ChatInfo chatId={props.chatId} />
+      {props.count ? <UnreadCount count={props.count} /> : null}
     </TouchableOpacity>
   );
 };

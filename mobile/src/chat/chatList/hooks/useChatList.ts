@@ -17,10 +17,13 @@ export const useChatList = (filter: string) => {
       return [] as any;
     }
     return {
-      data: el,
       title: el.title,
       participants: el.participants,
       id: el.id,
+      unreadCount:
+        el.messages?.reduce((acc, msg) => {
+          return msg?.read ? acc : acc + 1;
+        }, 0) || 0,
     };
   });
 

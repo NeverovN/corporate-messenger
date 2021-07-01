@@ -1,21 +1,27 @@
-// component
-import TileView from '@/feed/components/Tile';
 import { useGetFeedQuery } from '@/common/types/gql.generated';
+import { getUsername } from '@/profile/utils/getUsername';
 
-export const useFeedList = () => {
+// types
+import { IPostItem } from 'feed/types/feed';
+
+export const useFeedList = (): IPostItem[] => {
   const { data } = useGetFeedQuery();
 
   if (!data || !data.getAllPosts) {
-    return [] as any;
+    return [];
   }
 
   return data.getAllPosts.map((el) => {
-    if (!el) {
-      return [] as any;
-    }
+    const username = getUsername(el?.author.firstName, el?.author.lastName);
+
     return {
-      data: TileView,
-      id: el.id,
+      id: el?.id || '',
+      authorId: el?.author.id || '',
+      author: username,
+      avatar:
+        el?.author.avatar ||
+        'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
+      createdAt: el?.createdAt || '',
     };
   });
 };

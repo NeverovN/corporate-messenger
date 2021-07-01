@@ -12,7 +12,6 @@ export function mapPostDocumentToPostEntity(
 
     media: document.media,
 
-    comments: document.comments,
     likes: document.likes,
 
     repost: document.repost,

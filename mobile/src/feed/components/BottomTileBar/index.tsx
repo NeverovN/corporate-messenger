@@ -9,14 +9,21 @@ import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 
 // components
 import TouchableIconView from '../TouchableIcon';
+
+// types
 import { IconType } from '@/common/types/styles';
 
 interface IBottomTileBarViewProps {
   likeCount: number;
   onLikePressed(): void;
+  commentCount: number;
+  onCommentPressed(): void;
 }
 
 const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
+
+  const comments = props.commentCount > 0 ? props.commentCount.toString() : '';
+
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
 
   return (
@@ -29,7 +36,14 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
         containerStyle={styles.containerStyle}
         labelStyle={styles.labelStyle}
       />
-      <TouchableIconView name="comment" size={30} />
+      <IconWithTextButton
+        onPress={props.onCommentPressed}
+        label={comments}
+        iconType={IconType.LARGE}
+        icon="comment"
+        containerStyle={styles.containerStyle}
+        labelStyle={styles.labelStyle}
+      />
     </View>
   );
 };
