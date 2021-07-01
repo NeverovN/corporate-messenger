@@ -137,10 +137,9 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     const newComment = await CommentController.createComment(
       currentUserId,
+      args.postId,
       args.content,
     );
-
-    await PostController.addComment(args.postId, newComment._id);
 
     return newComment;
   },
@@ -149,6 +148,9 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       throw Error('Unauthorized');
     }
     return await CommentController.like(currentUserId, args.commentId);
+  },
+  async deleteCommentById(_, args) {
+    return CommentController.deleteComment(args.id);
   },
   async createChat(_, args, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');

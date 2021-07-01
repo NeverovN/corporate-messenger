@@ -39,9 +39,14 @@ class CommentModelController {
     return comments.map((el) => this.mapCommentWithFallback(el));
   }
 
-  async createComment(authorId: ID, content: string): Promise<CommentEntity> {
+  async createComment(
+    authorId: ID,
+    postId: ID,
+    content: string,
+  ): Promise<CommentEntity> {
     const newComment = CommentEntityController.createCommentEntity(
       authorId,
+      postId,
       content,
     );
 
@@ -72,6 +77,22 @@ class CommentModelController {
     }
 
     return newComment;
+  }
+
+  async getCommentsByPostId(postId: ID): Promise<CommentEntity[]> {
+    const comments = await CommentModel.find({ postId }).exec();
+
+    return comments.map(mapCommentDocumentToCommentEntity);
+  }
+
+  async deleteComment(commentId: ID): Promise<CommentEntity> {
+    const comment = await CommentModel.findByIdAndDelete(commentId).exec();
+
+    if (!comment) {
+      throw Error('unsuccessful deletion');
+    }
+
+    return comment;
   }
 }
 

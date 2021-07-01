@@ -1,4 +1,4 @@
-import { useGetCommentsQuery } from '@/common/types/gql.generated';
+import { useGetPostByIdQuery } from '@/common/types/gql.generated';
 import { useRoute } from '@react-navigation/native';
 
 // types
@@ -7,15 +7,15 @@ import { ICommentItem } from '../types/comment';
 
 export const useGetComments = () => {
   const { params } = useRoute<PostScreenRouteProp>();
-  const { data } = useGetCommentsQuery({
-    variables: { postId: params.postId },
+  const { data } = useGetPostByIdQuery({
+    variables: { id: params.postId },
   });
 
-  if (!data || !data.getComments) {
+  if (!data || !data.getPost || !data.getPost.comments) {
     return [];
   }
 
-  const validComms = data.getComments.filter((comm) => {
+  const validComms = data.getPost.comments.filter((comm) => {
     return comm ? true : false;
   }) as ICommentItem[];
 

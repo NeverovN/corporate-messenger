@@ -19,13 +19,13 @@ query GetFriendFeed {
 query GetPostById($id: ID!) {
   getPost(id: $id) {
     comments {
-      id
+      ...CommentFragment
     }
   }
 }
 
-query GetComments($postId: ID!) {
-  getComments(postId: $postId) {
+mutation CreateComment($postId: ID!, $content: String!) {
+  createComment(postId: $postId, content: $content) {
     id
     author {
       id
@@ -38,8 +38,8 @@ query GetComments($postId: ID!) {
   }
 }
 
-mutation CreateComment($postId: ID!, $content: String!) {
-  createComment(postId: $postId, content: $content) {
+mutation DeleteCommentById($id: ID!) {
+  deleteCommentById(id: $id) {
     id
     author {
       id

@@ -45,6 +45,7 @@ export type ChatSettings = {
 export type CommentModel = {
   __typename?: 'CommentModel';
   id: Scalars['ID'];
+  postId: Scalars['ID'];
   author: User;
   content: Scalars['String'];
   createdAt: Scalars['String'];
@@ -83,6 +84,7 @@ export type Mutation = {
   createPost: Post;
   createUser: AuthenticationResult;
   deleteChatById: Chat;
+  deleteCommentById: CommentModel;
   deleteMessageById: Message;
   editEmail: User;
   editMessage: Message;
@@ -125,6 +127,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeleteChatByIdArgs = {
   chatId: Scalars['ID'];
+};
+
+
+export type MutationDeleteCommentByIdArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -184,7 +191,6 @@ export type Query = {
   getChatById?: Maybe<Chat>;
   getChats?: Maybe<Array<Maybe<Chat>>>;
   getComment?: Maybe<CommentModel>;
-  getComments: Array<Maybe<CommentModel>>;
   getFriendPosts?: Maybe<Array<Maybe<Post>>>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
@@ -201,11 +207,6 @@ export type QueryGetChatByIdArgs = {
 
 export type QueryGetCommentArgs = {
   id: Scalars['ID'];
-};
-
-
-export type QueryGetCommentsArgs = {
-  postId: Scalars['ID'];
 };
 
 
@@ -401,6 +402,7 @@ export type ChatSettingsResolvers<ContextType = any, ParentType extends Resolver
 
 export type CommentModelResolvers<ContextType = any, ParentType extends ResolversParentTypes['CommentModel'] = ResolversParentTypes['CommentModel']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  postId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -427,6 +429,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
   createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   deleteChatById?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationDeleteChatByIdArgs, 'chatId'>>;
+  deleteCommentById?: Resolver<ResolversTypes['CommentModel'], ParentType, ContextType, RequireFields<MutationDeleteCommentByIdArgs, 'id'>>;
   deleteMessageById?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationDeleteMessageByIdArgs, 'messageId'>>;
   editEmail?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditEmailArgs, 'newEmail'>>;
   editMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationEditMessageArgs, 'messageId' | 'newContent'>>;
@@ -452,7 +455,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getChatById?: Resolver<Maybe<ResolversTypes['Chat']>, ParentType, ContextType, RequireFields<QueryGetChatByIdArgs, 'chatId'>>;
   getChats?: Resolver<Maybe<Array<Maybe<ResolversTypes['Chat']>>>, ParentType, ContextType>;
   getComment?: Resolver<Maybe<ResolversTypes['CommentModel']>, ParentType, ContextType, RequireFields<QueryGetCommentArgs, 'id'>>;
-  getComments?: Resolver<Array<Maybe<ResolversTypes['CommentModel']>>, ParentType, ContextType, RequireFields<QueryGetCommentsArgs, 'postId'>>;
   getFriendPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetPostArgs, 'id'>>;
   getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostsArgs, never>>;

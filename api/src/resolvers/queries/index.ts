@@ -32,15 +32,6 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
   async getAllPosts() {
     return await PostController.getAllPosts();
   },
-  async getComments(_, args) {
-    const post = await PostController.getPost(args.postId);
-
-    if (!post) {
-      throw Error('post not found');
-    }
-
-    return CommentController.getComments(post?.comments);
-  },
   async getComment(_, args) {
     return await CommentController.getComment(args.id);
   },

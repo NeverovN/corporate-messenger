@@ -6,6 +6,7 @@ export function mapCommentDocumentToCommentEntity(
 ): CommentEntity {
   return {
     _id: document._id,
+    postId: document.postId,
     author: document.author,
     content: document.content,
     createdAt: document.createdAt,

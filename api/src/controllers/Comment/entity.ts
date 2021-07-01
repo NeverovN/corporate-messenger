@@ -3,8 +3,12 @@ import { ID } from '../../types/common';
 import { CommentEntity } from '../../models/Comment';
 
 class CommentEntityController {
-  createCommentEntity(authorId: ID, content: string): CommentEntity {
-    return new CommentEntity(authorId, content);
+  createCommentEntity(
+    authorId: ID,
+    postId: ID,
+    content: string,
+  ): CommentEntity {
+    return new CommentEntity(authorId, postId, content);
   }
 
   like(comment: CommentEntity, author: ID) {

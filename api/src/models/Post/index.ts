@@ -43,9 +43,6 @@ export class PostEntity {
   @prop()
   likes: Array<ID>;
 
-  @prop()
-  comments: Array<ID>;
-
   constructor(authorId: ID) {
     this.author = authorId;
     this.createdAt = new Date().toString();
@@ -53,7 +50,6 @@ export class PostEntity {
     this.repost = null;
     this.media = [];
     this.likes = [];
-    this.comments = [];
   }
 }
 

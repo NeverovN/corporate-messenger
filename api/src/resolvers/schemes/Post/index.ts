@@ -15,15 +15,8 @@ const postResolvers: PostResolvers = {
 
     return author;
   },
-  comments: (post: PostEntity) => {
-    return post.comments.map(async (id) => {
-      const comment = await CommentController.getComment(id);
-      if (!comment) {
-        throw Error('comment does not exist');
-      }
-
-      return comment;
-    });
+  comments: async (post: PostEntity) => {
+    return await CommentController.getCommentsByPostId(post._id);
   },
 };
 

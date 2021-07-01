@@ -11,6 +11,8 @@ export const useOnSentComment = (
   comment: string,
   setComment: (comment: string) => void,
 ) => {
+  const { params } = useRoute<PostScreenRouteProp>();
+
   const [createComment] = useCreateCommentMutation({
     update: (cache, { data }) => {
       if (!data) {
@@ -18,7 +20,7 @@ export const useOnSentComment = (
       }
       cache.modify({
         fields: {
-          getComments() {
+          getPostById() {
             try {
               cache.writeFragment({
                 fragment: CommentFragmentFragmentDoc,
@@ -32,13 +34,12 @@ export const useOnSentComment = (
       });
     },
   });
-  const { params } = useRoute<PostScreenRouteProp>();
   return () => {
     if (comment === '') {
       return;
     }
 
-    createComment({ variables: { id: params.postId, content: comment } });
+    createComment({ variables: { postId: params.postId, content: comment } });
     setComment('');
   };
 };
