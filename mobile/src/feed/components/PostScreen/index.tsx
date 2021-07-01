@@ -5,10 +5,10 @@ import { FlatList, ListRenderItem, View } from 'react-native';
 import styles from './styles';
 
 // components
-import Tile from '../Tile';
 import Comment from 'feed/containers/Comment';
 import { ICommentItem } from '@/feed/types/comment';
 import CommentInput from 'feed/containers/CommentInput';
+import PostScreenTile from '../PostScreenTile';
 
 interface IPostScreenViewProps {
   data: ICommentItem[];
@@ -28,7 +28,7 @@ const PostScreenView: FC<IPostScreenViewProps> = (props) => {
   return (
     <View style={styles.postScreenStyle}>
       <FlatList
-        ListHeaderComponent={Tile}
+        ListHeaderComponent={PostScreenTile}
         data={props.data}
         renderItem={renderPostItem}
       />

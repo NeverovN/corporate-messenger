@@ -7,5 +7,5 @@ export const useGetCommentsCount = (postId: string) => {
     return 0;
   }
 
-  return data.getPost.comments?.length;
+  return data.getPost.comments?.length || 0;
 };
