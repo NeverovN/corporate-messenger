@@ -1,5 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavigatorScreenParams } from '@react-navigation/core';
 import {
   AUTH_STACK_NAME,
@@ -66,7 +67,12 @@ export type BottomTabParamList = {
   [PROFILE_STACK_NAME]: NavigatorScreenParams<ProfileStackParamList>;
 };
 
-export type ProfileStackRouteProp = StackNavigationProp<
+export type ProfileStackNavigationProp = StackNavigationProp<
   BottomTabParamList,
   typeof PROFILE_STACK_NAME
+>;
+
+export type MainBottomTabNavigationProp = BottomTabNavigationProp<
+  MainStackParamList,
+  typeof BOTTOM_TAB_NAME
 >;

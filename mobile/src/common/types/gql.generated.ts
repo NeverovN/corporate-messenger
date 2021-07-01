@@ -463,10 +463,10 @@ export type GetFeedQuery = (
   { __typename?: 'Query' }
   & { getAllPosts?: Maybe<Array<Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id'>
+    & Pick<Post, 'id' | 'createdAt'>
     & { author: (
       { __typename?: 'User' }
-      & Pick<User, 'id'>
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
     ) }
   )>>> }
 );
@@ -478,10 +478,10 @@ export type GetFriendFeedQuery = (
   { __typename?: 'Query' }
   & { getFriendPosts?: Maybe<Array<Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id'>
+    & Pick<Post, 'id' | 'createdAt'>
     & { author: (
       { __typename?: 'User' }
-      & Pick<User, 'id'>
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
     ) }
   )>>> }
 );
@@ -1138,7 +1138,11 @@ export const GetFeedDocument = gql`
     id
     author {
       id
+      firstName
+      lastName
+      avatar
     }
+    createdAt
   }
 }
     `;
@@ -1175,7 +1179,11 @@ export const GetFriendFeedDocument = gql`
     id
     author {
       id
+      firstName
+      lastName
+      avatar
     }
+    createdAt
   }
 }
     `;
