@@ -1,8 +1,8 @@
-import { useMutateLikeMutation } from '@/common/types/gql.generated';
+import { useToggleLikeMutation } from '@/common/types/gql.generated';
 
 export const useOnLikePressed = (postId: string) => {
-  const [mutateLike] = useMutateLikeMutation();
+  const [toggleLike] = useToggleLikeMutation();
   return () => {
-    mutateLike({ variables: { id: postId } });
+    toggleLike({ variables: { id: postId } });
   };
 };

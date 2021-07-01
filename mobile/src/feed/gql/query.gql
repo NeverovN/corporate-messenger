@@ -28,8 +28,8 @@ query GetPostById($id: ID!) {
   }
 }
 
-mutation MutateLike($id: ID!) {
-  mutateLike(id: $id) {
+mutation ToggleLike($id: ID!) {
+  toggleLike(id: $id) {
     id
     likes {
       id

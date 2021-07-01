@@ -26,7 +26,7 @@ const postResolvers: PostResolvers = {
       return user;
     });
 
-    return likes;
+    return Promise.all(likes);
   },
 };
 

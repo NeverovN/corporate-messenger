@@ -17,7 +17,7 @@ type Mutation {
   createPost: Post!
   getUsersPosts: [Post]
   getPost(id: ID!): Post
-  mutateLike(id: ID!): Post!
+  toggleLike(id: ID!): Post!
 }
 
 type Post {
