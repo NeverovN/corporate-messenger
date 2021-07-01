@@ -39,8 +39,11 @@ class CommentModelController {
     return comments.map((el) => this.mapCommentWithFallback(el));
   }
 
-  async createComment(authorId: ID): Promise<CommentEntity> {
-    const newComment = CommentEntityController.createCommentEntity(authorId);
+  async createComment(authorId: ID, content: string): Promise<CommentEntity> {
+    const newComment = CommentEntityController.createCommentEntity(
+      authorId,
+      content,
+    );
 
     const createdComment = await CommentModel.create(newComment);
 

@@ -4,8 +4,7 @@ import { PostResolvers } from '../../../types/gql.generated';
 
 // controllers
 import { UserController } from '../../../controllers/User';
-import { post } from '@typegoose/typegoose';
-import { PostController } from '../../../controllers/Post';
+import { CommentController } from '../../../controllers/Comment';
 
 const postResolvers: PostResolvers = {
   id: (post: PostEntity) => post._id,
@@ -16,10 +15,15 @@ const postResolvers: PostResolvers = {
 
     return author;
   },
-  comments: async (post: PostEntity) => {
-    return post.comments.map(
-      async ({ author }) => await UserController.getUser(userId),
-    );
+  comments: (post: PostEntity) => {
+    return post.comments.map(async (id) => {
+      const comment = await CommentController.getComment(id);
+      if (!comment) {
+        throw Error('comment does not exist');
+      }
+
+      return comment;
+    });
   },
 };
 

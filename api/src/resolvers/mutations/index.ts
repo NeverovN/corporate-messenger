@@ -22,6 +22,7 @@ import {
 
 // services
 import { pubsub } from '../../services/pubsub';
+import { CommentController } from '../../controllers/Comment';
 
 const mutationResolvers: MutationResolvers<ApolloContextType> = {
   async login(_, { input }) {
@@ -128,6 +129,20 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
     pubsub.publish(POST_CREATED, post);
 
     return post;
+  },
+  async createComment(_, args, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('Unauthorized');
+    }
+
+    const newComment = await CommentController.createComment(
+      currentUserId,
+      args.content,
+    );
+
+    await PostController.addComment(args.id, newComment._id);
+
+    return newComment;
   },
   async createChat(_, args, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');

@@ -7,6 +7,7 @@ export function mapCommentDocumentToCommentEntity(
   return {
     _id: document._id,
     author: document.author,
+    content: document.content,
     createdAt: document.createdAt,
     lastEdit: document.lastEdit,
 

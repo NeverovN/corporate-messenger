@@ -46,6 +46,29 @@ class PostModelController {
 
     return mapPostDocumentToPostEntity(createdPost);
   }
+
+  async addComment(postId: ID, commentId: ID) {
+    const post = await PostModel.findById(postId).exec();
+
+    if (!post) {
+      throw Error('post not found');
+    }
+
+    const updatedPost = PostEntityController.addComment(
+      mapPostDocumentToPostEntity(post),
+      commentId,
+    );
+
+    await PostModel.findByIdAndUpdate(postId, updatedPost).exec();
+
+    const newPost = await PostModel.findById(postId).exec();
+
+    if (!newPost) {
+      throw Error('update failed');
+    }
+
+    return mapPostDocumentToPostEntity(newPost);
+  }
 }
 
 const postModelController = new PostModelController();

@@ -8,6 +8,12 @@ class PostEntityController {
 
     return newPost;
   }
+
+  addComment(post: PostEntity, commentId: ID): PostEntity {
+    const newPost = { ...post };
+    newPost.comments.push(commentId);
+    return newPost;
+  }
 }
 
 const postEntityController = new PostEntityController();

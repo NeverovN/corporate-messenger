@@ -18,6 +18,9 @@ export class CommentEntity {
   author: ID;
 
   @prop({ required: true })
+  content: string;
+
+  @prop({ required: true })
   createdAt: DateLike;
 
   @prop()
@@ -26,8 +29,9 @@ export class CommentEntity {
   @prop()
   likes: Array<ID>;
 
-  constructor(authorId: ID) {
+  constructor(authorId: ID, content: string) {
     this.author = authorId;
+    this.content = content;
     this.createdAt = new Date().toString();
     this.lastEdit = null;
     this.likes = [];
