@@ -33,13 +33,16 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
     return await PostController.getAllPosts();
   },
   async getComments(_, args) {
-    const post = await PostController.getPost(args.id);
+    const post = await PostController.getPost(args.postId);
 
     if (!post) {
       throw Error('post not found');
     }
 
     return CommentController.getComments(post?.comments);
+  },
+  async getComment(_, args) {
+    return await CommentController.getComment(args.id);
   },
   async getChats(_, __, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');

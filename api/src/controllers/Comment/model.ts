@@ -51,6 +51,28 @@ class CommentModelController {
 
     return mapCommentDocumentToCommentEntity(createdComment);
   }
+
+  async like(authorId: ID, commentId: ID) {
+    const comment = await CommentModel.findById(commentId).exec();
+
+    if (!comment) {
+      throw Error('comment not found');
+    }
+
+    const updatedCommentEntity = CommentEntityController.like(
+      mapCommentDocumentToCommentEntity(comment),
+      authorId,
+    );
+
+    await CommentModel.findByIdAndUpdate(commentId, updatedCommentEntity);
+    const newComment = await CommentModel.findById(commentId).exec();
+
+    if (!newComment) {
+      throw Error('update failed');
+    }
+
+    return newComment;
+  }
 }
 
 const commentModelController = new CommentModelController();

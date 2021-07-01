@@ -7,7 +7,9 @@ import { ICommentItem } from '../types/comment';
 
 export const useGetComments = () => {
   const { params } = useRoute<PostScreenRouteProp>();
-  const { data } = useGetCommentsQuery({ variables: { id: params.postId } });
+  const { data } = useGetCommentsQuery({
+    variables: { postId: params.postId },
+  });
 
   if (!data || !data.getComments) {
     return [];

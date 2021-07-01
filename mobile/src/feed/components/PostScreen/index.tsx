@@ -17,6 +17,7 @@ interface IPostScreenViewProps {
 const renderPostItem: ListRenderItem<ICommentItem> = ({ item }) => {
   return (
     <Comment
+      id={item.id}
       content={item.content}
       author={item.author.id}
       createdAt={item.createdAt}

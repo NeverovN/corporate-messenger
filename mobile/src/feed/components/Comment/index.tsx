@@ -1,6 +1,9 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
-import { Image } from 'react-native-elements/dist/image/Image';
+import { View, Text, Image } from 'react-native';
+import ContextMenu from 'react-native-context-menu-view';
+
+// common components
+import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 
 import styles from './styles';
 
@@ -9,21 +12,35 @@ interface ICommentViewProps {
   authorName: string;
   authorAvatar: string;
   createdAt: string;
+  likeCount: number;
+  toggleLike(): void;
 }
 
 const CommentView: FC<ICommentViewProps> = (props) => {
+  const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
   return (
-    <View style={styles.feedStyle}>
-      <Image
-        style={styles.userIconImageStyle}
-        source={{ uri: props.authorAvatar }}
-      />
-      <View>
-        <Text>{props.authorName}</Text>
-        <Text>{props.content}</Text>
-        <Text>{props.createdAt}</Text>
+    // TODO: implement context menu
+    <ContextMenu>
+      <View style={styles.feedStyle}>
+        <Image
+          style={styles.userIconImageStyle}
+          source={{ uri: props.authorAvatar }}
+        />
+        <View style={styles.textStyle}>
+          <Text>{props.authorName}</Text>
+          <Text>{props.content}</Text>
+          <View style={styles.infoStyle}>
+            <Text>{props.createdAt}</Text>
+            <IconWithTextButton
+              icon="heart"
+              label={likes}
+              labelStyle={styles.iconStyle}
+              onPress={props.toggleLike}
+            />
+          </View>
+        </View>
       </View>
-    </View>
+    </ContextMenu>
   );
 };
 

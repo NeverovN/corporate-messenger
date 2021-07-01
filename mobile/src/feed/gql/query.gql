@@ -24,8 +24,8 @@ query GetPostById($id: ID!) {
   }
 }
 
-query GetComments($id: ID!) {
-  getComments(id: $id) {
+query GetComments($postId: ID!) {
+  getComments(postId: $postId) {
     id
     author {
       id
@@ -38,8 +38,8 @@ query GetComments($id: ID!) {
   }
 }
 
-mutation CreateComment($id: ID!, $content: String!) {
-  createComment(id: $id, content: $content) {
+mutation CreateComment($postId: ID!, $content: String!) {
+  createComment(postId: $postId, content: $content) {
     id
     author {
       id
@@ -49,6 +49,18 @@ mutation CreateComment($id: ID!, $content: String!) {
     }
     content
     createdAt
+  }
+}
+
+mutation LikeComment($commentId: ID!) {
+  likeComment(commentId: $commentId) {
+    ...CommentFragment
+  }
+}
+
+query GetCommentById($id: ID!) {
+  getComment(id: $id) {
+    ...CommentFragment
   }
 }
 
@@ -62,4 +74,7 @@ fragment CommentFragment on CommentModel {
   }
   content
   createdAt
+  likes {
+    id
+  }
 }
