@@ -1,6 +1,8 @@
-import ImageCropPicker from 'react-native-image-crop-picker';
+import ImageCropPicker, { ImageOrVideo } from 'react-native-image-crop-picker';
 
-export const useClipPressHandler = (setResponse: (resp: any) => void) => {
+export const useClipPressHandler = (
+  setResponse: (resp: ImageOrVideo[]) => void,
+) => {
   return async () => {
     try {
       const image = await ImageCropPicker.openPicker({

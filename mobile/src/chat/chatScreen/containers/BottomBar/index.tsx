@@ -1,4 +1,5 @@
 import React, { FC, memo, useState } from 'react';
+import { ImageOrVideo } from 'react-native-image-crop-picker';
 
 interface IBottomBarContainerProps {}
 
@@ -12,7 +13,7 @@ import { useSendPressHandler } from 'chat/chatScreen/hooks/useSendPressHandler';
 
 const BottomBarContainer: FC<IBottomBarContainerProps> = () => {
   const [message, setMessage] = useState<string>('');
-  const [media, setMedia] = useState<any>(null);
+  const [media, setMedia] = useState<ImageOrVideo[]>([]);
   const onClipPress = useClipPressHandler(setMedia);
   const onEmojiPress = useEmojiPressHandler();
   const onSendPress = useSendPressHandler(message, setMessage);
