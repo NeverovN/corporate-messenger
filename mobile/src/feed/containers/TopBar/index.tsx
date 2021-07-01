@@ -12,7 +12,7 @@ interface ITopTileBarContainerProps {
 }
 
 const TopTileBarContainer: FC<ITopTileBarContainerProps> = (props) => {
-  const redirection = useRedirection('60b8926c41a82dd18ffdda88');
+  const redirection = useRedirection(props.author);
   const date = getFormattedDate(props.createdAt);
   return (
     <TopTileBarView
