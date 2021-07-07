@@ -1,14 +1,21 @@
 import { StyleSheet } from 'react-native';
 
+// consts
+import COLORS from '@/common/constants/colors';
+
 export default StyleSheet.create({
-  screen: {
-    flex: 1,
+  inputAreaStyles: {
+    marginBottom: 70,
+    width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   loginStyle: {
     alignItems: 'flex-start',
     justifyContent: 'center',
+    backgroundColor: COLORS.primaryOpacity,
+    width: '95%',
+    borderRadius: 20,
+    padding: 10,
   },
   passwordStyle: {
     flexDirection: 'row',
@@ -17,10 +24,18 @@ export default StyleSheet.create({
   touchStyle: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
-  authButtons: {
+  iconStyle: {
+    marginRight: 10,
+  },
+  wrapperStyle: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  separatorStyle: {
+    backgroundColor: COLORS.white,
+    width: '100%',
+    height: 1,
   },
 });

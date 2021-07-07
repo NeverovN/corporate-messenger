@@ -7,6 +7,7 @@ import Icon from 'common/components/Icon';
 
 export interface IIconButtonProps {
   icon: string;
+  iconColor?: string;
   iconType?: IconType;
   iconStyle?: TextStyle;
   containerStyle?: ViewStyle;
@@ -17,7 +18,7 @@ export interface IIconButtonProps {
 const IconButton: FC<IIconButtonProps> = (props) => {
   return (
     <TouchableOpacity style={props.containerStyle} onPress={props.onPress}>
-      <Icon type={props.iconType} name={props.icon} />
+      <Icon type={props.iconType} name={props.icon} color={props.iconColor} />
     </TouchableOpacity>
   );
 };

@@ -46,9 +46,6 @@ export class PostEntity {
   @prop()
   likes: Array<ID>;
 
-  @prop()
-  comments: Array<CommentModel>;
-
   constructor(authorId: ID, textContent: string) {
     this.author = authorId;
     this.text = textContent;
