@@ -85,6 +85,7 @@ export type Mutation = {
   editMessage: Message;
   editPassword: User;
   editUsername: User;
+  getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   likeComment: Comment;
   login: AuthenticationResult;
@@ -162,6 +163,11 @@ export type MutationEditPasswordArgs = {
 export type MutationEditUsernameArgs = {
   newFirstName: Scalars['String'];
   newLastName: Scalars['String'];
+};
+
+
+export type MutationGetPostArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -522,42 +528,37 @@ export type GetFriendFeedQuery = (
   )>>> }
 );
 
-export type GetPostByIdQueryVariables = Exact<{
-  id: Scalars['ID'];
+export type CreateCommentMutationVariables = Exact<{
+  postId: Scalars['ID'];
+  content: Scalars['String'];
 }>;
 
 
-export type GetPostByIdQuery = (
-  { __typename?: 'Query' }
-  & { getPost?: Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id'>
-    & { likes?: Maybe<Array<(
+export type CreateCommentMutation = (
+  { __typename?: 'Mutation' }
+  & { createComment: (
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'id' | 'content' | 'createdAt'>
+    & { author: (
       { __typename?: 'User' }
-      & Pick<User, 'id'>
-    )>>, author: (
-      { __typename?: 'User' }
-      & Pick<User, 'id'>
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
     ) }
-  )> }
+  ) }
 );
 
-export type ToggleLikeMutationVariables = Exact<{
+export type DeleteCommentByIdMutationVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type ToggleLikeMutation = (
+export type DeleteCommentByIdMutation = (
   { __typename?: 'Mutation' }
-  & { toggleLike: (
-    { __typename?: 'Post' }
-    & Pick<Post, 'id'>
-    & { likes?: Maybe<Array<(
+  & { deleteCommentById: (
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'id' | 'content' | 'createdAt'>
+    & { author: (
       { __typename?: 'User' }
-      & Pick<User, 'id'>
-    )>>, author: (
-      { __typename?: 'User' }
-      & Pick<User, 'id'>
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
     ) }
   ) }
 );
@@ -598,6 +599,49 @@ export type CommentFragmentFragment = (
     { __typename?: 'User' }
     & Pick<User, 'id'>
   )>> }
+);
+
+export type GetPostByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetPostByIdQuery = (
+  { __typename?: 'Query' }
+  & { getPost?: Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { likes?: Maybe<Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )>>, author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ), comments?: Maybe<Array<(
+      { __typename?: 'Comment' }
+      & CommentFragmentFragment
+    )>> }
+  )> }
+);
+
+export type ToggleLikeMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ToggleLikeMutation = (
+  { __typename?: 'Mutation' }
+  & { toggleLike: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'id'>
+    & { likes?: Maybe<Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )>>, author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ) }
+  ) }
 );
 
 export type PostFragmentFragment = (
@@ -1354,47 +1398,6 @@ export function useGetFriendFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetFriendFeedQueryHookResult = ReturnType<typeof useGetFriendFeedQuery>;
 export type GetFriendFeedLazyQueryHookResult = ReturnType<typeof useGetFriendFeedLazyQuery>;
 export type GetFriendFeedQueryResult = Apollo.QueryResult<GetFriendFeedQuery, GetFriendFeedQueryVariables>;
-export const GetPostByIdDocument = gql`
-    query GetPostById($id: ID!) {
-  getPost(id: $id) {
-    id
-    likes {
-      id
-    }
-    author {
-      id
-    }
-  }
-}
-    `;
-/**
- * __useGetPostByIdQuery__
- *
- * To run a query within a React component, call `useGetPostByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPostByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPostByIdQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetPostByIdQuery(baseOptions: Apollo.QueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
-      }
-export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
-        }
-export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
-export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
-export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
-
 export const CreateCommentDocument = gql`
     mutation CreateComment($postId: ID!, $content: String!) {
   createComment(postId: $postId, content: $content) {
@@ -1498,7 +1501,6 @@ export type LikeCommentMutationFn = Apollo.MutationFunction<LikeCommentMutation,
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
-
  * const [likeCommentMutation, { data, loading, error }] = useLikeCommentMutation({
  *   variables: {
  *      commentId: // value for 'commentId'
@@ -1536,6 +1538,93 @@ export const GetCommentByIdDocument = gql`
  *   },
  * });
  */
+export function useGetCommentByIdQuery(baseOptions: Apollo.QueryHookOptions<GetCommentByIdQuery, GetCommentByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCommentByIdQuery, GetCommentByIdQueryVariables>(GetCommentByIdDocument, options);
+      }
+export function useGetCommentByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommentByIdQuery, GetCommentByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCommentByIdQuery, GetCommentByIdQueryVariables>(GetCommentByIdDocument, options);
+        }
+export type GetCommentByIdQueryHookResult = ReturnType<typeof useGetCommentByIdQuery>;
+export type GetCommentByIdLazyQueryHookResult = ReturnType<typeof useGetCommentByIdLazyQuery>;
+export type GetCommentByIdQueryResult = Apollo.QueryResult<GetCommentByIdQuery, GetCommentByIdQueryVariables>;
+export const GetPostByIdDocument = gql`
+    query GetPostById($id: ID!) {
+  getPost(id: $id) {
+    id
+    likes {
+      id
+    }
+    author {
+      id
+    }
+    comments {
+      ...CommentFragment
+    }
+  }
+}
+    ${CommentFragmentFragmentDoc}`;
+
+/**
+ * __useGetPostByIdQuery__
+ *
+ * To run a query within a React component, call `useGetPostByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPostByIdQuery(baseOptions: Apollo.QueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
+      }
+export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
+        }
+export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
+export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
+export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+export const ToggleLikeDocument = gql`
+    mutation ToggleLike($id: ID!) {
+  toggleLike(id: $id) {
+    id
+    likes {
+      id
+    }
+    author {
+      id
+    }
+  }
+}
+    `;
+export type ToggleLikeMutationFn = Apollo.MutationFunction<ToggleLikeMutation, ToggleLikeMutationVariables>;
+
+/**
+ * __useToggleLikeMutation__
+ *
+ * To run a mutation, you first call `useToggleLikeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useToggleLikeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [toggleLikeMutation, { data, loading, error }] = useToggleLikeMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
 export function useToggleLikeMutation(baseOptions?: Apollo.MutationHookOptions<ToggleLikeMutation, ToggleLikeMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useMutation<ToggleLikeMutation, ToggleLikeMutationVariables>(ToggleLikeDocument, options);
@@ -1543,7 +1632,6 @@ export function useToggleLikeMutation(baseOptions?: Apollo.MutationHookOptions<T
 export type ToggleLikeMutationHookResult = ReturnType<typeof useToggleLikeMutation>;
 export type ToggleLikeMutationResult = Apollo.MutationResult<ToggleLikeMutation>;
 export type ToggleLikeMutationOptions = Apollo.BaseMutationOptions<ToggleLikeMutation, ToggleLikeMutationVariables>;
-
 export const CreatePostDocument = gql`
     mutation CreatePost($textContent: String, $mediaContent: [String]) {
   createPost(textContent: $textContent, mediaContent: $mediaContent) {

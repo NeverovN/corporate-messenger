@@ -91,6 +91,7 @@ export type Mutation = {
   editMessage: Message;
   editPassword: User;
   editUsername: User;
+  getPost?: Maybe<Post>;
   getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   likeComment: Comment;
   login: AuthenticationResult;
@@ -168,6 +169,11 @@ export type MutationEditPasswordArgs = {
 export type MutationEditUsernameArgs = {
   newFirstName: Scalars['String'];
   newLastName: Scalars['String'];
+};
+
+
+export type MutationGetPostArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -458,6 +464,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   editMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationEditMessageArgs, 'messageId' | 'newContent'>>;
   editPassword?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditPasswordArgs, 'input'>>;
   editUsername?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditUsernameArgs, 'newFirstName' | 'newLastName'>>;
+  getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationGetPostArgs, 'id'>>;
   getUsersPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   likeComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationLikeCommentArgs, 'commentId'>>;
   login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;

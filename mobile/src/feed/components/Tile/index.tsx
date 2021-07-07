@@ -7,7 +7,7 @@ import styles from './styles';
 // components
 import TopTileBarContainer from 'feed/containers/TopBar';
 import ContentView from '../Content';
-import BottomTileBarView from 'feed/containers/BottomTileBar';
+import BottomTileBarContainer from 'feed/containers/BottomTileBar';
 
 export interface ITileViewProps {
   createdAt: string;

@@ -13,7 +13,7 @@ export const useFeedList = (): IPostItem[] => {
   }
   return data.getAllPosts.map((el) => {
     const username = getUsername(el?.author.firstName, el?.author.lastName);
-    const media = getMedia(post?.mediaContent);
+    const media = getMedia(el?.mediaContent);
 
     return {
       id: el?.id || '',
@@ -23,9 +23,8 @@ export const useFeedList = (): IPostItem[] => {
         el?.author.avatar ||
         'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
       createdAt: el?.createdAt || '',
-      textContent: post?.textContent || '',
+      textContent: el?.textContent || '',
       mediaContent: media,
-
     };
   });
 };

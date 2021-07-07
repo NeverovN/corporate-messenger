@@ -26,14 +26,6 @@ query GetFriendFeed {
   }
 }
 
-query GetPostById($id: ID!) {
-  getPost(id: $id) {
-    comments {
-      ...CommentFragment
-    }
-  }
-}
-
 mutation CreateComment($postId: ID!, $content: String!) {
   createComment(postId: $postId, content: $content) {
     id
@@ -97,6 +89,9 @@ query GetPostById($id: ID!) {
     }
     author {
       id
+    }
+    comments {
+      ...CommentFragment
     }
   }
 }
