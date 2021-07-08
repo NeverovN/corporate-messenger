@@ -13,16 +13,23 @@ export const useFriendFeedList = (): IPostItem[] => {
   }
 
   return data.getFriendPosts.map((el) => {
-    const username = getUsername(el?.author.firstName, el?.author.lastName);
+    const username = getUsername(
+      el?.author.firstName || '',
+      el?.author.lastName || '',
+    );
 
     return {
       id: el?.id || '',
-      authorId: el?.author.id || '',
-      author: username,
+      author: {
+        id: el?.author.id || '',
+        name: username,
+      },
       avatar:
         el?.author.avatar ||
-        'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
+        'https://cdn3.vectorstock.com/i/1000x1000/26/97/continuous-one-line-drawing-circle-minimalism-art-vector-25552697.jpg',
       createdAt: el?.createdAt || '',
+      textContent: '',
+      mediaContent: [''],
     };
   });
 };

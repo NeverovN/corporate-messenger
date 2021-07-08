@@ -1,7 +1,11 @@
 export interface IPostItem {
   id: string;
-  authorId: string;
-  createdAt: string;
-  author: string;
+  author: {
+    id: string;
+    name: string;
+  };
   avatar: string;
+  createdAt: string;
+  textContent: string;
+  mediaContent: string[];
 }

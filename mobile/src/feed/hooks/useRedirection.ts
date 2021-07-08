@@ -8,8 +8,8 @@ export const useRedirection = (userId: string) => {
   const { data } = useGetUserByIdQuery({ variables: { id: userId } });
 
   const username = getUsername(
-    data?.getUserById?.firstName,
-    data?.getUserById?.lastName,
+    data?.getUserById?.firstName || '',
+    data?.getUserById?.lastName || '',
   );
   return () => {
     navigation.navigate('ProfileStack', {

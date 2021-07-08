@@ -15,7 +15,10 @@ export interface ITileViewProps {
   createdAt: string;
   avatar: string;
   postId: string;
-  author: string;
+  author: {
+    id: string;
+    name: string;
+  };
   textContent: string;
 }
 const TileView: FC<ITileViewProps> = (props) => {

@@ -713,7 +713,7 @@ export type GetUserByIdQuery = (
   { __typename?: 'Query' }
   & { getUserById?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'firstName' | 'lastName'>
+    & Pick<User, 'firstName' | 'lastName' | 'id'>
   )> }
 );
 
@@ -1770,6 +1770,7 @@ export const GetUserByIdDocument = gql`
   getUserById(id: $id) {
     firstName
     lastName
+    id
   }
 }
     `;

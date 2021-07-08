@@ -10,12 +10,8 @@ export default StyleSheet.create({
 
     paddingVertical: 10,
 
-    backgroundColor: COLORS.white,
-
     borderTopWidth: 1,
     borderTopColor: COLORS.primaryOpacity,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
   },
   containerStyle: {
     marginLeft: 10,

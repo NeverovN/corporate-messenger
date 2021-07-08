@@ -10,13 +10,9 @@ export default StyleSheet.create({
     alignItems: 'center',
 
     padding: 10,
-    backgroundColor: COLORS.white,
 
     borderBottomWidth: 1,
     borderBottomColor: COLORS.primaryOpacity,
-
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
     width: '100%',
   },
 });

@@ -39,6 +39,7 @@ query GetUserByID($id: ID!) {
   getUserById(id: $id) {
     firstName
     lastName
+    id
   }
 }
 
