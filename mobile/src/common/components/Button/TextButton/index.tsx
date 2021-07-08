@@ -17,7 +17,9 @@ export interface ITextButtonProps {
 const TextButton: FC<ITextButtonProps> = (props) => {
   return (
     <TouchableOpacity style={props.containerStyle} onPress={props.onPress}>
-      <Text type={props.textType}>{props.label}</Text>
+      <Text style={props.labelStyle} type={props.textType}>
+        {props.label}
+      </Text>
     </TouchableOpacity>
   );
 };

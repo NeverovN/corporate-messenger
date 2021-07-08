@@ -1,19 +1,26 @@
 import React, { memo } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
+// common components
+import TextButton from 'common/components/Button/TextButton';
+
+// types
+import { TextType } from '@/common/types/styles';
+
 interface ISignButtonProps {
-  title?: string;
+  title: string;
   onPress?(): void;
 }
 
 const SignButton: React.FC<ISignButtonProps> = (props) => {
   return (
-    <TouchableOpacity onPress={props.onPress} style={styles.touchStyle}>
-      <View style={styles.viewStyle}>
-        <Text style={styles.textStyle}>{props.title}</Text>
-      </View>
-    </TouchableOpacity>
+    <TextButton
+      textType={TextType.TITLE}
+      labelStyle={styles.textStyle}
+      containerStyle={styles.viewStyle}
+      label={props.title}
+      onPress={props.onPress}
+    />
   );
 };
 

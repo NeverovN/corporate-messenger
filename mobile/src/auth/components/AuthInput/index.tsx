@@ -1,14 +1,18 @@
 import React, { memo } from 'react';
 import { TextInput } from 'react-native';
 
+// consts
+import COLORS from '@/common/constants/colors';
+
 // styles
 import styles from './styles';
 
 interface IAuthInput {
   placeholder: string;
   value: string;
-  onChangeText(value: string): void;
   secure?: boolean;
+
+  onChangeText(value: string): void;
 }
 
 const AuthInput: React.FC<IAuthInput> = (props) => {
@@ -21,6 +25,7 @@ const AuthInput: React.FC<IAuthInput> = (props) => {
       autoCapitalize="none"
       autoCorrect={false}
       placeholder={props.placeholder}
+      placeholderTextColor={COLORS.whiteOpacity}
       secureTextEntry={props.secure || false}
     />
   );

@@ -1,18 +1,20 @@
 import { StyleSheet } from 'react-native';
+import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
   textStyle: {
-    fontSize: 20,
+    color: COLORS.white,
   },
-
   viewStyle: {
-    width: 100,
-    height: 30,
-    overflow: 'hidden',
-    borderRadius: 15,
-    backgroundColor: 'green',
-    margin: 20,
     justifyContent: 'center',
     alignItems: 'center',
+
+    width: 150,
+    height: 40,
+    borderRadius: 10,
+
+    marginTop: 20,
+
+    backgroundColor: COLORS.primaryOpacity,
   },
 });
