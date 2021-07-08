@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -17,12 +17,10 @@ interface ITopTileBarViewProps {
 
 const TopTileBarView: FC<ITopTileBarViewProps> = (props) => {
   return (
-    <View style={styles.topTileBarStyle}>
-      <TouchableOpacity style={styles.touchableStyle} onPress={props.onPress}>
-        <UserIconView avatar={props.avatar} />
-        <UserDataView author={props.author} createdAt={props.createdAt} />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity style={styles.topTileBarStyle} onPress={props.onPress}>
+      <UserIconView avatar={props.avatar} />
+      <UserDataView author={props.author} createdAt={props.createdAt} />
+    </TouchableOpacity>
   );
 };
 

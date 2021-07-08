@@ -28,7 +28,7 @@ export const useUsersPosts = (userId?: string) => {
       author: name,
       avatar:
         post?.author.avatar ||
-        'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
+        'https://cdn3.vectorstock.com/i/1000x1000/26/97/continuous-one-line-drawing-circle-minimalism-art-vector-25552697.jpg',
       createdAt: post?.createdAt || '',
       textContent: post?.textContent || '',
       mediaContent: media,

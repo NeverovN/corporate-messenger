@@ -7,9 +7,6 @@ import styles from './styles';
 // common components
 import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 
-// components
-import TouchableIconView from '../TouchableIcon';
-
 // types
 import { IconType } from '@/common/types/styles';
 
@@ -21,7 +18,6 @@ interface IBottomTileBarViewProps {
 }
 
 const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
-
   const comments = props.commentCount > 0 ? props.commentCount.toString() : '';
 
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';

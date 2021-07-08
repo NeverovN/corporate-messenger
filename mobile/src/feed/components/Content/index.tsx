@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -10,9 +10,9 @@ interface IContentViewProps {
 
 const ContentView: FC<IContentViewProps> = (props) => {
   return (
-    <TouchableOpacity style={styles.contentStyle}>
+    <View style={styles.contentStyle}>
       <Text>{props.text}</Text>
-    </TouchableOpacity>
+    </View>
   );
 };
 

@@ -21,7 +21,7 @@ export const useFeedList = (): IPostItem[] => {
       author: username,
       avatar:
         el?.author.avatar ||
-        'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
+        'https://cdn3.vectorstock.com/i/1000x1000/26/97/continuous-one-line-drawing-circle-minimalism-art-vector-25552697.jpg',
       createdAt: el?.createdAt || '',
       textContent: el?.textContent || '',
       mediaContent: media,
