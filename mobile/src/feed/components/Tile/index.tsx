@@ -7,6 +7,8 @@ import styles from './styles';
 // components
 import TopTileBarContainer from 'feed/containers/TopBar';
 import ContentView from '../Content';
+
+// containers
 import BottomTileBarContainer from 'feed/containers/BottomTileBar';
 
 export interface ITileViewProps {

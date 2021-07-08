@@ -10,6 +10,7 @@ import styles from './styles';
 
 export interface IIconWithTextButtonProps {
   icon: string;
+  iconColor?: string;
   iconType?: IconType;
   iconStyle?: TextStyle;
   label: string;
@@ -25,7 +26,7 @@ const IconButton: FC<IIconWithTextButtonProps> = (props) => {
     <TouchableOpacity
       style={[styles.container, props.containerStyle]}
       onPress={props.onPress}>
-      <Icon type={props.iconType} name={props.icon} />
+      <Icon type={props.iconType} name={props.icon} color={props.iconColor} />
       <Text type={props.textType} style={props.labelStyle}>
         {props.label}
       </Text>

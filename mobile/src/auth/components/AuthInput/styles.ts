@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
 
+// consts
+import COLORS from '@/common/constants/colors';
+
 export default StyleSheet.create({
   inputStyle: {
-    borderBottomWidth: 1,
-    borderColor: 'black',
-    height: 30,
+    flex: 1,
     margin: 15,
-    width: 200,
     fontSize: 20,
+    color: COLORS.white,
   },
 });
