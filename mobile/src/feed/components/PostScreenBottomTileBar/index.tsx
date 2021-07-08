@@ -11,18 +11,25 @@ import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 import { IconType } from '@/common/types/styles';
 
 interface IBottomTileBarViewProps {
+  liked: boolean;
   likeCount: number;
+  onLikePressed(): void;
 }
 
 const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
   const likes = props.likeCount ? props.likeCount.toString() : '';
+  const likeColor = props.liked ? 'red' : 'while';
+
   return (
     <View style={styles.bottomTileBarStyle}>
       <IconWithTextButton
         label={likes}
         icon="heart"
+        iconColor={likeColor}
         iconType={IconType.LARGE}
-        containerStyle={styles.iconStyle}
+        containerStyle={styles.containerStyle}
+        labelStyle={styles.labelStyle}
+        onPress={props.onLikePressed}
       />
     </View>
   );

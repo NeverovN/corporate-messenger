@@ -6,6 +6,6 @@ export interface IPostItem {
   };
   avatar: string;
   createdAt: string;
-  textContent: string;
-  mediaContent: string[];
+  textContent: string | null;
+  mediaContent: string[] | null;
 }

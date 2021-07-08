@@ -11,6 +11,7 @@ import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 import { IconType } from '@/common/types/styles';
 
 interface IBottomTileBarViewProps {
+  liked: boolean;
   likeCount: number;
   onLikePressed(): void;
   commentCount: number;
@@ -22,6 +23,8 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
 
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
 
+  const likeColor = props.liked ? 'red' : 'while';
+
   return (
     <View style={styles.bottomTileBarStyle}>
       <IconWithTextButton
@@ -29,6 +32,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
         label={likes}
         iconType={IconType.LARGE}
         icon="heart"
+        iconColor={likeColor}
         containerStyle={styles.containerStyle}
         labelStyle={styles.labelStyle}
       />

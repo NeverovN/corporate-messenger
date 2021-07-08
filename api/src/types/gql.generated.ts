@@ -208,7 +208,7 @@ export type Post = {
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
   textContent?: Maybe<Scalars['String']>;
-  mediaContent?: Maybe<Array<Maybe<Scalars['String']>>>;
+  mediaContent?: Maybe<Array<Scalars['String']>>;
   likes?: Maybe<Array<User>>;
   comments?: Maybe<Array<Comment>>;
 };
@@ -479,7 +479,7 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   textContent?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  mediaContent?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  mediaContent?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   likes?: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>;
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

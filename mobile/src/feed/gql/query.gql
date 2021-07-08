@@ -89,10 +89,16 @@ query GetPostById($id: ID!) {
     }
     author {
       id
+      firstName
+      lastName
+      avatar
     }
     comments {
       ...CommentFragment
     }
+    createdAt
+    textContent
+    mediaContent
   }
 }
 

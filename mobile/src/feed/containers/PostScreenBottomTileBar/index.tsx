@@ -1,11 +1,9 @@
 import React, { FC, memo } from 'react';
 
 // components
-import BottomTileBarView from '@/feed/components/BottomTileBar';
+import PostScreenBottomTileBarView from '@/feed/components/PostScreenBottomTileBar';
 import { useOnLikePressed } from '@/feed/hooks/useOnLikePressed';
 import { useGetLikes } from '@/feed/hooks/useGetLikes';
-import { useOnCommentPressed } from '@/feed/hooks/useOnCommentPressed';
-import { useGetCommentsCount } from '@/feed/hooks/useGetCommentsCount';
 
 interface IBottomTileBarContainerProps {
   postId: string;
@@ -14,15 +12,11 @@ interface IBottomTileBarContainerProps {
 const BottomTileBarContainer: FC<IBottomTileBarContainerProps> = (props) => {
   const onLikePressed = useOnLikePressed(props.postId);
   const { likeCount, liked } = useGetLikes(props.postId);
-  const onCommentPressed = useOnCommentPressed(props.postId);
-  const commentCount = useGetCommentsCount(props.postId);
   return (
-    <BottomTileBarView
+    <PostScreenBottomTileBarView
       liked={liked}
       onLikePressed={onLikePressed}
       likeCount={likeCount}
-      onCommentPressed={onCommentPressed}
-      commentCount={commentCount}
     />
   );
 };

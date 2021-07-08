@@ -30,7 +30,7 @@ type Post {
   createdAt: String!
   lastEdit: String
   textContent: String
-  mediaContent: [String]
+  mediaContent: [String!]
   likes: [User!]
   comments: [Comment!]
 }
