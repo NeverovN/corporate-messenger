@@ -1,8 +1,18 @@
 import { useDeletePostByIdMutation } from '@/common/types/gql.generated';
-import ACTIONS from 'feed/constants/actions';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
+
+// consts
+import { EDIT_POST_SCREEN_NAME } from '../constants/routes';
+import ACTIONS from 'feed/constants/actions';
+
+// types
+import { PostStackNavigationProp } from 'feed/types/routes';
+import { newPost } from '@/common/cache/cache';
 
 export const useHandlePostActions = () => {
+  const navigation = useNavigation<PostStackNavigationProp>();
+
   const [deletePost] = useDeletePostByIdMutation({
     update: (cache, { data }) => {
       if (!data) {
@@ -33,7 +43,8 @@ export const useHandlePostActions = () => {
         break;
       }
       case ACTIONS.EDIT_POST: {
-        Alert.alert('Edit Post', 'Edit button pressed');
+        newPost();
+        navigation.navigate(EDIT_POST_SCREEN_NAME, {postId, text: });
       }
     }
   };

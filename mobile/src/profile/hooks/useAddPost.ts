@@ -14,11 +14,11 @@ export const useAddPost = () => {
         fields: {
           getPosts(exPosts = []) {
             try {
-              const newPost = cache.writeFragment({
+              const post = cache.writeFragment({
                 fragment: PostFragmentFragmentDoc,
                 data: data.createPost,
               });
-              return [...exPosts, newPost];
+              return [...exPosts, post];
             } catch (err) {
               throw Error(`cache update error -> ${err}`);
             }

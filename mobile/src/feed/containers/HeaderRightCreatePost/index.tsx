@@ -14,7 +14,7 @@ interface IHeaderRightProps {
   create(): void;
 }
 
-const HeaderRightEmail: FC<IHeaderRightProps> = (props) => {
+const HeaderRightCreatePost: FC<IHeaderRightProps> = (props) => {
   if (props.post) {
     return (
       <IconButton
@@ -35,4 +35,4 @@ const HeaderRightEmail: FC<IHeaderRightProps> = (props) => {
   );
 };
 
-export default memo(HeaderRightEmail);
+export default memo(HeaderRightCreatePost);

@@ -17,9 +17,9 @@ export type SettingsStackParamList = {
 
 export type AccountSettingsParamList = {
   [ACCOUNT_SCREEN_NAME]: undefined;
-  [EDIT_EMAIL_SCREEN_NAME]: { newEmail: string };
+  [EDIT_EMAIL_SCREEN_NAME]: { oldEmail: string };
   [EDIT_PASSWORD_SCREEN_NAME]: { old: string; new: string; newRep: string };
-  [EDIT_USERNAME_SCREEN_NAME]: { newFirstName: string; newLastName: string };
+  [EDIT_USERNAME_SCREEN_NAME]: { oldFirstName: string; oldLastName: string };
 };
 
 export type SettingsScreenNavigationProp = StackNavigationProp<

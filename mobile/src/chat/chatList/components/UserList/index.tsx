@@ -18,8 +18,6 @@ const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
 };
 
 const UserListView: FC<IUserListViewProps> = ({ data }) => {
-  console.log(data);
-
   const isSomeUsers = !!data;
 
   if (isSomeUsers) {
