@@ -135,6 +135,13 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     return post;
   },
+  async deletePostById(_, args, { currentUserId }) {
+    if (!currentUserId) {
+      throw new Error('Unauthorized');
+    }
+
+    return await PostController.deletePost(args.postId, currentUserId);
+  },
   async toggleLike(_, args, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');
 

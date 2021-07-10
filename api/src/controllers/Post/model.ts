@@ -5,6 +5,7 @@ import { PostDocument } from '../../models/Post/types';
 
 import { mapPostDocumentToPostEntity } from '../../models/Post/mappers';
 import PostEntityController from './entity';
+import CommentModel from '../Comment/model';
 
 class PostModelController {
   private mapPostWithFallback(post: PostDocument | null): PostEntity | null {
@@ -70,6 +71,32 @@ class PostModelController {
     }
 
     return mapPostDocumentToPostEntity(updatedPost);
+  }
+
+  async deletePost(postId: ID, currentUserId: ID): Promise<PostEntity> {
+    const post = await PostModel.findById(postId).exec();
+
+    if (!post) {
+      throw new Error('Post not found');
+    }
+
+    if (post.author !== currentUserId) {
+      throw new Error('You have not enough access rights');
+    }
+
+    try {
+      await CommentModel.deleteComments(postId);
+    } catch (err) {
+      throw new Error('connection error');
+    }
+
+    const deletedPost = await PostModel.findByIdAndDelete(postId).exec();
+
+    if (!deletedPost) {
+      throw new Error('connection error');
+    }
+
+    return mapPostDocumentToPostEntity(deletedPost);
   }
 }
 

@@ -85,12 +85,11 @@ export type Mutation = {
   deleteChatById: Chat;
   deleteCommentById: Comment;
   deleteMessageById: Message;
+  deletePostById: Post;
   editEmail: User;
   editMessage: Message;
   editPassword: User;
   editUsername: User;
-  getPost?: Maybe<Post>;
-  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   likeComment: Comment;
   login: AuthenticationResult;
   markRead: Message;
@@ -138,6 +137,10 @@ export type MutationDeleteMessageByIdArgs = {
   messageId: Scalars['ID'];
 };
 
+export type MutationDeletePostByIdArgs = {
+  postId: Scalars['ID'];
+};
+
 export type MutationEditEmailArgs = {
   newEmail: Scalars['String'];
 };
@@ -154,10 +157,6 @@ export type MutationEditPasswordArgs = {
 export type MutationEditUsernameArgs = {
   newFirstName: Scalars['String'];
   newLastName: Scalars['String'];
-};
-
-export type MutationGetPostArgs = {
-  id: Scalars['ID'];
 };
 
 export type MutationLikeCommentArgs = {
@@ -204,6 +203,7 @@ export type Query = {
   getUser: User;
   getUserById?: Maybe<User>;
   getUsers?: Maybe<Array<Maybe<User>>>;
+  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
 };
 
 export type QueryGetChatByIdArgs = {
@@ -548,6 +548,14 @@ export type ToggleLikeMutation = { __typename?: 'Mutation' } & {
       likes?: Maybe<Array<{ __typename?: 'User' } & Pick<User, 'id'>>>;
       author: { __typename?: 'User' } & Pick<User, 'id'>;
     };
+};
+
+export type DeletePostByIdMutationVariables = Exact<{
+  postId: Scalars['ID'];
+}>;
+
+export type DeletePostByIdMutation = { __typename?: 'Mutation' } & {
+  deletePostById: { __typename?: 'Post' } & Pick<Post, 'id'>;
 };
 
 export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
@@ -1860,6 +1868,55 @@ export type ToggleLikeMutationResult = Apollo.MutationResult<ToggleLikeMutation>
 export type ToggleLikeMutationOptions = Apollo.BaseMutationOptions<
   ToggleLikeMutation,
   ToggleLikeMutationVariables
+>;
+export const DeletePostByIdDocument = gql`
+  mutation DeletePostById($postId: ID!) {
+    deletePostById(postId: $postId) {
+      id
+    }
+  }
+`;
+export type DeletePostByIdMutationFn = Apollo.MutationFunction<
+  DeletePostByIdMutation,
+  DeletePostByIdMutationVariables
+>;
+
+/**
+ * __useDeletePostByIdMutation__
+ *
+ * To run a mutation, you first call `useDeletePostByIdMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePostByIdMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePostByIdMutation, { data, loading, error }] = useDeletePostByIdMutation({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useDeletePostByIdMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeletePostByIdMutation,
+    DeletePostByIdMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeletePostByIdMutation,
+    DeletePostByIdMutationVariables
+  >(DeletePostByIdDocument, options);
+}
+export type DeletePostByIdMutationHookResult = ReturnType<
+  typeof useDeletePostByIdMutation
+>;
+export type DeletePostByIdMutationResult = Apollo.MutationResult<DeletePostByIdMutation>;
+export type DeletePostByIdMutationOptions = Apollo.BaseMutationOptions<
+  DeletePostByIdMutation,
+  DeletePostByIdMutationVariables
 >;
 export const CreatePostDocument = gql`
   mutation CreatePost($textContent: String, $mediaContent: [String]) {

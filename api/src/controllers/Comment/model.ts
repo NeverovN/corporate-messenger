@@ -94,6 +94,15 @@ class CommentModelController {
 
     return comment;
   }
+
+  async deleteComments(postId: ID): Promise<boolean> {
+    try {
+      await CommentModel.deleteMany({ postId });
+      return true;
+    } catch (error) {
+      throw Error(`${error}`);
+    }
+  }
 }
 
 const commentModelController = new CommentModelController();

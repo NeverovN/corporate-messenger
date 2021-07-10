@@ -4,15 +4,23 @@ import { StyleSheet } from 'react-native';
 import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
-  topTileBarStyle: {
+  barStyle: {
     flexDirection: 'row',
-    // justifyContent: 'center',
+
+    width: '100%',
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.primaryOpacity,
+  },
+  userInfoStyle: {
+    flex: 1,
+    flexDirection: 'row',
+
     alignItems: 'center',
 
     padding: 10,
-
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.primaryOpacity,
-    width: '100%',
+  },
+  menuButtonStyle: {
+    justifyContent: 'center',
+    backgroundColor: COLORS.primary,
   },
 });

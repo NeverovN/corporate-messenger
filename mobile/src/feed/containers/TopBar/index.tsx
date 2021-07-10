@@ -6,6 +6,7 @@ import { useRedirection } from '@/feed/hooks/useRedirection';
 import { getFormattedDate } from '@/feed/utils/getFormatteDate';
 
 interface ITopTileBarContainerProps {
+  id: string;
   author: {
     id: string;
     name: string;
@@ -19,6 +20,7 @@ const TopTileBarContainer: FC<ITopTileBarContainerProps> = (props) => {
   const date = getFormattedDate(props.createdAt);
   return (
     <TopTileBarView
+      id={props.id}
       onPress={redirection}
       author={props.author.name}
       createdAt={date}

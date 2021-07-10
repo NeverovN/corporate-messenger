@@ -25,6 +25,7 @@ const TileView: FC<ITileViewProps> = (props) => {
   return (
     <View style={styles.tileStyle}>
       <TopTileBarContainer
+        id={props.postId}
         author={props.author}
         createdAt={props.createdAt}
         avatar={props.avatar}

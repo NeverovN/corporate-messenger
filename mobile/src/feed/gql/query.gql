@@ -113,3 +113,9 @@ mutation ToggleLike($id: ID!) {
     }
   }
 }
+
+mutation DeletePostById($postId: ID!) {
+  deletePostById(postId: $postId) {
+    id
+  }
+}

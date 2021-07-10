@@ -25,6 +25,7 @@ const PostTileView: FC<IPostTileViewProps> = (props) => {
   return (
     <View style={styles.tileStyle}>
       <TopTileBarContainer
+        id={props.id}
         author={props.author}
         createdAt={props.createdAt}
         avatar={props.avatar}

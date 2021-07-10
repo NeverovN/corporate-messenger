@@ -6,6 +6,7 @@ export default {
   whiteOpacity: '#ffffff70',
 
   black: '#000',
+  red: '#FF0000',
 
   beige: '#FCF4F0',
   lightGray: '#C4C7CD',

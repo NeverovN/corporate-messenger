@@ -22,7 +22,7 @@ export const useHandleChatActions = () => {
   });
   return (action: string, id: string) => {
     switch (action) {
-      case ACTIONS.DELETE: {
+      case ACTIONS.DELETE_COMMENT: {
         deleteComment({ variables: { id } });
       }
     }
