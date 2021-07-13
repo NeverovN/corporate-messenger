@@ -19,7 +19,7 @@ export interface ITileViewProps {
     id: string;
     name: string;
   };
-  textContent: string;
+  textContent: string | null;
 }
 const TileView: FC<ITileViewProps> = (props) => {
   return (
@@ -30,7 +30,7 @@ const TileView: FC<ITileViewProps> = (props) => {
         createdAt={props.createdAt}
         avatar={props.avatar}
       />
-      <ContentView text={props.textContent} />
+      {props.textContent ? <ContentView text={props.textContent} /> : null}
       <BottomTileBarContainer postId={props.postId} />
     </View>
   );

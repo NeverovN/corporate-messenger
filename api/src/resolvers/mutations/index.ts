@@ -124,16 +124,27 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       throw Error('unauthorized user');
     }
 
-    const text = args.textContent ? args.textContent : '';
+    const text = args.textContent ? args.textContent : null;
     // setup for future implementation
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const media = args.mediaContent?.length ? args.mediaContent : null;
 
-    const post = await PostController.createPost(currentUserId, text);
+    const post = await PostController.createPost(currentUserId, text, media);
 
     pubsub.publish(POST_CREATED, post);
 
     return post;
+  },
+  async editPost(_, args, { currentUserId }) {
+    if (!currentUserId) {
+      throw new Error('Unauthorized');
+    }
+
+    return PostController.editPost(
+      args.postId,
+      args.textContent || null,
+      args.mediaContent || null,
+    );
   },
   async deletePostById(_, args, { currentUserId }) {
     if (!currentUserId) {

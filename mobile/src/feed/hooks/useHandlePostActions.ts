@@ -8,7 +8,8 @@ import ACTIONS from 'feed/constants/actions';
 
 // types
 import { PostStackNavigationProp } from 'feed/types/routes';
-import { newPost } from '@/common/cache/cache';
+import { editPost } from '@/common/cache/cache';
+import { IPostItem } from '../types/feed';
 
 export const useHandlePostActions = () => {
   const navigation = useNavigation<PostStackNavigationProp>();
@@ -32,19 +33,23 @@ export const useHandlePostActions = () => {
     },
   });
 
-  return async (action: string, postId: string) => {
+  return async (action: string, post: IPostItem) => {
     switch (action) {
       case ACTIONS.DELETE_POST: {
         try {
-          await deletePost({ variables: { postId } });
+          await deletePost({ variables: { postId: post.id } });
         } catch (err) {
           Alert.alert('Error', `${err}`);
         }
         break;
       }
       case ACTIONS.EDIT_POST: {
-        newPost();
-        navigation.navigate(EDIT_POST_SCREEN_NAME, {postId, text: });
+        editPost(post);
+        navigation.navigate(EDIT_POST_SCREEN_NAME, {
+          postId: post.id,
+          text: post.textContent,
+          media: post.mediaContent,
+        });
       }
     }
   };

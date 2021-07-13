@@ -38,10 +38,15 @@ class PostModelController {
     return posts.map((el) => this.mapPostWithFallback(el));
   }
 
-  async createPost(authorId: ID, textContent: string): Promise<PostEntity> {
+  async createPost(
+    authorId: ID,
+    textContent: string | null,
+    mediaContent: string[] | null,
+  ): Promise<PostEntity> {
     const newPost = PostEntityController.createPostEntity(
       authorId,
       textContent,
+      mediaContent,
     );
 
     const createdPost = await PostModel.create(newPost);
@@ -97,6 +102,33 @@ class PostModelController {
     }
 
     return mapPostDocumentToPostEntity(deletedPost);
+  }
+
+  async editPost(
+    postId: ID,
+    textContent: string | null,
+    mediaContent: string[] | null,
+  ): Promise<PostEntity> {
+    const post = await PostModel.findById(postId).exec();
+
+    if (!post) {
+      throw new Error('Post does not exist');
+    }
+
+    const newPost = PostEntityController.editPost(
+      mapPostDocumentToPostEntity(post),
+      textContent,
+      mediaContent,
+    );
+
+    await PostModel.findByIdAndUpdate(postId, newPost).exec();
+    const updatedPost = await PostModel.findById(postId);
+
+    if (!updatedPost) {
+      throw new Error('Network error');
+    }
+
+    return mapPostDocumentToPostEntity(updatedPost);
   }
 }
 

@@ -6,35 +6,62 @@ import EditPostScreenView from '@/feed/components/EditPostScreen';
 import HeaderRightEditPost from '../HeaderRightCreatePost';
 
 // cache
-import { newPost } from '@/common/cache/cache';
+import { editPost } from '@/common/cache/cache';
 
 // types
-import { Post } from '@/common/types/gql.generated';
+import { EditPostScreenRouteProp } from 'feed/types/routes';
+import { IPostItem } from '@/feed/types/feed';
 
 // hooks
-import { useAddPost } from '@/profile/hooks/useAddPost';
+import { useEditPost } from 'feed/hooks/useEditPost';
 
 // utils
-import { isEmptyPost } from '@/profile/utils/isEmptyPost';
+import { editPostSubmitValidate } from 'feed/utils/editPostSubmitValidate';
+import { useRoute } from '@react-navigation/native';
+import { useInitialTextValue } from '@/feed/hooks/useInitialTextValue';
+import { useInitialMediaValue } from '@/feed/hooks/useInitialMediaValue';
 
 interface IEditPostScreenContainerProps {}
 
 const EditPostScreenContainer: FC<IEditPostScreenContainerProps> = () => {
   const navigation = useNavigation();
-  const [textValue, setTextValue] = useState<string>('');
-  const [post, setPost] = useState<Post>(newPost());
-  const addPost = useAddPost();
+  const { params } = useRoute<EditPostScreenRouteProp>();
+
+  const initialTextValue = useInitialTextValue(params.postId);
+  const initialMediaVale = useInitialMediaValue(params.postId);
+
+  const [textValue, setTextValue] = useState<string | null>(params.text);
+  const [mediaValue, setMediaValue] = useState<string[] | null>(params.media);
+  const [post, setPost] = useState<IPostItem>(editPost());
+  const addPost = useEditPost();
 
   useEffect(() => {
-    const cachedPost = newPost({ ...newPost(), textContent: textValue });
+    const cachedPost = editPost({
+      ...editPost(),
+      textContent: textValue,
+      mediaContent: mediaValue,
+    });
+
+    if (textValue === '') {
+      setTextValue(null);
+    }
+
+    if (mediaValue?.length === 0) {
+      setMediaValue(null);
+    }
+
     setPost(cachedPost);
-  }, [textValue]);
+  }, [textValue, mediaValue]);
 
   useEffect(() => {
-    const currentPostState = isEmptyPost(post) ? null : newPost();
+    const currentPostState = editPostSubmitValidate(
+      post,
+      initialTextValue,
+      initialMediaVale,
+    );
     navigation.setOptions({
       headerRight: () => (
-        <HeaderRightEditPost post={currentPostState} create={addPost} />
+        <HeaderRightEditPost isPost={!!currentPostState} create={addPost} />
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,6 +71,8 @@ const EditPostScreenContainer: FC<IEditPostScreenContainerProps> = () => {
     <EditPostScreenView
       textValue={textValue}
       onTextValueChange={setTextValue}
+      mediaValue={mediaValue}
+      onMediaValueChange={setMediaValue}
     />
   );
 };

@@ -89,6 +89,7 @@ export type Mutation = {
   editEmail: User;
   editMessage: Message;
   editPassword: User;
+  editPost: Post;
   editUsername: User;
   likeComment: Comment;
   login: AuthenticationResult;
@@ -118,7 +119,7 @@ export type MutationCreateMessageArgs = {
 
 export type MutationCreatePostArgs = {
   textContent?: Maybe<Scalars['String']>;
-  mediaContent?: Maybe<Array<Maybe<Scalars['String']>>>;
+  mediaContent?: Maybe<Array<Scalars['String']>>;
 };
 
 export type MutationCreateUserArgs = {
@@ -152,6 +153,12 @@ export type MutationEditMessageArgs = {
 
 export type MutationEditPasswordArgs = {
   input: UpdatePasswordInput;
+};
+
+export type MutationEditPostArgs = {
+  postId: Scalars['ID'];
+  textContent?: Maybe<Scalars['String']>;
+  mediaContent?: Maybe<Array<Scalars['String']>>;
 };
 
 export type MutationEditUsernameArgs = {
@@ -550,6 +557,28 @@ export type ToggleLikeMutation = { __typename?: 'Mutation' } & {
     };
 };
 
+export type EditPostMutationVariables = Exact<{
+  postId: Scalars['ID'];
+  textContent?: Maybe<Scalars['String']>;
+  mediaContent?: Maybe<Array<Scalars['String']> | Scalars['String']>;
+}>;
+
+export type EditPostMutation = { __typename?: 'Mutation' } & {
+  editPost: { __typename?: 'Post' } & Pick<
+    Post,
+    'id' | 'createdAt' | 'textContent' | 'mediaContent'
+  > & {
+      likes?: Maybe<Array<{ __typename?: 'User' } & Pick<User, 'id'>>>;
+      author: { __typename?: 'User' } & Pick<
+        User,
+        'id' | 'firstName' | 'lastName' | 'avatar'
+      >;
+      comments?: Maybe<
+        Array<{ __typename?: 'Comment' } & CommentFragmentFragment>
+      >;
+    };
+};
+
 export type DeletePostByIdMutationVariables = Exact<{
   postId: Scalars['ID'];
 }>;
@@ -570,9 +599,7 @@ export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
 
 export type CreatePostMutationVariables = Exact<{
   textContent?: Maybe<Scalars['String']>;
-  mediaContent?: Maybe<
-    Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>
-  >;
+  mediaContent?: Maybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
 
 export type CreatePostMutation = { __typename?: 'Mutation' } & {
@@ -1869,6 +1896,79 @@ export type ToggleLikeMutationOptions = Apollo.BaseMutationOptions<
   ToggleLikeMutation,
   ToggleLikeMutationVariables
 >;
+export const EditPostDocument = gql`
+  mutation EditPost(
+    $postId: ID!
+    $textContent: String
+    $mediaContent: [String!]
+  ) {
+    editPost(
+      postId: $postId
+      textContent: $textContent
+      mediaContent: $mediaContent
+    ) {
+      id
+      likes {
+        id
+      }
+      author {
+        id
+        firstName
+        lastName
+        avatar
+      }
+      comments {
+        ...CommentFragment
+      }
+      createdAt
+      textContent
+      mediaContent
+    }
+  }
+  ${CommentFragmentFragmentDoc}
+`;
+export type EditPostMutationFn = Apollo.MutationFunction<
+  EditPostMutation,
+  EditPostMutationVariables
+>;
+
+/**
+ * __useEditPostMutation__
+ *
+ * To run a mutation, you first call `useEditPostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditPostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editPostMutation, { data, loading, error }] = useEditPostMutation({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *      textContent: // value for 'textContent'
+ *      mediaContent: // value for 'mediaContent'
+ *   },
+ * });
+ */
+export function useEditPostMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditPostMutation,
+    EditPostMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<EditPostMutation, EditPostMutationVariables>(
+    EditPostDocument,
+    options,
+  );
+}
+export type EditPostMutationHookResult = ReturnType<typeof useEditPostMutation>;
+export type EditPostMutationResult = Apollo.MutationResult<EditPostMutation>;
+export type EditPostMutationOptions = Apollo.BaseMutationOptions<
+  EditPostMutation,
+  EditPostMutationVariables
+>;
 export const DeletePostByIdDocument = gql`
   mutation DeletePostById($postId: ID!) {
     deletePostById(postId: $postId) {
@@ -1919,7 +2019,7 @@ export type DeletePostByIdMutationOptions = Apollo.BaseMutationOptions<
   DeletePostByIdMutationVariables
 >;
 export const CreatePostDocument = gql`
-  mutation CreatePost($textContent: String, $mediaContent: [String]) {
+  mutation CreatePost($textContent: String, $mediaContent: [String!]) {
     createPost(textContent: $textContent, mediaContent: $mediaContent) {
       ...PostFragment
     }

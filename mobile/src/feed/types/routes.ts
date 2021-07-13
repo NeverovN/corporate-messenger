@@ -35,3 +35,8 @@ export type PostScreenRouteProp = RouteProp<
   RootStackParamList,
   typeof POST_SCREEN_NAME
 >;
+
+export type EditPostScreenRouteProp = RouteProp<
+  RootStackParamList,
+  typeof EDIT_POST_SCREEN_NAME
+>;

@@ -1,13 +1,14 @@
-import { newPost } from '@/common/cache/cache';
-import { useNavigation } from '@react-navigation/native';
 import {
-  useCreatePostMutation,
   PostFragmentFragmentDoc,
-} from 'common/types/gql.generated';
+  useEditPostMutation,
+} from '@/common/types/gql.generated';
 
-export const useAddPost = () => {
-  const navigation = useNavigation();
-  const [createPost] = useCreatePostMutation({
+// cache
+import { editPost } from '@/common/cache/cache';
+import { Alert } from 'react-native';
+
+export const useEditPost = () => {
+  const [editPostMutation] = useEditPostMutation({
     update: (cache, { data }) => {
       if (!data) {
         return;
@@ -18,7 +19,7 @@ export const useAddPost = () => {
             try {
               const post = cache.writeFragment({
                 fragment: PostFragmentFragmentDoc,
-                data: data.createPost,
+                data: data.editPost,
               });
               return [...exPosts, post];
             } catch (err) {
@@ -29,18 +30,17 @@ export const useAddPost = () => {
       });
     },
   });
+
   return async () => {
     try {
-      const post = newPost();
-      await createPost({
-        variables: {
-          textContent: post.textContent,
-          mediaContent: post.mediaContent,
-        },
-      });
-      navigation.goBack();
+      const newPost = {
+        postId: editPost().id,
+        textContent: editPost().textContent,
+        mediaContent: editPost().mediaContent,
+      };
+      await editPostMutation({ variables: { ...newPost } });
     } catch (err) {
-      console.log(err);
+      Alert.alert('Error', `${err}`);
     }
   };
 };

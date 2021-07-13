@@ -16,7 +16,8 @@ type Subscription {
 }
 
 type Mutation {
-  createPost(textContent: String, mediaContent: [String]): Post!
+  createPost(textContent: String, mediaContent: [String!]): Post!
+  editPost(postId: ID!, textContent: String, mediaContent: [String!]): Post!
   deletePostById(postId: ID!): Post!
   toggleLike(id: ID!): Post!
   createComment(postId: ID!, content: String!): Comment!

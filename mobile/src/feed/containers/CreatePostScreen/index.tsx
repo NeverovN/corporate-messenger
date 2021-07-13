@@ -27,7 +27,7 @@ const CreatePostScreenContainer: FC<ICreatePostScreenContainerProps> = () => {
     const currentPostState = isEmptyPost(post) ? null : newPost();
     navigation.setOptions({
       headerRight: () => (
-        <HeaderRightCreatePost post={currentPostState} create={addPost} />
+        <HeaderRightCreatePost isPost={!!currentPostState} create={addPost} />
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

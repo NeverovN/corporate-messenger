@@ -1,16 +1,28 @@
 import React, { FC, memo } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, TextInput } from 'react-native';
 
 // styles
 import styles from './styles';
 
-interface IEditPostScreenViewProps {}
+interface IEditPostScreenViewProps {
+  textValue: string | null;
+  onTextValueChange(val: string): void;
 
-const EditPostScreenView: FC<IEditPostScreenViewProps> = () => {
+  mediaValue: string[] | null;
+  onMediaValueChange(val: string[]): void;
+}
+
+const EditPostScreenView: FC<IEditPostScreenViewProps> = (props) => {
   return (
-    <View style={styles.screenStyle}>
-      <Text>Edit post screen</Text>
-    </View>
+    <ScrollView contentContainerStyle={styles.editPostScreenStyle}>
+      <TextInput
+        style={styles.inputStyle}
+        multiline={true}
+        scrollEnabled={true}
+        value={props.textValue || ''}
+        onChangeText={props.onTextValueChange}
+      />
+    </ScrollView>
   );
 };
 
