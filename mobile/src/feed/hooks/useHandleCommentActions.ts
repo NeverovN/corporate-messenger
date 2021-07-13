@@ -44,7 +44,6 @@ export const useHandleCommentActions = () => {
       }
       case ACTIONS.EDIT_COMMENT: {
         editComment(comment);
-        // seems that navigation params are not necessary
         navigation.navigate(EDIT_COMMENT_SCREEN_NAME);
       }
     }

@@ -25,7 +25,7 @@ export type RootStackParamList = {
 
 export type PostStackParamList = {
   [POST_SCREEN_NAME]: { postId: string };
-  [EDIT_COMMENT_SCREEN_NAME]: { commentId: string; text: string };
+  [EDIT_COMMENT_SCREEN_NAME]: undefined;
 };
 
 export type TopTabsParamList = {

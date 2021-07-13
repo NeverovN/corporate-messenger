@@ -21,7 +21,7 @@ interface ICommentContainerProps {
 }
 
 const CommentContainer: FC<ICommentContainerProps> = (props) => {
-  const comment = useGetComment(props.id);
+  const [comment, liked] = useGetComment(props.id);
   const toggleLike = useLikeComment(props.id);
   const date = getDate(props.createdAt);
   const actionHandler = useHandleCommentActions();
@@ -40,6 +40,7 @@ const CommentContainer: FC<ICommentContainerProps> = (props) => {
         content={props.content}
         likeCount={comment.likes}
         toggleLike={toggleLike}
+        liked={liked}
       />
     </ContextMenu>
   );

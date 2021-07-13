@@ -618,7 +618,10 @@ export type GetCommentByIdQuery = (
   & { getComment?: Maybe<(
     { __typename?: 'Comment' }
     & CommentFragmentFragment
-  )> }
+  )>, getUser: (
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  ) }
 );
 
 export type CommentFragmentFragment = (
@@ -1625,6 +1628,9 @@ export const GetCommentByIdDocument = gql`
     query GetCommentById($id: ID!) {
   getComment(id: $id) {
     ...CommentFragment
+  }
+  getUser {
+    id
   }
 }
     ${CommentFragmentFragmentDoc}`;
