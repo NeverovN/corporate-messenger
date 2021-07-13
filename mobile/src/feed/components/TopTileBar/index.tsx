@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -12,7 +12,8 @@ import UserIconView from '../UserIcon';
 import PostMenuButton from 'feed/containers/PostMenuButton';
 
 interface ITopTileBarViewProps {
-  onPress(): void;
+  onUserPress(): void;
+  onPostPressed(): void;
   id: string;
   avatar: string;
   author: string;
@@ -21,11 +22,13 @@ interface ITopTileBarViewProps {
 
 const TopTileBarView: FC<ITopTileBarViewProps> = (props) => {
   return (
-    <TouchableOpacity style={styles.barStyle} onPress={props.onPress}>
-      <View style={styles.userInfoStyle}>
+    <TouchableOpacity style={styles.barStyle} onPress={props.onPostPressed}>
+      <TouchableOpacity
+        style={styles.userInfoStyle}
+        onPress={props.onUserPress}>
         <UserIconView avatar={props.avatar} />
         <UserDataView author={props.author} createdAt={props.createdAt} />
-      </View>
+      </TouchableOpacity>
       <PostMenuButton postId={props.id} />
     </TouchableOpacity>
   );

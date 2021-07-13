@@ -6,13 +6,12 @@ import COLORS from '@/common/constants/colors';
 export default StyleSheet.create({
   barStyle: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
 
-    width: '100%',
     borderBottomWidth: 1,
     borderBottomColor: COLORS.primaryOpacity,
   },
   userInfoStyle: {
-    flex: 1,
     flexDirection: 'row',
 
     alignItems: 'center',
