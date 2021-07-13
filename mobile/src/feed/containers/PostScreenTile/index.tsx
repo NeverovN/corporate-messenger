@@ -2,6 +2,8 @@ import React, { FC, memo } from 'react';
 
 // components
 import PostScreenTileView from '@/feed/components/PostScreenTile';
+
+// hooks
 import { useGetPost } from '@/feed/hooks/useGetPost';
 
 interface IPostScreenTileContainer {

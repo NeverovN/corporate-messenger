@@ -28,8 +28,8 @@ export const useFriendFeedList = (): IPostItem[] => {
         el?.author.avatar ||
         'https://cdn3.vectorstock.com/i/1000x1000/26/97/continuous-one-line-drawing-circle-minimalism-art-vector-25552697.jpg',
       createdAt: el?.createdAt || '',
-      textContent: '',
-      mediaContent: [''],
+      textContent: null,
+      mediaContent: null,
     };
   });
 };

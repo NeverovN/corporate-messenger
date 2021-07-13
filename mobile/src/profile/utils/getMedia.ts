@@ -3,5 +3,5 @@ export const getMedia = (media: Array<any> | null | undefined) => {
     return media;
   }
 
-  return [];
+  return null;
 };

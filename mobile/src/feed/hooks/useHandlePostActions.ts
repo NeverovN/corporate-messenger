@@ -54,10 +54,3 @@ export const useHandlePostActions = () => {
     }
   };
 };
-
-type MessageType = {
-  id: string;
-  content: string;
-  createdAt: string;
-  author: string;
-};

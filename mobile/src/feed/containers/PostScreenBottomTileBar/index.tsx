@@ -2,6 +2,8 @@ import React, { FC, memo } from 'react';
 
 // components
 import PostScreenBottomTileBarView from '@/feed/components/PostScreenBottomTileBar';
+
+// hooks
 import { useOnLikePressed } from '@/feed/hooks/useOnLikePressed';
 import { useGetLikes } from '@/feed/hooks/useGetLikes';
 
