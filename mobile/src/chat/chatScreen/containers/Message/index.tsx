@@ -6,12 +6,12 @@ import MessageView from 'chat/chatScreen/components/Message';
 // hooks
 import { useOnMessagePressed } from 'chat/chatScreen/hooks/useOnMessagePressed';
 import { useDirection } from 'chat/chatScreen/hooks/useDirection';
-import { useGetCurrentUserId } from '@/common/hooks/useGetCurrentUserId';
 
 // constants
 import { parseDate } from '../../utils/parseDate';
 
 interface IMessageContainerProps {
+  currentUserId: string;
   messageId: string;
   content: string;
   author: string;
@@ -22,8 +22,7 @@ interface IMessageContainerProps {
 }
 
 const MessageContainer: FC<IMessageContainerProps> = (props) => {
-  const currentUserId = useGetCurrentUserId();
-  const direction = useDirection(props.author, currentUserId);
+  const direction = useDirection(props.author, props.currentUserId);
   const onPress = useOnMessagePressed(props.messageId);
   const createdAt = parseDate(props.createdAt);
   const lastEdit = parseDate(props.lastEdit);

@@ -48,7 +48,12 @@ export const useGetChatMessages = () => {
     },
   });
 
-  if (!data || !data.getChatById || !data.getChatById.messages) {
+  if (
+    !data ||
+    !data.getUser ||
+    !data.getChatById ||
+    !data.getChatById.messages
+  ) {
     return [] as any;
   }
 
@@ -58,6 +63,7 @@ export const useGetChatMessages = () => {
     }
 
     return {
+      currentUserId: data.getUser.id,
       id: el.id,
       content: el.content,
       createdAt: el.createdAt,
