@@ -3,11 +3,11 @@ import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
   tileStyle: {
-    width: '100%',
     marginTop: 10,
     backgroundColor: COLORS.white,
     borderRadius: 10,
-    shadowColor: '#000',
+
+    shadowColor: COLORS.black,
     shadowOffset: {
       width: 0,
       height: 2,
