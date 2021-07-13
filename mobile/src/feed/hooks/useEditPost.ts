@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import {
   PostFragmentFragmentDoc,
   useEditPostMutation,
@@ -5,9 +7,9 @@ import {
 
 // cache
 import { editPost } from '@/common/cache/cache';
-import { Alert } from 'react-native';
 
 export const useEditPost = () => {
+  const navigation = useNavigation();
   const [editPostMutation] = useEditPostMutation({
     update: (cache, { data }) => {
       if (!data) {
@@ -39,6 +41,7 @@ export const useEditPost = () => {
         mediaContent: editPost().mediaContent,
       };
       await editPostMutation({ variables: { ...newPost } });
+      navigation.goBack();
     } catch (err) {
       Alert.alert('Error', `${err}`);
     }
