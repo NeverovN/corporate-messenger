@@ -87,12 +87,12 @@ export type Mutation = {
   deleteChatById: Chat;
   deleteCommentById: Comment;
   deleteMessageById: Message;
+  deletePostById: Post;
   editEmail: User;
   editMessage: Message;
   editPassword: User;
+  editPost: Post;
   editUsername: User;
-  getPost?: Maybe<Post>;
-  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
   likeComment: Comment;
   login: AuthenticationResult;
   markRead: Message;
@@ -126,7 +126,7 @@ export type MutationCreateMessageArgs = {
 
 export type MutationCreatePostArgs = {
   textContent?: Maybe<Scalars['String']>;
-  mediaContent?: Maybe<Array<Maybe<Scalars['String']>>>;
+  mediaContent?: Maybe<Array<Scalars['String']>>;
 };
 
 
@@ -150,6 +150,11 @@ export type MutationDeleteMessageByIdArgs = {
 };
 
 
+export type MutationDeletePostByIdArgs = {
+  postId: Scalars['ID'];
+};
+
+
 export type MutationEditEmailArgs = {
   newEmail: Scalars['String'];
 };
@@ -166,14 +171,16 @@ export type MutationEditPasswordArgs = {
 };
 
 
-export type MutationEditUsernameArgs = {
-  newFirstName: Scalars['String'];
-  newLastName: Scalars['String'];
+export type MutationEditPostArgs = {
+  postId: Scalars['ID'];
+  textContent?: Maybe<Scalars['String']>;
+  mediaContent?: Maybe<Array<Scalars['String']>>;
 };
 
 
-export type MutationGetPostArgs = {
-  id: Scalars['ID'];
+export type MutationEditUsernameArgs = {
+  newFirstName: Scalars['String'];
+  newLastName: Scalars['String'];
 };
 
 
@@ -208,7 +215,7 @@ export type Post = {
   createdAt: Scalars['String'];
   lastEdit?: Maybe<Scalars['String']>;
   textContent?: Maybe<Scalars['String']>;
-  mediaContent?: Maybe<Array<Maybe<Scalars['String']>>>;
+  mediaContent?: Maybe<Array<Scalars['String']>>;
   likes?: Maybe<Array<User>>;
   comments?: Maybe<Array<Comment>>;
 };
@@ -225,6 +232,7 @@ export type Query = {
   getUser: User;
   getUserById?: Maybe<User>;
   getUsers?: Maybe<Array<Maybe<User>>>;
+  getUsersPosts?: Maybe<Array<Maybe<Post>>>;
 };
 
 
@@ -460,12 +468,12 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteChatById?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationDeleteChatByIdArgs, 'chatId'>>;
   deleteCommentById?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationDeleteCommentByIdArgs, 'id'>>;
   deleteMessageById?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationDeleteMessageByIdArgs, 'messageId'>>;
+  deletePostById?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationDeletePostByIdArgs, 'postId'>>;
   editEmail?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditEmailArgs, 'newEmail'>>;
   editMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationEditMessageArgs, 'messageId' | 'newContent'>>;
   editPassword?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditPasswordArgs, 'input'>>;
+  editPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationEditPostArgs, 'postId'>>;
   editUsername?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditUsernameArgs, 'newFirstName' | 'newLastName'>>;
-  getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationGetPostArgs, 'id'>>;
-  getUsersPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   likeComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationLikeCommentArgs, 'commentId'>>;
   login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
   markRead?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationMarkReadArgs, 'messageId'>>;
@@ -479,7 +487,7 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   textContent?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  mediaContent?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  mediaContent?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   likes?: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>;
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -496,6 +504,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryGetUserArgs, never>>;
   getUserById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
   getUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  getUsersPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {

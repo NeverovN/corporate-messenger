@@ -30,7 +30,6 @@ const link = split(
 
 const errorLink = onError((error) => {
   // TODO: implement real errorLink (for example clean token from storage in some cases)
-
   console.log('Network Error ->', error);
 });
 

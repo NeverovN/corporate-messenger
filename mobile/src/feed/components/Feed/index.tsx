@@ -5,7 +5,7 @@ import { FlatList, View, ListRenderItem } from 'react-native';
 import Tile from '../Tile';
 
 // types
-import { IPostItem } from 'profile/types/post';
+import { IPostItem } from 'feed/types/feed';
 
 // styles
 import styles from './styles';
@@ -17,11 +17,12 @@ interface IFeedListViewProps {
 const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
   return (
     <Tile
-      textContent={item.textContent}
       author={item.author}
-      postId={item.id}
-      createdAt={item.createdAt}
       avatar={item.avatar}
+      id={item.id}
+      textContent={item.textContent}
+      createdAt={item.createdAt}
+      mediaContent={item.mediaContent}
     />
   );
 };

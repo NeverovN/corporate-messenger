@@ -89,10 +89,16 @@ query GetPostById($id: ID!) {
     }
     author {
       id
+      firstName
+      lastName
+      avatar
     }
     comments {
       ...CommentFragment
     }
+    createdAt
+    textContent
+    mediaContent
   }
 }
 
@@ -105,5 +111,40 @@ mutation ToggleLike($id: ID!) {
     author {
       id
     }
+  }
+}
+
+mutation EditPost(
+  $postId: ID!
+  $textContent: String
+  $mediaContent: [String!]
+) {
+  editPost(
+    postId: $postId
+    textContent: $textContent
+    mediaContent: $mediaContent
+  ) {
+    id
+    likes {
+      id
+    }
+    author {
+      id
+      firstName
+      lastName
+      avatar
+    }
+    comments {
+      ...CommentFragment
+    }
+    createdAt
+    textContent
+    mediaContent
+  }
+}
+
+mutation DeletePostById($postId: ID!) {
+  deletePostById(postId: $postId) {
+    id
   }
 }

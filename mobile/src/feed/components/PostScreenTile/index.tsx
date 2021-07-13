@@ -5,20 +5,35 @@ import { View } from 'react-native';
 import styles from './styles';
 
 // components
-import TopTileBarView from '../TopTileBar';
+import TopTileBarContainer from 'feed/containers/TopBar';
 import ContentView from '../Content';
-import PostScreenBottomTileBar from '../PostScreenBottomTileBar';
+import PostScreenBottomTileBarContainer from 'feed/containers/PostScreenBottomTileBar';
 
-export interface ITileViewProps {}
+export interface IPostTileViewProps {
+  id: string;
+  createdAt: string;
+  avatar: string;
+  author: {
+    id: string;
+    name: string;
+  };
+  mediaContent: string[] | null;
+  textContent: string | null;
+}
 
-const TileView: FC<ITileViewProps> = () => {
+const PostTileView: FC<IPostTileViewProps> = (props) => {
   return (
     <View style={styles.tileStyle}>
-      <TopTileBarView />
-      <ContentView />
-      <PostScreenBottomTileBar />
+      <TopTileBarContainer
+        id={props.id}
+        author={props.author}
+        createdAt={props.createdAt}
+        avatar={props.avatar}
+      />
+      {props.textContent ? <ContentView text={props.textContent} /> : null}
+      <PostScreenBottomTileBarContainer postId={props.id} />
     </View>
   );
 };
 
-export default memo(TileView);
+export default memo(PostTileView);

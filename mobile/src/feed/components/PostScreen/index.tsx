@@ -6,12 +6,17 @@ import styles from './styles';
 
 // components
 import Comment from 'feed/containers/Comment';
-import { ICommentItem } from '@/feed/types/comment';
+
+// containers
 import CommentInput from 'feed/containers/CommentInput';
-import PostScreenTile from '../PostScreenTile';
+import PostScreenTile from 'feed/containers/PostScreenTile';
+
+// types
+import { ICommentItem } from '@/feed/types/comment';
 
 interface IPostScreenViewProps {
   data: ICommentItem[];
+  postId: string;
 }
 
 const renderPostItem: ListRenderItem<ICommentItem> = ({ item }) => {
@@ -29,7 +34,7 @@ const PostScreenView: FC<IPostScreenViewProps> = (props) => {
   return (
     <View style={styles.postScreenStyle}>
       <FlatList
-        ListHeaderComponent={PostScreenTile}
+        ListHeaderComponent={<PostScreenTile postId={props.postId} />}
         data={props.data}
         renderItem={renderPostItem}
       />

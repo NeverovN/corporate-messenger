@@ -20,7 +20,7 @@ export const useHandleEditNavigation = (screen: Operations) => {
     case Operations.EMAIL: {
       return () =>
         navigation.navigate(EDIT_EMAIL_SCREEN_NAME, {
-          newEmail: data?.getUser.email || '',
+          oldEmail: data?.getUser.email || '',
         });
     }
     case Operations.PASSWORD: {
@@ -34,8 +34,8 @@ export const useHandleEditNavigation = (screen: Operations) => {
     case Operations.USERNAME: {
       return () =>
         navigation.navigate(EDIT_USERNAME_SCREEN_NAME, {
-          newFirstName: data?.getUser.firstName || '',
-          newLastName: data?.getUser.lastName || '',
+          oldFirstName: data?.getUser.firstName || '',
+          oldLastName: data?.getUser.lastName || '',
         });
     }
   }

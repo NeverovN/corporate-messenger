@@ -3,13 +3,13 @@ import { getUsername } from '@/profile/utils/getUsername';
 import { useNavigation } from '@react-navigation/native';
 import { ProfileStackNavigationProp } from 'app/types/routes';
 
-export const useRedirection = (userId: string) => {
+export const useUserRedirection = (userId: string) => {
   const navigation = useNavigation<ProfileStackNavigationProp>();
   const { data } = useGetUserByIdQuery({ variables: { id: userId } });
 
   const username = getUsername(
-    data?.getUserById?.firstName,
-    data?.getUserById?.lastName,
+    data?.getUserById?.firstName || '',
+    data?.getUserById?.lastName || '',
   );
   return () => {
     navigation.navigate('ProfileStack', {

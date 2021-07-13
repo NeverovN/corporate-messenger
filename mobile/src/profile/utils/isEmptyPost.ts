@@ -1,6 +1,7 @@
 import { Post } from '@/common/types/gql.generated';
+import { IPostItem } from '@/feed/types/feed';
 
-export const isEmptyPost = (obj: Post) => {
+export const isEmptyPost = (obj: Post | IPostItem) => {
   if (Object.keys(obj).length === 0) {
     return true;
   }

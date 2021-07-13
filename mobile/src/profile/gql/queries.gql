@@ -11,7 +11,7 @@ fragment PostFragment on Post {
   mediaContent
 }
 
-mutation CreatePost($textContent: String, $mediaContent: [String]) {
+mutation CreatePost($textContent: String, $mediaContent: [String!]) {
   createPost(textContent: $textContent, mediaContent: $mediaContent) {
     ...PostFragment
   }
@@ -39,6 +39,7 @@ query GetUserByID($id: ID!) {
   getUserById(id: $id) {
     firstName
     lastName
+    id
   }
 }
 

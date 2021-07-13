@@ -1,7 +1,7 @@
 import React, { FC, memo, useState } from 'react';
 
 // components
-import CreatePostScreenView from '@/profile/components/CreatePostScreen';
+import CreatePostScreenView from '@/feed/components/CreatePostScreen';
 import { useNavigation } from '@react-navigation/core';
 import HeaderRightCreatePost from '../HeaderRightCreatePost';
 import { useEffect } from 'react';
@@ -25,10 +25,9 @@ const CreatePostScreenContainer: FC<ICreatePostScreenContainerProps> = () => {
 
   useEffect(() => {
     const currentPostState = isEmptyPost(post) ? null : newPost();
-    console.log(currentPostState);
     navigation.setOptions({
       headerRight: () => (
-        <HeaderRightCreatePost post={currentPostState} create={addPost} />
+        <HeaderRightCreatePost isPost={!!currentPostState} create={addPost} />
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

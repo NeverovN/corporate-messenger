@@ -2,22 +2,30 @@ import React, { FC, memo } from 'react';
 
 // components
 import TopTileBarView from 'feed/components/TopTileBar';
-import { useRedirection } from '@/feed/hooks/useRedirection';
-import { getFormattedDate } from '@/feed/utils/getFormatteDate';
+import { useUserRedirection } from '@/feed/hooks/useUserRedirection';
+import { getFormattedDate } from '@/feed/utils/getFormatDate';
+import { usePostRedirection } from '@/feed/hooks/usePostRedirection';
 
 interface ITopTileBarContainerProps {
-  author: string;
+  id: string;
+  author: {
+    id: string;
+    name: string;
+  };
   createdAt: string;
   avatar: string;
 }
 
 const TopTileBarContainer: FC<ITopTileBarContainerProps> = (props) => {
-  const redirection = useRedirection(props.author);
+  const userRedirection = useUserRedirection(props.author.id);
+  const postRedirection = usePostRedirection(props.id);
   const date = getFormattedDate(props.createdAt);
   return (
     <TopTileBarView
-      onPress={redirection}
-      author={props.author}
+      id={props.id}
+      onUserPress={userRedirection}
+      onPostPressed={postRedirection}
+      author={props.author.name}
       createdAt={date}
       avatar={props.avatar}
     />

@@ -3,8 +3,12 @@ import { ID } from '../../types/common';
 import { PostEntity } from '../../models/Post';
 
 class PostEntityController {
-  createPostEntity(authorId: ID, textContent: string): PostEntity {
-    const newPost = new PostEntity(authorId, textContent);
+  createPostEntity(
+    authorId: ID,
+    textContent: string | null,
+    mediaContent: string[] | null,
+  ): PostEntity {
+    const newPost = new PostEntity(authorId, textContent, mediaContent);
 
     return newPost;
   }
@@ -15,6 +19,23 @@ class PostEntityController {
     } else {
       return this.addLike(post, likeAuthor);
     }
+  }
+
+  editPost(
+    post: PostEntity,
+    newTextContent: string | null,
+    newMediaContent: string[] | null,
+  ) {
+    const newPost = { ...post };
+    if (newPost.text !== newTextContent) {
+      newPost.text = newTextContent;
+    }
+
+    if (newPost.media !== newMediaContent) {
+      newPost.media = newMediaContent;
+    }
+
+    return newPost;
   }
 
   private addLike(post: PostEntity, author: ID): PostEntity {

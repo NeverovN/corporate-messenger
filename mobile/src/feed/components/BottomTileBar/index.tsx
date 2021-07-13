@@ -7,13 +7,14 @@ import styles from './styles';
 // common components
 import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 
-// components
-import TouchableIconView from '../TouchableIcon';
-
 // types
 import { IconType } from '@/common/types/styles';
 
+// constants
+import COLORS from '@/common/constants/colors';
+
 interface IBottomTileBarViewProps {
+  liked: boolean;
   likeCount: number;
   onLikePressed(): void;
   commentCount: number;
@@ -21,10 +22,11 @@ interface IBottomTileBarViewProps {
 }
 
 const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
-
   const comments = props.commentCount > 0 ? props.commentCount.toString() : '';
 
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
+
+  const likeColor = props.liked ? COLORS.red : COLORS.black;
 
   return (
     <View style={styles.bottomTileBarStyle}>
@@ -33,6 +35,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
         label={likes}
         iconType={IconType.LARGE}
         icon="heart"
+        iconColor={likeColor}
         containerStyle={styles.containerStyle}
         labelStyle={styles.labelStyle}
       />

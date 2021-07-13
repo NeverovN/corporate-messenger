@@ -28,7 +28,7 @@ const CommentContainer: FC<ICommentContainerProps> = (props) => {
   return (
     <ContextMenu
       title={'Comment Actions'}
-      actions={[{ title: ACTIONS.DELETE, destructive: true }]}
+      actions={[{ title: ACTIONS.DELETE_COMMENT, destructive: true }]}
       onPress={(e) => actionHandler(e.nativeEvent.name, props.id)}>
       <CommentView
         authorName={commentInfo.username}

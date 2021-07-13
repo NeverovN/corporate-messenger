@@ -10,24 +10,21 @@ import ContentView from '../Content';
 
 // containers
 import BottomTileBarContainer from 'feed/containers/BottomTileBar';
+import { IPostItem } from '@/feed/types/feed';
 
-export interface ITileViewProps {
-  createdAt: string;
-  avatar: string;
-  postId: string;
-  author: string;
-  textContent: string;
-}
+export interface ITileViewProps extends IPostItem {}
+
 const TileView: FC<ITileViewProps> = (props) => {
   return (
     <View style={styles.tileStyle}>
       <TopTileBarContainer
+        id={props.id}
         author={props.author}
         createdAt={props.createdAt}
         avatar={props.avatar}
       />
-      <ContentView text={props.textContent} />
-      <BottomTileBarContainer postId={props.postId} />
+      {props.textContent ? <ContentView text={props.textContent} /> : null}
+      <BottomTileBarContainer postId={props.id} />
     </View>
   );
 };

@@ -10,7 +10,7 @@ import MainTile from 'profile/containers/MainTile';
 import Tile from 'feed/components/Tile';
 
 // types
-import { IPostItem } from 'profile/types/post';
+import { IPostItem } from 'feed/types/feed';
 
 interface IProfileViewProps {
   data: Array<IPostItem>;
@@ -19,10 +19,12 @@ interface IProfileViewProps {
 const renderPostItem: ListRenderItem<IPostItem> = ({ item }) => {
   return (
     <Tile
-      username={item.author}
+      author={item.author}
+      id={item.id}
       createdAt={item.createdAt}
       avatar={item.avatar}
       textContent={item.textContent}
+      mediaContent={item.mediaContent}
     />
   );
 };
@@ -31,9 +33,10 @@ const ProfileView: FC<IProfileViewProps> = (props) => {
   return (
     <View style={styles.profileStyle}>
       <FlatList
-        ListHeaderComponent={MainTile}
+        ListFooterComponent={MainTile}
         data={props.data}
         renderItem={renderPostItem}
+        inverted={true}
       />
     </View>
   );

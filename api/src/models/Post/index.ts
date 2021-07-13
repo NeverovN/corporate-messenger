@@ -38,21 +38,25 @@ export class PostEntity {
   repost: Nullable<URL>;
 
   @prop()
-  text: string;
+  text: string | null;
 
   @prop()
-  media: Array<PostMedia>;
+  media: string[] | null;
 
   @prop()
   likes: Array<ID>;
 
-  constructor(authorId: ID, textContent: string) {
+  constructor(
+    authorId: ID,
+    textContent: string | null,
+    mediaContent: string[] | null,
+  ) {
     this.author = authorId;
     this.text = textContent;
     this.createdAt = new Date().toString();
     this.lastEdit = null;
     this.repost = null;
-    this.media = [];
+    this.media = mediaContent;
     this.likes = [];
   }
 }

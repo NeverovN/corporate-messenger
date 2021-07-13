@@ -23,7 +23,6 @@ export const useHandleMessageActions = () => {
   return (action: string, messageId: string) => {
     switch (action) {
       case ACTIONS.DELETE: {
-        console.log(messageId);
         deleteMessage({ variables: { messageId } });
         break;
       }

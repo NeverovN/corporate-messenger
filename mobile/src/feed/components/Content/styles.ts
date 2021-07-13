@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
+// consts
+import COLORS from '@/common/constants/colors';
+
 export default StyleSheet.create({
   contentStyle: {
-    width: '100%',
     padding: 10,
-    backgroundColor: '#E5E5E5',
+    backgroundColor: COLORS.white,
   },
 });

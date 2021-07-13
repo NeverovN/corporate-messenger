@@ -6,16 +6,15 @@ import Icon from '@/common/components/Icon';
 
 // styles
 import styles from './styles';
-import { Post } from '@/common/types/gql.generated';
 import { IconType } from '@/common/types/styles';
 
 interface IHeaderRightProps {
-  post: Post | null;
+  isPost: boolean;
   create(): void;
 }
 
-const HeaderRightEmail: FC<IHeaderRightProps> = (props) => {
-  if (props.post) {
+const HeaderRightCreatePost: FC<IHeaderRightProps> = (props) => {
+  if (props.isPost) {
     return (
       <IconButton
         icon="check"
@@ -35,4 +34,4 @@ const HeaderRightEmail: FC<IHeaderRightProps> = (props) => {
   );
 };
 
-export default memo(HeaderRightEmail);
+export default memo(HeaderRightCreatePost);

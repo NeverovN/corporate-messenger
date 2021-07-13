@@ -4,15 +4,36 @@ import { View } from 'react-native';
 // styles
 import styles from './styles';
 
-// components
-import TouchableIconView from '../TouchableIcon';
+// common components
+import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 
-interface IBottomTileBarViewProps {}
+// types
+import { IconType } from '@/common/types/styles';
 
-const BottomTileBar: FC<IBottomTileBarViewProps> = () => {
+// consts
+import COLORS from '@/common/constants/colors';
+
+interface IBottomTileBarViewProps {
+  liked: boolean;
+  likeCount: number;
+  onLikePressed(): void;
+}
+
+const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
+  const likes = props.likeCount ? props.likeCount.toString() : '';
+  const likeColor = props.liked ? COLORS.red : COLORS.black;
+
   return (
     <View style={styles.bottomTileBarStyle}>
-      <TouchableIconView name="heart" size={30} />
+      <IconWithTextButton
+        label={likes}
+        icon="heart"
+        iconColor={likeColor}
+        iconType={IconType.LARGE}
+        containerStyle={styles.containerStyle}
+        labelStyle={styles.labelStyle}
+        onPress={props.onLikePressed}
+      />
     </View>
   );
 };

@@ -1,15 +1,25 @@
 import { StyleSheet } from 'react-native';
 
+// consts
+import COLORS from '@/common/constants/colors';
+
 export default StyleSheet.create({
-  topTileBarStyle: {
-    width: '100%',
-    maxHeight: 50, // random number for now
-    justifyContent: 'center',
-    backgroundColor: '#EBD5B0',
-  },
-  touchableStyle: {
+  barStyle: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.primaryOpacity,
+  },
+  userInfoStyle: {
+    flexDirection: 'row',
+
     alignItems: 'center',
-    paddingHorizontal: 10,
+
+    padding: 10,
+  },
+  menuButtonStyle: {
+    justifyContent: 'center',
+    backgroundColor: COLORS.primary,
   },
 });

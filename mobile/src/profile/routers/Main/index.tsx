@@ -14,7 +14,7 @@ import {
 import Profile from 'profile/containers/Profile';
 import SearchUsersScreen from 'profile/containers/SearchUsersScreen';
 import ThirdPartyUser from 'profile/containers/ThirdPartyUser';
-import CreatePostScreen from '@/profile/containers/CreatePostScreen';
+import CreatePostScreen from '@/feed/containers/CreatePostScreen';
 
 // hocs
 import HeaderRight from '@/profile/containers/HeaderRight';
