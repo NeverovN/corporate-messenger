@@ -142,8 +142,8 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     return PostController.editPost(
       args.postId,
-      args.textContent || null,
-      args.mediaContent || null,
+      args.textContent,
+      args.mediaContent,
     );
   },
   async deletePostById(_, args, { currentUserId }) {

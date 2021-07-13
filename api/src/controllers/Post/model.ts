@@ -106,9 +106,12 @@ class PostModelController {
 
   async editPost(
     postId: ID,
-    textContent: string | null,
-    mediaContent: string[] | null,
+    textContent: string | null | undefined,
+    mediaContent: string[] | null | undefined,
   ): Promise<PostEntity> {
+    const text = textContent ? textContent : null;
+    const media = mediaContent ? mediaContent : null;
+
     const post = await PostModel.findById(postId).exec();
 
     if (!post) {
@@ -117,8 +120,8 @@ class PostModelController {
 
     const newPost = PostEntityController.editPost(
       mapPostDocumentToPostEntity(post),
-      textContent,
-      mediaContent,
+      text,
+      media,
     );
 
     await PostModel.findByIdAndUpdate(postId, newPost).exec();
