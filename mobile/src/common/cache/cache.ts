@@ -1,3 +1,4 @@
+import { ICommentItem } from '@/feed/types/comment';
 import { IPostItem } from '@/feed/types/feed';
 import { InMemoryCache, makeVar } from '@apollo/client';
 import { Post } from 'common/types/gql.generated';
@@ -18,6 +19,9 @@ export const cache = new InMemoryCache({
         editPost() {
           return editPost();
         },
+        editComment() {
+          return editComment();
+        },
       },
     },
     User: {
@@ -36,3 +40,4 @@ export const tokenVar = makeVar<string>('');
 export const selectedFriendsVar = makeVar<string[]>([]);
 export const newPost = makeVar<Post>({} as Post);
 export const editPost = makeVar<IPostItem>({} as IPostItem);
+export const editComment = makeVar<ICommentItem>({} as ICommentItem);

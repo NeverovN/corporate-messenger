@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 
 // components
 import EditPostScreenView from 'feed/components/EditPostScreen';
-import HeaderRightEditPost from '../HeaderRightCreatePost';
+import HeaderRightEditPost from '../HeaderRightSubmit';
 
 // cache
 import { editPost } from 'common/cache/cache';
@@ -15,8 +15,8 @@ import { IPostItem } from 'feed/types/feed';
 
 // hooks
 import { useEditPost } from 'feed/hooks/useEditPost';
-import { useInitialTextValue } from 'feed/hooks/useInitialTextValue';
-import { useInitialMediaValue } from 'feed/hooks/useInitialMediaValue';
+import { useInitialPostTextValue } from '@/feed/hooks/useInitialPostTextValue';
+import { useInitialPostMediaValue } from '@/feed/hooks/useInitialPostMediaValue';
 
 // utils
 import { editPostSubmitValidate } from 'feed/utils/editPostSubmitValidate';
@@ -27,8 +27,8 @@ const EditPostScreenContainer: FC<IEditPostScreenContainerProps> = () => {
   const navigation = useNavigation();
   const { params } = useRoute<EditPostScreenRouteProp>();
 
-  const initialTextValue = useInitialTextValue(params.postId);
-  const initialMediaVale = useInitialMediaValue(params.postId);
+  const initialTextValue = useInitialPostTextValue(params.postId);
+  const initialMediaVale = useInitialPostMediaValue(params.postId);
 
   const [textValue, setTextValue] = useState<string | null>(params.text);
   const [mediaValue, setMediaValue] = useState<string[] | null>(params.media);
@@ -62,8 +62,8 @@ const EditPostScreenContainer: FC<IEditPostScreenContainerProps> = () => {
     navigation.setOptions({
       headerRight: () => (
         <HeaderRightEditPost
-          isPost={!!currentPostState}
-          create={editPostHandler}
+          isValid={!!currentPostState}
+          submit={editPostHandler}
         />
       ),
     });

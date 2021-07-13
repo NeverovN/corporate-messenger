@@ -1,7 +1,9 @@
 import { useGetPostByIdQuery } from '@/common/types/gql.generated';
 
-export const useInitialTextValue = (postId: string) => {
+export const useInitialPostMediaValue = (postId: string) => {
   const { data } = useGetPostByIdQuery({ variables: { id: postId } });
-  const initial = data?.getPost?.textContent ? data.getPost.textContent : null;
+  const initial = data?.getPost?.mediaContent
+    ? data.getPost.mediaContent
+    : null;
   return initial;
 };

@@ -22,6 +22,7 @@ type Mutation {
   toggleLike(id: ID!): Post!
   createComment(postId: ID!, content: String!): Comment!
   likeComment(commentId: ID!): Comment!
+  editComment(commentId: ID!, textContent: String!): Comment!
   deleteCommentById(id: ID!): Comment!
 }
 

@@ -3,7 +3,7 @@ import React, { FC, memo, useState } from 'react';
 // components
 import CreatePostScreenView from '@/feed/components/CreatePostScreen';
 import { useNavigation } from '@react-navigation/core';
-import HeaderRightCreatePost from '../HeaderRightCreatePost';
+import HeaderRightSubmit from '../HeaderRightSubmit';
 import { useEffect } from 'react';
 import { newPost } from '@/common/cache/cache';
 import { Post } from '@/common/types/gql.generated';
@@ -27,7 +27,7 @@ const CreatePostScreenContainer: FC<ICreatePostScreenContainerProps> = () => {
     const currentPostState = isEmptyPost(post) ? null : newPost();
     navigation.setOptions({
       headerRight: () => (
-        <HeaderRightCreatePost isPost={!!currentPostState} create={addPost} />
+        <HeaderRightSubmit isValid={!!currentPostState} submit={addPost} />
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

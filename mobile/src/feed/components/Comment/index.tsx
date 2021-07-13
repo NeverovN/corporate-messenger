@@ -4,7 +4,11 @@ import { View, Text, Image } from 'react-native';
 // common components
 import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 
+// styles
 import styles from './styles';
+
+// consts
+import COLORS from '@/common/constants/colors';
 
 interface ICommentViewProps {
   content: string;
@@ -12,14 +16,14 @@ interface ICommentViewProps {
   authorAvatar: string;
   createdAt: string;
   likeCount: number;
+  liked: boolean;
   toggleLike(): void;
 }
 
 const CommentView: FC<ICommentViewProps> = (props) => {
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
+  const iconColor = props.liked ? COLORS.red : COLORS.black;
   return (
-    // TODO: implement context menu
-
     <View style={styles.feedStyle}>
       <Image
         style={styles.userIconImageStyle}
@@ -35,6 +39,7 @@ const CommentView: FC<ICommentViewProps> = (props) => {
             label={likes}
             labelStyle={styles.iconStyle}
             onPress={props.toggleLike}
+            iconColor={iconColor}
           />
         </View>
       </View>

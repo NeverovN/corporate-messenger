@@ -103,6 +103,31 @@ class CommentModelController {
       throw Error(`${error}`);
     }
   }
+
+  async editComment(
+    commentId: ID,
+    textContent: string,
+  ): Promise<CommentEntity> {
+    const comment = await CommentModel.findById(commentId).exec();
+
+    if (!comment) {
+      throw new Error('Comment not found');
+    }
+
+    const newComment = CommentEntityController.edit(
+      mapCommentDocumentToCommentEntity(comment),
+      textContent,
+    );
+
+    await CommentModel.findByIdAndUpdate(commentId, newComment);
+    const updatedComment = await CommentModel.findById(commentId).exec();
+
+    if (!updatedComment) {
+      throw new Error('Network error');
+    }
+
+    return mapCommentDocumentToCommentEntity(updatedComment);
+  }
 }
 
 const commentModelController = new CommentModelController();
