@@ -8,7 +8,7 @@ import Tile from '../Tile';
 import styles from './styles';
 
 // types
-import { IPostItem } from 'profile/types/post';
+import { IPostItem } from 'feed/types/feed';
 
 interface IFriendFeedListViewProps {
   data: IPostItem[];
@@ -17,11 +17,12 @@ interface IFriendFeedListViewProps {
 const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
   return (
     <Tile
-      textContent={item.textContent}
-      author={item.author}
-      postId={item.id}
+      id={item.id}
       createdAt={item.createdAt}
+      author={item.author}
       avatar={item.avatar}
+      textContent={item.textContent}
+      mediaContent={item.mediaContent}
     />
   );
 };

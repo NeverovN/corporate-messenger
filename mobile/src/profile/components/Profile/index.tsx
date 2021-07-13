@@ -20,10 +20,11 @@ const renderPostItem: ListRenderItem<IPostItem> = ({ item }) => {
   return (
     <Tile
       author={item.author}
-      postId={item.id}
+      id={item.id}
       createdAt={item.createdAt}
       avatar={item.avatar}
       textContent={item.textContent}
+      mediaContent={item.mediaContent}
     />
   );
 };

@@ -19,9 +19,10 @@ const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
     <Tile
       author={item.author}
       avatar={item.avatar}
-      postId={item.id}
+      id={item.id}
       textContent={item.textContent}
       createdAt={item.createdAt}
+      mediaContent={item.mediaContent}
     />
   );
 };
