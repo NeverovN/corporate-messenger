@@ -5,7 +5,7 @@ import { PostDocument } from '../../models/Post/types';
 
 import { mapPostDocumentToPostEntity } from '../../models/Post/mappers';
 import PostEntityController from './entity';
-import CommentModel from '../Comment/model';
+import CommentModelController from '../Comment/model';
 
 class PostModelController {
   private mapPostWithFallback(post: PostDocument | null): PostEntity | null {
@@ -90,7 +90,7 @@ class PostModelController {
     }
 
     try {
-      await CommentModel.deleteComments(postId);
+      await CommentModelController.deleteComments(postId);
     } catch (err) {
       throw new Error('connection error');
     }
