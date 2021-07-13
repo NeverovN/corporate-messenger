@@ -173,6 +173,13 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     return newComment;
   },
+  async editComment(_, args, { currentUserId }) {
+    if (!currentUserId) {
+      throw new Error('Unauthorized');
+    }
+
+    return CommentController.editComment(args.commentId, args.textContent);
+  },
   async likeComment(_, args, { currentUserId }) {
     if (!currentUserId) {
       throw Error('Unauthorized');

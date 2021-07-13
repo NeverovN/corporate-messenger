@@ -88,6 +88,7 @@ export type Mutation = {
   deleteCommentById: Comment;
   deleteMessageById: Message;
   deletePostById: Post;
+  editComment: Comment;
   editEmail: User;
   editMessage: Message;
   editPassword: User;
@@ -152,6 +153,12 @@ export type MutationDeleteMessageByIdArgs = {
 
 export type MutationDeletePostByIdArgs = {
   postId: Scalars['ID'];
+};
+
+
+export type MutationEditCommentArgs = {
+  commentId: Scalars['ID'];
+  textContent: Scalars['String'];
 };
 
 
@@ -469,6 +476,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteCommentById?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationDeleteCommentByIdArgs, 'id'>>;
   deleteMessageById?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationDeleteMessageByIdArgs, 'messageId'>>;
   deletePostById?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationDeletePostByIdArgs, 'postId'>>;
+  editComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationEditCommentArgs, 'commentId' | 'textContent'>>;
   editEmail?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditEmailArgs, 'newEmail'>>;
   editMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationEditMessageArgs, 'messageId' | 'newContent'>>;
   editPassword?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditPasswordArgs, 'input'>>;

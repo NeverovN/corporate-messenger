@@ -22,6 +22,16 @@ class CommentEntityController {
 
     return newComment;
   }
+
+  edit(comment: CommentEntity, newText: string) {
+    const newComment = { ...comment };
+
+    if (newComment.content !== newText) {
+      newComment.content = newText;
+    }
+
+    return newComment;
+  }
 }
 
 const commentEntityController = new CommentEntityController();

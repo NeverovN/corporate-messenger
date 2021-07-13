@@ -60,6 +60,12 @@ mutation LikeComment($commentId: ID!) {
   }
 }
 
+mutation EditComment($commentId: ID!, $textContent: String!) {
+  editComment(commentId: $commentId, textContent: $textContent) {
+    ...CommentFragment
+  }
+}
+
 query GetCommentById($id: ID!) {
   getComment(id: $id) {
     ...CommentFragment

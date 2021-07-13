@@ -1,13 +1,12 @@
 export interface ICommentItem {
   id: string;
-  content: string;
+  content: string | null;
   author: IAuthor;
   createdAt: string;
 }
 
 interface IAuthor {
   id: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   avatar: string;
 }

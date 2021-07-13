@@ -7,11 +7,11 @@ import CommentView from '@/feed/components/Comment';
 import ACTIONS from '@/feed/constants/actions';
 
 // hooks
-import { useGetCommentInfo } from '@/feed/hooks/useGetCommentInfo';
+import { useGetComment } from '@/feed/hooks/useGetComment';
 import { getDate } from '@/feed/utils/getDate';
 import { useLikeComment } from '@/feed/hooks/useLikeComment';
 import ContextMenu from 'react-native-context-menu-view';
-import { useHandleChatActions } from '@/feed/hooks/useHandleCommentActions';
+import { useHandleCommentActions } from '@/feed/hooks/useHandleCommentActions';
 
 interface ICommentContainerProps {
   id: string;
@@ -21,21 +21,24 @@ interface ICommentContainerProps {
 }
 
 const CommentContainer: FC<ICommentContainerProps> = (props) => {
-  const commentInfo = useGetCommentInfo(props.author, props.id);
+  const comment = useGetComment(props.id);
   const toggleLike = useLikeComment(props.id);
   const date = getDate(props.createdAt);
-  const actionHandler = useHandleChatActions();
+  const actionHandler = useHandleCommentActions();
   return (
     <ContextMenu
       title={'Comment Actions'}
-      actions={[{ title: ACTIONS.DELETE_COMMENT, destructive: true }]}
-      onPress={(e) => actionHandler(e.nativeEvent.name, props.id)}>
+      actions={[
+        { title: ACTIONS.EDIT_COMMENT },
+        { title: ACTIONS.DELETE_COMMENT, destructive: true },
+      ]}
+      onPress={(e) => actionHandler(e.nativeEvent.name, comment)}>
       <CommentView
-        authorName={commentInfo.username}
-        authorAvatar={commentInfo.userAvatar}
+        authorName={comment.author.name}
+        authorAvatar={comment.author.avatar}
         createdAt={date}
         content={props.content}
-        likeCount={commentInfo.likeCount}
+        likeCount={comment.likes}
         toggleLike={toggleLike}
       />
     </ContextMenu>

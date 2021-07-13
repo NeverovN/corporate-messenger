@@ -9,18 +9,18 @@ import styles from './styles';
 import { IconType } from '@/common/types/styles';
 
 interface IHeaderRightProps {
-  isPost: boolean;
-  create(): void;
+  isValid: boolean;
+  submit(): void;
 }
 
-const HeaderRightCreatePost: FC<IHeaderRightProps> = (props) => {
-  if (props.isPost) {
+const HeaderRightSubmit: FC<IHeaderRightProps> = (props) => {
+  if (props.isValid) {
     return (
       <IconButton
         icon="check"
         containerStyle={styles.activeIconStyle}
         iconType={IconType.LARGE}
-        onPress={props.create}
+        onPress={props.submit}
       />
     );
   }
@@ -34,4 +34,4 @@ const HeaderRightCreatePost: FC<IHeaderRightProps> = (props) => {
   );
 };
 
-export default memo(HeaderRightCreatePost);
+export default memo(HeaderRightSubmit);
