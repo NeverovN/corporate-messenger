@@ -22,7 +22,9 @@ export const useChatList = (filter: string) => {
       id: el.id,
       unreadCount:
         el.messages?.reduce((acc, msg) => {
-          return msg?.read ? acc : acc + 1;
+          return msg?.readBy.find((user) => user.id === data.getUser.id)
+            ? acc
+            : acc + 1;
         }, 0) || 0,
     };
   });

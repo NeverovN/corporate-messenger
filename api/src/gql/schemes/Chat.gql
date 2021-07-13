@@ -4,7 +4,7 @@ type Message {
   author: User!
   chatId: ID!
   createdAt: String!
-  read: Boolean!
+  readBy: [User!]!
   lastEdit: String
 }
 

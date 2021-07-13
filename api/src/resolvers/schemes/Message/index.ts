@@ -14,8 +14,8 @@ const messageResolvers: MessageResolvers = {
 
     return author;
   },
-  read: async (message: MessageEntity, _, { currentUserId }) =>
-    message.readBy.includes(currentUserId) || message.author === currentUserId,
+  readBy: async (message: MessageEntity) =>
+    UserController.getUsers(message.readBy),
 };
 
 export default messageResolvers;

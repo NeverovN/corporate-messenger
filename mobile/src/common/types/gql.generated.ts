@@ -66,7 +66,7 @@ export type Message = {
   author: User;
   chatId: Scalars['ID'];
   createdAt: Scalars['String'];
-  read: Scalars['Boolean'];
+  readBy: Array<User>;
   lastEdit?: Maybe<Scalars['String']>;
 };
 
@@ -354,7 +354,10 @@ export type GetChatsQuery = (
   & { getChats?: Maybe<Array<Maybe<(
     { __typename?: 'Chat' }
     & ChatFragmentFragment
-  )>>> }
+  )>>>, getUser: (
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  ) }
 );
 
 export type CreateChatMutationVariables = Exact<{
@@ -429,21 +432,27 @@ export type ChatFragmentFragment = (
     & Pick<User, 'id' | 'firstName' | 'lastName'>
   )>>, messages?: Maybe<Array<Maybe<(
     { __typename?: 'Message' }
-    & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit' | 'read'>
+    & Pick<Message, 'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'firstName' | 'lastName'>
-    ) }
+    ), readBy: Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )> }
   )>>> }
 );
 
 export type MessageFragmentFragment = (
   { __typename?: 'Message' }
-  & Pick<Message, 'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId' | 'read'>
+  & Pick<Message, 'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId'>
   & { author: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'firstName' | 'lastName'>
-  ) }
+  ), readBy: Array<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  )> }
 );
 
 export type GetChatByIdQueryVariables = Exact<{
@@ -907,7 +916,9 @@ export const ChatFragmentFragmentDoc = gql`
     createdAt
     chatId
     lastEdit
-    read
+    readBy {
+      id
+    }
   }
 }
     `;
@@ -923,7 +934,9 @@ export const MessageFragmentFragmentDoc = gql`
   createdAt
   lastEdit
   chatId
-  read
+  readBy {
+    id
+  }
 }
     `;
 export const CommentFragmentFragmentDoc = gql`
@@ -1032,6 +1045,9 @@ export const GetChatsDocument = gql`
     query GetChats {
   getChats {
     ...ChatFragment
+  }
+  getUser {
+    id
   }
 }
     ${ChatFragmentFragmentDoc}`;

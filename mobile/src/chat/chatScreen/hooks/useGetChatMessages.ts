@@ -70,7 +70,7 @@ export const useGetChatMessages = () => {
       author: el.author.id,
       name: `${el.author.firstName} ${el.author.lastName}`,
       lastEdit: el.lastEdit,
-      isRead: el.read,
+      isRead: el.readBy.length > 1,
     };
   });
 
