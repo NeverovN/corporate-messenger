@@ -1,11 +1,13 @@
 import React, { FC, memo } from 'react';
+import { useRoute } from '@react-navigation/native';
 
 // components
 import PostScreenView from '@/feed/components/PostScreen';
 
 // hooks
 import { useGetComments } from '@/feed/hooks/useGetComments';
-import { useRoute } from '@react-navigation/native';
+
+// types
 import { PostScreenRouteProp } from '@/feed/types/routes';
 
 interface IPostScreenContainerProps {}
