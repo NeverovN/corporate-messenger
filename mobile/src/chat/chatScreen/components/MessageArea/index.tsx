@@ -16,13 +16,16 @@ import { IMessage } from 'chat/chatScreen/types/messages';
 import Message from '@/chat/chatScreen/containers/Message';
 
 interface IMessageAreaViewProps {
-  data: IMessage[];
+  data: Array<IMessage & { currentUserId: string }>;
   onViewed: ViewabilityConfigCallbackPair[];
 }
 
-const renderMessage: ListRenderItem<IMessage> = ({ item }) => {
+const renderMessage: ListRenderItem<IMessage & { currentUserId: string }> = ({
+  item,
+}) => {
   return (
     <Message
+      currentUserId={item.currentUserId}
       messageId={item.id}
       content={item.content}
       author={item.author}
