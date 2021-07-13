@@ -33,11 +33,15 @@ export const useEditComment = () => {
   });
 
   return async () => {
+    const newComment = {
+      commentId: editComment().id,
+      textContent: editComment().content,
+    };
+    if (!newComment.textContent) {
+      Alert.alert('Error', "Comment can't be empty");
+      return;
+    }
     try {
-      const newComment = {
-        commentId: editComment().id,
-        textContent: editComment().content || '',
-      };
       await editCommentMutation({ variables: { ...newComment } });
       navigation.goBack();
     } catch (err) {
