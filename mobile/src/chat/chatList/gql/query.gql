@@ -2,6 +2,9 @@ query GetChats {
   getChats {
     ...ChatFragment
   }
+  getUser {
+    id
+  }
 }
 
 mutation CreateChat($participants: [ID!]!, $title: String!) {
@@ -54,6 +57,8 @@ fragment ChatFragment on Chat {
     createdAt
     chatId
     lastEdit
-    read
+    readBy {
+      id
+    }
   }
 }

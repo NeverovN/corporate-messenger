@@ -9,7 +9,9 @@ fragment MessageFragment on Message {
   createdAt
   lastEdit
   chatId
-  read
+  readBy {
+    id
+  }
 }
 
 query getChatById($chatId: ID!) {

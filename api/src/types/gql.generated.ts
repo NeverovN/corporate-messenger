@@ -72,7 +72,7 @@ export type Message = {
   author: User;
   chatId: Scalars['ID'];
   createdAt: Scalars['String'];
-  read: Scalars['Boolean'];
+  readBy: Array<User>;
   lastEdit?: Maybe<Scalars['String']>;
 };
 
@@ -460,7 +460,7 @@ export type MessageResolvers<ContextType = any, ParentType extends ResolversPare
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   chatId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  read?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  readBy?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   lastEdit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
