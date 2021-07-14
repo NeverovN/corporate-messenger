@@ -41,7 +41,7 @@ const subscriptionResolvers: SubscriptionResolvers = {
       return chat;
     },
   },
-  chatDeletion: {
+  chatDeleted: {
     subscribe: () => pubsub.asyncIterator([CHAT_DELETED]),
     resolve: (chat: ChatEntity) => chat,
   },

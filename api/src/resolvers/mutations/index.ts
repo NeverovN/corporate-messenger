@@ -224,12 +224,14 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
     );
 
     pubsub.publish(MESSAGE_CREATED, newMessage);
+
     return newMessage;
   },
   async deleteMessageById(_, args) {
     try {
       const deletedMessage = await MessageController.getMessage(args.messageId);
       await MessageController.deleteMessage(args.messageId);
+
       return deletedMessage;
     } catch (error) {
       throw Error(`${error}`);

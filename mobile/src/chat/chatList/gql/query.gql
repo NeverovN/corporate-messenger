@@ -37,8 +37,8 @@ subscription MessageEdited($chatId: ID!) {
   }
 }
 
-subscription ChatDeletion {
-  chatDeletion {
+subscription ChatDeleted {
+  chatDeleted {
     ...ChatFragment
   }
 }
@@ -50,6 +50,7 @@ fragment ChatFragment on Chat {
     firstName
     lastName
   }
+  createdAt
   isDialog
   title
   messages {
