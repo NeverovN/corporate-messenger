@@ -3,9 +3,12 @@ import {
   useGetChatsQuery,
   useNewChatSubscription,
 } from 'common/types/gql.generated';
+import { IChatItem } from '../types/chat';
 import { filterChats } from '../utils/filterChats';
+import { getLastItem } from '../utils/getLastItem';
+import { sortCHatsByDate } from '../utils/sortChatsByDate';
 
-export const useChatList = (filter: string) => {
+export const useChatList = (filter: string): IChatItem[] => {
   const { data } = useGetChatsQuery();
   useNewChatSubscription({
     onSubscriptionData: (subscriptionData) => {
@@ -40,10 +43,14 @@ export const useChatList = (filter: string) => {
     if (!el) {
       return [] as any;
     }
+
+    const lastMsgDate = getLastItem(el.messages).createdAt;
+
     return {
       title: el.title,
       participants: el.participants,
       id: el.id,
+      lastMsg: { date: lastMsgDate || new Date() },
       unreadCount:
         el.messages?.reduce((acc, msg) => {
           return msg?.readBy.find((user) => user.id === data.getUser.id)
@@ -55,5 +62,7 @@ export const useChatList = (filter: string) => {
 
   const filteredChats = filterChats(chats, filter);
 
-  return filteredChats;
+  return sortCHatsByDate(filteredChats);
+
+  // return filteredChats;
 };

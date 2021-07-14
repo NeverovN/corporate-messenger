@@ -3,5 +3,8 @@ export interface IChatItem {
   title: string;
   participants: string[];
   unreadCount: number;
+  lastMsg: {
+    date: string;
+  };
   onPress(): void;
 }
