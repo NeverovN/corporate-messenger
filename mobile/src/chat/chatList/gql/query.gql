@@ -43,12 +43,6 @@ subscription ChatDeleted {
   }
 }
 
-subscription ChatEdited {
-  chatEdited {
-    ...ChatFragment
-  }
-}
-
 fragment ChatFragment on Chat {
   id
   participants {

@@ -2,7 +2,6 @@ import {
   ChatFragmentFragmentDoc,
   useGetChatsQuery,
   useNewChatSubscription,
-  useChatEditedSubscription,
 } from 'common/types/gql.generated';
 
 // types
@@ -40,8 +39,6 @@ export const useChatList = (filter: string): IChatItem[] => {
       });
     },
   });
-
-  useChatEditedSubscription();
 
   if (!data || !data.getChats) {
     return [] as any;

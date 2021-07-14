@@ -39,7 +39,6 @@ type Mutation {
 
 type Subscription {
   newChat: Chat!
-  chatEdited: Chat!
   chatDeleted: Chat!
   newMessage(chatId: ID!): Message!
   messageEdited(chatId: ID!): Message!
