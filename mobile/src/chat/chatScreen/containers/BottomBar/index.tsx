@@ -11,19 +11,29 @@ import { useSendPressHandler } from 'chat/chatScreen/hooks/useSendPressHandler';
 
 // types
 import { IMessageItem } from '../../types/message';
+import { useEditMessage } from '../../hooks/useEditMessage';
 
 interface IBottomBarContainerProps {
   editMessage: IMessageItem | null;
+  setEditMessage(msg: IMessageItem | null): void;
 }
 
-const BottomBarContainer: FC<IBottomBarContainerProps> = ({ editMessage }) => {
+const BottomBarContainer: FC<IBottomBarContainerProps> = ({
+  editMessage,
+  setEditMessage,
+}) => {
   const [message, setMessage] = useState<string>('');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [media, setMedia] = useState<ImageOrVideo[]>([]);
   const onClipPress = useClipPressHandler(setMedia);
   const onEmojiPress = useEmojiPressHandler();
   const onSendPress = useSendPressHandler(message, setMessage);
-  const onEditPressed = () => console.log('edit done');
+  const onEditPressed = useEditMessage(
+    message,
+    editMessage?.id || null,
+    setMessage,
+    setEditMessage,
+  );
 
   useEffect(() => {
     editMessage ? setMessage(editMessage.content) : setMessage('');

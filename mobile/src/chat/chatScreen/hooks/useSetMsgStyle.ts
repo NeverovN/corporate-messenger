@@ -1,8 +1,15 @@
+import { ViewStyle, TextStyle } from 'react-native';
 import styles from 'chat/chatScreen/components/Message/styles';
 import Directions from '../constants/direction';
 import DIRECTION from '../constants/direction';
+import ACTIONS from '../constants/actions';
 
-export const useSetMsgStyle = (direction: Directions) => {
+// types
+import { ContextMenuAction } from 'react-native-context-menu-view';
+
+export const useSetMsgStyle = (
+  direction: Directions,
+): [ViewStyle, TextStyle, ViewStyle, Array<ContextMenuAction>] => {
   const msgStyle =
     direction === DIRECTION.OUTGOING
       ? styles.outgoingMessageStyle
@@ -16,5 +23,10 @@ export const useSetMsgStyle = (direction: Directions) => {
       ? styles.outgoingViewStyle
       : styles.incomingViewStyle;
 
-  return [msgStyle, textStyle, viewStyle];
+  const actions =
+    direction === DIRECTION.OUTGOING
+      ? [{ title: ACTIONS.EDIT }, { title: ACTIONS.DELETE, destructive: true }]
+      : [{ title: ACTIONS.DELETE, destructive: true }];
+
+  return [msgStyle, textStyle, viewStyle, actions];
 };
