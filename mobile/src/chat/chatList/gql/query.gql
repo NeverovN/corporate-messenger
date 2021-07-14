@@ -37,6 +37,12 @@ subscription MessageEdited($chatId: ID!) {
   }
 }
 
+subscription ChatDeletion {
+  chatDeletion {
+    ...ChatFragment
+  }
+}
+
 fragment ChatFragment on Chat {
   id
   participants {

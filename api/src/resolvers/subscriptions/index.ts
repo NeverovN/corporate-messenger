@@ -10,6 +10,7 @@ import { MessageEntity } from '../../models/Message';
 // consts
 import {
   CHAT_CREATED,
+  CHAT_DELETED,
   MESSAGE_CREATED,
   POST_CREATED,
   MESSAGE_EDITED,
@@ -39,6 +40,10 @@ const subscriptionResolvers: SubscriptionResolvers = {
     resolve: (chat: ChatEntity) => {
       return chat;
     },
+  },
+  chatDeletion: {
+    subscribe: () => pubsub.asyncIterator([CHAT_DELETED]),
+    resolve: (chat: ChatEntity) => chat,
   },
   newMessage: {
     subscribe: () => pubsub.asyncIterator([MESSAGE_CREATED]),

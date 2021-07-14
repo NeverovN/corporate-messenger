@@ -1,4 +1,7 @@
-import { useDeleteChatByIdMutation } from '@/common/types/gql.generated';
+import {
+  useChatDeletionSubscription,
+  useDeleteChatByIdMutation,
+} from '@/common/types/gql.generated';
 import ACTIONS from 'chat/chatList/constants/actions';
 
 export const useHandleChatActions = () => {
@@ -20,6 +23,27 @@ export const useHandleChatActions = () => {
       });
     },
   });
+
+  useChatDeletionSubscription({
+    onSubscriptionData: (subData) => {
+      if (!subData.subscriptionData.data) {
+        throw new Error('Invalid sub data');
+      }
+
+      subData.client.cache.modify({
+        fields: {
+          getChats(exChats, { readField }) {
+            return exChats.filter(
+              (chatRef) =>
+                subData.subscriptionData.data?.chatDeletion.id !==
+                readField('id', chatRef),
+            );
+          },
+        },
+      });
+    },
+  });
+
   return (action: string, chatId: string) => {
     switch (action) {
       case ACTIONS.DELETE: {
