@@ -26,7 +26,8 @@ export const useChatList = (filter: string): IChatItem[] => {
             try {
               const newChat = subscriptionData.client.cache.writeFragment({
                 fragment: ChatFragmentFragmentDoc,
-                data: subscriptionData.subscriptionData?.data?.newChat,
+                data: subscriptionData.subscriptionData.data?.newChat,
+                id: subscriptionData.subscriptionData.data?.newChat.id,
               });
 
               return [...exChats, newChat];
@@ -54,7 +55,7 @@ export const useChatList = (filter: string): IChatItem[] => {
       title: el.title,
       participants: el.participants,
       id: el.id,
-      lastMsg: { date: lastMsgDate || new Date() },
+      lastMsg: { date: lastMsgDate || el.createdAt },
       unreadCount:
         el.messages?.reduce((acc, msg) => {
           return msg?.readBy.find((user) => user.id === data.getUser.id)

@@ -32,6 +32,7 @@ export type Chat = {
   isDialog: Scalars['Boolean'];
   title: Scalars['String'];
   participants: Array<Maybe<User>>;
+  createdAt: Scalars['String'];
   logo?: Maybe<Scalars['String']>;
   messages?: Maybe<Array<Maybe<Message>>>;
   settings?: Maybe<ChatSettings>;
@@ -433,6 +434,7 @@ export type ChatResolvers<ContextType = any, ParentType extends ResolversParentT
   isDialog?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   participants?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   messages?: Resolver<Maybe<Array<Maybe<ResolversTypes['Message']>>>, ParentType, ContextType>;
   settings?: Resolver<Maybe<ResolversTypes['ChatSettings']>, ParentType, ContextType>;

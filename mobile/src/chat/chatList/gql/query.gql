@@ -50,6 +50,7 @@ fragment ChatFragment on Chat {
     firstName
     lastName
   }
+  createdAt
   isDialog
   title
   messages {

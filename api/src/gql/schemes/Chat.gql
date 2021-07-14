@@ -13,6 +13,7 @@ type Chat {
   isDialog: Boolean!
   title: String!
   participants: [User]!
+  createdAt: String!
   logo: String
   messages: [Message] # pagination will live here (it will become a sub-query)
   settings: ChatSettings

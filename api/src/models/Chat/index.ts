@@ -25,11 +25,15 @@ export class ChatEntity {
   @prop({ required: true })
   title: string;
 
+  @prop({ required: true })
+  createdAt: string;
+
   constructor(participants: ID[], title: string) {
     this.participants = participants;
     this.isDialog = participants.length === 2;
     this.title = title;
     this.logo = null;
+    this.createdAt = new Date().toString();
   }
 }
 
