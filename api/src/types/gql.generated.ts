@@ -235,6 +235,7 @@ export type Query = {
   getChats?: Maybe<Array<Maybe<Chat>>>;
   getComment?: Maybe<Comment>;
   getFriendPosts?: Maybe<Array<Maybe<Post>>>;
+  getMessageById?: Maybe<Message>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getUser: User;
@@ -251,6 +252,11 @@ export type QueryGetChatByIdArgs = {
 
 export type QueryGetCommentArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryGetMessageByIdArgs = {
+  messageId: Scalars['ID'];
 };
 
 
@@ -276,7 +282,6 @@ export type QueryGetUserByIdArgs = {
 export type Subscription = {
   __typename?: 'Subscription';
   chatDeleted: Chat;
-  chatEdited: Chat;
   messageEdited: Message;
   newChat: Chat;
   newMessage: Message;
@@ -511,6 +516,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getChats?: Resolver<Maybe<Array<Maybe<ResolversTypes['Chat']>>>, ParentType, ContextType>;
   getComment?: Resolver<Maybe<ResolversTypes['Comment']>, ParentType, ContextType, RequireFields<QueryGetCommentArgs, 'id'>>;
   getFriendPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
+  getMessageById?: Resolver<Maybe<ResolversTypes['Message']>, ParentType, ContextType, RequireFields<QueryGetMessageByIdArgs, 'messageId'>>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetPostArgs, 'id'>>;
   getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostsArgs, never>>;
   getUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryGetUserArgs, never>>;
@@ -521,7 +527,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
   chatDeleted?: SubscriptionResolver<ResolversTypes['Chat'], "chatDeleted", ParentType, ContextType>;
-  chatEdited?: SubscriptionResolver<ResolversTypes['Chat'], "chatEdited", ParentType, ContextType>;
   messageEdited?: SubscriptionResolver<ResolversTypes['Message'], "messageEdited", ParentType, ContextType, RequireFields<SubscriptionMessageEditedArgs, 'chatId'>>;
   newChat?: SubscriptionResolver<ResolversTypes['Chat'], "newChat", ParentType, ContextType>;
   newMessage?: SubscriptionResolver<ResolversTypes['Message'], "newMessage", ParentType, ContextType, RequireFields<SubscriptionNewMessageArgs, 'chatId'>>;

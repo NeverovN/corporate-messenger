@@ -7,7 +7,10 @@ import ACTIONS from '../../constants/actions';
 
 // styles
 import styles from './styles';
+
+// hooks
 import { useHandleMessageActions } from '../../hooks/useHandleMessageActions';
+import { useGetMessage } from '../../hooks/useGetMessage';
 
 interface IMessageViewProps {
   id: string;
@@ -22,6 +25,7 @@ interface IMessageViewProps {
 
 const MessageView: FC<IMessageViewProps> = (props) => {
   const actionHandler = useHandleMessageActions();
+  const message = useGetMessage(props.id);
 
   const lastEditText = useMemo(
     () => (props.lastEdit ? <Text>last edit: {props.lastEdit}</Text> : null),
@@ -44,7 +48,7 @@ const MessageView: FC<IMessageViewProps> = (props) => {
           { title: ACTIONS.EDIT },
           { title: ACTIONS.DELETE, destructive: true },
         ]}
-        onPress={(e) => actionHandler(e.nativeEvent.name, props.id)}>
+        onPress={(e) => actionHandler(e.nativeEvent.name, message)}>
         <TouchableOpacity
           style={{ ...msgStyle, ...styles.commonMessageStyle }}
           onPress={props.onPress}>

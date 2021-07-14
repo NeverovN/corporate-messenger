@@ -23,6 +23,12 @@ query getChatById($chatId: ID!) {
   }
 }
 
+query GetMessageById($messageId: ID!) {
+  getMessageById(messageId: $messageId) {
+    ...MessageFragment
+  }
+}
+
 mutation CreateMessage($content: String!, $chatId: String!) {
   createMessage(content: $content, chatId: $chatId) {
     ...MessageFragment
