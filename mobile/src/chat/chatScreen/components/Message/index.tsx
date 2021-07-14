@@ -11,6 +11,7 @@ import styles from './styles';
 // hooks
 import { useHandleMessageActions } from '../../hooks/useHandleMessageActions';
 import { useGetMessage } from '../../hooks/useGetMessage';
+import { IMessageItem } from '../../types/message';
 
 interface IMessageViewProps {
   id: string;
@@ -20,6 +21,8 @@ interface IMessageViewProps {
   createdAt: string;
   lastEdit: string | null;
   isRead: boolean;
+
+  setEditMessage(msg: IMessageItem | null): void;
   onPress(): void;
 }
 
@@ -48,14 +51,14 @@ const MessageView: FC<IMessageViewProps> = (props) => {
           { title: ACTIONS.EDIT },
           { title: ACTIONS.DELETE, destructive: true },
         ]}
-        onPress={(e) => actionHandler(e.nativeEvent.name, message)}>
+        onPress={(e) =>
+          actionHandler(e.nativeEvent.name, message, props.setEditMessage)
+        }>
         <TouchableOpacity
           style={{ ...msgStyle, ...styles.commonMessageStyle }}
           onPress={props.onPress}>
           <Text style={textStyle}>{props.content}</Text>
-          <Text style={textStyle} numberOfLines={4}>
-            {props.createdAt}
-          </Text>
+          <Text style={textStyle}>{props.createdAt}</Text>
         </TouchableOpacity>
       </ContextMenu>
       {isReadIndicator}

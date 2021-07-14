@@ -1,4 +1,3 @@
-import { editingMessage, editMessageMode } from '@/common/cache/cache';
 import { useDeleteMessageMutation } from '@/common/types/gql.generated';
 import ACTIONS from 'chat/chatScreen/constants/actions';
 import { IMessageItem } from '../types/message';
@@ -22,15 +21,18 @@ export const useHandleMessageActions = () => {
       });
     },
   });
-  return (action: string, message: IMessageItem) => {
+  return (
+    action: string,
+    message: IMessageItem,
+    setEditMessage: (msg: IMessageItem) => void,
+  ) => {
     switch (action) {
       case ACTIONS.DELETE: {
         deleteMessage({ variables: { messageId: message.id } });
         break;
       }
       case ACTIONS.EDIT: {
-        editMessageMode(true);
-        editingMessage(message);
+        setEditMessage(message);
       }
     }
   };

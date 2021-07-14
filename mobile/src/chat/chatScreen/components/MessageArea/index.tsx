@@ -16,20 +16,28 @@ import { IMessageItem } from '@/chat/chatScreen/types/message';
 import Message from '@/chat/chatScreen/containers/Message';
 
 interface IMessageAreaViewProps {
-  data: Array<IMessageItem & { currentUserId: string }>;
+  data: Array<
+    IMessageItem & {
+      currentUserId: string;
+      setEditMessage(msg: IMessageItem | null): void;
+    }
+  >;
   onViewed: ViewabilityConfigCallbackPair[];
 }
 
 const renderMessage: ListRenderItem<
-  IMessageItem & { currentUserId: string }
+  IMessageItem & {
+    currentUserId: string;
+    setEditMessage(msg: IMessageItem | null): void;
+  }
 > = ({ item }) => {
   return (
     <Message
+      setMessageEdit={item.setEditMessage}
       currentUserId={item.currentUserId}
-      messageId={item.id}
+      id={item.id}
       content={item.content}
       author={item.author}
-      name={item.name}
       lastEdit={item.lastEdit}
       isRead={item.isRead}
       createdAt={item.createdAt}

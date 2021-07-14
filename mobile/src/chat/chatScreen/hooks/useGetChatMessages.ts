@@ -3,16 +3,22 @@ import {
   useGetChatByIdQuery,
   MessageFragmentFragmentDoc,
 } from '@/common/types/gql.generated';
-import { useApolloClient } from '@apollo/client';
+import { getName } from '@/profile/utils/getName';
 import { useRoute } from '@react-navigation/native';
 
 // types
 import { ChatRouteProp } from '../../chatList/types/routes';
+import { IMessageItem } from '../types/message';
 
-export const useGetChatMessages = () => {
+export const useGetChatMessages = (
+  setEditMsg: (msg: IMessageItem | null) => void,
+): Array<
+  IMessageItem & {
+    currentUserId: string;
+    setEditMessage(msg: IMessageItem | null): void;
+  }
+> => {
   const { params } = useRoute<ChatRouteProp>();
-
-  const client = useApolloClient();
 
   if (!params) {
     throw Error('chat does not exist');
@@ -24,7 +30,7 @@ export const useGetChatMessages = () => {
 
   useNewMessageSubscription({
     variables: { chatId: params.chatId },
-    onSubscriptionData: ({ subscriptionData }) => {
+    onSubscriptionData: ({ subscriptionData, client }) => {
       const message = subscriptionData.data?.newMessage;
 
       if (!message) {
@@ -54,29 +60,28 @@ export const useGetChatMessages = () => {
     !data.getChatById ||
     !data.getChatById.messages
   ) {
-    return [] as any;
+    return [];
   }
 
-  const messages = data.getChatById.messages.map((el) => {
-    if (!el) {
-      return [] as any;
-    }
-
+  return data.getChatById.messages.map((el) => {
     const isRead =
-      el.readBy.length > 1 &&
-      el.readBy.find((user) => user.id === data.getUser.id);
+      el?.readBy &&
+      el?.readBy.length > 1 &&
+      el?.readBy.find((user) => user.id === data.getUser.id)
+        ? true
+        : false;
+
+    const name = getName(el?.author.firstName || '', el?.author.lastName || '');
 
     return {
       currentUserId: data.getUser.id,
-      id: el.id,
-      content: el.content,
-      createdAt: el.createdAt,
-      author: el.author.id,
-      name: `${el.author.firstName} ${el.author.lastName}`,
-      lastEdit: el.lastEdit,
+      id: el?.id || '',
+      content: el?.content || '',
+      createdAt: el?.createdAt || '',
+      author: { name, id: el?.author.id || '' },
+      lastEdit: el?.lastEdit || '',
       isRead: isRead,
+      setEditMessage: setEditMsg,
     };
   });
-
-  return messages;
 };

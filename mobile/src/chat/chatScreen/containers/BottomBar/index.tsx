@@ -1,8 +1,6 @@
 import React, { FC, memo, useEffect, useState } from 'react';
 import { ImageOrVideo } from 'react-native-image-crop-picker';
 
-interface IBottomBarContainerProps {}
-
 // components
 import BottomBarView from 'chat/chatScreen/components/BottomBar';
 
@@ -10,25 +8,34 @@ import BottomBarView from 'chat/chatScreen/components/BottomBar';
 import { useClipPressHandler } from 'chat/chatScreen/hooks/useClipPressHandler';
 import { useEmojiPressHandler } from 'chat/chatScreen/hooks/useEmojiPressHandler';
 import { useSendPressHandler } from 'chat/chatScreen/hooks/useSendPressHandler';
-import { editingMessage, editMessageMode } from '@/common/cache/cache';
 
-const BottomBarContainer: FC<IBottomBarContainerProps> = () => {
+// types
+import { IMessageItem } from '../../types/message';
+
+interface IBottomBarContainerProps {
+  editMessage: IMessageItem | null;
+}
+
+const BottomBarContainer: FC<IBottomBarContainerProps> = ({ editMessage }) => {
   const [message, setMessage] = useState<string>('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [media, setMedia] = useState<ImageOrVideo[]>([]);
   const onClipPress = useClipPressHandler(setMedia);
   const onEmojiPress = useEmojiPressHandler();
   const onSendPress = useSendPressHandler(message, setMessage);
+  const onEditPressed = () => console.log('edit done');
 
-  const editMode = editMessageMode();
+  useEffect(() => {
+    editMessage ? setMessage(editMessage.content) : setMessage('');
+  }, [editMessage]);
 
-  useEffect(() => console.log('aaa'), [editMode]);
-  return true ? (
+  return editMessage ? (
     <BottomBarView
-      value={editingMessage().content}
+      value={message}
       onValueChange={setMessage}
       onClipPress={onClipPress}
       onEmojiPress={onEmojiPress}
-      onSendPress={() => console.log('send pressed')}
+      onSendPress={onEditPressed}
     />
   ) : (
     <BottomBarView
