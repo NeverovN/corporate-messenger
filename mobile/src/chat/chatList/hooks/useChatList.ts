@@ -10,7 +10,7 @@ import { IChatItem } from '../types/chat';
 // utils
 import { filterChats } from '../utils/filterChats';
 import { getFirstItem } from '../utils/getFirstItem';
-import { sortCHatsByDate } from '../utils/sortChatsByDate';
+import { sortChatsByDate } from '../utils/sortChatsByDate';
 
 export const useChatList = (filter: string): IChatItem[] => {
   const { data } = useGetChatsQuery();
@@ -67,7 +67,5 @@ export const useChatList = (filter: string): IChatItem[] => {
 
   const filteredChats = filterChats(chats, filter);
 
-  return sortCHatsByDate(filteredChats);
-
-  // return filteredChats;
+  return sortChatsByDate(filteredChats);
 };

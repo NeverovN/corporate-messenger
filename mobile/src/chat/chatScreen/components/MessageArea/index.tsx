@@ -10,19 +10,19 @@ import {
 import styles from './styles';
 
 // types
-import { IMessage } from 'chat/chatScreen/types/messages';
+import { IMessageItem } from '@/chat/chatScreen/types/message';
 
 // containers
 import Message from '@/chat/chatScreen/containers/Message';
 
 interface IMessageAreaViewProps {
-  data: Array<IMessage & { currentUserId: string }>;
+  data: Array<IMessageItem & { currentUserId: string }>;
   onViewed: ViewabilityConfigCallbackPair[];
 }
 
-const renderMessage: ListRenderItem<IMessage & { currentUserId: string }> = ({
-  item,
-}) => {
+const renderMessage: ListRenderItem<
+  IMessageItem & { currentUserId: string }
+> = ({ item }) => {
   return (
     <Message
       currentUserId={item.currentUserId}
