@@ -10,6 +10,8 @@ import styles from './styles';
 // hooks
 import { useHandleMessageActions } from '../../hooks/useHandleMessageActions';
 import { useGetMessage } from '../../hooks/useGetMessage';
+
+// types
 import { IMessageItem } from '../../types/message';
 
 interface IMessageViewProps {
