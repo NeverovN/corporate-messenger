@@ -62,6 +62,10 @@ export const useGetChatMessages = () => {
       return [] as any;
     }
 
+    const isRead =
+      el.readBy.length > 1 &&
+      el.readBy.find((user) => user.id === data.getUser.id);
+
     return {
       currentUserId: data.getUser.id,
       id: el.id,
@@ -70,7 +74,7 @@ export const useGetChatMessages = () => {
       author: el.author.id,
       name: `${el.author.firstName} ${el.author.lastName}`,
       lastEdit: el.lastEdit,
-      isRead: el.readBy.length > 1,
+      isRead: isRead,
     };
   });
 

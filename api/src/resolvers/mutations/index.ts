@@ -250,7 +250,14 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       throw Error('Unauthorized');
     }
 
-    return await MessageController.markRead(args.messageId, currentUserId);
+    const readMsg = await MessageController.markRead(
+      args.messageId,
+      currentUserId,
+    );
+
+    pubsub.publish(MESSAGE_EDITED, readMsg);
+
+    return readMsg;
   },
 };
 
