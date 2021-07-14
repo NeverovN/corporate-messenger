@@ -269,7 +269,8 @@ export type QueryGetUserByIdArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  chatDeletion: Chat;
+  chatDeleted: Chat;
+  chatEdited: Chat;
   messageEdited: Message;
   newChat: Chat;
   newMessage: Message;
@@ -426,12 +427,23 @@ export type MessageEditedSubscription = (
   ) }
 );
 
-export type ChatDeletionSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type ChatDeletedSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChatDeletionSubscription = (
+export type ChatDeletedSubscription = (
   { __typename?: 'Subscription' }
-  & { chatDeletion: (
+  & { chatDeleted: (
+    { __typename?: 'Chat' }
+    & ChatFragmentFragment
+  ) }
+);
+
+export type ChatEditedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ChatEditedSubscription = (
+  { __typename?: 'Subscription' }
+  & { chatEdited: (
     { __typename?: 'Chat' }
     & ChatFragmentFragment
   ) }
@@ -1251,35 +1263,64 @@ export function useMessageEditedSubscription(baseOptions: Apollo.SubscriptionHoo
       }
 export type MessageEditedSubscriptionHookResult = ReturnType<typeof useMessageEditedSubscription>;
 export type MessageEditedSubscriptionResult = Apollo.SubscriptionResult<MessageEditedSubscription>;
-export const ChatDeletionDocument = gql`
-    subscription ChatDeletion {
-  chatDeletion {
+export const ChatDeletedDocument = gql`
+    subscription ChatDeleted {
+  chatDeleted {
     ...ChatFragment
   }
 }
     ${ChatFragmentFragmentDoc}`;
 
 /**
- * __useChatDeletionSubscription__
+ * __useChatDeletedSubscription__
  *
- * To run a query within a React component, call `useChatDeletionSubscription` and pass it any options that fit your needs.
- * When your component renders, `useChatDeletionSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useChatDeletedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useChatDeletedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useChatDeletionSubscription({
+ * const { data, loading, error } = useChatDeletedSubscription({
  *   variables: {
  *   },
  * });
  */
-export function useChatDeletionSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ChatDeletionSubscription, ChatDeletionSubscriptionVariables>) {
+export function useChatDeletedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ChatDeletedSubscription, ChatDeletedSubscriptionVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useSubscription<ChatDeletionSubscription, ChatDeletionSubscriptionVariables>(ChatDeletionDocument, options);
+        return Apollo.useSubscription<ChatDeletedSubscription, ChatDeletedSubscriptionVariables>(ChatDeletedDocument, options);
       }
-export type ChatDeletionSubscriptionHookResult = ReturnType<typeof useChatDeletionSubscription>;
-export type ChatDeletionSubscriptionResult = Apollo.SubscriptionResult<ChatDeletionSubscription>;
+export type ChatDeletedSubscriptionHookResult = ReturnType<typeof useChatDeletedSubscription>;
+export type ChatDeletedSubscriptionResult = Apollo.SubscriptionResult<ChatDeletedSubscription>;
+export const ChatEditedDocument = gql`
+    subscription ChatEdited {
+  chatEdited {
+    ...ChatFragment
+  }
+}
+    ${ChatFragmentFragmentDoc}`;
+
+/**
+ * __useChatEditedSubscription__
+ *
+ * To run a query within a React component, call `useChatEditedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useChatEditedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useChatEditedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useChatEditedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ChatEditedSubscription, ChatEditedSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<ChatEditedSubscription, ChatEditedSubscriptionVariables>(ChatEditedDocument, options);
+      }
+export type ChatEditedSubscriptionHookResult = ReturnType<typeof useChatEditedSubscription>;
+export type ChatEditedSubscriptionResult = Apollo.SubscriptionResult<ChatEditedSubscription>;
 export const GetChatByIdDocument = gql`
     query getChatById($chatId: ID!) {
   getChatById(chatId: $chatId) {

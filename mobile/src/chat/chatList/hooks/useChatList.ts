@@ -2,6 +2,7 @@ import {
   ChatFragmentFragmentDoc,
   useGetChatsQuery,
   useNewChatSubscription,
+  useChatEditedSubscription,
 } from 'common/types/gql.generated';
 
 // types
@@ -9,7 +10,7 @@ import { IChatItem } from '../types/chat';
 
 // utils
 import { filterChats } from '../utils/filterChats';
-import { getLastItem } from '../utils/getLastItem';
+import { getFirstItem } from '../utils/getFirstItem';
 import { sortCHatsByDate } from '../utils/sortChatsByDate';
 
 export const useChatList = (filter: string): IChatItem[] => {
@@ -40,6 +41,8 @@ export const useChatList = (filter: string): IChatItem[] => {
     },
   });
 
+  useChatEditedSubscription();
+
   if (!data || !data.getChats) {
     return [] as any;
   }
@@ -49,7 +52,7 @@ export const useChatList = (filter: string): IChatItem[] => {
       return [] as any;
     }
 
-    const lastMsgDate = getLastItem(el.messages)?.createdAt;
+    const lastMsgDate = getFirstItem(el.messages)?.createdAt;
 
     return {
       title: el.title,

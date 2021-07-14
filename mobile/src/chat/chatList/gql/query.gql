@@ -37,8 +37,14 @@ subscription MessageEdited($chatId: ID!) {
   }
 }
 
-subscription ChatDeletion {
-  chatDeletion {
+subscription ChatDeleted {
+  chatDeleted {
+    ...ChatFragment
+  }
+}
+
+subscription ChatEdited {
+  chatEdited {
     ...ChatFragment
   }
 }

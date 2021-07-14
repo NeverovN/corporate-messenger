@@ -15,6 +15,7 @@ import createPasswordHash from '../../utils/createPasswordHash';
 // consts
 import {
   CHAT_CREATED,
+  CHAT_EDITED,
   CHAT_DELETED,
   MESSAGE_CREATED,
   POST_CREATED,
@@ -223,13 +224,21 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       args.content,
     );
 
+    const chat = ChatController.getChat(args.chatId);
+    pubsub.publish(CHAT_EDITED, chat);
+
     pubsub.publish(MESSAGE_CREATED, newMessage);
+
     return newMessage;
   },
   async deleteMessageById(_, args) {
     try {
       const deletedMessage = await MessageController.getMessage(args.messageId);
       await MessageController.deleteMessage(args.messageId);
+
+      const chat = ChatController.getChat(deletedMessage.chatId);
+      pubsub.publish(CHAT_EDITED, chat);
+
       return deletedMessage;
     } catch (error) {
       throw Error(`${error}`);

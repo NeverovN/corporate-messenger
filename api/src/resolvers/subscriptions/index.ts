@@ -14,6 +14,7 @@ import {
   MESSAGE_CREATED,
   POST_CREATED,
   MESSAGE_EDITED,
+  CHAT_EDITED,
 } from '../../consts/events';
 
 // services
@@ -41,7 +42,11 @@ const subscriptionResolvers: SubscriptionResolvers = {
       return chat;
     },
   },
-  chatDeletion: {
+  chatEdited: {
+    subscribe: () => pubsub.asyncIterator([CHAT_EDITED]),
+    resolve: (chat: ChatEntity) => chat,
+  },
+  chatDeleted: {
     subscribe: () => pubsub.asyncIterator([CHAT_DELETED]),
     resolve: (chat: ChatEntity) => chat,
   },
