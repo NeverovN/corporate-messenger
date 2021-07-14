@@ -3,7 +3,11 @@ import {
   useGetChatsQuery,
   useNewChatSubscription,
 } from 'common/types/gql.generated';
+
+// types
 import { IChatItem } from '../types/chat';
+
+// utils
 import { filterChats } from '../utils/filterChats';
 import { getLastItem } from '../utils/getLastItem';
 import { sortCHatsByDate } from '../utils/sortChatsByDate';
@@ -44,7 +48,7 @@ export const useChatList = (filter: string): IChatItem[] => {
       return [] as any;
     }
 
-    const lastMsgDate = getLastItem(el.messages).createdAt;
+    const lastMsgDate = getLastItem(el.messages)?.createdAt;
 
     return {
       title: el.title,
