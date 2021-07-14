@@ -36,7 +36,7 @@ const ProfileView: FC<IProfileViewProps> = (props) => {
         ListFooterComponent={MainTile}
         data={props.data}
         renderItem={renderPostItem}
-        inverted={true}
+        contentContainerStyle={styles.flatListStyle}
       />
     </View>
   );
