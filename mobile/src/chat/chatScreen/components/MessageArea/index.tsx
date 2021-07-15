@@ -15,21 +15,24 @@ import { IMessageItem } from '@/chat/chatScreen/types/message';
 // containers
 import Message from '@/chat/chatScreen/containers/Message';
 
+type MessageWithProps = IMessageItem & {
+  currentUserId: string;
+  setEditMessage(msg: IMessageItem | null): void;
+};
+
 interface IMessageAreaViewProps {
-  data: Array<IMessageItem & { currentUserId: string }>;
+  data: MessageWithProps[];
   onViewed: ViewabilityConfigCallbackPair[];
 }
 
-const renderMessage: ListRenderItem<
-  IMessageItem & { currentUserId: string }
-> = ({ item }) => {
+const renderMessage: ListRenderItem<MessageWithProps> = ({ item }) => {
   return (
     <Message
+      setMessageEdit={item.setEditMessage}
       currentUserId={item.currentUserId}
-      messageId={item.id}
+      id={item.id}
       content={item.content}
       author={item.author}
-      name={item.name}
       lastEdit={item.lastEdit}
       isRead={item.isRead}
       createdAt={item.createdAt}

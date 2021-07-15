@@ -7,10 +7,14 @@ import styles from './styles';
 // containers
 import BottomBar from 'chat/chatScreen/containers/BottomBar';
 import MessageArea from 'chat/chatScreen/containers/MessageArea';
+import { IMessageItem } from '../../types/message';
 
-interface IChatScreenViewProps {}
+interface IChatScreenViewProps {
+  editMessage: IMessageItem | null;
+  setEditMessage(msg: IMessageItem | null): void;
+}
 
-const ChatScreenView: FC<IChatScreenViewProps> = () => {
+const ChatScreenView: FC<IChatScreenViewProps> = (props) => {
   return (
     <SafeAreaView style={styles.chatScreenStyle}>
       <KeyboardAvoidingView
@@ -18,8 +22,11 @@ const ChatScreenView: FC<IChatScreenViewProps> = () => {
         behavior="padding"
         enabled
         keyboardVerticalOffset={65}>
-        <MessageArea />
-        <BottomBar />
+        <MessageArea setEditMessage={props.setEditMessage} />
+        <BottomBar
+          editMessage={props.editMessage}
+          setEditMessage={props.setEditMessage}
+        />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

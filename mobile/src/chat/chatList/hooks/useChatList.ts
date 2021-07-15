@@ -46,7 +46,7 @@ export const useChatList = (filter: string): IChatItem[] => {
 
   const chats = data.getChats.map((el) => {
     if (!el) {
-      return [] as any;
+      return {} as any;
     }
 
     const lastMsgDate = getFirstItem(el.messages)?.createdAt;

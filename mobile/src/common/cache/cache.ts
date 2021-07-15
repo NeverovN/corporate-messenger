@@ -19,9 +19,6 @@ export const cache = new InMemoryCache({
         editPost() {
           return editPost();
         },
-        editComment() {
-          return editComment();
-        },
       },
     },
     User: {

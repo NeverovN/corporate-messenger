@@ -1,5 +1,6 @@
 import { useDeleteMessageMutation } from '@/common/types/gql.generated';
 import ACTIONS from 'chat/chatScreen/constants/actions';
+import { IMessageItem } from '../types/message';
 
 export const useHandleMessageActions = () => {
   const [deleteMessage] = useDeleteMessageMutation({
@@ -20,21 +21,19 @@ export const useHandleMessageActions = () => {
       });
     },
   });
-  return (action: string, messageId: string) => {
+  return (
+    action: string,
+    message: IMessageItem,
+    setEditMessage: (msg: IMessageItem) => void,
+  ) => {
     switch (action) {
       case ACTIONS.DELETE: {
-        deleteMessage({ variables: { messageId } });
+        deleteMessage({ variables: { messageId: message.id } });
         break;
       }
       case ACTIONS.EDIT: {
+        setEditMessage(message);
       }
     }
   };
-};
-
-type MessageType = {
-  id: string;
-  content: string;
-  createdAt: string;
-  author: string;
 };

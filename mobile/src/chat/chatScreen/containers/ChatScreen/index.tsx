@@ -1,12 +1,18 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useState } from 'react';
 
 // components
 import ChatScreenView from 'chat/chatScreen/components/ChatScreen';
 
+// types
+import { IMessageItem } from '../../types/message';
+
 interface IChatScreenContainerProps {}
 
 const ChatScreenContainer: FC<IChatScreenContainerProps> = () => {
-  return <ChatScreenView />;
+  const [editMessage, setEditMessage] = useState<IMessageItem | null>(null);
+  return (
+    <ChatScreenView editMessage={editMessage} setEditMessage={setEditMessage} />
+  );
 };
 
 export default memo(ChatScreenContainer);

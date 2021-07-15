@@ -6,6 +6,7 @@ import { UserController } from '../../controllers/User';
 import { PostController } from '../../controllers/Post';
 import { ChatController } from '../../controllers/Chat';
 import { CommentController } from '../../controllers/Comment';
+import { MessageController } from '../../controllers/Message';
 
 const queryResolvers: QueryResolvers<ApolloContextType> = {
   async getUserById(_, args) {
@@ -54,6 +55,11 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
     if (!currentUserId) throw Error('Unauthorized');
 
     return await ChatController.getChat(args.chatId);
+  },
+  async getMessageById(_, args, { currentUserId }) {
+    if (!currentUserId) throw Error('Unauthorized');
+
+    return MessageController.getMessage(args.messageId);
   },
   async getFriendPosts(_, __, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');
