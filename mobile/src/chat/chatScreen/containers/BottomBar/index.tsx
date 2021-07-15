@@ -8,10 +8,10 @@ import BottomBarView from 'chat/chatScreen/components/BottomBar';
 import { useClipPressHandler } from 'chat/chatScreen/hooks/useClipPressHandler';
 import { useEmojiPressHandler } from 'chat/chatScreen/hooks/useEmojiPressHandler';
 import { useSendPressHandler } from 'chat/chatScreen/hooks/useSendPressHandler';
+import { useEditMessage } from '../../hooks/useEditMessage';
 
 // types
 import { IMessageItem } from '../../types/message';
-import { useEditMessage } from '../../hooks/useEditMessage';
 
 interface IBottomBarContainerProps {
   editMessage: IMessageItem | null;
