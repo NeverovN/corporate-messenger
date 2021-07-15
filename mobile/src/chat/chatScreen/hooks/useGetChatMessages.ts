@@ -3,12 +3,14 @@ import {
   useGetChatByIdQuery,
   MessageFragmentFragmentDoc,
 } from '@/common/types/gql.generated';
-import { getName } from '@/profile/utils/getName';
 import { useRoute } from '@react-navigation/native';
 
 // types
 import { ChatRouteProp } from '../../chatList/types/routes';
 import { IMessageItem } from '../types/message';
+
+// utils
+import { getName } from '@/profile/utils/getName';
 
 export const useGetChatMessages = (
   setEditMsg: (msg: IMessageItem | null) => void,
