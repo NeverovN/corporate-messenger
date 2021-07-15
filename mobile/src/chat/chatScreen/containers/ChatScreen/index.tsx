@@ -2,6 +2,8 @@ import React, { FC, memo, useState } from 'react';
 
 // components
 import ChatScreenView from 'chat/chatScreen/components/ChatScreen';
+
+// types
 import { IMessageItem } from '../../types/message';
 
 interface IChatScreenContainerProps {}
