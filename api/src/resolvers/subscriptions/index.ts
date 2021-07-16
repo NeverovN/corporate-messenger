@@ -23,28 +23,18 @@ const subscriptionResolvers: SubscriptionResolvers = {
   newPost: {
     subscribe: withFilter(
       () => {
-        console.log('subscribed for new post');
         return pubsub.asyncIterator([POST_CREATED]);
       },
-      () => {
-        // basing on true/false return decides, if resolve function should be called
-        return true;
-      },
+      () => true,
     ),
-    resolve: (post: PostEntity) => {
-      return post;
-    },
+    resolve: (post: PostEntity) => post,
   },
   newChat: {
     subscribe: () => pubsub.asyncIterator([CHAT_CREATED]),
-    resolve: (chat: ChatEntity) => {
-      return chat;
-    },
+    resolve: (chat: ChatEntity) => chat,
   },
   chatDeleted: {
-    subscribe: () => {
-      return pubsub.asyncIterator([CHAT_DELETED]);
-    },
+    subscribe: () => pubsub.asyncIterator([CHAT_DELETED]),
     resolve: (chat: ChatEntity) => chat,
   },
   newMessage: {
@@ -58,21 +48,16 @@ const subscriptionResolvers: SubscriptionResolvers = {
       },
     ),
 
-    resolve: (message: MessageEntity) => {
-      return message;
-    },
+    resolve: (message: MessageEntity) => message,
   },
   messageEdited: {
     subscribe: withFilter(
       () => pubsub.asyncIterator([MESSAGE_EDITED]),
-      (message: MessageEntity, variables: SubscriptionMessageEditedArgs) => {
-        return message.chatId === variables.chatId;
-      },
+      (message: MessageEntity, variables: SubscriptionMessageEditedArgs) =>
+        message.chatId === variables.chatId,
     ),
 
-    resolve: (message: MessageEntity) => {
-      return message;
-    },
+    resolve: (message: MessageEntity) => message,
   },
 };
 
