@@ -17,9 +17,11 @@ export function initServer(port: number): void {
 
       return { currentUserId };
     },
+    // this code doesn't work even if docs say it should
     subscriptions: {
-      onConnect: () => {
-        console.log('connected to web socket');
+      onConnect: async ({ authorization }: any) => {
+        const currentUserId = getUserIdByToken(authorization._W || '');
+        return { currentUserId };
       },
     },
   });
