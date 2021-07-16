@@ -8,7 +8,7 @@ export function initServer(port: number): void {
   const SUCCESS_MESSAGE = `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`;
   const server = new ApolloServer({
     schema,
-    context: async ({ req }): Promise<ApolloContextType> => {
+    context: ({ req }): ApolloContextType => {
       const token = req?.headers.authorization || '';
 
       if (!token) return { currentUserId: null };
