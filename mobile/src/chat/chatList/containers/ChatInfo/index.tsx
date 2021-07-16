@@ -13,7 +13,6 @@ interface IUserInfoContainerProps {
 
 const UserInfoContainer: FC<IUserInfoContainerProps> = ({ chatId }) => {
   useOnNewMessageUpdate(chatId);
-  console.log('update');
   const data = useGetChatInfo(chatId);
   return <ChatInfoView userName={data.chatTitle} lastMessage={data.lastMsg} />;
 };

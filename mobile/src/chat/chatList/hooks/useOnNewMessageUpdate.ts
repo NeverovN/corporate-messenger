@@ -4,10 +4,16 @@ import {
   useNewMessageSubscription,
 } from '@/common/types/gql.generated';
 import { getName } from '@/profile/utils/getName';
+import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 
 export const useOnNewMessageUpdate = (chatId: string) => {
   const { data } = useGetUserQuery();
+  const navigation = useNavigation();
+  // eventually started work, don't trust this code
+  const redirection = () => {
+    navigation.goBack();
+  };
   useNewMessageSubscription({
     variables: { chatId: chatId },
     onSubscriptionData: ({ subscriptionData, client }) => {
@@ -32,7 +38,7 @@ export const useOnNewMessageUpdate = (chatId: string) => {
         },
       });
 
-      // shitcode cuz i cant fix server side
+      // shit code cuz i cant fix server side
       if (data && data.getUser && data.getUser.id !== message.author.id) {
         const authorName = getName(
           message.author.firstName || '',
@@ -44,7 +50,7 @@ export const useOnNewMessageUpdate = (chatId: string) => {
           text1: authorName,
           text2: message.content,
           topOffset: 50,
-          onPress: () => console.log('pressed'),
+          onPress: redirection,
         });
       }
     },
