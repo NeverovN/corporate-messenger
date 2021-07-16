@@ -8,7 +8,7 @@ export function initServer(port: number): void {
   const SUCCESS_MESSAGE = `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`;
   const server = new ApolloServer({
     schema,
-    context: ({ req }): ApolloContextType => {
+    context: async ({ req }): Promise<ApolloContextType> => {
       const token = req?.headers.authorization || '';
 
       if (!token) return { currentUserId: null };
@@ -17,9 +17,11 @@ export function initServer(port: number): void {
 
       return { currentUserId };
     },
+    // this code doesn't work even if docs say it should
     subscriptions: {
-      onConnect: () => {
-        console.log('connected to web socket');
+      onConnect: async ({ authorization }: any) => {
+        const currentUserId = getUserIdByToken(authorization._W || '');
+        return { currentUserId };
       },
     },
   });

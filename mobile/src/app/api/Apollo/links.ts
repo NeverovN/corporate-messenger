@@ -8,12 +8,18 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { BASE_HTTP_URL, BASE_WS_URL } from '@/app/constants/network';
 
 import { tokenVar } from 'common/cache/cache';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const httpLink = new HttpLink({ uri: BASE_HTTP_URL });
 
 const wsLink = new WebSocketLink({
   uri: BASE_WS_URL,
-  options: { reconnect: true },
+  options: {
+    reconnect: true,
+    connectionParams: {
+      authorization: AsyncStorage.getItem('token'),
+    },
+  },
 });
 
 const link = split(
@@ -39,7 +45,7 @@ export const authLink = setContext(async (_, { headers }) => {
   headers = {
     ...headers,
     headers: {
-      authorization: token, // TODO: choose appropriate header based on API
+      authorization: token,
     },
   };
   return headers;

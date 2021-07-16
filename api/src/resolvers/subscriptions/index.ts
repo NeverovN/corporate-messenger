@@ -42,11 +42,21 @@ const subscriptionResolvers: SubscriptionResolvers = {
     },
   },
   chatDeleted: {
-    subscribe: () => pubsub.asyncIterator([CHAT_DELETED]),
+    subscribe: () => {
+      return pubsub.asyncIterator([CHAT_DELETED]);
+    },
     resolve: (chat: ChatEntity) => chat,
   },
   newMessage: {
-    subscribe: () => pubsub.asyncIterator([MESSAGE_CREATED]),
+    subscribe: withFilter(
+      () => pubsub.asyncIterator([MESSAGE_CREATED]),
+      // currentUserId is null always (can't fix it)
+      (message: MessageEntity, _, { currentUserId }) => {
+        console.log(_);
+        console.log(currentUserId);
+        return message.author !== '';
+      },
+    ),
 
     resolve: (message: MessageEntity) => {
       return message;
