@@ -649,6 +649,14 @@
     "@types/mongodb" "*"
     "@types/node" "*"
 
+"@types/mongoose@~5.2.15":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.2.22.tgz#eed65f2c03da306a03156e6448872793bdc6a262"
+  integrity sha512-jwEMIenbahk0gz4UX5WZ28p4ZWBfASyWaU4f5XX06o3KAlY+kNH10szn7/+Oj8o4gqTww+yL82vuwHF+ubO+4w==
+  dependencies:
+    "@types/mongodb" "*"
+    "@types/node" "*"
+
 "@types/node-fetch@^2.5.10":
   version "2.5.10"
   resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.5.10.tgz#9b4d4a0425562f9fcea70b12cb3fcdd946ca8132"
@@ -773,6 +781,14 @@
   integrity sha512-mwEVBDUVODlsQQ5dfuLUS5/Tf7jqUKyhKYHmVi4fPB6bDMOfWvUPJmKgS1Z7Za/sOI3vzWt4+O7yCiL/70MogA==
   dependencies:
     tslib "^1.9.3"
+
+"@xureilab/restgoose@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@xureilab/restgoose/-/restgoose-1.1.8.tgz#7166508e4d5e8cc60f7f932248f8d6e5c66bbec1"
+  integrity sha512-kUq7PGS/6eGoUDn9MkPVIr8Wdl8P3HfqHkk7jI/MH3CwffKqxpFzog97KgiZc2iLAGK9thAG8ebJr4U3NENEiQ==
+  dependencies:
+    "@types/mongoose" "~5.2.15"
+    debug "^4.1.1"
 
 abbrev@1:
   version "1.1.1"

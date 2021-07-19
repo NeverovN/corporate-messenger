@@ -10,6 +10,8 @@ import { RESTApi } from '../rest';
 import bodyParser from 'body-parser';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
+import { Restgoose } from '@xureilab/restgoose';
+import '../models/Theme';
 
 export function initServer(port: number): void {
   const SUCCESS_MESSAGE = `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`;
@@ -39,7 +41,8 @@ export function initServer(port: number): void {
 
   const app = express();
 
-  app.use('/graphql', bodyParser.json());
+  app.use(bodyParser.json());
+  app.use(Restgoose.initialize());
 
   server.applyMiddleware({ app });
 
