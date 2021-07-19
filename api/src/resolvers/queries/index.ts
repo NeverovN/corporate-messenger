@@ -72,6 +72,10 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
 
     return feed.flat(); // TODO: check if it works correctly (maybe we have to use lodash or ramda or somethings else)
   },
+  async getThemes(_, __, { dataSources }) {
+    const themes = await dataSources.restAPI.getThemes();
+    return themes;
+  },
 };
 
 export default queryResolvers;

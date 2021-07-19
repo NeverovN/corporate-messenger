@@ -10,7 +10,7 @@ generates:
         Chat: ../models/Chat/index#ChatEntity
         Message: ../models/Message/index#MessageEntity
         Comment: ../models/Comment/index#CommentEntity
-
+        Theme: ../models/Theme/#index#ThemeEntity
     plugins:
       - "typescript"
       - "typescript-resolvers"

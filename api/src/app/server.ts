@@ -19,7 +19,7 @@ export function initServer(port: number): void {
   const server = new ApolloServer({
     schema,
     dataSources: () => ({
-      restAPI: new RESTApi(),
+      restAPI: new RESTApi(port),
     }),
     context: ({ req }): Omit<ApolloContextType, 'dataSources'> => {
       const token = req?.headers.authorization || '';

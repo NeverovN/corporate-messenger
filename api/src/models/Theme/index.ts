@@ -8,21 +8,22 @@ import {
   remove,
   all,
 } from '@xureilab/restgoose';
+import { getModelForClass } from '@typegoose/typegoose';
 import { ID } from '../../types/common';
 
 @rest({
   /*+*/ route: '/theme',
+  schemaOptions: { collection: 'themes', _id: true },
   /*+*/ methods: [
-    /*+*/ all(),
-    /*+*/ one(), //GET    /movies/:id
-    /*+*/ create(), //POST   /movies
-    /*+*/ update(), //PATCH  /movies/:id
-    /*+*/ remove(), //DElETE /movies/:id
-    /*+*/
+    all(), //GET    /theme
+    one(), //GET    /theme/:id
+    create(), //POST   /theme
+    update(), //PATCH  /theme/:id
+    remove(), //DElETE /theme/:id
   ],
   /*+*/
 })
-export class Theme extends RestgooseModel {
+export class ThemeEntity extends RestgooseModel {
   _id: ID;
 
   @prop({ required: true })
@@ -30,4 +31,14 @@ export class Theme extends RestgooseModel {
 
   @prop({ required: true })
   isLight: boolean;
+
+  constructor(userId: ID, isLight: boolean) {
+    super();
+    this.userId = userId;
+    this.isLight = isLight;
+  }
 }
+
+const ThemeModel = getModelForClass(ThemeEntity);
+
+export default ThemeModel;

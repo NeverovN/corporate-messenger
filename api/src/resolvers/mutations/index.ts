@@ -265,6 +265,12 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     return readMsg;
   },
+  async setTheme(_, __, { dataSources }) {
+    const theme = await dataSources.restAPI.setTheme();
+    console.log('theme', theme);
+
+    return theme;
+  },
 };
 
 export default mutationResolvers;

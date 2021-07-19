@@ -9,6 +9,7 @@ import messageResolvers from './schemes/Message';
 import postResolvers from './schemes/Post';
 import userResolvers from './schemes/User';
 import commentResolvers from './schemes/Comment';
+import themeResolvers from './schemes/Theme';
 
 const resolvers: Resolvers = {
   Mutation: mutationResolvers,
@@ -19,6 +20,7 @@ const resolvers: Resolvers = {
   Post: postResolvers,
   Message: messageResolvers,
   Comment: commentResolvers,
+  Theme: themeResolvers,
 };
 
 export default resolvers;

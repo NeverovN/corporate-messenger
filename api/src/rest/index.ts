@@ -1,12 +1,20 @@
-import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
-
-export class RESTApi extends RESTDataSource {
-  constructor() {
+import { RESTDataSource } from 'apollo-datasource-rest';
+import { ThemeEntity } from '../models/Theme';
+export class RESTApi extends RESTDataSource<ThemeEntity> {
+  constructor(port: number) {
     super();
-    this.baseURL = 'some url to be here';
+    this.baseURL = `http://localhost:${port}/`;
   }
 
-  a(id: string): any {
-    return this.get(`messages/${id}`, '');
+  async getThemes(): Promise<ThemeEntity[]> {
+    return await this.get('theme');
+  }
+
+  async setTheme(): Promise<ThemeEntity> {
+    const theme = await this.post('theme', {
+      userId: 'bbb',
+    });
+    console.log(theme);
+    return theme;
   }
 }
