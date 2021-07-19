@@ -24,7 +24,7 @@ type Query {
   getUser(id: ID): User!
   getUserById(id: ID!): User
   getUsers: [User]
-  getThemes: [Theme!]
+  getTheme: Theme
 }
 
 type Mutation {
@@ -35,7 +35,11 @@ type Mutation {
   editEmail(newEmail: String!): User!
   editUsername(newFirstName: String!, newLastName: String!): User!
   editPassword(input: UpdatePasswordInput!): User!
-  setTheme: Theme!
+  toggleTheme(input: i!): Theme!
+}
+
+input i {
+  a: String!
 }
 
 input LoginInput {

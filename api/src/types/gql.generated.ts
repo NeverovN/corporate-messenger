@@ -100,8 +100,8 @@ export type Mutation = {
   login: AuthenticationResult;
   markRead: Message;
   removeFriend?: Maybe<User>;
-  setTheme: Theme;
   toggleLike: Post;
+  toggleTheme: Theme;
 };
 
 
@@ -218,6 +218,11 @@ export type MutationToggleLikeArgs = {
   id: Scalars['ID'];
 };
 
+
+export type MutationToggleThemeArgs = {
+  input: I;
+};
+
 export type Post = {
   __typename?: 'Post';
   id: Scalars['ID'];
@@ -240,7 +245,7 @@ export type Query = {
   getMessageById?: Maybe<Message>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
-  getThemes?: Maybe<Array<Theme>>;
+  getTheme?: Maybe<Theme>;
   getUser: User;
   getUserById?: Maybe<User>;
   getUsers?: Maybe<Array<Maybe<User>>>;
@@ -322,6 +327,10 @@ export type User = {
   avatar?: Maybe<Scalars['String']>;
   friends: Array<User>;
   theme?: Maybe<Theme>;
+};
+
+export type I = {
+  a: Scalars['String'];
 };
 
 
@@ -419,6 +428,7 @@ export type ResolversTypes = {
   Theme: ResolverTypeWrapper<index.ThemeEntity>;
   UpdatePasswordInput: UpdatePasswordInput;
   User: ResolverTypeWrapper<UserEntity>;
+  i: I;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -440,6 +450,7 @@ export type ResolversParentTypes = {
   Theme: index.ThemeEntity;
   UpdatePasswordInput: UpdatePasswordInput;
   User: UserEntity;
+  i: I;
 };
 
 export type AuthenticationResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthenticationResult'] = ResolversParentTypes['AuthenticationResult']> = {
@@ -508,8 +519,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
   markRead?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationMarkReadArgs, 'messageId'>>;
   removeFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFriendArgs, 'friendId'>>;
-  setTheme?: Resolver<ResolversTypes['Theme'], ParentType, ContextType>;
   toggleLike?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationToggleLikeArgs, 'id'>>;
+  toggleTheme?: Resolver<ResolversTypes['Theme'], ParentType, ContextType, RequireFields<MutationToggleThemeArgs, 'input'>>;
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
@@ -533,7 +544,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getMessageById?: Resolver<Maybe<ResolversTypes['Message']>, ParentType, ContextType, RequireFields<QueryGetMessageByIdArgs, 'messageId'>>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetPostArgs, 'id'>>;
   getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostsArgs, never>>;
-  getThemes?: Resolver<Maybe<Array<ResolversTypes['Theme']>>, ParentType, ContextType>;
+  getTheme?: Resolver<Maybe<ResolversTypes['Theme']>, ParentType, ContextType>;
   getUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryGetUserArgs, never>>;
   getUserById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
   getUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;

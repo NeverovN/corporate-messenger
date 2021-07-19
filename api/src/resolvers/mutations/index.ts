@@ -24,6 +24,7 @@ import {
 // services
 import { pubsub } from '../../services/pubsub';
 import { CommentController } from '../../controllers/Comment';
+import { ThemeController } from '../../controllers/Theme';
 
 const mutationResolvers: MutationResolvers<ApolloContextType> = {
   async login(_, { input }) {
@@ -63,6 +64,8 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       input.lastName,
       null,
     );
+
+    ThemeController.createThemeEntity(user._id);
 
     const token = createToken(user._id);
 
@@ -264,12 +267,6 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
     pubsub.publish(MESSAGE_EDITED, readMsg);
 
     return readMsg;
-  },
-  async setTheme(_, __, { dataSources }) {
-    const theme = await dataSources.restAPI.setTheme();
-    console.log('theme', theme);
-
-    return theme;
   },
 };
 

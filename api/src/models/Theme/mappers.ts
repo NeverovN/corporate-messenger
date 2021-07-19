@@ -1,8 +1,7 @@
 import { ThemeEntity } from './index';
-import { PostDocument } from './types';
-
-export function mapPostDocumentToPostEntity(
-  document: PostDocument,
+import { Document } from 'mongoose';
+export function mapThemeDocumentToThemeEntity(
+  document: ThemeEntity & Document,
 ): ThemeEntity {
   return {
     _id: document._id,

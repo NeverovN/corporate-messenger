@@ -157,3 +157,12 @@ mutation DeletePostById($postId: ID!) {
     id
   }
 }
+
+mutation ToggleTheme($input: i!) {
+  toggleTheme(input: $input)
+    @rest(type: "Theme", path: "/theme", method: "POST") {
+    id
+    userId
+    isLight
+  }
+}

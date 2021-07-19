@@ -6,8 +6,6 @@ import { ApolloContextType } from '../types/apollo';
 import express from 'express';
 
 // api
-import { RESTApi } from '../rest';
-import bodyParser from 'body-parser';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
 import { Restgoose } from '@xureilab/restgoose';
@@ -18,9 +16,6 @@ export function initServer(port: number): void {
 
   const server = new ApolloServer({
     schema,
-    dataSources: () => ({
-      restAPI: new RESTApi(port),
-    }),
     context: ({ req }): Omit<ApolloContextType, 'dataSources'> => {
       const token = req?.headers.authorization || '';
 
@@ -41,7 +36,7 @@ export function initServer(port: number): void {
 
   const app = express();
 
-  app.use(bodyParser.json());
+  app.use(express.json());
   app.use(Restgoose.initialize());
 
   server.applyMiddleware({ app });
