@@ -1,5 +1,4 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { ImageOrVideo } from 'react-native-image-crop-picker';
 
 // components
@@ -13,8 +12,9 @@ import { useEditMessage } from 'chat/chatScreen/hooks/useEditMessage';
 
 // types
 import { IMessageItem } from 'chat/chatScreen/types/message';
-import { RootState } from 'common/redux/store';
-import { remove, save } from '@/common/redux/slices/savedMessage';
+import { save, remove } from '@/common/redux/slices/savedMessage';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/common/redux/store';
 
 interface IBottomBarContainerProps {
   editMessage: IMessageItem | null;
@@ -26,9 +26,7 @@ const BottomBarContainer: FC<IBottomBarContainerProps> = ({
   setEditMessage,
 }) => {
   const dispatch = useDispatch();
-  const savedMessage = useSelector(
-    (state: RootState) => state.message.messageText,
-  );
+  const savedMessage = useSelector((state: RootState) => state.messageText);
   const [message, setMessage] = useState<string>('');
   const [editingMessage, setEditingMessage] = useState<string>('');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -46,13 +44,12 @@ const BottomBarContainer: FC<IBottomBarContainerProps> = ({
   useEffect(() => {
     if (editMessage) {
       dispatch(save(message));
-      console.log('saved message', savedMessage);
       setEditingMessage(editMessage.content);
     } else {
-      if (savedMessage) {
-        setMessage(savedMessage);
-      }
       dispatch(remove());
+      if (savedMessage) {
+        setMessage(savedMessage || '');
+      }
     }
   }, [dispatch, editMessage, message, savedMessage]);
 

@@ -1,12 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from '@redux-saga/core';
 
 // slices
-import counterReducer from './slices/counter';
 import savedMessageReducer from './slices/savedMessage';
 
-export const store = configureStore({
-  reducer: { counter: counterReducer, message: savedMessageReducer },
-});
+// sagas
+import root from './sagas';
+
+const sagaMiddleware = createSagaMiddleware();
+
+export const store = createStore(
+  savedMessageReducer,
+  applyMiddleware(sagaMiddleware),
+);
+
+sagaMiddleware.run(root);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
