@@ -15,3 +15,12 @@ mutation EditPassword($input: UpdatePasswordInput!) {
     ...UserFragment
   }
 }
+
+mutation ToggleTheme($input: RestInput!) {
+  toggleTheme(input: $input)
+    @rest(type: "Theme", path: "/theme", method: "POST") {
+    id
+    userId
+    isLight
+  }
+}

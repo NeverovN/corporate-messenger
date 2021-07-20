@@ -10,7 +10,7 @@ import { MessageController } from '../../controllers/Message';
 
 const queryResolvers: QueryResolvers<ApolloContextType> = {
   async getUserById(_, args) {
-    return await UserController.getUser(args.id); // don't see principal difference between this query and getUser
+    return await UserController.getUser(args.id);
   },
   async getUsers() {
     return await UserController.getAllUsers();
@@ -71,6 +71,9 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
     );
 
     return feed.flat(); // TODO: check if it works correctly (maybe we have to use lodash or ramda or somethings else)
+  },
+  async getTheme() {
+    return [];
   },
 };
 

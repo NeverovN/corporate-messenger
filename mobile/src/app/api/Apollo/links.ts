@@ -1,5 +1,6 @@
 import { HttpLink } from '@apollo/client/link/http';
 import { WebSocketLink } from '@apollo/client/link/ws';
+import { RestLink } from 'apollo-link-rest';
 import { onError } from '@apollo/client/link/error';
 import { setContext } from '@apollo/client/link/context';
 import { from, split } from '@apollo/client/link/core';
@@ -11,6 +12,10 @@ import { tokenVar } from 'common/cache/cache';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const httpLink = new HttpLink({ uri: BASE_HTTP_URL });
+
+const restLink = new RestLink({
+  uri: 'http://localhost:3000',
+});
 
 const wsLink = new WebSocketLink({
   uri: BASE_WS_URL,
@@ -51,4 +56,4 @@ export const authLink = setContext(async (_, { headers }) => {
   return headers;
 });
 
-export default from([errorLink, authLink, link]);
+export default from([errorLink, authLink, restLink, link]);
