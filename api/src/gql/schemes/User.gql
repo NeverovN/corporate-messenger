@@ -35,11 +35,11 @@ type Mutation {
   editEmail(newEmail: String!): User!
   editUsername(newFirstName: String!, newLastName: String!): User!
   editPassword(input: UpdatePasswordInput!): User!
-  toggleTheme(input: i!): Theme!
+  toggleTheme(input: RestInput!): Theme!
 }
 
-input i {
-  a: String!
+input RestInput {
+  action: String!
 }
 
 input LoginInput {

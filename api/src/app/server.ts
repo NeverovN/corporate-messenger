@@ -4,8 +4,6 @@ import schema from '../gql/schema';
 import getUserIdByToken from '../utils/getUserIdByToken';
 import { ApolloContextType } from '../types/apollo';
 import express from 'express';
-
-// api
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
 import { Restgoose } from '@xureilab/restgoose';

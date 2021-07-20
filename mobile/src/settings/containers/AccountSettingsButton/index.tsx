@@ -25,7 +25,9 @@ const AccountSettingsButtonContainer: FC<IAccountSettingsButtonContainerProps> =
         containerStyle={styles.accountSettingsButtonStyles}
         onPress={async () => {
           try {
-            const { data } = await edit({ variables: { input: { a: '' } } });
+            const { data } = await edit({
+              variables: { input: { action: 'toggle theme' } },
+            });
             console.log(data?.toggleTheme);
           } catch (error) {
             console.log(error);

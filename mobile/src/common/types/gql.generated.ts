@@ -213,7 +213,7 @@ export type MutationToggleLikeArgs = {
 
 
 export type MutationToggleThemeArgs = {
-  input: I;
+  input: RestInput;
 };
 
 export type Post = {
@@ -280,6 +280,10 @@ export type QueryGetUserByIdArgs = {
   id: Scalars['ID'];
 };
 
+export type RestInput = {
+  action: Scalars['String'];
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   chatDeleted: Chat;
@@ -320,10 +324,6 @@ export type User = {
   avatar?: Maybe<Scalars['String']>;
   friends: Array<User>;
   theme?: Maybe<Theme>;
-};
-
-export type I = {
-  a: Scalars['String'];
 };
 
 export type UserFragmentFragment = (
@@ -777,19 +777,6 @@ export type DeletePostByIdMutation = (
   ) }
 );
 
-export type ToggleThemeMutationVariables = Exact<{
-  input: I;
-}>;
-
-
-export type ToggleThemeMutation = (
-  { __typename?: 'Mutation' }
-  & { toggleTheme: (
-    { __typename?: 'Theme' }
-    & Pick<Theme, 'id' | 'userId' | 'isLight'>
-  ) }
-);
-
 export type PostFragmentFragment = (
   { __typename?: 'Post' }
   & Pick<Post, 'id' | 'createdAt' | 'textContent' | 'mediaContent'>
@@ -937,6 +924,19 @@ export type EditPasswordMutation = (
   & { editPassword: (
     { __typename?: 'User' }
     & UserFragmentFragment
+  ) }
+);
+
+export type ToggleThemeMutationVariables = Exact<{
+  input: RestInput;
+}>;
+
+
+export type ToggleThemeMutation = (
+  { __typename?: 'Mutation' }
+  & { toggleTheme: (
+    { __typename?: 'Theme' }
+    & Pick<Theme, 'id' | 'userId' | 'isLight'>
   ) }
 );
 
@@ -1983,41 +1983,6 @@ export function useDeletePostByIdMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeletePostByIdMutationHookResult = ReturnType<typeof useDeletePostByIdMutation>;
 export type DeletePostByIdMutationResult = Apollo.MutationResult<DeletePostByIdMutation>;
 export type DeletePostByIdMutationOptions = Apollo.BaseMutationOptions<DeletePostByIdMutation, DeletePostByIdMutationVariables>;
-export const ToggleThemeDocument = gql`
-    mutation ToggleTheme($input: i!) {
-  toggleTheme(input: $input) @rest(type: "Theme", path: "/theme", method: "POST") {
-    id
-    userId
-    isLight
-  }
-}
-    `;
-export type ToggleThemeMutationFn = Apollo.MutationFunction<ToggleThemeMutation, ToggleThemeMutationVariables>;
-
-/**
- * __useToggleThemeMutation__
- *
- * To run a mutation, you first call `useToggleThemeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useToggleThemeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [toggleThemeMutation, { data, loading, error }] = useToggleThemeMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useToggleThemeMutation(baseOptions?: Apollo.MutationHookOptions<ToggleThemeMutation, ToggleThemeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ToggleThemeMutation, ToggleThemeMutationVariables>(ToggleThemeDocument, options);
-      }
-export type ToggleThemeMutationHookResult = ReturnType<typeof useToggleThemeMutation>;
-export type ToggleThemeMutationResult = Apollo.MutationResult<ToggleThemeMutation>;
-export type ToggleThemeMutationOptions = Apollo.BaseMutationOptions<ToggleThemeMutation, ToggleThemeMutationVariables>;
 export const CreatePostDocument = gql`
     mutation CreatePost($textContent: String, $mediaContent: [String!]) {
   createPost(textContent: $textContent, mediaContent: $mediaContent) {
@@ -2391,3 +2356,38 @@ export function useEditPasswordMutation(baseOptions?: Apollo.MutationHookOptions
 export type EditPasswordMutationHookResult = ReturnType<typeof useEditPasswordMutation>;
 export type EditPasswordMutationResult = Apollo.MutationResult<EditPasswordMutation>;
 export type EditPasswordMutationOptions = Apollo.BaseMutationOptions<EditPasswordMutation, EditPasswordMutationVariables>;
+export const ToggleThemeDocument = gql`
+    mutation ToggleTheme($input: RestInput!) {
+  toggleTheme(input: $input) @rest(type: "Theme", path: "/theme", method: "POST") {
+    id
+    userId
+    isLight
+  }
+}
+    `;
+export type ToggleThemeMutationFn = Apollo.MutationFunction<ToggleThemeMutation, ToggleThemeMutationVariables>;
+
+/**
+ * __useToggleThemeMutation__
+ *
+ * To run a mutation, you first call `useToggleThemeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useToggleThemeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [toggleThemeMutation, { data, loading, error }] = useToggleThemeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useToggleThemeMutation(baseOptions?: Apollo.MutationHookOptions<ToggleThemeMutation, ToggleThemeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ToggleThemeMutation, ToggleThemeMutationVariables>(ToggleThemeDocument, options);
+      }
+export type ToggleThemeMutationHookResult = ReturnType<typeof useToggleThemeMutation>;
+export type ToggleThemeMutationResult = Apollo.MutationResult<ToggleThemeMutation>;
+export type ToggleThemeMutationOptions = Apollo.BaseMutationOptions<ToggleThemeMutation, ToggleThemeMutationVariables>;

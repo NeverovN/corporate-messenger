@@ -220,7 +220,7 @@ export type MutationToggleLikeArgs = {
 
 
 export type MutationToggleThemeArgs = {
-  input: I;
+  input: RestInput;
 };
 
 export type Post = {
@@ -287,6 +287,10 @@ export type QueryGetUserByIdArgs = {
   id: Scalars['ID'];
 };
 
+export type RestInput = {
+  action: Scalars['String'];
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   chatDeleted: Chat;
@@ -327,10 +331,6 @@ export type User = {
   avatar?: Maybe<Scalars['String']>;
   friends: Array<User>;
   theme?: Maybe<Theme>;
-};
-
-export type I = {
-  a: Scalars['String'];
 };
 
 
@@ -424,11 +424,11 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<PostEntity>;
   Query: ResolverTypeWrapper<{}>;
+  RestInput: RestInput;
   Subscription: ResolverTypeWrapper<{}>;
   Theme: ResolverTypeWrapper<index.ThemeEntity>;
   UpdatePasswordInput: UpdatePasswordInput;
   User: ResolverTypeWrapper<UserEntity>;
-  i: I;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -446,11 +446,11 @@ export type ResolversParentTypes = {
   Mutation: {};
   Post: PostEntity;
   Query: {};
+  RestInput: RestInput;
   Subscription: {};
   Theme: index.ThemeEntity;
   UpdatePasswordInput: UpdatePasswordInput;
   User: UserEntity;
-  i: I;
 };
 
 export type AuthenticationResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthenticationResult'] = ResolversParentTypes['AuthenticationResult']> = {

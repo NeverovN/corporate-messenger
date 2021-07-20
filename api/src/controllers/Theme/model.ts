@@ -6,14 +6,14 @@ import { mapThemeDocumentToThemeEntity } from '../../models/Theme/mappers';
 import ThemeEntityController from './entity';
 
 class ThemeModelController {
-  async getTheme() {
-    const theme = await ThemeModel.find().exec();
+  async getThemes() {
+    const themes = await ThemeModel.find().exec();
 
-    if (!theme) {
+    if (!themes) {
       throw new Error('theme not found');
     }
 
-    return theme;
+    return themes;
   }
 
   async createThemeEntity(userId: ID) {
@@ -21,14 +21,13 @@ class ThemeModelController {
 
     const themeDocument = await ThemeModel.create(theme);
 
-    console.log(themeDocument);
     themeDocument.save();
 
     return mapThemeDocumentToThemeEntity(themeDocument);
   }
 
   async setTheme(userId: ID, isLight: boolean) {
-    const theme = await ThemeModel.findById({ userId }).exec();
+    const theme = await ThemeModel.findOne({ userId }).exec();
 
     if (!theme) {
       throw Error('theme not found');
@@ -36,8 +35,8 @@ class ThemeModelController {
 
     const newTheme = ThemeEntityController.setTheme(userId, isLight);
 
-    await ThemeModel.findByIdAndUpdate(newTheme._id, newTheme).exec();
-    const updatedTheme = await ThemeModel.findById(newTheme._id).exec();
+    await ThemeModel.findByIdAndUpdate(theme._id, newTheme).exec();
+    const updatedTheme = await ThemeModel.findById(theme._id).exec();
 
     if (!updatedTheme) {
       throw Error('network error, theme was not toggled');
@@ -57,8 +56,8 @@ class ThemeModelController {
       mapThemeDocumentToThemeEntity(theme),
     );
 
-    await ThemeModel.findOneAndUpdate({ userId }, updatedThemeEntity).exec();
-    const updatedTheme = await ThemeModel.findOne({ userId }).exec();
+    await ThemeModel.findByIdAndUpdate(theme._id, updatedThemeEntity).exec();
+    const updatedTheme = await ThemeModel.findById(theme._id).exec();
 
     if (!updatedTheme) {
       throw Error('network error, theme was not toggled');

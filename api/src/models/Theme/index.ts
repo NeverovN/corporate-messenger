@@ -9,14 +9,14 @@ import {
   RestgooseModel,
   getModel,
 } from '@xureilab/restgoose';
-import { getModelForClass } from '@typegoose/typegoose';
 import { ID } from '../../types/common';
 import decodeToken from '../../utils/decodeToken';
 import { ThemeController } from '../../controllers/Theme';
 import { modelOptions } from '@typegoose/typegoose';
 
-@modelOptions({ schemaOptions: { collection: 'theme', _id: true } })
+@modelOptions({ schemaOptions: { collection: 'theme', id: true } })
 @rest({
+  schemaOptions: { _id: true, id: true },
   route: '/theme',
   methods: [
     /*+*/
