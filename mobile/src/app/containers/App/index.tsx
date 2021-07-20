@@ -1,10 +1,12 @@
 import React, { FC, memo } from 'react';
 import Toast from 'react-native-toast-message';
 
-// routers
-import NavigationProvider from '../../routers';
+// providers
 import ApolloProvider from 'app/contexts/Apollo';
 import { Provider } from 'react-redux';
+
+// routers
+import NavigationProvider from '../../routers';
 
 // redux store
 import { store } from 'common/redux/store';

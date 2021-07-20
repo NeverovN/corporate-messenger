@@ -1,5 +1,6 @@
 import React, { FC, memo, useEffect, useState } from 'react';
 import { ImageOrVideo } from 'react-native-image-crop-picker';
+import { useDispatch, useSelector } from 'react-redux';
 
 // components
 import BottomBarView from 'chat/chatScreen/components/BottomBar';
@@ -12,9 +13,10 @@ import { useEditMessage } from 'chat/chatScreen/hooks/useEditMessage';
 
 // types
 import { IMessageItem } from 'chat/chatScreen/types/message';
-import { save, remove } from '@/common/redux/slices/savedMessage';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
+
+// redux actions
+import { save, remove } from '@/common/redux/reducers/savedMessage';
 
 interface IBottomBarContainerProps {
   editMessage: IMessageItem | null;

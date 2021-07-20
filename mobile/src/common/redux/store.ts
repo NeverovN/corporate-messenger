@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from '@redux-saga/core';
 
-// slices
-import savedMessageReducer from './slices/savedMessage';
+// reducers
+import savedMessageReducer from './reducers/savedMessage';
 
 // sagas
 import root from './sagas';

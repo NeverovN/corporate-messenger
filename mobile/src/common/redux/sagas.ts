@@ -1,5 +1,5 @@
 import { takeEvery, call, fork } from 'redux-saga/effects';
-import { save, remove } from './slices/savedMessage';
+import { save, remove } from './reducers/savedMessage';
 
 function* watchMessageSave() {
   yield takeEvery('SAVE_MESSAGE', setMessageSave);

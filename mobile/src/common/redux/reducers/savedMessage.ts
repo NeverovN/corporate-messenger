@@ -11,7 +11,7 @@ const initialState: CounterState = {
 export const save = createAction<string>('SAVE_MESSAGE');
 export const remove = createAction('REMOVE_MESSAGE');
 
-export const counterSlice = createReducer(initialState, (builder) => {
+const message = createReducer(initialState, (builder) => {
   builder
     .addCase(save, (state, action) => {
       state.messageText = action.payload;
@@ -21,4 +21,4 @@ export const counterSlice = createReducer(initialState, (builder) => {
     });
 });
 
-export default counterSlice;
+export default message;
