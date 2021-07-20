@@ -26,6 +26,5 @@ export const useEditMessage = (
     } catch (error) {
       Alert.alert('Error', `${error}`);
     }
-    console.log('edited');
   };
 };

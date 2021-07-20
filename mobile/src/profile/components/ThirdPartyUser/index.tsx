@@ -15,8 +15,17 @@ interface IThirdPartyUserViewProps {
   data: IPostItem[];
 }
 
-const renderPostItem: ListRenderItem<IPostItem> = () => {
-  return <Tile />;
+const renderPostItem: ListRenderItem<IPostItem> = ({ item }) => {
+  return (
+    <Tile
+      author={item.author}
+      id={item.id}
+      createdAt={item.createdAt}
+      textContent={item.textContent}
+      mediaContent={item.mediaContent}
+      avatar={item.avatar}
+    />
+  );
 };
 
 const ThirdPartyUserView: FC<IThirdPartyUserViewProps> = (props) => {
