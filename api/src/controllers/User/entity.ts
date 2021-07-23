@@ -77,6 +77,10 @@ class UserEntityController {
     );
     return user;
   }
+
+  toggleTheme(user: UserEntity): UserEntity {
+    return { ...user, isLightTheme: !user.isLightTheme };
+  }
 }
 
 const userEntityController = new UserEntityController();

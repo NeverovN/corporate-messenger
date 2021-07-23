@@ -101,7 +101,6 @@ export type Mutation = {
   markRead: Message;
   removeFriend?: Maybe<User>;
   toggleLike: Post;
-  toggleTheme: Theme;
 };
 
 
@@ -218,11 +217,6 @@ export type MutationToggleLikeArgs = {
   id: Scalars['ID'];
 };
 
-
-export type MutationToggleThemeArgs = {
-  input: RestInput;
-};
-
 export type Post = {
   __typename?: 'Post';
   id: Scalars['ID'];
@@ -245,7 +239,6 @@ export type Query = {
   getMessageById?: Maybe<Message>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
-  getTheme?: Maybe<Theme>;
   getUser: User;
   getUserById?: Maybe<User>;
   getUsers?: Maybe<Array<Maybe<User>>>;
@@ -287,10 +280,6 @@ export type QueryGetUserByIdArgs = {
   id: Scalars['ID'];
 };
 
-export type RestInput = {
-  action: Scalars['String'];
-};
-
 export type Subscription = {
   __typename?: 'Subscription';
   chatDeleted: Chat;
@@ -310,13 +299,6 @@ export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
 };
 
-export type Theme = {
-  __typename?: 'Theme';
-  id: Scalars['ID'];
-  userId: Scalars['ID'];
-  isLight: Scalars['Boolean'];
-};
-
 export type UpdatePasswordInput = {
   oldPassword: Scalars['String'];
   newPassword: Scalars['String'];
@@ -330,7 +312,7 @@ export type User = {
   lastName: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
   friends: Array<User>;
-  theme?: Maybe<Theme>;
+  theme?: Maybe<Scalars['String']>;
 };
 
 
@@ -424,9 +406,7 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<PostEntity>;
   Query: ResolverTypeWrapper<{}>;
-  RestInput: RestInput;
   Subscription: ResolverTypeWrapper<{}>;
-  Theme: ResolverTypeWrapper<index.ThemeEntity>;
   UpdatePasswordInput: UpdatePasswordInput;
   User: ResolverTypeWrapper<UserEntity>;
 };
@@ -446,9 +426,7 @@ export type ResolversParentTypes = {
   Mutation: {};
   Post: PostEntity;
   Query: {};
-  RestInput: RestInput;
   Subscription: {};
-  Theme: index.ThemeEntity;
   UpdatePasswordInput: UpdatePasswordInput;
   User: UserEntity;
 };
@@ -520,7 +498,6 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   markRead?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationMarkReadArgs, 'messageId'>>;
   removeFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFriendArgs, 'friendId'>>;
   toggleLike?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationToggleLikeArgs, 'id'>>;
-  toggleTheme?: Resolver<ResolversTypes['Theme'], ParentType, ContextType, RequireFields<MutationToggleThemeArgs, 'input'>>;
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
@@ -544,7 +521,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getMessageById?: Resolver<Maybe<ResolversTypes['Message']>, ParentType, ContextType, RequireFields<QueryGetMessageByIdArgs, 'messageId'>>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetPostArgs, 'id'>>;
   getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostsArgs, never>>;
-  getTheme?: Resolver<Maybe<ResolversTypes['Theme']>, ParentType, ContextType>;
   getUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryGetUserArgs, never>>;
   getUserById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
   getUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
@@ -559,13 +535,6 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
   newPost?: SubscriptionResolver<ResolversTypes['Post'], "newPost", ParentType, ContextType>;
 };
 
-export type ThemeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Theme'] = ResolversParentTypes['Theme']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  isLight?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -573,7 +542,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   friends?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
-  theme?: Resolver<Maybe<ResolversTypes['Theme']>, ParentType, ContextType>;
+  theme?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -587,7 +556,6 @@ export type Resolvers<ContextType = any> = {
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
-  Theme?: ThemeResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 

@@ -4,6 +4,7 @@ fragment UserFragment on User {
   lastName
   email
   avatar
+  theme
   friends {
     id
     firstName
