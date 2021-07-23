@@ -6,7 +6,7 @@ export function mapMessageDocumentToMessageEntity(
 ): MessageEntity {
   return {
     _id: document._id,
-    content: document.content,
+    text: document.text,
     author: document.author,
     chatId: document.chatId,
     createdAt: document.createdAt,

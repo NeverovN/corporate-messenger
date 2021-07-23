@@ -2,7 +2,7 @@ import { useEditMessageMutation } from '@/common/types/gql.generated';
 import { Alert } from 'react-native';
 
 export const useEditMessage = (
-  msgText: string,
+  msgText: string | null,
   msgId: string | null,
   setText: (msg: string) => void,
   setEditMsg: (msg: null) => void,

@@ -78,7 +78,10 @@ export const useGetChatMessages = (
     return {
       currentUserId: data.getUser.id,
       id: el?.id || '',
-      content: el?.content || '',
+      content: {
+        text: el?.content.text || null,
+        media: el?.content.media || null,
+      },
       createdAt: el?.createdAt || '',
       author: { name, id: el?.author.id || '' },
       lastEdit: el?.lastEdit || '',

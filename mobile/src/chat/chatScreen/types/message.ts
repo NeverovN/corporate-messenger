@@ -4,7 +4,10 @@ export interface IMessageItem {
     id: string;
     name: string;
   };
-  content: string;
+  content: {
+    text: string | null;
+    media: string[] | null;
+  };
   createdAt: string;
   lastEdit: string | null;
   isRead: boolean;

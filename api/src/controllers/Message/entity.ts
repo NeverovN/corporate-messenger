@@ -1,17 +1,17 @@
 import { ID } from '../../types/common';
-
+import { CreateMessageInput } from '../../types/gql.generated';
 import { MessageEntity } from '../../models/Message';
 
 class MessageEntityController {
-  createMessageEntity(author: ID, chat: ID, content: string): MessageEntity {
-    const newMessage = new MessageEntity(author, chat, content);
+  createMessageEntity(author: ID, content: CreateMessageInput): MessageEntity {
+    const newMessage = new MessageEntity(author, content);
 
     return newMessage;
   }
 
   editMessage(msg: MessageEntity, content: string): MessageEntity {
-    if (content !== msg.content) {
-      msg.content = content;
+    if (content !== msg.text) {
+      msg.text = content;
     }
 
     msg.lastEdit = new Date().toString();

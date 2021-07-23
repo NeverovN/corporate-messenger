@@ -1,6 +1,6 @@
 type Message {
   id: ID!
-  content: String!
+  content: MessageContent!
   author: User!
   chatId: ID!
   createdAt: String!
@@ -19,6 +19,11 @@ type Chat {
   settings: ChatSettings
 }
 
+type MessageContent {
+  text: String
+  media: [String!]
+}
+
 type ChatSettings {
   testField: String
 }
@@ -31,7 +36,7 @@ type Query {
 
 type Mutation {
   createChat(participants: [ID!]!, title: String!): Chat!
-  createMessage(content: String!, chatId: String!): Message!
+  createMessage(input: CreateMessageInput!): Message!
   deleteChatById(chatId: ID!): Chat!
   deleteMessageById(messageId: ID!): Message!
   editMessage(messageId: ID!, newContent: String!): Message!
@@ -43,4 +48,14 @@ type Subscription {
   chatDeleted: Chat!
   newMessage(chatId: ID!): Message!
   messageEdited(chatId: ID!): Message!
+}
+
+input CreateMessageInput {
+  content: MessageContentInput!
+  chatId: String!
+}
+
+input MessageContentInput {
+  text: String!
+  media: [String!]
 }

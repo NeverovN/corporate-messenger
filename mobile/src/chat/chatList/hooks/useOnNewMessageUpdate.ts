@@ -48,7 +48,7 @@ export const useOnNewMessageUpdate = (chatId: string) => {
         Toast.show({
           type: 'info',
           text1: authorName,
-          text2: message.content,
+          text2: message.content.text || 'media',
           topOffset: 50,
           onPress: redirection,
         });

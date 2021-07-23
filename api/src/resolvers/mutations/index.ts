@@ -217,13 +217,12 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       throw Error(`${error}`);
     }
   },
-  async createMessage(_, args, { currentUserId }) {
+  async createMessage(_, { input }, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');
 
     const newMessage = await MessageController.createMessage(
       currentUserId,
-      args.chatId,
-      args.content,
+      input,
     );
 
     pubsub.publish(MESSAGE_CREATED, newMessage);

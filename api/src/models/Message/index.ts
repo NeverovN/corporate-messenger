@@ -7,8 +7,7 @@ import {
   Severity,
 } from '@typegoose/typegoose';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type MessageMedia = {};
+import { CreateMessageInput } from '../../types/gql.generated';
 
 @modelOptions({
   options: { allowMixed: Severity.ALLOW },
@@ -23,8 +22,8 @@ export class MessageEntity {
   @prop({ required: true })
   chatId: ID;
 
-  @prop({ required: true })
-  content: string;
+  @prop()
+  text: string | null;
 
   @prop({ required: true })
   createdAt: string;
@@ -36,13 +35,14 @@ export class MessageEntity {
   lastEdit: string;
 
   @prop()
-  media: Array<MessageMedia>;
+  media: string[] | null;
 
-  constructor(author: ID, chatId: ID, content: string) {
+  constructor(author: ID, content: CreateMessageInput) {
     this.author = author;
     this.readBy = [];
-    this.chatId = chatId;
-    this.content = content;
+    this.chatId = content.chatId;
+    this.text = content.content.text || null;
+    this.media = content.content.media || null;
     this.createdAt = new Date().toString();
   }
 }

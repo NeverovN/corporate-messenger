@@ -19,4 +19,14 @@ export default StyleSheet.create({
   commonStyle: {
     paddingRight: 15,
   },
+  imageStyle: {
+    width: 100,
+    height: 100,
+    margin: 10,
+  },
+  imageViewer: {
+    height: 120,
+    width: '100%',
+    flexDirection: 'row',
+  },
 });

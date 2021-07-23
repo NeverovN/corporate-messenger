@@ -55,7 +55,10 @@ fragment ChatFragment on Chat {
   title
   messages {
     id
-    content
+    content {
+      text
+      media
+    }
     author {
       id
       firstName

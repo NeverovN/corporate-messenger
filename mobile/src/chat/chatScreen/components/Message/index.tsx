@@ -14,15 +14,8 @@ import { useGetMessage } from '../../hooks/useGetMessage';
 // types
 import { IMessageItem } from '../../types/message';
 
-interface IMessageViewProps {
-  id: string;
-  content: string;
-  author: string;
+interface IMessageViewProps extends IMessageItem {
   direction: Directions;
-  createdAt: string;
-  lastEdit: string | null;
-  isRead: boolean;
-
   setEditMessage(msg: IMessageItem | null): void;
   onPress(): void;
 }
@@ -57,7 +50,9 @@ const MessageView: FC<IMessageViewProps> = (props) => {
         <TouchableOpacity
           style={{ ...msgStyle, ...styles.commonMessageStyle }}
           onPress={props.onPress}>
-          <Text style={textStyle}>{props.content}</Text>
+          {props.content.text ? (
+            <Text style={textStyle}>{props.content.text}</Text>
+          ) : null}
           <Text style={textStyle}>{props.createdAt}</Text>
         </TouchableOpacity>
       </ContextMenu>
