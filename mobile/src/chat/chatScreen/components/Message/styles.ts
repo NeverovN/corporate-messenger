@@ -25,4 +25,8 @@ export default StyleSheet.create({
     borderRadius: 2,
     backgroundColor: COLORS.lightBlue,
   },
+  mediaStyle: {
+    height: 200,
+    width: 200,
+  },
 });
