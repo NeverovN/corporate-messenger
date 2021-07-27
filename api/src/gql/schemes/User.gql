@@ -10,21 +10,14 @@ type User {
   lastName: String!
   avatar: String
   friends: [User!]!
-  theme: Theme
+  theme: String
   #settings: UserSettings!
-}
-
-type Theme {
-  id: ID!
-  userId: ID!
-  isLight: Boolean!
 }
 
 type Query {
   getUser(id: ID): User!
   getUserById(id: ID!): User
   getUsers: [User]
-  getTheme: Theme
 }
 
 type Mutation {
@@ -35,11 +28,6 @@ type Mutation {
   editEmail(newEmail: String!): User!
   editUsername(newFirstName: String!, newLastName: String!): User!
   editPassword(input: UpdatePasswordInput!): User!
-  toggleTheme(input: RestInput!): Theme!
-}
-
-input RestInput {
-  action: String!
 }
 
 input LoginInput {

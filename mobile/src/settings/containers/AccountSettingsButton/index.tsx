@@ -8,12 +8,14 @@ import styles from './styles';
 
 // hooks
 import { useHandleAccountSettingsNavigation } from 'settings/hooks/useHandleAccountSettingsNavigation';
-import { useToggleThemeMutation } from '@/common/types/gql.generated';
+import { useToggleTheme } from '@/settings/hooks/useToggleTheme';
+import { useGetUserQuery } from '@/common/types/gql.generated';
 interface IAccountSettingsButtonContainerProps {}
 
 const AccountSettingsButtonContainer: FC<IAccountSettingsButtonContainerProps> = () => {
   const navigate = useHandleAccountSettingsNavigation();
-  const [edit] = useToggleThemeMutation();
+  const toggleTheme = useToggleTheme();
+  const { data } = useGetUserQuery();
   return (
     <>
       <TextButton
@@ -23,17 +25,8 @@ const AccountSettingsButtonContainer: FC<IAccountSettingsButtonContainerProps> =
       />
       <TextButton
         containerStyle={styles.accountSettingsButtonStyles}
-        onPress={async () => {
-          try {
-            const { data } = await edit({
-              variables: { input: { action: 'toggle theme' } },
-            });
-            console.log(data?.toggleTheme);
-          } catch (error) {
-            console.log(error);
-          }
-        }}
-        label="Theme switcher"
+        onPress={toggleTheme}
+        label={`Theme ${data?.getUser.theme}`}
       />
     </>
   );
