@@ -4,6 +4,12 @@ import { StyleSheet } from 'react-native';
 import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
+  inputAreaStyles: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   screenNameStyle: {
     fontFamily: 'Mulish-Regular_Light',
     fontSize: 50,
@@ -14,12 +20,43 @@ export default StyleSheet.create({
     margin: 30,
   },
 
-  inputAreaStyle: {
-    borderRadius: 20,
+  loginStyle: {
     alignItems: 'flex-start',
     justifyContent: 'center',
     width: '75%',
-    padding: 10,
+  },
+
+  separator: {
+    height: '10%',
+  },
+
+  registerStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '75%',
+  },
+
+  textStyle: {
+    fontSize: 16,
+    fontFamily: 'Mulish-Regular',
+    color: COLORS.secondary,
+  },
+
+  emailStyle: {
+    borderRadius: 30,
+    marginBottom: 10,
+    backgroundColor: COLORS.tint,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  passwordStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  iconStyle: {
+    marginRight: 10,
   },
 
   wrapperStyle: {
@@ -27,9 +64,10 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  passwordStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  separatorStyle: {
+    backgroundColor: COLORS.secondary,
+    width: '100%',
+    height: 1,
   },
 
   screenStyle: {
@@ -46,9 +84,5 @@ export default StyleSheet.create({
   buttonWrapperStyle: {
     width: '100%',
     marginTop: 50,
-  },
-
-  iconStyle: {
-    marginRight: 10,
   },
 });

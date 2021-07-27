@@ -4,9 +4,10 @@ import { TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 import { IconType } from 'common/types/styles';
 
 import Icon from 'common/components/Icon';
+import { IconName } from '@/common/types/iconNames';
 
 export interface IIconButtonProps {
-  icon: string;
+  icon: IconName;
   iconColor?: string;
   iconType?: IconType;
   iconStyle?: TextStyle;

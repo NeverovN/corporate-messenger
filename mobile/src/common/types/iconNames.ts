@@ -1,0 +1,15 @@
+export type IconName =
+  | 'clip'
+  | 'plus'
+  | 'next'
+  | 'back'
+  | 'settings'
+  | 'settings2'
+  | 'like'
+  | 'send'
+  | 'send-slim'
+  | 'comment'
+  | 'forward'
+  | 'forward-slim'
+  | 'search'
+  | 'calendar';

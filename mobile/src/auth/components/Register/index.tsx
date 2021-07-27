@@ -4,26 +4,24 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
+  Text,
 } from 'react-native';
 
 // styles
 import styles from './styles';
 
 // consts
-import COLORS from '@/common/constants/colors';
+// import COLORS from '@/common/constants/colors';
 
-// types
-import { IconType } from '@/common/types/styles';
+// // types
+// import { IconType } from '@/common/types/styles';
 
-// common components
-import IconButton from '@/common/components/Button/IconButton';
+// // common components
+// import IconButton from '@/common/components/Button/IconButton';
 
 // components
 import AuthInput from '../AuthInput';
 import SignButton from '../SignButton';
-
-// containers
-import Logo from '@/auth/containers/Logo';
 
 interface IRegisterScreenProps {
   email: string;
@@ -53,80 +51,54 @@ const RegisterView: FC<IRegisterScreenProps> = (props) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView
-        style={styles.touchStyle}
+        style={styles.screenStyle}
         behavior="padding"
         enabled>
-        <Logo />
-
-        <View style={styles.registerStyle}>
+        <View style={styles.screenWrapperStyle}>
+          <View style={styles.screenNameWrapper}>
+            <Text style={styles.screenNameStyle}>SIGN UP</Text>
+          </View>
           <View style={styles.inputAreaStyle}>
-            <View style={styles.passwordStyle}>
-              <AuthInput
-                placeholder="enter your login"
-                value={props.email}
-                onChangeText={props.onChangeEmail}
-              />
-            </View>
-
-            <View style={styles.separatorStyle} />
+            <AuthInput
+              placeholder="Email"
+              value={props.email}
+              onChangeText={props.onChangeEmail}
+            />
 
             <View style={styles.passwordStyle}>
               <AuthInput
-                placeholder="enter your First Name"
-                value={props.firstName}
-                onChangeText={props.onChangeFirstName}
-              />
-            </View>
-
-            <View style={styles.separatorStyle} />
-
-            <View style={styles.passwordStyle}>
-              <AuthInput
-                placeholder="enter your Last Name"
-                value={props.lastName}
-                onChangeText={props.onChangeLastName}
-              />
-            </View>
-
-            <View style={styles.separatorStyle} />
-
-            <View style={styles.passwordStyle}>
-              <AuthInput
-                placeholder="enter your password"
+                placeholder="Password"
                 value={props.password}
                 onChangeText={props.onChangePassword}
                 secure={props.isHidden}
               />
-              <IconButton
+              {/* <IconButton
                 icon={props.iconName}
                 iconColor={COLORS.white}
                 iconType={IconType.LARGE}
                 onPress={props.onIconPress}
                 containerStyle={styles.iconStyle}
-              />
+              /> */}
             </View>
-
-            <View style={styles.separatorStyle} />
 
             <View style={styles.passwordStyle}>
               <AuthInput
-                placeholder="confirm your password"
+                placeholder="Confirm password"
                 value={props.passwordRepeat}
                 onChangeText={props.onChangePasswordRepeat}
                 secure={props.isHidden}
               />
-              <IconButton
+              {/* <IconButton
                 icon={props.iconName}
                 iconColor={COLORS.white}
                 iconType={IconType.LARGE}
                 onPress={props.onIconPress}
                 containerStyle={styles.iconStyle}
-              />
+              /> */}
             </View>
-          </View>
-
-          <View style={styles.wrapperStyle}>
-            <SignButton title="SIGN UP" onPress={props.handleRegistration} />
+            <View style={styles.buttonWrapperStyle}>
+              <SignButton title="Continue" onPress={props.handleRegistration} />
+            </View>
           </View>
         </View>
       </KeyboardAvoidingView>

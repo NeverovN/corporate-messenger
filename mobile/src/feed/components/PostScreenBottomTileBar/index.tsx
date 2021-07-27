@@ -27,7 +27,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
     <View style={styles.bottomTileBarStyle}>
       <IconWithTextButton
         label={likes}
-        icon="heart"
+        icon="like"
         iconColor={likeColor}
         iconType={IconType.LARGE}
         containerStyle={styles.containerStyle}

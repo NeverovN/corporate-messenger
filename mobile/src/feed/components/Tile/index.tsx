@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 
 // styles
 import styles from './styles';

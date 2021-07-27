@@ -35,7 +35,7 @@ const CommentView: FC<ICommentViewProps> = (props) => {
         <View style={styles.infoStyle}>
           <Text>{props.createdAt}</Text>
           <IconWithTextButton
-            icon="heart"
+            icon="like"
             label={likes}
             labelStyle={styles.iconStyle}
             onPress={props.toggleLike}

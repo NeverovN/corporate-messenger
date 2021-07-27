@@ -1,0 +1,14 @@
+clip
+plus
+next
+back
+settings
+like
+send
+send-slim
+comment
+forward
+forward-slim
+search
+settings2
+calendar

@@ -7,9 +7,10 @@ import Icon from 'common/components/Icon';
 import Text from 'common/components/Text';
 
 import styles from './styles';
+import { IconName } from '../../Icon/iconNames';
 
 export interface IIconWithTextButtonProps {
-  icon: string;
+  icon: IconName;
   iconColor?: string;
   iconType?: IconType;
   iconStyle?: TextStyle;

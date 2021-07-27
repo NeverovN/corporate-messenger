@@ -1,26 +1,24 @@
 import React, { memo, FC } from 'react';
 import {
+  Text,
   View,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
 } from 'react-native';
 
-// common components
-import IconButton from '@/common/components/Button/IconButton';
+// // common components
+// import IconButton from '@/common/components/Button/IconButton';
 
-// consts
-import COLORS from '@/common/constants/colors';
+// // consts
+// import COLORS from '@/common/constants/colors';
 
-// types
-import { IconType } from '@/common/types/styles';
+// // types
+// import { IconType } from '@/common/types/styles';
 
 // components
 import AuthInput from '../AuthInput';
 import SignButton from '../SignButton';
-
-// containers
-import Logo from 'auth/containers/Logo';
 
 // styles
 import styles from './styles';
@@ -46,47 +44,44 @@ const LoginView: FC<ILoginViewProps> = (props) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView
-        style={styles.touchStyle}
+        style={styles.screenStyle}
         behavior="padding"
         enabled>
-        <>
-          <Logo />
+        <View style={styles.screenNameWrapper}>
+          <Text style={styles.screenNameStyle}>LOGIN</Text>
+        </View>
+        <View style={styles.loginStyle}>
+          <AuthInput
+            placeholder="Email"
+            value={props.email}
+            onChangeText={props.onChangeEmail}
+          />
 
-          <View style={styles.inputAreaStyles}>
-            <View style={styles.loginStyle}>
-              <View style={styles.passwordStyle}>
-                <AuthInput
-                  placeholder="enter your login"
-                  value={props.email}
-                  onChangeText={props.onChangeEmail}
-                />
-              </View>
-              <View style={styles.separatorStyle} />
-              <View style={styles.passwordStyle}>
-                <AuthInput
-                  placeholder="enter your password"
-                  value={props.password}
-                  onChangeText={props.onChangePassword}
-                  secure={props.isHidden}
-                />
-                <IconButton
-                  icon={props.iconName}
-                  iconColor={COLORS.white}
-                  iconType={IconType.LARGE}
-                  onPress={props.onIconPress}
-                  containerStyle={styles.iconStyle}
-                />
-              </View>
-            </View>
-            <View style={styles.wrapperStyle}>
-              <SignButton title="SIGN IN" onPress={props.handleLogin} />
-              <SignButton
-                title="SIGN UP"
-                onPress={props.handleSignUpRedirection}
-              />
-            </View>
+          <View style={styles.passwordStyle}>
+            <AuthInput
+              placeholder="Password"
+              value={props.password}
+              onChangeText={props.onChangePassword}
+              secure={props.isHidden}
+            />
+
+            {/* <IconButton
+                icon={props.iconName}
+                iconColor={COLORS.white}
+                iconType={IconType.LARGE}
+                onPress={props.onIconPress}
+                containerStyle={styles.iconStyle}
+              /> */}
           </View>
-        </>
+          <SignButton title="Submit" onPress={props.handleLogin} />
+        </View>
+        <View style={styles.separator} />
+        <View style={styles.registerStyle}>
+          <Text style={styles.textStyle}>
+            Don't have an account? Create it!
+          </Text>
+          <SignButton title="Sign up" onPress={props.handleSignUpRedirection} />
+        </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );

@@ -3,18 +3,21 @@ import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
   textStyle: {
-    color: COLORS.white,
+    fontFamily: 'DroidSans',
+    color: COLORS.secondary,
+    fontSize: 15,
+    margin: 12,
   },
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
 
-    width: 150,
-    height: 40,
-    borderRadius: 10,
+    width: '100%',
 
-    marginTop: 20,
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: COLORS.secondary,
 
-    backgroundColor: COLORS.primaryOpacity,
+    marginTop: 10,
   },
 });

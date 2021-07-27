@@ -34,7 +34,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
         onPress={props.onLikePressed}
         label={likes}
         iconType={IconType.LARGE}
-        icon="heart"
+        icon="like"
         iconColor={likeColor}
         containerStyle={styles.containerStyle}
         labelStyle={styles.labelStyle}

@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 
 // components
 import RegisterView from 'auth/components/Register';
@@ -6,10 +6,13 @@ import RegisterView from 'auth/components/Register';
 // hooks
 import { useHandleRegistration } from 'auth/hooks/useHandleRegistration';
 import { useOnIconPress } from '@/auth/hooks/useOnIconPressed';
+import { useNavigation } from '@react-navigation/native';
+import HeaderBackButtonWithoutText from '../HeaderBackButtonWithoutText';
 
 interface ILoginContainerProps {}
 
 const RegistrationContainer: FC<ILoginContainerProps> = () => {
+  const navigation = useNavigation();
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [iconName, setIconName] = useState<string>('eye-slash');
   const [email, setEmail] = useState<string>('');
@@ -26,6 +29,13 @@ const RegistrationContainer: FC<ILoginContainerProps> = () => {
     firstName,
     lastName,
   });
+
+  useEffect(() => {
+    console.log('done once');
+    navigation.setOptions({
+      headerLeft: () => <HeaderBackButtonWithoutText />,
+    });
+  }, [navigation]);
 
   return (
     <RegisterView
