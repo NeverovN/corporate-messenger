@@ -27,7 +27,6 @@ export const useOnNewMessageUpdate = (chatId: string) => {
         fields: {
           getChatById() {
             try {
-              console.log(message);
               client.cache.writeFragment({
                 fragment: MessageFragmentFragmentDoc,
                 data: message,
