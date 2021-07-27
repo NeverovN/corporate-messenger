@@ -114,7 +114,6 @@ export type Mutation = {
   markRead: Message;
   removeFriend?: Maybe<User>;
   toggleLike: Post;
-  toggleTheme: Theme;
 };
 
 export type MutationAddFriendArgs = {
@@ -235,7 +234,6 @@ export type Query = {
   getMessageById?: Maybe<Message>;
   getPost?: Maybe<Post>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
-  getTheme?: Maybe<Theme>;
   getUser: User;
   getUserById?: Maybe<User>;
   getUsers?: Maybe<Array<Maybe<User>>>;
@@ -270,10 +268,6 @@ export type QueryGetUserByIdArgs = {
   id: Scalars['ID'];
 };
 
-export type RestInput = {
-  action: Scalars['String'];
-};
-
 export type Subscription = {
   __typename?: 'Subscription';
   chatDeleted: Chat;
@@ -291,13 +285,6 @@ export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
 };
 
-export type Theme = {
-  __typename?: 'Theme';
-  id: Scalars['ID'];
-  userId: Scalars['ID'];
-  isLight: Scalars['Boolean'];
-};
-
 export type UpdatePasswordInput = {
   oldPassword: Scalars['String'];
   newPassword: Scalars['String'];
@@ -311,12 +298,16 @@ export type User = {
   lastName: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
   friends: Array<User>;
-  theme?: Maybe<Theme>;
+
+  theme?: Maybe<Scalars['String']>;
+
 };
 
 export type UserFragmentFragment = { __typename?: 'User' } & Pick<
   User,
+
   'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
+
 > & {
     friends: Array<
       { __typename?: 'User' } & Pick<
@@ -396,11 +387,13 @@ export type MessageEditedSubscription = { __typename?: 'Subscription' } & {
   messageEdited: { __typename?: 'Message' } & MessageFragmentFragment;
 };
 
+
 export type ChatDeletedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type ChatDeletedSubscription = { __typename?: 'Subscription' } & {
   chatDeleted: { __typename?: 'Chat' } & ChatFragmentFragment;
 };
+
 
 export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
   Chat,
@@ -416,12 +409,14 @@ export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
         Maybe<
           { __typename?: 'Message' } & Pick<
             Message,
+
             'id' | 'createdAt' | 'chatId' | 'lastEdit'
           > & {
               content: { __typename?: 'MessageContent' } & Pick<
                 MessageContent,
                 'text' | 'media'
               >;
+
               author: { __typename?: 'User' } & Pick<
                 User,
                 'id' | 'firstName' | 'lastName'
@@ -435,12 +430,14 @@ export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
 
 export type MessageFragmentFragment = { __typename?: 'Message' } & Pick<
   Message,
+
   'id' | 'createdAt' | 'lastEdit' | 'chatId'
 > & {
     content: { __typename?: 'MessageContent' } & Pick<
       MessageContent,
       'text' | 'media'
     >;
+
     author: { __typename?: 'User' } & Pick<
       User,
       'id' | 'firstName' | 'lastName'
@@ -498,6 +495,7 @@ export type NewMessageSubscription = { __typename?: 'Subscription' } & {
   newMessage: { __typename?: 'Message' } & MessageFragmentFragment;
 };
 
+
 export type GetFeedQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetFeedQuery = { __typename?: 'Query' } & {
@@ -517,6 +515,7 @@ export type GetFeedQuery = { __typename?: 'Query' } & {
     >
   >;
 };
+
 
 export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -777,6 +776,7 @@ export type EditPasswordMutation = { __typename?: 'Mutation' } & {
   editPassword: { __typename?: 'User' } & UserFragmentFragment;
 };
 
+
 export type ToggleThemeMutationVariables = Exact<{
   input: RestInput;
 }>;
@@ -795,6 +795,7 @@ export const UserFragmentFragmentDoc = gql`
     lastName
     email
     avatar
+    theme
     friends {
       id
       firstName
@@ -820,10 +821,12 @@ export const ChatFragmentFragmentDoc = gql`
     title
     messages {
       id
+
       content {
         text
         media
       }
+
       author {
         id
         firstName
@@ -1438,8 +1441,10 @@ export type GetMessageByIdQueryResult = Apollo.QueryResult<
   GetMessageByIdQueryVariables
 >;
 export const CreateMessageDocument = gql`
+
   mutation CreateMessage($input: CreateMessageInput!) {
     createMessage(input: $input) {
+
       ...MessageFragment
     }
   }
@@ -2840,6 +2845,7 @@ export type EditPasswordMutationOptions = Apollo.BaseMutationOptions<
   EditPasswordMutation,
   EditPasswordMutationVariables
 >;
+
 export const ToggleThemeDocument = gql`
   mutation ToggleTheme($input: RestInput!) {
     toggleTheme(input: $input)

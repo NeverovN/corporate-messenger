@@ -6,7 +6,6 @@ import { UserDocument } from '../../models/User/types';
 import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 import UserEntityController from './entity';
 import verifyPasswordHash from '../../utils/verifyPasswordHash';
-import createPasswordHash from '../../utils/createPasswordHash';
 import { getNewPassword } from '../../utils/getNewPassword';
 
 class UserModelController {
@@ -23,7 +22,7 @@ class UserModelController {
   }
 
   async getAllUsers() {
-    return await UserModel.find().exec();
+    return (await UserModel.find().exec()).map(this.mapUserWithFallback);
   }
 
   async getUsers(ids: ID[]): Promise<Array<UserEntity>> {
@@ -206,6 +205,23 @@ class UserModelController {
     }
 
     return mapUserDocumentToUserEntity(newUser);
+  }
+
+  async toggleTheme(userId: ID): Promise<boolean> {
+    const user = await UserModel.findById(userId).exec();
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const newUser = UserEntityController.toggleTheme(
+      mapUserDocumentToUserEntity(user),
+    );
+    const updatedUser = await UserModel.findByIdAndUpdate(userId, newUser);
+    if (!updatedUser) {
+      throw new Error('Network error');
+    }
+
+    return newUser.isLightTheme;
   }
 }
 

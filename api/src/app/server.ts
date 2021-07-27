@@ -6,8 +6,8 @@ import { ApolloContextType } from '../types/apollo';
 import express from 'express';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
-import { Restgoose } from '@xureilab/restgoose';
-import '../models/Theme';
+
+import { userRouter } from '../rest/router';
 
 export function initServer(port: number): void {
   const SUCCESS_MESSAGE = `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`;
@@ -35,7 +35,8 @@ export function initServer(port: number): void {
   const app = express();
 
   app.use(express.json());
-  app.use(Restgoose.initialize());
+
+  app.use('/user', userRouter);
 
   server.applyMiddleware({ app });
 

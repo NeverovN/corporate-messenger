@@ -6,3 +6,4 @@ const SERVER_DOMAIN = DEV_SERVER_DOMAIN; // TODO: choose different urls based on
 
 export const BASE_HTTP_URL = `http://${SERVER_DOMAIN}/graphql`;
 export const BASE_WS_URL = `ws://${SERVER_DOMAIN}/graphql`;
+export const BASE_HTTP = `http://${SERVER_DOMAIN}`;
