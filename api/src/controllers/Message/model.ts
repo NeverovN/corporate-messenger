@@ -5,6 +5,7 @@ import { MessageDocument } from '../../models/Message/types';
 
 import { mapMessageDocumentToMessageEntity } from '../../models/Message/mappers';
 import MessageEntityController from './entity';
+import { CreateMessageInput } from '../../types/gql.generated';
 
 class MessageModelController {
   private mapMessageWithFallback(
@@ -39,13 +40,11 @@ class MessageModelController {
 
   async createMessage(
     author: ID,
-    chatId: ID,
-    content: string,
+    input: CreateMessageInput,
   ): Promise<MessageEntity> {
     const newMessage = await MessageEntityController.createMessageEntity(
       author,
-      chatId,
-      content,
+      input,
     );
 
     const createdMessage = await MessageModel.create(newMessage);

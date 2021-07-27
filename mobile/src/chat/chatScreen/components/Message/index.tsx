@@ -1,8 +1,10 @@
-import React, { FC, memo, useMemo } from 'react';
+import React, { FC, memo, useMemo, useState } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import ContextMenu from 'react-native-context-menu-view';
+import FbGrid from 'react-native-fb-image-grid';
+
+// consts
 import Directions from '../../constants/direction';
-import { useSetMsgStyle } from '../../hooks/useSetMsgStyle';
 
 // styles
 import styles from './styles';
@@ -10,19 +12,13 @@ import styles from './styles';
 // hooks
 import { useHandleMessageActions } from '../../hooks/useHandleMessageActions';
 import { useGetMessage } from '../../hooks/useGetMessage';
+import { useSetMsgStyle } from '../../hooks/useSetMsgStyle';
 
 // types
 import { IMessageItem } from '../../types/message';
 
-interface IMessageViewProps {
-  id: string;
-  content: string;
-  author: string;
+interface IMessageViewProps extends IMessageItem {
   direction: Directions;
-  createdAt: string;
-  lastEdit: string | null;
-  isRead: boolean;
-
   setEditMessage(msg: IMessageItem | null): void;
   onPress(): void;
 }
@@ -30,6 +26,15 @@ interface IMessageViewProps {
 const MessageView: FC<IMessageViewProps> = (props) => {
   const actionHandler = useHandleMessageActions();
   const message = useGetMessage(props.id);
+  const [imgBase64, setImgBase64] = useState<string[]>([]);
+
+  props.content.media?.then((res) => {
+    setImgBase64(res);
+  });
+
+  const images = props.content.media ? (
+    <FbGrid images={imgBase64} style={styles.mediaStyle} />
+  ) : null;
 
   const lastEditText = useMemo(
     () => (props.lastEdit ? <Text>last edit: {props.lastEdit}</Text> : null),
@@ -57,7 +62,10 @@ const MessageView: FC<IMessageViewProps> = (props) => {
         <TouchableOpacity
           style={{ ...msgStyle, ...styles.commonMessageStyle }}
           onPress={props.onPress}>
-          <Text style={textStyle}>{props.content}</Text>
+          {props.content.text ? (
+            <Text style={textStyle}>{props.content.text}</Text>
+          ) : null}
+          {images}
           <Text style={textStyle}>{props.createdAt}</Text>
         </TouchableOpacity>
       </ContextMenu>

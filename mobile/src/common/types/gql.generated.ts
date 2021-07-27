@@ -52,6 +52,11 @@ export type Comment = {
   likes?: Maybe<Array<User>>;
 };
 
+export type CreateMessageInput = {
+  content: MessageContentInput;
+  chatId: Scalars['String'];
+};
+
 export type CreateUserInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -67,12 +72,23 @@ export type LoginInput = {
 export type Message = {
   __typename?: 'Message';
   id: Scalars['ID'];
-  content: Scalars['String'];
+  content: MessageContent;
   author: User;
   chatId: Scalars['ID'];
   createdAt: Scalars['String'];
   readBy: Array<User>;
   lastEdit?: Maybe<Scalars['String']>;
+};
+
+export type MessageContent = {
+  __typename?: 'MessageContent';
+  text?: Maybe<Scalars['String']>;
+  media?: Maybe<Array<Scalars['String']>>;
+};
+
+export type MessageContentInput = {
+  text: Scalars['String'];
+  media?: Maybe<Array<Scalars['String']>>;
 };
 
 export type Mutation = {
@@ -115,8 +131,7 @@ export type MutationCreateCommentArgs = {
 };
 
 export type MutationCreateMessageArgs = {
-  content: Scalars['String'];
-  chatId: Scalars['String'];
+  input: CreateMessageInput;
 };
 
 export type MutationCreatePostArgs = {
@@ -191,6 +206,10 @@ export type MutationRemoveFriendArgs = {
 
 export type MutationToggleLikeArgs = {
   id: Scalars['ID'];
+};
+
+export type MutationToggleThemeArgs = {
+  input: RestInput;
 };
 
 export type Post = {
@@ -279,12 +298,16 @@ export type User = {
   lastName: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
   friends: Array<User>;
+
   theme?: Maybe<Scalars['String']>;
+
 };
 
 export type UserFragmentFragment = { __typename?: 'User' } & Pick<
   User,
-  'id' | 'firstName' | 'lastName' | 'email' | 'avatar' | 'theme'
+
+  'id' | 'firstName' | 'lastName' | 'email' | 'avatar'
+
 > & {
     friends: Array<
       { __typename?: 'User' } & Pick<
@@ -364,11 +387,13 @@ export type MessageEditedSubscription = { __typename?: 'Subscription' } & {
   messageEdited: { __typename?: 'Message' } & MessageFragmentFragment;
 };
 
+
 export type ChatDeletedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type ChatDeletedSubscription = { __typename?: 'Subscription' } & {
   chatDeleted: { __typename?: 'Chat' } & ChatFragmentFragment;
 };
+
 
 export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
   Chat,
@@ -384,8 +409,14 @@ export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
         Maybe<
           { __typename?: 'Message' } & Pick<
             Message,
-            'id' | 'content' | 'createdAt' | 'chatId' | 'lastEdit'
+
+            'id' | 'createdAt' | 'chatId' | 'lastEdit'
           > & {
+              content: { __typename?: 'MessageContent' } & Pick<
+                MessageContent,
+                'text' | 'media'
+              >;
+
               author: { __typename?: 'User' } & Pick<
                 User,
                 'id' | 'firstName' | 'lastName'
@@ -399,8 +430,14 @@ export type ChatFragmentFragment = { __typename?: 'Chat' } & Pick<
 
 export type MessageFragmentFragment = { __typename?: 'Message' } & Pick<
   Message,
-  'id' | 'content' | 'createdAt' | 'lastEdit' | 'chatId'
+
+  'id' | 'createdAt' | 'lastEdit' | 'chatId'
 > & {
+    content: { __typename?: 'MessageContent' } & Pick<
+      MessageContent,
+      'text' | 'media'
+    >;
+
     author: { __typename?: 'User' } & Pick<
       User,
       'id' | 'firstName' | 'lastName'
@@ -426,8 +463,7 @@ export type GetMessageByIdQuery = { __typename?: 'Query' } & {
 };
 
 export type CreateMessageMutationVariables = Exact<{
-  content: Scalars['String'];
-  chatId: Scalars['String'];
+  input: CreateMessageInput;
 }>;
 
 export type CreateMessageMutation = { __typename?: 'Mutation' } & {
@@ -459,6 +495,7 @@ export type NewMessageSubscription = { __typename?: 'Subscription' } & {
   newMessage: { __typename?: 'Message' } & MessageFragmentFragment;
 };
 
+
 export type GetFeedQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetFeedQuery = { __typename?: 'Query' } & {
@@ -478,6 +515,7 @@ export type GetFeedQuery = { __typename?: 'Query' } & {
     >
   >;
 };
+
 
 export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -738,6 +776,18 @@ export type EditPasswordMutation = { __typename?: 'Mutation' } & {
   editPassword: { __typename?: 'User' } & UserFragmentFragment;
 };
 
+
+export type ToggleThemeMutationVariables = Exact<{
+  input: RestInput;
+}>;
+
+export type ToggleThemeMutation = { __typename?: 'Mutation' } & {
+  toggleTheme: { __typename?: 'Theme' } & Pick<
+    Theme,
+    'id' | 'userId' | 'isLight'
+  >;
+};
+
 export const UserFragmentFragmentDoc = gql`
   fragment UserFragment on User {
     id
@@ -771,7 +821,12 @@ export const ChatFragmentFragmentDoc = gql`
     title
     messages {
       id
-      content
+
+      content {
+        text
+        media
+      }
+
       author {
         id
         firstName
@@ -789,7 +844,10 @@ export const ChatFragmentFragmentDoc = gql`
 export const MessageFragmentFragmentDoc = gql`
   fragment MessageFragment on Message {
     id
-    content
+    content {
+      text
+      media
+    }
     author {
       id
       firstName
@@ -1383,8 +1441,10 @@ export type GetMessageByIdQueryResult = Apollo.QueryResult<
   GetMessageByIdQueryVariables
 >;
 export const CreateMessageDocument = gql`
-  mutation CreateMessage($content: String!, $chatId: String!) {
-    createMessage(content: $content, chatId: $chatId) {
+
+  mutation CreateMessage($input: CreateMessageInput!) {
+    createMessage(input: $input) {
+
       ...MessageFragment
     }
   }
@@ -1408,8 +1468,7 @@ export type CreateMessageMutationFn = Apollo.MutationFunction<
  * @example
  * const [createMessageMutation, { data, loading, error }] = useCreateMessageMutation({
  *   variables: {
- *      content: // value for 'content'
- *      chatId: // value for 'chatId'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -2785,4 +2844,57 @@ export type EditPasswordMutationResult = Apollo.MutationResult<EditPasswordMutat
 export type EditPasswordMutationOptions = Apollo.BaseMutationOptions<
   EditPasswordMutation,
   EditPasswordMutationVariables
+>;
+
+export const ToggleThemeDocument = gql`
+  mutation ToggleTheme($input: RestInput!) {
+    toggleTheme(input: $input)
+      @rest(type: "Theme", path: "/theme", method: "POST") {
+      id
+      userId
+      isLight
+    }
+  }
+`;
+export type ToggleThemeMutationFn = Apollo.MutationFunction<
+  ToggleThemeMutation,
+  ToggleThemeMutationVariables
+>;
+
+/**
+ * __useToggleThemeMutation__
+ *
+ * To run a mutation, you first call `useToggleThemeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useToggleThemeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [toggleThemeMutation, { data, loading, error }] = useToggleThemeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useToggleThemeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ToggleThemeMutation,
+    ToggleThemeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<ToggleThemeMutation, ToggleThemeMutationVariables>(
+    ToggleThemeDocument,
+    options,
+  );
+}
+export type ToggleThemeMutationHookResult = ReturnType<
+  typeof useToggleThemeMutation
+>;
+export type ToggleThemeMutationResult = Apollo.MutationResult<ToggleThemeMutation>;
+export type ToggleThemeMutationOptions = Apollo.BaseMutationOptions<
+  ToggleThemeMutation,
+  ToggleThemeMutationVariables
 >;

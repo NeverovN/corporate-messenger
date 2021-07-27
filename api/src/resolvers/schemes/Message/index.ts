@@ -16,6 +16,10 @@ const messageResolvers: MessageResolvers = {
   },
   readBy: async (message: MessageEntity) =>
     UserController.getUsers(message.readBy),
+  content: (message: MessageEntity) => ({
+    text: message.text,
+    media: message.media,
+  }),
 };
 
 export default messageResolvers;

@@ -55,6 +55,11 @@ export type Comment = {
   likes?: Maybe<Array<User>>;
 };
 
+export type CreateMessageInput = {
+  content: MessageContentInput;
+  chatId: Scalars['String'];
+};
+
 export type CreateUserInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -70,12 +75,23 @@ export type LoginInput = {
 export type Message = {
   __typename?: 'Message';
   id: Scalars['ID'];
-  content: Scalars['String'];
+  content: MessageContent;
   author: User;
   chatId: Scalars['ID'];
   createdAt: Scalars['String'];
   readBy: Array<User>;
   lastEdit?: Maybe<Scalars['String']>;
+};
+
+export type MessageContent = {
+  __typename?: 'MessageContent';
+  text?: Maybe<Scalars['String']>;
+  media?: Maybe<Array<Scalars['String']>>;
+};
+
+export type MessageContentInput = {
+  text: Scalars['String'];
+  media?: Maybe<Array<Scalars['String']>>;
 };
 
 export type Mutation = {
@@ -122,8 +138,7 @@ export type MutationCreateCommentArgs = {
 
 
 export type MutationCreateMessageArgs = {
-  content: Scalars['String'];
-  chatId: Scalars['String'];
+  input: CreateMessageInput;
 };
 
 
@@ -400,9 +415,12 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ChatSettings: ResolverTypeWrapper<ChatSettings>;
   Comment: ResolverTypeWrapper<CommentEntity>;
+  CreateMessageInput: CreateMessageInput;
   CreateUserInput: CreateUserInput;
   LoginInput: LoginInput;
   Message: ResolverTypeWrapper<MessageEntity>;
+  MessageContent: ResolverTypeWrapper<MessageContent>;
+  MessageContentInput: MessageContentInput;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<PostEntity>;
   Query: ResolverTypeWrapper<{}>;
@@ -420,9 +438,12 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   ChatSettings: ChatSettings;
   Comment: CommentEntity;
+  CreateMessageInput: CreateMessageInput;
   CreateUserInput: CreateUserInput;
   LoginInput: LoginInput;
   Message: MessageEntity;
+  MessageContent: MessageContent;
+  MessageContentInput: MessageContentInput;
   Mutation: {};
   Post: PostEntity;
   Query: {};
@@ -467,7 +488,7 @@ export type CommentResolvers<ContextType = any, ParentType extends ResolversPare
 
 export type MessageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  content?: Resolver<ResolversTypes['MessageContent'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   chatId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -476,11 +497,17 @@ export type MessageResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MessageContentResolvers<ContextType = any, ParentType extends ResolversParentTypes['MessageContent'] = ResolversParentTypes['MessageContent']> = {
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  media?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddFriendArgs, 'friendId'>>;
   createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateChatArgs, 'participants' | 'title'>>;
   createComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'postId' | 'content'>>;
-  createMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationCreateMessageArgs, 'content' | 'chatId'>>;
+  createMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationCreateMessageArgs, 'input'>>;
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, never>>;
   createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   deleteChatById?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationDeleteChatByIdArgs, 'chatId'>>;
@@ -552,6 +579,7 @@ export type Resolvers<ContextType = any> = {
   ChatSettings?: ChatSettingsResolvers<ContextType>;
   Comment?: CommentResolvers<ContextType>;
   Message?: MessageResolvers<ContextType>;
+  MessageContent?: MessageContentResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

@@ -11,15 +11,11 @@ import { IMessageItem } from '../types/message';
 
 // utils
 import { getName } from '@/profile/utils/getName';
+import { getFBMedia } from '../utils/getFBMedia';
 
 export const useGetChatMessages = (
   setEditMsg: (msg: IMessageItem | null) => void,
-): Array<
-  IMessageItem & {
-    currentUserId: string;
-    setEditMessage(msg: IMessageItem | null): void;
-  }
-> => {
+) => {
   const { params } = useRoute<ChatRouteProp>();
 
   if (!params) {
@@ -74,11 +70,15 @@ export const useGetChatMessages = (
         : false;
 
     const name = getName(el?.author.firstName || '', el?.author.lastName || '');
+    const media = getFBMedia(el?.content.media || null);
 
     return {
       currentUserId: data.getUser.id,
       id: el?.id || '',
-      content: el?.content || '',
+      content: {
+        text: el?.content.text || null,
+        media: media,
+      },
       createdAt: el?.createdAt || '',
       author: { name, id: el?.author.id || '' },
       lastEdit: el?.lastEdit || '',

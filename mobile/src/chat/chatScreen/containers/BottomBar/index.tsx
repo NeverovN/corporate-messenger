@@ -1,5 +1,5 @@
-import React, { FC, memo, useEffect, useState } from 'react';
-import { ImageOrVideo } from 'react-native-image-crop-picker';
+import React, { FC, memo, useEffect, useRef, useState } from 'react';
+import { Image } from 'react-native-image-crop-picker';
 import { useDispatch, useSelector } from 'react-redux';
 
 // components
@@ -19,53 +19,67 @@ import { RootState } from '@/common/redux/store';
 import { save, remove } from '@/common/redux/reducers/savedMessage';
 
 interface IBottomBarContainerProps {
-  editMessage: IMessageItem | null;
-  setEditMessage(msg: IMessageItem | null): void;
+  editMessageId: IMessageItem | null;
+  setEditMessageId(msg: IMessageItem | null): void;
 }
 
 const BottomBarContainer: FC<IBottomBarContainerProps> = ({
-  editMessage,
-  setEditMessage,
+  editMessageId,
+  setEditMessageId,
 }) => {
+  // save current message when edit
   const dispatch = useDispatch();
   const savedMessage = useSelector((state: RootState) => state.messageText);
-  const [message, setMessage] = useState<string>('');
-  const [editingMessage, setEditingMessage] = useState<string>('');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [media, setMedia] = useState<ImageOrVideo[]>([]);
-  const onClipPress = useClipPressHandler(setMedia);
+  const [messageToEdit, setMessageToEdit] = useState<string | null>(null);
+
+  // current message
+  const [message, setMessage] = useState<string | null>(null);
+  const [media, setMedia] = useState<Image[] | null>(null);
+  const { current: mediaIds } = useRef<string[]>([]);
+
+  // onPress
+  const onClipPress = useClipPressHandler(setMedia, mediaIds);
   const onEmojiPress = useEmojiPressHandler();
-  const onSendPress = useSendPressHandler(message, setMessage);
+  const onSendPress = useSendPressHandler(
+    message,
+    setMessage,
+    mediaIds,
+    setMedia,
+  );
   const onEditPressed = useEditMessage(
-    editingMessage,
-    editMessage?.id || null,
-    setEditingMessage,
-    setEditMessage,
+    messageToEdit,
+    editMessageId?.id || null,
+    setMessageToEdit,
+    setEditMessageId,
   );
 
   useEffect(() => {
-    if (editMessage) {
-      dispatch(save(message));
-      setEditingMessage(editMessage.content);
+    if (editMessageId) {
+      if (message) {
+        dispatch(save(message));
+      }
+      setMessageToEdit(editMessageId.content.text);
     } else {
       dispatch(remove());
       if (savedMessage) {
         setMessage(savedMessage || '');
       }
     }
-  }, [dispatch, editMessage, message, savedMessage]);
+  }, [dispatch, editMessageId, message, savedMessage]);
 
-  return editMessage ? (
+  return editMessageId ? (
     <BottomBarView
-      value={editingMessage}
-      onValueChange={setEditingMessage}
+      message={messageToEdit}
+      media={media}
+      onValueChange={setMessageToEdit}
       onClipPress={onClipPress}
       onEmojiPress={onEmojiPress}
       onSendPress={onEditPressed}
     />
   ) : (
     <BottomBarView
-      value={message}
+      message={message}
+      media={media}
       onValueChange={setMessage}
       onClipPress={onClipPress}
       onEmojiPress={onEmojiPress}

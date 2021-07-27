@@ -1,6 +1,9 @@
 fragment MessageFragment on Message {
   id
-  content
+  content {
+    text
+    media
+  }
   author {
     id
     firstName
@@ -29,8 +32,8 @@ query GetMessageById($messageId: ID!) {
   }
 }
 
-mutation CreateMessage($content: String!, $chatId: String!) {
-  createMessage(content: $content, chatId: $chatId) {
+mutation CreateMessage($input: CreateMessageInput!) {
+  createMessage(input: $input) {
     ...MessageFragment
   }
 }

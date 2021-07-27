@@ -32,7 +32,7 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
       setEditMessage={props.setMessageEdit}
       content={props.content}
       direction={direction}
-      author={props.author.name}
+      author={props.author}
       createdAt={createdAt}
       isRead={props.isRead}
       lastEdit={lastEdit}

@@ -24,8 +24,8 @@ const ChatScreenView: FC<IChatScreenViewProps> = (props) => {
         keyboardVerticalOffset={65}>
         <MessageArea setEditMessage={props.setEditMessage} />
         <BottomBar
-          editMessage={props.editMessage}
-          setEditMessage={props.setEditMessage}
+          editMessageId={props.editMessage}
+          setEditMessageId={props.setEditMessage}
         />
       </KeyboardAvoidingView>
     </SafeAreaView>
