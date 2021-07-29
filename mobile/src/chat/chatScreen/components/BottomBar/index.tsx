@@ -8,7 +8,11 @@ import {
   ImageStyle,
 } from 'react-native';
 
+// common components
 import IconButton from 'common/components/Button/IconButton';
+
+// colors
+import COLORS from 'common/constants/colors';
 
 import styles from './styles';
 import { Image as ImageType } from 'react-native-image-crop-picker';
@@ -55,31 +59,69 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
       ) : null}
       <View style={styles.bottomBarStyle}>
         <IconButton
-          icon="paperclip" // I don't understand, why it does not work
+          icon="plus" // I don't understand, why it does not work
           onPress={props.onEmojiPress}
-          containerStyle={{ ...styles.commonStyle }}
+          containerStyle={styles.commonStyle}
         />
         <TextInput
           style={styles.textInputStyle}
-          placeholder="Message"
-          value={props.message || ''}
+          placeholder=" MESSAGE"
+          placeholderTextColor={COLORS.secondaryInactive}
           onChangeText={props.onValueChange}
           multiline={true}
-          scrollEnabled={true}
         />
+        <IconButton icon="plus" onPress={props.onClipPress} />
         <IconButton
-          icon="paperclip"
-          onPress={props.onClipPress}
-          containerStyle={{ ...styles.commonStyle }}
-        />
-        <IconButton
-          icon="paper-plane"
+          icon="send"
           onPress={props.onSendPress}
           containerStyle={{ ...styles.commonStyle }}
         />
       </View>
     </View>
   );
+
+  // return (
+  //   <>
+  //     {imagesToRender ? (
+  //       <FlatList
+  //         keyExtractor={keyExtractor}
+  //         style={styles.imageViewer}
+  //         horizontal={true}
+  //         data={imagesToRender}
+  //         renderItem={renderImage}
+  //       />
+  //     ) : null}
+
+  //     <View style={styles.bottomBarStyle}>
+  //       <IconButton
+  //         icon="plus" // I don't understand, why it does not work
+  //         onPress={props.onEmojiPress}
+  //         containerStyle={{ ...styles.commonStyle }}
+  //       />
+
+  //       <TextInput
+  //         style={styles.textInputStyle}
+  //         placeholder="Message"
+  //         placeholderTextColor={COLORS.secondaryInactive}
+  //         onChangeText={props.onValueChange}
+  //         multiline={true}
+  //         scrollEnabled={true}
+  //         textAlignVertical="center"
+  //       />
+
+  //       <IconButton
+  //         icon="clip"
+  //         onPress={props.onClipPress}
+  //         containerStyle={{ ...styles.commonStyle }}
+  //       />
+  //       <IconButton
+  //         icon="send"
+  //         onPress={props.onSendPress}
+  //         containerStyle={{ ...styles.commonStyle }}
+  //       />
+  //     </View>
+  //   </>
+  // );
 };
 
 export default memo(BottomBarView);

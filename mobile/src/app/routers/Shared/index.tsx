@@ -34,7 +34,11 @@ const SharedRouter = () => {
           headerShown: false,
         }}
       />
-      <SharedStack.Screen name={CHAT_STACK_NAME} component={ChatRouter} />
+      <SharedStack.Screen
+        name={CHAT_STACK_NAME}
+        component={ChatRouter}
+        options={{ headerShown: false }}
+      />
       <SharedStack.Screen
         name={POST_SCREEN_NAME}
         component={PostScreen}

@@ -5,6 +5,9 @@ const lightTheme = {
 
   secondary: '#3F4556',
   secondaryInactive: '#3F455670',
+
+  incomingMessage: '#3F455630',
+  outgoingMessage: '#D9C4B3',
   white: '#fff',
   whiteOpacity: '#ffffff70',
 
@@ -14,9 +17,6 @@ const lightTheme = {
   beige: '#FCF4F0',
   lightGray: '#C4C7CD',
   lightBlue: '#4bb3fd40',
-
-  incomingMsgColor: '#DBDADE',
-  outgoingMsgColor: '#2D728F',
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
