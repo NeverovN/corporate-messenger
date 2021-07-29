@@ -1,19 +1,28 @@
 import { StyleSheet } from 'react-native';
 
+// colors
+import COLORS from 'common/constants/colors';
+
 export default StyleSheet.create({
   unreadStyle: {
     marginRight: 10,
     borderRadius: 20,
-    backgroundColor: 'red',
+    borderColor: COLORS.secondary,
+    borderWidth: 1,
+
     alignItems: 'center',
-    minWidth: 25,
-    padding: 5,
+    justifyContent: 'center',
+    height: 20,
+    minWidth: 40,
   },
   wrapperStyle: {
     flex: 1,
     alignItems: 'flex-end',
+    marginRight: 15,
   },
   textStyle: {
-    color: 'white',
+    color: COLORS.secondary,
+    fontSize: 12,
+    fontFamily: 'Mulish',
   },
 });

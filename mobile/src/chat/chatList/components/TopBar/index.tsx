@@ -4,6 +4,9 @@ import { View } from 'react-native';
 // styles
 import styles from './styles';
 
+// colors
+import COLORS from 'common/constants/colors';
+
 // types
 import { IconType } from '@/common/types/styles';
 
@@ -26,7 +29,10 @@ const TopBarView: FC<ITopBarViewProps> = (props) => {
         onPress={props.onNewChatPress}
       />
       <View style={styles.inputStyle}>
-        <TextInput />
+        <TextInput
+          placeholder="SEARCH"
+          placeholderTextColor={COLORS.secondaryInactive}
+        />
       </View>
       <IconButton
         icon="search"

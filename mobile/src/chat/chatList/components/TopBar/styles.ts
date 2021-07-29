@@ -12,9 +12,19 @@ export default StyleSheet.create({
     backgroundColor: COLORS.primary,
   },
   inputStyle: {
+    justifyContent: 'center',
+    paddingLeft: 15,
     flex: 1,
+    height: 35,
+    borderColor: COLORS.secondary,
+    borderRadius: 20,
+    borderWidth: 1,
+
+    fontFamily: 'DroidSans',
+    fontSize: 20,
+    color: COLORS.secondary,
   },
   buttonStyle: {
-    marginLeft: 10,
+    marginHorizontal: 10,
   },
 });
