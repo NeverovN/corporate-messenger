@@ -6,7 +6,7 @@ const CustomIcon = createIconSetFromIcoMoon(icoMoonConfig);
 
 // types
 import { IconType } from '@/common/types/styles';
-import { IconName } from './iconNames';
+import { IconName } from '../../types/iconNames';
 
 // consts
 import COLORS from '@/common/constants/colors';

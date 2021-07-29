@@ -13,6 +13,7 @@ import {
   SETTINGS_STACK_NAME,
   CHAT_STACK_NAME,
   PROFILE_STACK_NAME,
+  POST_SCREEN_NAME,
 } from 'app/constants/routes';
 
 import { RootStackParamList as FeedStackParamList } from 'feed/types/routes';
@@ -49,6 +50,7 @@ export type AuthScreenNavigationProp = StackNavigationProp<
 export type SharedStackParamList = {
   [CHAT_STACK_NAME]: NavigatorScreenParams<ChatListStackParamList>;
   [SETTINGS_STACK_NAME]: undefined;
+  [POST_SCREEN_NAME]: { postId: string };
 };
 
 export type SharedStackNavigationProp = StackNavigationProp<

@@ -1,22 +1,39 @@
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
-import Text from '@/common/components/Text';
 
 // styles
 import styles from './styles';
 
-// containers
-import TopBarButtons from 'chat/chatList/containers/TopBarButtons';
+// types
+import { IconType } from '@/common/types/styles';
 
-interface ITopBarViewProps {}
+// common components
+import IconButton from '@/common/components/Button/IconButton';
+import { TextInput } from 'react-native-gesture-handler';
 
-const TopBarView: FC<ITopBarViewProps> = () => {
+interface ITopBarViewProps {
+  onSearchPress(): void;
+  onNewChatPress(): void;
+}
+
+const TopBarView: FC<ITopBarViewProps> = (props) => {
   return (
     <View style={styles.topBarStyle}>
-      <View style={styles.topBarTextViewStyle}>
-        <Text style={styles.textStyle}>Chats</Text>
+      <IconButton
+        icon="plus"
+        iconType={IconType.LARGE}
+        containerStyle={styles.buttonStyle}
+        onPress={props.onNewChatPress}
+      />
+      <View style={styles.inputStyle}>
+        <TextInput />
       </View>
-      <TopBarButtons />
+      <IconButton
+        icon="search"
+        iconType={IconType.LARGE}
+        containerStyle={styles.buttonStyle}
+        onPress={props.onSearchPress}
+      />
     </View>
   );
 };

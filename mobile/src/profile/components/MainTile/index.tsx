@@ -13,13 +13,14 @@ interface IMainTileViewProps {}
 
 const MainTileView: FC<IMainTileViewProps> = () => {
   return (
-    <>
-      <View style={styles.mainTileStyles}>
-        <UserHeader />
+    <View style={styles.mainTileStyles}>
+      <UserHeader />
+      <View style={styles.buttonsWrapperStyle}>
+        <AddPostButton />
+        <View style={styles.separator} />
         <EditButton />
       </View>
-      <AddPostButton />
-    </>
+    </View>
   );
 };
 

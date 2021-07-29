@@ -12,8 +12,9 @@ interface IUserDataViewProps {
 const UserDataView: FC<IUserDataViewProps> = (props) => {
   return (
     <View style={styles.userDataStyle}>
-      <Text>{props.author}</Text>
-      <Text>{props.createdAt}</Text>
+      <Text style={styles.primaryText}>{props.author}</Text>
+      <View style={styles.spacer} />
+      <Text style={styles.secondaryText}>{props.createdAt}</Text>
     </View>
   );
 };

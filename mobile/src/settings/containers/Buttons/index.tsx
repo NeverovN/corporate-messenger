@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-
+import { View } from 'react-native';
 // common components
 import TextButton from '@/common/components/Button/TextButton';
 
@@ -17,18 +17,26 @@ const AccountSettingsButtonContainer: FC<IAccountSettingsButtonContainerProps> =
   const toggleTheme = useToggleTheme();
   const { data } = useGetUserQuery();
   return (
-    <>
+    <View style={styles.wrapperStyle}>
       <TextButton
         containerStyle={styles.accountSettingsButtonStyles}
         onPress={navigate}
-        label="Account settings"
+        label="USER SETTINGS"
+        labelStyle={styles.textStyle}
+      />
+      <TextButton
+        containerStyle={styles.accountSettingsButtonStyles}
+        onPress={toggleTheme}
+        label="BANLIST"
+        labelStyle={styles.textStyle}
       />
       <TextButton
         containerStyle={styles.accountSettingsButtonStyles}
         onPress={toggleTheme}
         label={`Theme ${data?.getUser.theme}`}
+        labelStyle={styles.textStyle}
       />
-    </>
+    </View>
   );
 };
 

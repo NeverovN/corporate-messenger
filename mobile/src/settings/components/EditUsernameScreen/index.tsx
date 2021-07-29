@@ -10,30 +10,50 @@ import {
 // styles
 import styles from './styles';
 
-interface IEditUsernameScreenViewProps {
-  firstName: string;
-  onChangeFirstName(fName: string): void;
+// colors
+import COLORS from 'common/constants/colors';
+import HeaderRightUsername from '@/settings/containers/HeaderRightUsername';
 
-  lastName: string;
+interface IEditUsernameScreenViewProps {
+  names: [string, string];
+  currentFirstName: string;
+  currentLastName: string;
+  onChangeFirstName(fName: string): void;
   onChangeLastName(lName: string): void;
+  edit(): void;
 }
 
 const EditUsernameScreenView: FC<IEditUsernameScreenViewProps> = (props) => {
+  const [firstName, lastName] = props.names;
   return (
-    <TouchableWithoutFeedback
-      style={styles.dismissStyle}
-      onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.editUsernameScreenStyle}>
-        <Text style={styles.textStyle}>Edit username</Text>
+        <View style={styles.currentNameStyle}>
+          <Text style={styles.textStyle}>{`${firstName} ${lastName}`}</Text>
+        </View>
+        <View style={styles.spacer} />
+        <View style={styles.textWrapper}>
+          <Text style={styles.textStyle}>ENTER YOUR NEW NAME AND SURNAME</Text>
+        </View>
         <TextInput
           style={styles.inputStyle}
-          value={props.firstName}
+          placeholder="NAME"
+          placeholderTextColor={COLORS.secondaryInactive}
+          textAlign="center"
           onChangeText={props.onChangeFirstName}
         />
         <TextInput
           style={styles.inputStyle}
-          value={props.lastName}
+          placeholder="SURNAME"
+          placeholderTextColor={COLORS.secondaryInactive}
+          textAlign="center"
           onChangeText={props.onChangeLastName}
+        />
+        <View style={styles.spacer} />
+        <HeaderRightUsername
+          initialNames={props.names}
+          newNames={[props.currentFirstName, props.currentLastName]}
+          edit={props.edit}
         />
       </View>
     </TouchableWithoutFeedback>

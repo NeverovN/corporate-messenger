@@ -5,17 +5,21 @@ import COLORS from 'common/constants/colors';
 
 export default StyleSheet.create({
   wrapperStyle: {
-    flex: 1,
     alignItems: 'center',
   },
-  chatButtonStyle: {
+  accountSettingsButtonStyles: {
     width: '80%',
-    height: 35,
+    height: 40,
     alignItems: 'center',
     justifyContent: 'center',
 
     borderRadius: 20,
-    borderWidth: 1,
-    borderColor: COLORS.secondary,
+    marginBottom: 20,
+    backgroundColor: COLORS.tint,
+  },
+  textStyle: {
+    fontFamily: 'Mulish',
+    fontSize: 18,
+    color: COLORS.secondary,
   },
 });

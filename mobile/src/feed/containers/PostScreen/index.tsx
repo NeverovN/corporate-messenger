@@ -14,6 +14,7 @@ interface IPostScreenContainerProps {}
 
 const PostScreenContainer: FC<IPostScreenContainerProps> = () => {
   const { params } = useRoute<PostScreenRouteProp>();
+
   const commentList = useGetComments();
   return <PostScreenView data={commentList} postId={params.postId} />;
 };

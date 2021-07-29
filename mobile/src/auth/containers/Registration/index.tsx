@@ -7,7 +7,7 @@ import RegisterView from 'auth/components/Register';
 import { useHandleRegistration } from 'auth/hooks/useHandleRegistration';
 import { useOnIconPress } from '@/auth/hooks/useOnIconPressed';
 import { useNavigation } from '@react-navigation/native';
-import HeaderBackButtonWithoutText from '../HeaderBackButtonWithoutText';
+import HeaderBackButtonWithoutText from '../../../common/components/HeaderBackButtonWithoutText';
 
 interface ILoginContainerProps {}
 
@@ -31,7 +31,6 @@ const RegistrationContainer: FC<ILoginContainerProps> = () => {
   });
 
   useEffect(() => {
-    console.log('done once');
     navigation.setOptions({
       headerLeft: () => <HeaderBackButtonWithoutText />,
     });

@@ -11,7 +11,7 @@ interface IContentViewProps {
 const ContentView: FC<IContentViewProps> = (props) => {
   return (
     <View style={styles.contentStyle}>
-      <Text>{props.text}</Text>
+      <Text style={styles.textStyle}>{props.text}</Text>
     </View>
   );
 };

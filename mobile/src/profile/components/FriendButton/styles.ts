@@ -1,18 +1,21 @@
 import { StyleSheet } from 'react-native';
 
+// colors
+import COLORS from 'common/constants/colors';
+
 export default StyleSheet.create({
-  friendButtonViewStyle: {
-    width: '100%',
+  wrapperStyle: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  friendButtonStyle: {
+    width: '80%',
     height: 35,
     alignItems: 'center',
-    marginBottom: 10,
-  },
-  friendButtonTouchStyles: {
-    width: '80%',
-    height: '100%',
-    alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#EAEAEA',
-    borderRadius: 10,
+
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: COLORS.secondary,
   },
 });

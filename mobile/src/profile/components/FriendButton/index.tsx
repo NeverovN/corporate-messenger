@@ -1,8 +1,11 @@
 import React, { FC, memo } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View } from 'react-native';
 
 // styles
 import styles from './styles';
+
+// common components
+import TextButton from 'common/components/Button/TextButton';
 
 interface IFriendButtonViewProps {
   title: string;
@@ -11,12 +14,12 @@ interface IFriendButtonViewProps {
 
 const FriendButtonView: FC<IFriendButtonViewProps> = (props) => {
   return (
-    <View style={styles.friendButtonViewStyle}>
-      <TouchableOpacity
-        style={styles.friendButtonTouchStyles}
-        onPress={props.onPress}>
-        <Text>{props.title}</Text>
-      </TouchableOpacity>
+    <View style={styles.wrapperStyle}>
+      <TextButton
+        containerStyle={styles.friendButtonStyle}
+        onPress={props.onPress}
+        label={props.title}
+      />
     </View>
   );
 };

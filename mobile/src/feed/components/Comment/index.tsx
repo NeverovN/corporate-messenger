@@ -22,18 +22,18 @@ interface ICommentViewProps {
 
 const CommentView: FC<ICommentViewProps> = (props) => {
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
-  const iconColor = props.liked ? COLORS.red : COLORS.black;
+  const iconColor = props.liked ? COLORS.red : COLORS.secondary;
   return (
     <View style={styles.feedStyle}>
       <Image
         style={styles.userIconImageStyle}
         source={{ uri: props.authorAvatar }}
       />
-      <View style={styles.textStyle}>
-        <Text>{props.authorName}</Text>
-        <Text>{props.content}</Text>
+      <View style={styles.textWrapperStyle}>
+        <Text style={styles.secondaryTextStyle}>{props.authorName}</Text>
+        <Text style={styles.primaryTextStyle}>{props.content}</Text>
         <View style={styles.infoStyle}>
-          <Text>{props.createdAt}</Text>
+          <Text style={styles.minorTextStyle}>{props.createdAt}</Text>
           <IconWithTextButton
             icon="like"
             label={likes}

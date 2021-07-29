@@ -1,7 +1,10 @@
 import React, { FC, memo } from 'react';
 
-// components
-import HeaderLeftView from 'profile/components/HeaderLeft';
+// styles
+import styles from './styles';
+
+// common components
+import IconButton from '@/common/components/Button/IconButton';
 
 // hooks
 import { useSearchNavigation } from 'profile/hooks/useSearchNavigation';
@@ -11,7 +14,13 @@ interface IHeaderLeftContainerProps {}
 const HeaderLeft: FC<IHeaderLeftContainerProps> = () => {
   const navigate = useSearchNavigation();
 
-  return <HeaderLeftView size={25} onPress={navigate} />;
+  return (
+    <IconButton
+      icon="search"
+      onPress={navigate}
+      containerStyle={styles.headerLeftStyle}
+    />
+  );
 };
 
 export default memo(HeaderLeft);

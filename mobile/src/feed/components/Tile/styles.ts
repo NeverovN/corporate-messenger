@@ -3,9 +3,10 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   tileStyle: {
-    marginTop: 10,
+    marginTop: 15,
+    padding: 10,
     width: '100%',
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.tint,
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -16,5 +17,14 @@ export default StyleSheet.create({
     shadowRadius: 2.62,
 
     elevation: 4,
+  },
+  spacer: {
+    height: 1,
+    width: '100%',
+    marginVertical: 10,
+    backgroundColor: COLORS.white,
+  },
+  centringWrapper: {
+    alignItems: 'center',
   },
 });

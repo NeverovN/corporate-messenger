@@ -27,7 +27,11 @@ const Screens = createStackNavigator<RootStackParamList>();
 const FeedRouter: FC<IFeedRouterProps> = () => {
   return (
     <Screens.Navigator initialRouteName={FEED_SCREEN_NAME}>
-      <Screens.Screen name={FEED_SCREEN_NAME} component={FeedTabRouter} />
+      <Screens.Screen
+        name={FEED_SCREEN_NAME}
+        component={FeedTabRouter}
+        options={{ headerShown: false }}
+      />
       <Screens.Screen
         name={POST_STACK_NAME}
         component={PostStack}

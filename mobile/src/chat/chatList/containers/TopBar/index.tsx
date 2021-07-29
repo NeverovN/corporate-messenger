@@ -2,24 +2,24 @@ import React, { memo, FC } from 'react';
 import {} from 'react-native';
 
 // components
-import TopBarButtonsView from 'chat/chatList/components/TopBarButtons';
+import TopBarView from 'chat/chatList/components/TopBar';
 
 // hooks
 import { useHandleSearch } from 'chat/chatList/hooks/useHandleSearch';
 import { useHandleNewPlusPressed } from 'chat/chatList/hooks/useHandlePlusPressed';
 
-interface ITopBarButtonsContainerProps {}
+interface ITopBarContainerProps {}
 
-const TopBarButtonsContainer: FC<ITopBarButtonsContainerProps> = () => {
+const TopBarContainer: FC<ITopBarContainerProps> = () => {
   const handleSearch = useHandleSearch();
   const handlePlusButton = useHandleNewPlusPressed();
 
   return (
-    <TopBarButtonsView
+    <TopBarView
       onSearchPress={handleSearch}
       onNewChatPress={handlePlusButton}
     />
   );
 };
 
-export default memo(TopBarButtonsContainer);
+export default memo(TopBarContainer);

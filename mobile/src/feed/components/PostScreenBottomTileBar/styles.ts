@@ -5,18 +5,14 @@ export default StyleSheet.create({
   bottomTileBarStyle: {
     flexDirection: 'row',
     alignItems: 'center',
-
-    paddingVertical: 10,
-
-    borderTopWidth: 1,
-    borderTopColor: COLORS.primaryOpacity,
   },
   containerStyle: {
-    marginLeft: 10,
     alignItems: 'center',
   },
   labelStyle: {
     marginLeft: 5,
-    fontSize: 18,
+    fontSize: 15,
+    fontFamily: 'DroidSans',
+    color: COLORS.white,
   },
 });

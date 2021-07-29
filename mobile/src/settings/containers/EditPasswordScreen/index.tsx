@@ -7,9 +7,6 @@ import EditPasswordScreenView from '@/settings/components/EditPasswordScreen';
 // types
 import { EditPasswordNavigationProp } from 'settings/types/routes';
 
-// containers
-import HeaderRightPassword from '../HeaderRightPassword';
-
 // hooks
 import { useUpdatePassword } from '@/settings/hooks/useUpdatePassword';
 
@@ -21,19 +18,6 @@ const EditPasswordScreenContainer: FC<IEditPasswordScreenContainerProps> = () =>
   const [newPassword, setNewPassword] = useState<string>('');
   const [newPasswordRep, setNewPasswordRep] = useState<string>('');
   const edit = useUpdatePassword(oldPassword, newPassword, newPasswordRep);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <HeaderRightPassword
-          oldPassword={oldPassword}
-          newPassword={newPassword}
-          newPasswordRep={newPasswordRep}
-          edit={edit}
-        />
-      ),
-    });
-  }, [navigation, oldPassword, newPassword, newPasswordRep, edit]);
 
   useEffect(() => {
     navigation.setParams({ new: newPassword });
@@ -51,6 +35,7 @@ const EditPasswordScreenContainer: FC<IEditPasswordScreenContainerProps> = () =>
       onChangeNewPassword={setNewPassword}
       newPasswordRep={newPasswordRep}
       onChangeNewPasswordRep={setNewPasswordRep}
+      edit={edit}
     />
   );
 };

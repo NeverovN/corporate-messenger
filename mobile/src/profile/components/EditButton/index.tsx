@@ -15,7 +15,7 @@ const EditButtonView: FC<IEditButtonViewProps> = (props) => {
   return (
     <View style={styles.wrapperStyle}>
       <Button
-        label="Edit"
+        label="Friends"
         containerStyle={styles.editButtonStyle}
         onPress={props.onPress}
       />

@@ -7,16 +7,11 @@ export default StyleSheet.create({
   barStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.primaryOpacity,
+    alignItems: 'center',
   },
   userInfoStyle: {
     flexDirection: 'row',
-
     alignItems: 'center',
-
-    padding: 10,
   },
   menuButtonStyle: {
     justifyContent: 'center',

@@ -10,6 +10,10 @@ import {
 // styles
 import styles from './styles';
 
+// colors
+import COLORS from 'common/constants/colors';
+import HeaderRightPassword from '@/settings/containers/HeaderRightPassword';
+
 interface IEditPasswordScreenViewProps {
   oldPassword: string;
   onChangeOldPassword(oPassword: string): void;
@@ -19,29 +23,49 @@ interface IEditPasswordScreenViewProps {
 
   newPasswordRep: string;
   onChangeNewPasswordRep(nPasswordRep: string): void;
+
+  edit(): void;
 }
 
 const EditUsernameScreenView: FC<IEditPasswordScreenViewProps> = (props) => {
   return (
-    <TouchableWithoutFeedback
-      style={styles.dismissStyle}
-      onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.editPasswordScreenStyle}>
-        <Text style={styles.textStyle}>Edit password</Text>
+        <View style={styles.wrapper}>
+          <Text style={styles.textStyle}>ENTER YOUR PREVIOUS PASSWORD</Text>
+        </View>
         <TextInput
           style={styles.inputStyle}
-          value={props.oldPassword}
+          placeholder="PREW PASSWORD"
+          placeholderTextColor={COLORS.secondaryInactive}
+          textAlign="center"
           onChangeText={props.onChangeOldPassword}
+          secureTextEntry={true}
         />
+        <View style={styles.spacer} />
+        <View style={styles.wrapper}>
+          <Text style={styles.textStyle}>ENTER YOUR NEW PASSWORD</Text>
+        </View>
         <TextInput
           style={styles.inputStyle}
-          value={props.newPassword}
+          placeholder="NEW PASSWORD"
+          placeholderTextColor={COLORS.secondaryInactive}
+          textAlign="center"
           onChangeText={props.onChangeNewPassword}
         />
         <TextInput
           style={styles.inputStyle}
-          value={props.newPasswordRep}
+          placeholder="CONFIRM PASSWORD"
+          placeholderTextColor={COLORS.secondaryInactive}
+          textAlign="center"
           onChangeText={props.onChangeNewPasswordRep}
+        />
+        <View style={styles.spacer} />
+        <HeaderRightPassword
+          edit={props.edit}
+          oldPassword={props.oldPassword}
+          newPassword={props.newPassword}
+          newPasswordRep={props.newPasswordRep}
         />
       </View>
     </TouchableWithoutFeedback>

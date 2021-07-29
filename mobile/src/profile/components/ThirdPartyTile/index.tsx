@@ -15,8 +15,11 @@ const ThirdPartyTileView: FC<IThirdPartyTileViewProps> = () => {
   return (
     <View style={styles.thirdPartyTileStyles}>
       <UserHeader />
-      <FriendButton />
-      <StartChatButton />
+      <View style={styles.buttonsWrapperStyle}>
+        <FriendButton />
+        <View style={styles.separator} />
+        <StartChatButton />
+      </View>
     </View>
   );
 };

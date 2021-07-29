@@ -30,7 +30,13 @@ const PostTileView: FC<IPostTileViewProps> = (props) => {
         createdAt={props.createdAt}
         avatar={props.avatar}
       />
+      <View style={styles.centringWrapper}>
+        <View style={styles.spacer} />
+      </View>
       {props.textContent ? <ContentView text={props.textContent} /> : null}
+      <View style={styles.centringWrapper}>
+        <View style={styles.spacer} />
+      </View>
       <PostScreenBottomTileBarContainer postId={props.id} />
     </View>
   );

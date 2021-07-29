@@ -1,22 +1,34 @@
 import { StyleSheet } from 'react-native';
 
+// colors
+import COLORS from 'common/constants/colors';
+
 export default StyleSheet.create({
   editPasswordScreenStyle: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 30,
+    paddingTop: 30,
+    backgroundColor: COLORS.primary,
   },
   inputStyle: {
-    borderBottomWidth: 1,
     width: '80%',
-    fontSize: 20,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: COLORS.tint,
+    fontSize: 13,
     padding: 5,
+    fontFamily: 'DroidSans',
+    marginBottom: 15,
   },
   textStyle: {
-    fontSize: 20,
-    marginBottom: 25,
+    fontSize: 15,
+    fontFamily: 'Mulish',
+    color: COLORS.secondary,
   },
-  dismissStyle: {
-    flex: 1,
+  wrapper: {
+    marginBottom: 15,
+  },
+  spacer: {
+    height: '20%',
   },
 });

@@ -1,6 +1,5 @@
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
-import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 
 // styles
 import styles from './styles';
@@ -24,7 +23,13 @@ const TileView: FC<ITileViewProps> = (props) => {
         createdAt={props.createdAt}
         avatar={props.avatar}
       />
+      <View style={styles.centringWrapper}>
+        <View style={styles.spacer} />
+      </View>
       {props.textContent ? <ContentView text={props.textContent} /> : null}
+      <View style={styles.centringWrapper}>
+        <View style={styles.spacer} />
+      </View>
       <BottomTileBarContainer postId={props.id} />
     </View>
   );

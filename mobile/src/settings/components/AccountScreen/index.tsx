@@ -15,10 +15,12 @@ interface IAccountScreenViewProps {}
 const AccountScreenView: FC<IAccountScreenViewProps> = () => {
   return (
     <View style={styles.accountScreenStyle}>
-      <Text style={styles.textStyle}>Edit user account information menu</Text>
-      <EditButton screen={Operations.EMAIL} title="Edit email" />
-      <EditButton screen={Operations.PASSWORD} title="Edit password" />
-      <EditButton screen={Operations.USERNAME} title="Edit username" />
+      <Text style={styles.textStyle}>
+        {'What information you\nwould like to change?'}
+      </Text>
+      <EditButton screen={Operations.USERNAME} title="NAME" />
+      <EditButton screen={Operations.EMAIL} title="EMAIL" />
+      <EditButton screen={Operations.PASSWORD} title="PASSWORD" />
     </View>
   );
 };

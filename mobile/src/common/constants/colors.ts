@@ -1,11 +1,11 @@
 const lightTheme = {
   primary: '#F2E8DC',
-  primaryOpacity: '#0072e199',
+
   tint: '#D9C4B3',
 
   secondary: '#3F4556',
-
-  white: 'white',
+  secondaryInactive: '#3F455670',
+  white: '#fff',
   whiteOpacity: '#ffffff70',
 
   black: '#000',

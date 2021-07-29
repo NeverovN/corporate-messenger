@@ -1,13 +1,21 @@
 import { StyleSheet } from 'react-native';
 
+// colors
+import COLORS from 'common/constants/colors';
+
 export default StyleSheet.create({
   editButtonViewStyle: {
     width: '80%',
-    height: 35,
+    height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#C4C7CD',
-    borderRadius: 10,
-    marginVertical: 10,
+    backgroundColor: COLORS.tint,
+    borderRadius: 20,
+    marginTop: 20,
+  },
+  labelStyle: {
+    fontFamily: 'Mulish',
+    fontSize: 17,
+    color: COLORS.secondary,
   },
 });

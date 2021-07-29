@@ -21,7 +21,7 @@ interface IBottomTileBarViewProps {
 
 const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
   const likes = props.likeCount ? props.likeCount.toString() : '';
-  const likeColor = props.liked ? COLORS.red : COLORS.black;
+  const likeColor = props.liked ? COLORS.red : COLORS.white;
 
   return (
     <View style={styles.bottomTileBarStyle}>

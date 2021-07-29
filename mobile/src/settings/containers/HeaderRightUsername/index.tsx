@@ -1,12 +1,11 @@
 import React, { FC, memo, useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 
 // common components
-import IconButton from '@/common/components/Button/IconButton';
-import Icon from '@/common/components/Icon';
+import TextButton from '@/common/components/Button/TextButton';
 
 // styles
 import styles from './styles';
-import { IconType } from '@/common/types/styles';
 
 interface IHeaderProps {
   initialNames: [string, string];
@@ -24,7 +23,12 @@ const HeaderRightUsername: FC<IHeaderProps> = ({
   const [isChanged, setIsChanged] = useState<boolean>(false);
 
   useEffect(() => {
-    if (initialFirstName === newFirstName && initialLastName === newLastName) {
+    if (
+      initialFirstName === newFirstName &&
+      initialLastName === newLastName &&
+      newFirstName !== '' &&
+      newLastName !== ''
+    ) {
       setIsChanged(false);
     } else {
       setIsChanged(true);
@@ -33,20 +37,21 @@ const HeaderRightUsername: FC<IHeaderProps> = ({
 
   if (isChanged) {
     return (
-      <IconButton
-        icon="check"
-        containerStyle={styles.activeIconStyle}
+      <TextButton
+        containerStyle={styles.activeContainerStyle}
+        labelStyle={styles.labelStyle}
         onPress={edit}
-        iconType={IconType.LARGE}
+        label="CONFIRM"
       />
     );
   }
 
   return (
-    <Icon
-      name="check"
-      customStyle={styles.disabledIconStile}
-      type={IconType.LARGE}
+    <TextButton
+      label="CONFIRM"
+      labelStyle={styles.labelStyle}
+      containerStyle={styles.inactiveContainerStyle}
+      onPress={() => Alert.alert('Error', 'Please enter correct username')}
     />
   );
 };
