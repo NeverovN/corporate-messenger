@@ -13,6 +13,14 @@ class ChatEntityController {
   editTitle(chat: ChatEntity, newTitle: string): ChatEntity {
     return { ...chat, title: newTitle };
   }
+
+  leaveChat(chat: ChatEntity, currentUserId: string): ChatEntity {
+    const newParticipants = chat.participants.filter(
+      (user) => user !== currentUserId,
+    );
+
+    return { ...chat, participants: newParticipants };
+  }
 }
 
 const chatEntityController = new ChatEntityController();

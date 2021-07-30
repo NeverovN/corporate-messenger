@@ -12,6 +12,8 @@ import { ChatRouteProp } from '@/chat/chatList/types/routes';
 import { useGetChatInfo } from '../../hooks/useGetChatInfo';
 import { IconType } from '@/common/types/styles';
 import { useUpdateChatTitle } from '../../hooks/useUpdateChatTitle';
+import { useClearChatHistory } from '../../hooks/useClearChatHistory';
+import { useLeaveChat } from '../../hooks/useLeaveChat';
 
 interface IChatPreferencesHeaderTileContainerProps {}
 
@@ -40,8 +42,8 @@ const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainer
     navigation.setOptions({ headerLeft });
   }, [navigation, edit]);
 
-  const onLeave = () => console.log('leave');
-  const onClear = () => console.log('clear');
+  const onLeave = useLeaveChat(params.chatId);
+  const onClear = useClearChatHistory(params.chatId);
   const onPhoto = () => console.log('photo');
 
   return (

@@ -223,6 +223,25 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     return ChatController.editChatTitle(input.chatId, input.newTitle);
   },
+  async clearChatHistory(_, { chatId }, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('Unauthorized');
+    }
+
+    const success = await ChatController.clearHistory(chatId);
+    if (!success) {
+      throw Error('Error occurred, history was not cleared');
+    }
+
+    return await ChatController.getChat(chatId);
+  },
+  async leaveChat(_, { chatId }, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('Unauthorized');
+    }
+
+    return await ChatController.leaveChat(chatId, currentUserId);
+  },
   async deleteChatById(_, args) {
     try {
       const deletedChat = await ChatController.getChat(args.chatId);

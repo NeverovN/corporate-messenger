@@ -35,6 +35,8 @@ type Query {
 }
 
 type Mutation {
+  clearChatHistory(chatId: ID!): Chat!
+  leaveChat(chatId: ID!): Chat!
   createChat(input: CreateChatInput!): Chat!
   createDialog(input: CreateDialogInput!): Chat!
   createMessage(input: CreateMessageInput!): Message!
