@@ -1,4 +1,3 @@
-import HeaderRightEmail from '@/settings/containers/HeaderRightEmail';
 import React, { FC, memo } from 'react';
 import {
   TouchableWithoutFeedback,
@@ -10,6 +9,9 @@ import {
 
 // styles
 import styles from './styles';
+
+// containers
+import HeaderRightEmail from '@/settings/containers/HeaderRightEmail';
 
 // colors
 import COLORS from 'common/constants/colors';

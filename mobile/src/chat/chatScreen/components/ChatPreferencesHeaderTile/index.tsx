@@ -43,14 +43,20 @@ const ChatPreferencesHeaderTile: FC<IChatPreferencesHeaderTileViewProps> = (
         </View>
 
         <View style={styles.inputPartViewStyle}>
-          <Text style={styles.titleTextStyle}>TITLE</Text>
-          <View style={styles.inputWrapperStyle}>
-            <TextInput
-              style={styles.inputStyle}
-              value={props.chatTitle}
-              onChangeText={props.onChatTitleChange}
-            />
-          </View>
+          {props.isDialog ? (
+            <Text style={styles.nameStyle}>{props.chatTitle}</Text>
+          ) : (
+            <>
+              <Text style={styles.titleTextStyle}>TITLE</Text>
+              <View style={styles.inputWrapperStyle}>
+                <TextInput
+                  style={styles.inputStyle}
+                  value={props.chatTitle}
+                  onChangeText={props.onChatTitleChange}
+                />
+              </View>
+            </>
+          )}
           <IconWithTextButton
             icon="clip"
             label="ATTACHMENTS"

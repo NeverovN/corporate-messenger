@@ -100,4 +100,9 @@ export default StyleSheet.create({
   separator: {
     width: 20,
   },
+  nameStyle: {
+    fontFamily: 'Mulish',
+    fontSize: 22,
+    color: COLORS.secondary,
+  },
 });

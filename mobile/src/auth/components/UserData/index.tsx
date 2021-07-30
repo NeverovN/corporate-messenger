@@ -7,15 +7,6 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-// // common components
-// import IconButton from '@/common/components/Button/IconButton';
-
-// // consts
-// import COLORS from '@/common/constants/colors';
-
-// // types
-// import { IconType } from '@/common/types/styles';
-
 // components
 import AuthInput from '../AuthInput';
 import SignButton from '../SignButton';

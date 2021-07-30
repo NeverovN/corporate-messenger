@@ -38,12 +38,6 @@ interface IRegisterScreenProps {
   iconName: string;
   onIconPress(): void;
 
-  firstName: string;
-  onChangeFirstName(firstName: string): void;
-
-  lastName: string;
-  onChangeLastName(lastName: string): void;
-
   handleRegistration(): void;
 }
 

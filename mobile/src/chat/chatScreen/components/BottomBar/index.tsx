@@ -59,7 +59,7 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
       ) : null}
       <View style={styles.bottomBarStyle}>
         <IconButton
-          icon="plus" // I don't understand, why it does not work
+          icon="plus"
           onPress={props.onEmojiPress}
           containerStyle={styles.commonStyle}
         />

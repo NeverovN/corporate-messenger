@@ -56,7 +56,9 @@ export const useFinishRegistration = (fName: string, lName: string) => {
           },
         },
       });
-    } catch (error) {}
+    } catch (error) {
+      Alert.alert('Error', `${error}`);
+    }
   };
   return handleFinish;
 };

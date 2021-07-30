@@ -14,7 +14,7 @@ export const useGetChatMembers = (): {
     variables: { chatId: params.chatId },
   });
 
-  if (!data || !data.getChatById) {
+  if (!data || !data.getChatById || data.getChatById.isDialog) {
     return [];
   }
 

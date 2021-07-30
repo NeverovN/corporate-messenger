@@ -12,6 +12,8 @@ import styles from './styles';
 
 // colors
 import COLORS from 'common/constants/colors';
+
+// containers
 import HeaderRightPassword from '@/settings/containers/HeaderRightPassword';
 
 interface IEditPasswordScreenViewProps {

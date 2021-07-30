@@ -12,6 +12,8 @@ import styles from './styles';
 
 // colors
 import COLORS from 'common/constants/colors';
+
+// containers
 import HeaderRightUsername from '@/settings/containers/HeaderRightUsername';
 
 interface IEditUsernameScreenViewProps {
