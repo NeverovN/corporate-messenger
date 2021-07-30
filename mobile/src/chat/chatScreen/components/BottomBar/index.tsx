@@ -79,49 +79,6 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
       </View>
     </View>
   );
-
-  // return (
-  //   <>
-  //     {imagesToRender ? (
-  //       <FlatList
-  //         keyExtractor={keyExtractor}
-  //         style={styles.imageViewer}
-  //         horizontal={true}
-  //         data={imagesToRender}
-  //         renderItem={renderImage}
-  //       />
-  //     ) : null}
-
-  //     <View style={styles.bottomBarStyle}>
-  //       <IconButton
-  //         icon="plus" // I don't understand, why it does not work
-  //         onPress={props.onEmojiPress}
-  //         containerStyle={{ ...styles.commonStyle }}
-  //       />
-
-  //       <TextInput
-  //         style={styles.textInputStyle}
-  //         placeholder="Message"
-  //         placeholderTextColor={COLORS.secondaryInactive}
-  //         onChangeText={props.onValueChange}
-  //         multiline={true}
-  //         scrollEnabled={true}
-  //         textAlignVertical="center"
-  //       />
-
-  //       <IconButton
-  //         icon="clip"
-  //         onPress={props.onClipPress}
-  //         containerStyle={{ ...styles.commonStyle }}
-  //       />
-  //       <IconButton
-  //         icon="send"
-  //         onPress={props.onSendPress}
-  //         containerStyle={{ ...styles.commonStyle }}
-  //       />
-  //     </View>
-  //   </>
-  // );
 };
 
 export default memo(BottomBarView);
