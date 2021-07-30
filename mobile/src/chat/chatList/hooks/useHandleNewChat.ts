@@ -1,6 +1,6 @@
 import { selectedFriendsVar } from '@/common/cache/cache';
 import { useCreateChatMutation } from '@/common/types/gql.generated';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 // types
 import { SharedStackNavigationProp } from '@/app/types/routes';
@@ -9,7 +9,7 @@ import { SharedStackNavigationProp } from '@/app/types/routes';
 import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
 import { Alert } from 'react-native';
 
-export const useHandleNewChat = () => {
+export const useHandleNewChat = (title: string) => {
   const navigation = useNavigation<SharedStackNavigationProp>();
   const [createChat] = useCreateChatMutation({
     update: (_, { data }) => {
@@ -17,22 +17,33 @@ export const useHandleNewChat = () => {
         return;
       }
 
-      navigation.navigate(SHARED_STACK_NAME, {
-        screen: CHAT_STACK_NAME,
-        params: { screen: 'Chat', params: { chatId: data.createChat.id } },
-      });
+      navigation.dispatch(
+        StackActions.replace(SHARED_STACK_NAME, {
+          screen: CHAT_STACK_NAME,
+          params: { screen: 'Chat', params: { chatId: data.createChat.id } },
+        }),
+      );
     },
   });
 
-  return async () => {
-    if (selectedFriendsVar().length === 0) {
-      Alert.alert('Error', 'Please, choose any participants');
-      return;
-    }
-    await createChat({
-      variables: { participants: selectedFriendsVar(), title: 'TempTitle' },
-    });
+  if (selectedFriendsVar().length === 0) {
+    return () => Alert.alert('Error', 'Please, choose any participants');
+  }
 
-    selectedFriendsVar([]);
+  if (!title) {
+    return () => Alert.alert('Error', 'Please set chat title');
+  }
+
+  return async () => {
+    try {
+      await createChat({
+        variables: {
+          input: { participants: selectedFriendsVar(), title },
+        },
+      });
+      selectedFriendsVar([]);
+    } catch (error) {
+      Alert.alert('Error', `${error}`);
+    }
   };
 };

@@ -2,8 +2,16 @@ import { ID } from '../../types/common';
 import { ChatEntity } from '../../models/Chat';
 
 class ChatEntityController {
-  createChatEntity(participants: ID[], title: string): ChatEntity {
-    return new ChatEntity(participants, title);
+  createChatEntity(
+    participants: ID[],
+    isDialog: boolean,
+    title: string | null,
+  ): ChatEntity {
+    return new ChatEntity(participants, isDialog, title);
+  }
+
+  editTitle(chat: ChatEntity, newTitle: string): ChatEntity {
+    return { ...chat, title: newTitle };
   }
 }
 

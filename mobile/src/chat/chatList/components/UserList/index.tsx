@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { FlatList, View, ListRenderItem, Text } from 'react-native';
+import { FlatList, SafeAreaView, ListRenderItem, Text } from 'react-native';
 
 import UserItem from 'chat/chatList/containers/UserItem';
 
@@ -9,12 +9,15 @@ import styles from './styles';
 // types
 import { IUserItem } from 'profile/types/user';
 
+// containers
+import NewChatButton from 'chat/chatList/containers/NewChatButton';
+
 interface IUserListViewProps {
   data: Array<IUserItem> | null;
 }
 
 const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
-  return <UserItem userId={item.id} />;
+  return <UserItem image={item.avatar} userId={item.id} />;
 };
 
 const UserListView: FC<IUserListViewProps> = ({ data }) => {
@@ -22,15 +25,20 @@ const UserListView: FC<IUserListViewProps> = ({ data }) => {
 
   if (isSomeUsers) {
     return (
-      <View style={styles.existingUsersStyle}>
-        <FlatList renderItem={renderChatItem} data={data} />
-      </View>
+      <SafeAreaView style={styles.existingUsersStyle}>
+        <FlatList
+          renderItem={renderChatItem}
+          data={data}
+          style={styles.flatListStyle}
+        />
+        <NewChatButton />
+      </SafeAreaView>
     );
   } else {
     return (
-      <View style={styles.absentUsersStyle}>
+      <SafeAreaView style={styles.absentUsersStyle}>
         <Text style={styles.textStyle}>Nothing has found :(</Text>
-      </View>
+      </SafeAreaView>
     );
   }
 };

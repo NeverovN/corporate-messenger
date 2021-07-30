@@ -11,8 +11,12 @@ const chatResolvers: ChatResolvers = {
   participants: async (chat: ChatEntity) =>
     await ChatController.getParticipants(chat),
   messages: async (chat: ChatEntity) => {
-    return (await MessageController.getMessages(chat._id)).reverse();
+    const messagesPromise = (
+      await MessageController.getMessages(chat._id)
+    ).reverse();
+    return await Promise.all(messagesPromise);
   },
+  title: (chat: ChatEntity) => (chat.title ? chat.title : 'dialog'),
 };
 
 export default chatResolvers;

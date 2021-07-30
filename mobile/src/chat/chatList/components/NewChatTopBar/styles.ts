@@ -1,19 +1,25 @@
 import { StyleSheet } from 'react-native';
 
+// colors
+import COLORS from 'common/constants/colors';
+
 export default StyleSheet.create({
   newChatTopBarStyle: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%',
-    height: 50,
-    backgroundColor: '#C4C7CD',
+    height: 40,
+    borderColor: COLORS.secondary,
+    borderRadius: 25,
+    borderWidth: 1,
+    marginHorizontal: 15,
   },
   iconStile: {
     marginHorizontal: 10,
   },
   inputStyle: {
-    marginLeft: 10,
     flex: 1,
-    fontSize: 20,
+    fontSize: 15,
+    fontFamily: 'DroidSans',
+    color: COLORS.secondary,
   },
 });

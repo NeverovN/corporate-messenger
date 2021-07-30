@@ -1,19 +1,44 @@
-import { useRoute } from '@react-navigation/native';
-import React, { FC, memo, useState } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { FC, memo, useEffect, useState } from 'react';
 
 // components
 import ChatPreferencesHeaderTileView from '../../components/ChatPreferencesHeaderTile';
 
+// common components
+import IconButton from '@/common/components/Button/IconButton';
+
 // types
 import { ChatRouteProp } from '@/chat/chatList/types/routes';
 import { useGetChatInfo } from '../../hooks/useGetChatInfo';
+import { IconType } from '@/common/types/styles';
+import { useUpdateChatTitle } from '../../hooks/useUpdateChatTitle';
 
 interface IChatPreferencesHeaderTileContainerProps {}
 
 const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainerProps> = () => {
+  const navigation = useNavigation();
   const { params } = useRoute<ChatRouteProp>();
   const [title, memberCount, image, isDialog] = useGetChatInfo(params.chatId);
   const [currentTitle, setCurrentTitle] = useState<string>(title);
+  const edit = useUpdateChatTitle(params.chatId, currentTitle, title);
+
+  useEffect(() => {
+    const goBack = () => {
+      edit();
+      navigation.goBack();
+    };
+
+    const headerLeft = () => (
+      <IconButton
+        icon="back"
+        onPress={goBack}
+        iconType={IconType.LARGE}
+        // eslint-disable-next-line react-native/no-inline-styles
+        containerStyle={{ marginLeft: 10 }}
+      />
+    );
+    navigation.setOptions({ headerLeft });
+  }, [navigation, edit]);
 
   const onLeave = () => console.log('leave');
   const onClear = () => console.log('clear');

@@ -12,8 +12,11 @@ const queryResolvers: QueryResolvers<ApolloContextType> = {
   async getUserById(_, args) {
     return await UserController.getUser(args.id);
   },
-  async getUsers() {
-    return await UserController.getAllUsers();
+  async getUsers(_, args) {
+    if (!args.ids) {
+      return await UserController.getAllUsers();
+    }
+    return await UserController.getUsers(args.ids);
   },
   async getPosts(_, args, { currentUserId }) {
     const id = args.author ? args.author : currentUserId;

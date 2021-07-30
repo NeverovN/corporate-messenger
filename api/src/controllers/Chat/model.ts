@@ -8,6 +8,7 @@ import ChatEntityController from './entity';
 import { UserEntity } from '../../models/User';
 import { UserController } from '../User';
 import { MessageController } from '../Message';
+import chatEntityController from './entity';
 
 class ChatModelController {
   private mapChatWithFallback(chat: ChatDocument | null): ChatEntity | null {
@@ -36,12 +37,53 @@ class ChatModelController {
     return result.map(mapChatDocumentToChatEntity);
   }
 
-  async createChat(participants: ID[], title: string): Promise<ChatEntity> {
-    const newChat = ChatEntityController.createChatEntity(participants, title);
+  async createChat(
+    participants: ID[],
+
+    title: string | null,
+  ): Promise<ChatEntity> {
+    const newChat = ChatEntityController.createChatEntity(
+      participants,
+      false,
+      title,
+    );
 
     const createdChat = await ChatModel.create(newChat);
 
     return mapChatDocumentToChatEntity(createdChat);
+  }
+
+  async createDialog(participants: ID[]): Promise<ChatEntity> {
+    const newChat = ChatEntityController.createChatEntity(
+      participants,
+      true,
+      null,
+    );
+
+    const createdChat = await ChatModel.create(newChat);
+
+    return mapChatDocumentToChatEntity(createdChat);
+  }
+
+  async editChatTitle(chatId: ID, newTitle: string) {
+    const chat = await ChatModel.findById(chatId).exec();
+    if (!chat) {
+      throw Error('Chat does not exist');
+    }
+
+    const newChat = chatEntityController.editTitle(
+      mapChatDocumentToChatEntity(chat),
+      newTitle,
+    );
+
+    await ChatModel.findByIdAndUpdate(newChat._id, newChat).exec();
+    const updatedChat = await ChatModel.findById(newChat._id).exec();
+
+    if (!updatedChat) {
+      throw Error('Network error, chat was not updated');
+    }
+
+    return mapChatDocumentToChatEntity(updatedChat);
   }
 
   async getParticipants(chat: ChatEntity): Promise<UserEntity[]> {

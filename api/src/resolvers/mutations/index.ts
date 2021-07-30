@@ -190,17 +190,38 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
   async deleteCommentById(_, args) {
     return CommentController.deleteComment(args.id);
   },
-  async createChat(_, args, { currentUserId }) {
+  async createChat(_, { input }, { currentUserId }) {
     if (!currentUserId) throw Error('Unauthorized');
 
     const newChat = await ChatController.createChat(
-      [currentUserId, ...args.participants],
-      args.title,
+      [currentUserId, ...input.participants],
+      input.title || null,
     );
 
     pubsub.publish(CHAT_CREATED, newChat);
 
     return newChat;
+  },
+  async createDialog(_, { input }, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('Unauthorized');
+    }
+
+    const newChat = await ChatController.createDialog([
+      currentUserId,
+      input.participant,
+    ]);
+
+    pubsub.publish(CHAT_CREATED, newChat);
+
+    return newChat;
+  },
+  async editChatTitle(_, { input }, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('Unauthorized');
+    }
+
+    return ChatController.editChatTitle(input.chatId, input.newTitle);
   },
   async deleteChatById(_, args) {
     try {

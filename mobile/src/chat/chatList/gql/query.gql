@@ -7,8 +7,8 @@ query GetChats {
   }
 }
 
-mutation CreateChat($participants: [ID!]!, $title: String!) {
-  createChat(participants: $participants, title: $title) {
+mutation CreateChat($input: CreateChatInput!) {
+  createChat(input: $input) {
     ...ChatFragment
   }
 }

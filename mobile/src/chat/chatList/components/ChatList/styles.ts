@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   existingChatsStyle: {
-    marginHorizontal: 5,
+    marginHorizontal: 10,
     height: '100%',
   },
   missingChatsStyle: {

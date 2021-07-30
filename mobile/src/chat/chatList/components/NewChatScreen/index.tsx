@@ -9,7 +9,6 @@ import NewChatTopBar from 'chat/chatList/components/NewChatTopBar';
 
 // containers
 import UserList from 'chat/chatList/containers/UserList';
-import NewChatButton from 'chat/chatList/containers/NewChatButton';
 
 interface INewChatScreenViewProp {
   search(): void;
@@ -21,11 +20,9 @@ const NewChatScreenView: FC<INewChatScreenViewProp> = (props) => {
   return (
     <View style={styles.newChatScreenStyle}>
       <NewChatTopBar
-        onPress={props.search}
         filter={props.filter}
         onChangeFilter={props.onChangeFilter}
       />
-      <NewChatButton />
       <UserList filter={props.filter} />
     </View>
   );

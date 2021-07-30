@@ -23,14 +23,14 @@ export class ChatEntity {
   isDialog: boolean;
 
   @prop({ required: true })
-  title: string;
+  title: string | null;
 
   @prop({ required: true })
   createdAt: string;
 
-  constructor(participants: ID[], title: string) {
+  constructor(participants: ID[], isDialog: boolean, title: string | null) {
     this.participants = participants;
-    this.isDialog = participants.length === 2;
+    this.isDialog = isDialog;
     this.title = title;
     this.logo = null;
     this.createdAt = new Date().toString();

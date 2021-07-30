@@ -7,12 +7,14 @@ import styles from './styles';
 import UserImage from 'profile/containers/UserImage';
 import UserHeaderInfo from 'profile/containers/UserHeaderInfo';
 
-interface IUserHeaderViewProps {}
+interface IUserHeaderViewProps {
+  image: string | null;
+}
 
-const UserHeaderView: FC<IUserHeaderViewProps> = () => {
+const UserHeaderView: FC<IUserHeaderViewProps> = (props) => {
   return (
     <View style={styles.userMainInfoStyle}>
-      <UserImage />
+      <UserImage size={70} image={props.image} />
       <UserHeaderInfo />
     </View>
   );

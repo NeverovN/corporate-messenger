@@ -13,6 +13,7 @@ import ThirdPartyTile from '../ThirdPartyTile';
 
 interface IThirdPartyUserViewProps {
   data: IPostItem[];
+  userImage: string | null;
 }
 
 const renderPostItem: ListRenderItem<IPostItem> = ({ item }) => {
@@ -32,7 +33,7 @@ const ThirdPartyUserView: FC<IThirdPartyUserViewProps> = (props) => {
   return (
     <View style={styles.thirdPartyUserStyle}>
       <FlatList
-        ListHeaderComponent={ThirdPartyTile}
+        ListHeaderComponent={<ThirdPartyTile image={props.userImage} />}
         data={props.data}
         renderItem={renderPostItem}
       />

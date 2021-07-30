@@ -52,6 +52,15 @@ export type Comment = {
   likes?: Maybe<Array<User>>;
 };
 
+export type CreateChatInput = {
+  participants: Array<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type CreateDialogInput = {
+  participant: Scalars['ID'];
+};
+
 export type CreateMessageInput = {
   content: MessageContentInput;
   chatId: Scalars['String'];
@@ -96,6 +105,7 @@ export type Mutation = {
   addFriend?: Maybe<User>;
   createChat: Chat;
   createComment: Comment;
+  createDialog: Chat;
   createMessage: Message;
   createPost: Post;
   createUser: AuthenticationResult;
@@ -103,6 +113,7 @@ export type Mutation = {
   deleteCommentById: Comment;
   deleteMessageById: Message;
   deletePostById: Post;
+  editChatTitle: Chat;
   editComment: Comment;
   editEmail: User;
   editMessage: Message;
@@ -121,13 +132,16 @@ export type MutationAddFriendArgs = {
 };
 
 export type MutationCreateChatArgs = {
-  participants: Array<Scalars['ID']>;
-  title: Scalars['String'];
+  input: CreateChatInput;
 };
 
 export type MutationCreateCommentArgs = {
   postId: Scalars['ID'];
   content: Scalars['String'];
+};
+
+export type MutationCreateDialogArgs = {
+  input: CreateDialogInput;
 };
 
 export type MutationCreateMessageArgs = {
@@ -157,6 +171,10 @@ export type MutationDeleteMessageByIdArgs = {
 
 export type MutationDeletePostByIdArgs = {
   postId: Scalars['ID'];
+};
+
+export type MutationEditChatTitleArgs = {
+  input: UpdateChatTitle;
 };
 
 export type MutationEditCommentArgs = {
@@ -264,6 +282,10 @@ export type QueryGetUserByIdArgs = {
   id: Scalars['ID'];
 };
 
+export type QueryGetUsersArgs = {
+  ids?: Maybe<Array<Scalars['ID']>>;
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   chatDeleted: Chat;
@@ -279,6 +301,11 @@ export type SubscriptionMessageEditedArgs = {
 
 export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
+};
+
+export type UpdateChatTitle = {
+  chatId: Scalars['ID'];
+  newTitle: Scalars['String'];
 };
 
 export type UpdatePasswordInput = {
@@ -341,8 +368,7 @@ export type GetChatsQuery = { __typename?: 'Query' } & {
 };
 
 export type CreateChatMutationVariables = Exact<{
-  participants: Array<Scalars['ID']> | Scalars['ID'];
-  title: Scalars['String'];
+  input: CreateChatInput;
 }>;
 
 export type CreateChatMutation = { __typename?: 'Mutation' } & {
@@ -474,6 +500,14 @@ export type EditMessageMutationVariables = Exact<{
 
 export type EditMessageMutation = { __typename?: 'Mutation' } & {
   editMessage: { __typename?: 'Message' } & MessageFragmentFragment;
+};
+
+export type EditTitleMutationVariables = Exact<{
+  input: UpdateChatTitle;
+}>;
+
+export type EditTitleMutation = { __typename?: 'Mutation' } & {
+  editChatTitle: { __typename?: 'Chat' } & Pick<Chat, 'id' | 'title'>;
 };
 
 export type NewMessageSubscriptionVariables = Exact<{
@@ -673,6 +707,14 @@ export type CreatePostMutation = { __typename?: 'Mutation' } & {
   createPost: { __typename?: 'Post' } & PostFragmentFragment;
 };
 
+export type CreateDialogMutationVariables = Exact<{
+  input: CreateDialogInput;
+}>;
+
+export type CreateDialogMutation = { __typename?: 'Mutation' } & {
+  createDialog: { __typename?: 'Chat' } & ChatFragmentFragment;
+};
+
 export type NewPostSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type NewPostSubscription = { __typename?: 'Subscription' } & {
@@ -707,7 +749,9 @@ export type GetUserByIdQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetUsersQueryVariables = Exact<{ [key: string]: never }>;
+export type GetUsersQueryVariables = Exact<{
+  ids?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
+}>;
 
 export type GetUsersQuery = { __typename?: 'Query' } & {
   getUsers?: Maybe<
@@ -1027,8 +1071,8 @@ export type GetChatsQueryResult = Apollo.QueryResult<
   GetChatsQueryVariables
 >;
 export const CreateChatDocument = gql`
-  mutation CreateChat($participants: [ID!]!, $title: String!) {
-    createChat(participants: $participants, title: $title) {
+  mutation CreateChat($input: CreateChatInput!) {
+    createChat(input: $input) {
       ...ChatFragment
     }
   }
@@ -1052,8 +1096,7 @@ export type CreateChatMutationFn = Apollo.MutationFunction<
  * @example
  * const [createChatMutation, { data, loading, error }] = useCreateChatMutation({
  *   variables: {
- *      participants: // value for 'participants'
- *      title: // value for 'title'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -1565,6 +1608,56 @@ export type EditMessageMutationResult = Apollo.MutationResult<EditMessageMutatio
 export type EditMessageMutationOptions = Apollo.BaseMutationOptions<
   EditMessageMutation,
   EditMessageMutationVariables
+>;
+export const EditTitleDocument = gql`
+  mutation EditTitle($input: UpdateChatTitle!) {
+    editChatTitle(input: $input) {
+      id
+      title
+    }
+  }
+`;
+export type EditTitleMutationFn = Apollo.MutationFunction<
+  EditTitleMutation,
+  EditTitleMutationVariables
+>;
+
+/**
+ * __useEditTitleMutation__
+ *
+ * To run a mutation, you first call `useEditTitleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditTitleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editTitleMutation, { data, loading, error }] = useEditTitleMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useEditTitleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditTitleMutation,
+    EditTitleMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<EditTitleMutation, EditTitleMutationVariables>(
+    EditTitleDocument,
+    options,
+  );
+}
+export type EditTitleMutationHookResult = ReturnType<
+  typeof useEditTitleMutation
+>;
+export type EditTitleMutationResult = Apollo.MutationResult<EditTitleMutation>;
+export type EditTitleMutationOptions = Apollo.BaseMutationOptions<
+  EditTitleMutation,
+  EditTitleMutationVariables
 >;
 export const NewMessageDocument = gql`
   subscription NewMessage($chatId: ID!) {
@@ -2308,6 +2401,56 @@ export type CreatePostMutationOptions = Apollo.BaseMutationOptions<
   CreatePostMutation,
   CreatePostMutationVariables
 >;
+export const CreateDialogDocument = gql`
+  mutation CreateDialog($input: CreateDialogInput!) {
+    createDialog(input: $input) {
+      ...ChatFragment
+    }
+  }
+  ${ChatFragmentFragmentDoc}
+`;
+export type CreateDialogMutationFn = Apollo.MutationFunction<
+  CreateDialogMutation,
+  CreateDialogMutationVariables
+>;
+
+/**
+ * __useCreateDialogMutation__
+ *
+ * To run a mutation, you first call `useCreateDialogMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDialogMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDialogMutation, { data, loading, error }] = useCreateDialogMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateDialogMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDialogMutation,
+    CreateDialogMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateDialogMutation,
+    CreateDialogMutationVariables
+  >(CreateDialogDocument, options);
+}
+export type CreateDialogMutationHookResult = ReturnType<
+  typeof useCreateDialogMutation
+>;
+export type CreateDialogMutationResult = Apollo.MutationResult<CreateDialogMutation>;
+export type CreateDialogMutationOptions = Apollo.BaseMutationOptions<
+  CreateDialogMutation,
+  CreateDialogMutationVariables
+>;
 export const NewPostDocument = gql`
   subscription NewPost {
     newPost {
@@ -2513,8 +2656,8 @@ export type GetUserByIdQueryResult = Apollo.QueryResult<
   GetUserByIdQueryVariables
 >;
 export const GetUsersDocument = gql`
-  query GetUsers {
-    getUsers {
+  query GetUsers($ids: [ID!]) {
+    getUsers(ids: $ids) {
       id
       firstName
       lastName
@@ -2535,6 +2678,7 @@ export const GetUsersDocument = gql`
  * @example
  * const { data, loading, error } = useGetUsersQuery({
  *   variables: {
+ *      ids: // value for 'ids'
  *   },
  * });
  */

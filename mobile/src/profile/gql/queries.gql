@@ -17,6 +17,12 @@ mutation CreatePost($textContent: String, $mediaContent: [String!]) {
   }
 }
 
+mutation CreateDialog($input: CreateDialogInput!) {
+  createDialog(input: $input) {
+    ...ChatFragment
+  }
+}
+
 subscription NewPost {
   newPost {
     ...PostFragment
@@ -43,8 +49,8 @@ query GetUserByID($id: ID!) {
   }
 }
 
-query GetUsers {
-  getUsers {
+query GetUsers($ids: [ID!]) {
+  getUsers(ids: $ids) {
     id
     firstName
     lastName

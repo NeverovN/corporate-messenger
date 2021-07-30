@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { View } from 'react-native';
+import { View, TextInput } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -12,33 +12,34 @@ import { IconType } from '@/common/types/styles';
 
 // common components
 import IconButton from '@/common/components/Button/IconButton';
-import { TextInput } from 'react-native-gesture-handler';
+import Icon from 'common/components/Icon';
 
 interface ITopBarViewProps {
   onSearchPress(): void;
   onNewChatPress(): void;
+  setFilter(filter: string): void;
 }
 
 const TopBarView: FC<ITopBarViewProps> = (props) => {
   return (
     <View style={styles.topBarStyle}>
-      <IconButton
-        icon="plus"
-        iconType={IconType.LARGE}
-        containerStyle={styles.buttonStyle}
-        onPress={props.onNewChatPress}
-      />
       <View style={styles.inputStyle}>
+        <Icon
+          name="search"
+          type={IconType.LARGE}
+          customStyle={styles.buttonStyle}
+        />
         <TextInput
+          onChangeText={props.setFilter}
           placeholder="SEARCH"
           placeholderTextColor={COLORS.secondaryInactive}
         />
       </View>
       <IconButton
-        icon="search"
+        icon="plus"
         iconType={IconType.LARGE}
         containerStyle={styles.buttonStyle}
-        onPress={props.onSearchPress}
+        onPress={props.onNewChatPress}
       />
     </View>
   );

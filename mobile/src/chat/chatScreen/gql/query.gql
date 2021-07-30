@@ -50,6 +50,13 @@ mutation EditMessage($messageId: ID!, $newContent: String!) {
   }
 }
 
+mutation EditTitle($input: UpdateChatTitle!) {
+  editChatTitle(input: $input) {
+    id
+    title
+  }
+}
+
 subscription NewMessage($chatId: ID!) {
   newMessage(chatId: $chatId) {
     ...MessageFragment

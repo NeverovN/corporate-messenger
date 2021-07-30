@@ -1,18 +1,23 @@
 import { StyleSheet } from 'react-native';
 
+// colors
+import COLORS from 'common/constants/colors';
+
 export default StyleSheet.create({
-  newChatButtonViewStyle: {
-    width: '100%',
-    height: 35,
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  newChatButtonTouchStyles: {
-    width: '80%',
-    height: '100%',
+  buttonStyle: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#C4C7CD',
-    borderRadius: 10,
+    height: 40,
+    width: '60%',
+    borderRadius: 20,
+    borderWidth: 1,
+  },
+  textStyle: {
+    fontFamily: 'DroidSans',
+    fontSize: 18,
+    color: COLORS.secondary,
+  },
+  wrapperStyle: {
+    alignItems: 'center',
   },
 });
