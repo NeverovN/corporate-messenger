@@ -4,38 +4,51 @@ import { StyleSheet } from 'react-native';
 import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
-  registerStyle: {
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 70,
+  screenNameStyle: {
+    fontFamily: 'Mulish-Regular_Light',
+    fontSize: 50,
+    color: COLORS.secondary,
   },
+
+  screenNameWrapper: {
+    margin: 30,
+  },
+
   inputAreaStyle: {
-    backgroundColor: COLORS.primaryOpacity,
     borderRadius: 20,
     alignItems: 'flex-start',
     justifyContent: 'center',
-    width: '95%',
+    width: '75%',
     padding: 10,
   },
+
   wrapperStyle: {
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   passwordStyle: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  touchStyle: {
+
+  screenStyle: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    backgroundColor: COLORS.primary,
+    justifyContent: 'center',
   },
+
+  screenWrapperStyle: {
+    marginBottom: 90,
+    alignItems: 'center',
+  },
+
+  buttonWrapperStyle: {
+    width: '100%',
+    marginTop: 50,
+  },
+
   iconStyle: {
     marginRight: 10,
-  },
-  separatorStyle: {
-    backgroundColor: COLORS.white,
-    width: '100%',
-    height: 1,
   },
 });

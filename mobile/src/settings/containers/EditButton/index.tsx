@@ -25,6 +25,7 @@ const EditButtonContainer: FC<IEditButtonContainerProps> = (props) => {
       containerStyle={styles.editButtonViewStyle}
       onPress={navigate}
       label={props.title}
+      labelStyle={styles.labelStyle}
     />
   );
 };

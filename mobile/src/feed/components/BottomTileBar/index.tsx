@@ -26,7 +26,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
 
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
 
-  const likeColor = props.liked ? COLORS.red : COLORS.black;
+  const likeColor = props.liked ? COLORS.red : COLORS.white;
 
   return (
     <View style={styles.bottomTileBarStyle}>
@@ -34,7 +34,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
         onPress={props.onLikePressed}
         label={likes}
         iconType={IconType.LARGE}
-        icon="heart"
+        icon="like"
         iconColor={likeColor}
         containerStyle={styles.containerStyle}
         labelStyle={styles.labelStyle}

@@ -9,10 +9,10 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   incomingMessageStyle: {
-    backgroundColor: COLORS.incomingMsgColor,
+    backgroundColor: COLORS.incomingMessage,
   },
   outgoingMessageStyle: {
-    backgroundColor: COLORS.outgoingMsgColor,
+    backgroundColor: COLORS.outgoingMessage,
   },
   incomingTextStyle: {},
   outgoingTextStyle: { color: COLORS.white },

@@ -32,11 +32,7 @@ export const useHandleEditNavigation = (screen: Operations) => {
         });
     }
     case Operations.USERNAME: {
-      return () =>
-        navigation.navigate(EDIT_USERNAME_SCREEN_NAME, {
-          oldFirstName: data?.getUser.firstName || '',
-          oldLastName: data?.getUser.lastName || '',
-        });
+      return () => navigation.navigate(EDIT_USERNAME_SCREEN_NAME);
     }
   }
 };

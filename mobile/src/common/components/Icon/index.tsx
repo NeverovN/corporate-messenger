@@ -1,9 +1,12 @@
 import React, { FC, memo } from 'react';
 import { TextStyle } from 'react-native';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import icoMoonConfig from '../../../../selection.json';
+const CustomIcon = createIconSetFromIcoMoon(icoMoonConfig);
 
 // types
 import { IconType } from '@/common/types/styles';
+import { IconName } from '../../types/iconNames';
 
 // consts
 import COLORS from '@/common/constants/colors';
@@ -12,7 +15,7 @@ import COLORS from '@/common/constants/colors';
 import iconStyles from './styles';
 
 interface IIconProps {
-  name: string;
+  name: IconName;
   type?: IconType;
   color?: string;
   // color?: string; // prop gives warning
@@ -31,7 +34,7 @@ const Icon: FC<IIconProps> = (props) => {
     // color,
   };
 
-  return <FontAwesomeIcon color={iconColor} name={props.name} style={style} />;
+  return <CustomIcon color={iconColor} name={props.name} style={style} />;
 };
 
 export default memo(Icon);

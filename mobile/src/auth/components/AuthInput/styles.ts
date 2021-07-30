@@ -1,13 +1,21 @@
 import { StyleSheet } from 'react-native';
 
 // consts
-import COLORS from '@/common/constants/colors';
+import COLORS from 'common/constants/colors';
 
 export default StyleSheet.create({
   inputStyle: {
     flex: 1,
-    margin: 15,
-    fontSize: 20,
-    color: COLORS.white,
+    padding: 12,
+    fontSize: 15,
+    fontFamily: 'DroidSans',
+  },
+
+  viewStyle: {
+    borderRadius: 30,
+    marginBottom: 10,
+    backgroundColor: COLORS.tint,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

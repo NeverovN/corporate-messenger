@@ -3,20 +3,28 @@ import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
   topBarStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     width: '100%',
-    height: 50,
-    backgroundColor: COLORS.lightGray,
-  },
-  topBarTextViewStyle: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 10,
-    // backgroundColor: 'black',
+    justifyContent: 'flex-start',
+    marginRight: 10,
+    height: 70,
+    backgroundColor: COLORS.primary,
   },
-  textStyle: {
+  inputStyle: {
+    justifyContent: 'center',
+    paddingLeft: 15,
+    flex: 1,
+    height: 35,
+    borderColor: COLORS.secondary,
+    borderRadius: 20,
+    borderWidth: 1,
+
+    fontFamily: 'DroidSans',
     fontSize: 20,
+    color: COLORS.secondary,
+  },
+  buttonStyle: {
+    marginHorizontal: 10,
   },
 });

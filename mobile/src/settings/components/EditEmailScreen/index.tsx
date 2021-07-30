@@ -10,22 +10,42 @@ import {
 // styles
 import styles from './styles';
 
+// containers
+import HeaderRightEmail from '@/settings/containers/HeaderRightEmail';
+
+// colors
+import COLORS from 'common/constants/colors';
+
 interface IEditEmailScreenViewProps {
   email: string;
+  currentEmail: string;
   onEmailChange(email: string): void;
+  edit(): void;
 }
 
 const EditEmailScreenView: FC<IEditEmailScreenViewProps> = (props) => {
   return (
-    <TouchableWithoutFeedback
-      style={styles.dismissStyle}
-      onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.editEmailScreenStyle}>
-        <Text style={styles.textStyle}>Edit email</Text>
+        <View style={styles.currentNameStyle}>
+          <Text style={styles.textStyle}>{`${props.email}`}</Text>
+        </View>
+        <View style={styles.spacer} />
+        <View style={styles.textWrapper}>
+          <Text style={styles.textStyle}>ENTER YOUR NEW EMAIL</Text>
+        </View>
         <TextInput
           style={styles.inputStyle}
-          value={props.email}
+          placeholder="EMAIL"
+          placeholderTextColor={COLORS.secondaryInactive}
+          textAlign="center"
           onChangeText={props.onEmailChange}
+        />
+        <View style={styles.spacer} />
+        <HeaderRightEmail
+          initialValue={props.email}
+          currentState={props.currentEmail}
+          edit={props.edit}
         />
       </View>
     </TouchableWithoutFeedback>

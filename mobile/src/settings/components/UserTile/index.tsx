@@ -19,8 +19,8 @@ const UserTileView: FC<IUserTileViewProps> = (props) => {
         }}
       />
       <View style={styles.userInfoStyle}>
-        <Text>{props.username}</Text>
-        <Text>{props.email}</Text>
+        <Text style={styles.userNameStyle}>{props.username}</Text>
+        <Text style={styles.userEmailStyle}>{props.email}</Text>
       </View>
     </View>
   );

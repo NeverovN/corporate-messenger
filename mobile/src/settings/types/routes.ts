@@ -19,7 +19,7 @@ export type AccountSettingsParamList = {
   [ACCOUNT_SCREEN_NAME]: undefined;
   [EDIT_EMAIL_SCREEN_NAME]: { oldEmail: string };
   [EDIT_PASSWORD_SCREEN_NAME]: { old: string; new: string; newRep: string };
-  [EDIT_USERNAME_SCREEN_NAME]: { oldFirstName: string; oldLastName: string };
+  [EDIT_USERNAME_SCREEN_NAME]: undefined;
 };
 
 export type SettingsScreenNavigationProp = StackNavigationProp<

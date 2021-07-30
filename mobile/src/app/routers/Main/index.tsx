@@ -1,11 +1,13 @@
 import React, { memo } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 // types
 import { MainStackParamList } from 'app/types/routes';
 
 // constants
 import { BOTTOM_TAB_NAME, SHARED_STACK_NAME } from '@/app/constants/routes';
+import COLORS from 'common/constants/colors';
 
 // routers
 import SharedRouter from '../Shared';
@@ -17,11 +19,19 @@ const MainRouter = () => {
   return (
     <MainStack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerStyle: {
+          height: getStatusBarHeight(),
+          backgroundColor: COLORS.primary,
+        },
+        headerLeft: () => null,
         gestureEnabled: false,
       }}>
       <MainStack.Screen name={BOTTOM_TAB_NAME} component={BottomTab} />
-      <MainStack.Screen name={SHARED_STACK_NAME} component={SharedRouter} />
+      <MainStack.Screen
+        name={SHARED_STACK_NAME}
+        component={SharedRouter}
+        options={{ headerShown: false }}
+      />
     </MainStack.Navigator>
   );
 };

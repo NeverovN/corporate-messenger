@@ -1,13 +1,13 @@
 import React, { FC, memo } from 'react';
-import { View } from 'react-native';
 
-// styles
-import styles from './styles';
+// common components
+import Icon from 'common/components/Icon';
+import { IconType } from '@/common/types/styles';
 
 interface IPostMenuButtonViewProps {}
 
 const PostMenuButtonView: FC<IPostMenuButtonViewProps> = () => {
-  return <View style={styles.buttonStyle} />;
+  return <Icon name="more" type={IconType.LARGE} />;
 };
 
 export default memo(PostMenuButtonView);

@@ -1,12 +1,11 @@
 import React, { FC, memo, useEffect, useState } from 'react';
 
 // common components
-import IconButton from '@/common/components/Button/IconButton';
-import Icon from '@/common/components/Icon';
+import TextButton from '@/common/components/Button/TextButton';
 
 // styles
 import styles from './styles';
-import { IconType } from '@/common/types/styles';
+import { Alert } from 'react-native';
 
 interface IHeaderProps {
   oldPassword: string;
@@ -33,20 +32,23 @@ const HeaderRightPassword: FC<IHeaderProps> = ({
 
   if (isChanged) {
     return (
-      <IconButton
-        icon="check"
-        containerStyle={styles.activeIconStyle}
+      <TextButton
+        label="CONFIRM"
+        containerStyle={styles.activeContainerStyle}
         onPress={edit}
-        iconType={IconType.LARGE}
+        labelStyle={styles.labelStyle}
       />
     );
   }
 
   return (
-    <Icon
-      name="check"
-      customStyle={styles.disabledIconStile}
-      type={IconType.LARGE}
+    <TextButton
+      label="CONFIRM"
+      containerStyle={styles.inactiveContainerStyle}
+      labelStyle={styles.labelStyle}
+      onPress={() =>
+        Alert.alert('Error', 'Please provide each fields with data')
+      }
     />
   );
 };

@@ -11,8 +11,8 @@ interface IUserInfoViewProps {
 const UserInfoView: FC<IUserInfoViewProps> = (props) => {
   return (
     <View style={styles.chatInfoViewStyle}>
-      <Text>{props.userName} </Text>
-      <Text>{props.lastMessage}</Text>
+      <Text style={styles.primaryTextStyle}>{props.userName} </Text>
+      <Text style={styles.secondaryTextStyle}>{props.lastMessage}</Text>
     </View>
   );
 };

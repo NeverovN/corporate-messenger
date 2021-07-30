@@ -6,36 +6,62 @@ import {
 
 // constants
 import {
+  CHAT_PREFERENCES_SCREEN,
   CHAT_SCREEN_NAME,
   NEW_CHAT_SCREEN,
   SEARCH_CHAT_SCREEN,
 } from '../../constants/routes';
+import COLORS from 'common/constants/colors';
 
 // containers
 import ChatScreen from 'chat/chatScreen/containers/ChatScreen';
 import NewChatScreen from 'chat/chatList/containers/NewChatScreen';
 import ChatSearchScreen from '../../containers/ChatSearchScreen';
+import ChatPreferencesScreen from '@/chat/chatScreen/containers/ChatPreferencesScreen';
 
 // types
 import { ChatListStackParamList } from 'chat/chatList/types/routes';
 
 // hooks
-import { useBackButtonNavigation } from 'common/hooks/useBackButtonNavigation';
 import { useNewChatBack } from 'chat/chatList/hooks/useNewChatBack';
+import HeaderBackButtonWithoutText from '@/common/components/HeaderBackButtonWithoutText';
 
 interface IAppScreenProps {}
 
 const Screens = createStackNavigator<ChatListStackParamList>();
 
 const ChatNavigator: FC<IAppScreenProps> = () => {
-  const chatBack = useBackButtonNavigation();
   const newChatBack = useNewChatBack();
   return (
     <Screens.Navigator initialRouteName={CHAT_SCREEN_NAME}>
       <Screens.Screen
         name={CHAT_SCREEN_NAME}
         component={ChatScreen}
-        options={{ headerLeft: () => <HeaderBackButton onPress={chatBack} /> }}
+        options={{
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          headerTitleStyle: {
+            fontSize: 15,
+            fontFamily: 'Mulish-Regular_Light',
+          },
+        }}
+      />
+      <Screens.Screen
+        name={CHAT_PREFERENCES_SCREEN}
+        component={ChatPreferencesScreen}
+        options={{
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          title: 'CHAT PREFERENCES',
+          headerTitleStyle: {
+            fontSize: 25,
+            fontFamily: 'Mulish-Regular_Light',
+          },
+        }}
       />
       <Screens.Screen
         name={NEW_CHAT_SCREEN}
@@ -44,13 +70,7 @@ const ChatNavigator: FC<IAppScreenProps> = () => {
           headerLeft: () => <HeaderBackButton onPress={newChatBack} />,
         }}
       />
-      <Screens.Screen
-        name={SEARCH_CHAT_SCREEN}
-        component={ChatSearchScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
+      <Screens.Screen name={SEARCH_CHAT_SCREEN} component={ChatSearchScreen} />
     </Screens.Navigator>
   );
 };

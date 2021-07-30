@@ -2,10 +2,11 @@ import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
 // common components
-import TextButton from '@/common/components/Button/TextButton';
+import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 
 // styles
 import styles from './styles';
+import { IconType } from '@/common/types/styles';
 
 interface IAddPostButtonViewProps {
   onPress(): void;
@@ -14,9 +15,11 @@ interface IAddPostButtonViewProps {
 const AddPostButtonView: FC<IAddPostButtonViewProps> = (props) => {
   return (
     <View style={styles.wrapperStyle}>
-      <TextButton
+      <IconWithTextButton
+        icon="plus"
+        iconType={IconType.LARGE}
         containerStyle={styles.addPostButtonStyle}
-        label="Create new post"
+        label="New post"
         onPress={props.onPress}
       />
     </View>

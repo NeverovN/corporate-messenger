@@ -3,7 +3,7 @@ import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
   wrapperStyle: {
-    width: '100%',
+    flex: 1,
     alignItems: 'center',
   },
   addPostButtonStyle: {
@@ -11,8 +11,9 @@ export default StyleSheet.create({
     height: 35,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.lightGray,
-    borderRadius: 10,
-    marginVertical: 10,
+
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: COLORS.secondary,
   },
 });

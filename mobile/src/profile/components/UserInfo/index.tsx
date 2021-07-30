@@ -12,9 +12,9 @@ interface IUserInfoViewProps {
 const UserInfoView: FC<IUserInfoViewProps> = (props) => {
   return (
     <View style={styles.userInfoViewStyle}>
-      <Text>{props.userName} </Text>
-      <Text>{props.userOnline}</Text>
-      <Text>{props.userStatus}</Text>
+      <Text style={styles.userNameStyle}>{props.userName} </Text>
+      <Text style={styles.userStatusStyle}>{props.userOnline}</Text>
+      <Text style={styles.userStatusStyle}>{props.userStatus}</Text>
     </View>
   );
 };

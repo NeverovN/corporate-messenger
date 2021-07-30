@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { FlatList, ListRenderItem, View } from 'react-native';
+import { FlatList, ListRenderItem, SafeAreaView } from 'react-native';
 
 // styles
 import styles from './styles';
@@ -23,7 +23,7 @@ const renderPostItem: ListRenderItem<ICommentItem> = ({ item }) => {
   return (
     <Comment
       id={item.id}
-      content={item.content}
+      content={item.content || ''}
       author={item.author.id}
       createdAt={item.createdAt}
     />
@@ -32,14 +32,15 @@ const renderPostItem: ListRenderItem<ICommentItem> = ({ item }) => {
 
 const PostScreenView: FC<IPostScreenViewProps> = (props) => {
   return (
-    <View style={styles.postScreenStyle}>
+    <SafeAreaView style={styles.postScreenStyle}>
       <FlatList
         ListHeaderComponent={<PostScreenTile postId={props.postId} />}
         data={props.data}
         renderItem={renderPostItem}
+        style={styles.listStyle}
       />
       <CommentInput />
-    </View>
+    </SafeAreaView>
   );
 };
 

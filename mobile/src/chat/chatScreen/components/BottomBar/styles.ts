@@ -3,21 +3,23 @@ import COLORS from '@/common/constants/colors';
 
 export default StyleSheet.create({
   bottomBarStyle: {
-    paddingLeft: 15,
     flexDirection: 'row',
-    alignItems: 'flex-end',
-    width: '100%',
-    minHeight: 50,
-    maxHeight: 120,
-    paddingVertical: 15,
-    backgroundColor: COLORS.lightGray,
+    alignItems: 'center',
   },
   textInputStyle: {
+    borderRadius: 20,
+    borderWidth: 1,
+    minHeight: 40,
+    maxHeight: 140,
+    paddingLeft: 20,
+    paddingTop: 10,
+    marginRight: 15,
     flex: 1,
-    marginRight: 10,
+    borderColor: COLORS.secondary,
+    fontFamily: 'DroidSans',
   },
   commonStyle: {
-    paddingRight: 15,
+    marginHorizontal: 15,
   },
   imageStyle: {
     width: 100,
