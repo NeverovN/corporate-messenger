@@ -49,10 +49,12 @@ fragment ChatFragment on Chat {
     id
     firstName
     lastName
+    avatar
   }
   createdAt
   isDialog
   title
+  logo
   messages {
     id
     content {

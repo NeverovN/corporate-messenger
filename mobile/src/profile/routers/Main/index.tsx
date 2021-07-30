@@ -71,14 +71,13 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
         name={THIRD_PARTY_USER_SCREEN_NAME}
         component={ThirdPartyUser}
         options={{
-          // perhaps it should be moved in its own file
           headerLeft: () => <HeaderBackButtonWithoutText />,
           headerStyle: {
             backgroundColor: COLORS.primary,
           },
           title: 'PROFILE',
           headerTitleStyle: {
-            fontSize: 30,
+            fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
           },
         }}

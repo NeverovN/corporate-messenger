@@ -6,6 +6,7 @@ import {
 
 // constants
 import {
+  CHAT_PREFERENCES_SCREEN,
   CHAT_SCREEN_NAME,
   NEW_CHAT_SCREEN,
   SEARCH_CHAT_SCREEN,
@@ -16,6 +17,7 @@ import COLORS from 'common/constants/colors';
 import ChatScreen from 'chat/chatScreen/containers/ChatScreen';
 import NewChatScreen from 'chat/chatList/containers/NewChatScreen';
 import ChatSearchScreen from '../../containers/ChatSearchScreen';
+import ChatPreferencesScreen from '@/chat/chatScreen/containers/ChatPreferencesScreen';
 
 // types
 import { ChatListStackParamList } from 'chat/chatList/types/routes';
@@ -40,9 +42,23 @@ const ChatNavigator: FC<IAppScreenProps> = () => {
           headerStyle: {
             backgroundColor: COLORS.primary,
           },
-          title: 'There should be a component',
           headerTitleStyle: {
             fontSize: 15,
+            fontFamily: 'Mulish-Regular_Light',
+          },
+        }}
+      />
+      <Screens.Screen
+        name={CHAT_PREFERENCES_SCREEN}
+        component={ChatPreferencesScreen}
+        options={{
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          title: 'CHAT PREFERENCES',
+          headerTitleStyle: {
+            fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
           },
         }}
