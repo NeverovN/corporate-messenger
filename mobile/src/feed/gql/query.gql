@@ -23,6 +23,8 @@ query GetFriendFeed {
       avatar
     }
     createdAt
+    textContent
+    mediaContent
   }
 }
 
