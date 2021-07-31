@@ -6,17 +6,20 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  textInputStyle: {
+  textInputWrapperStyle: {
+    marginRight: 15,
+    flex: 1,
+    borderColor: COLORS.secondary,
     borderRadius: 20,
     borderWidth: 1,
     minHeight: 40,
     maxHeight: 140,
-    paddingLeft: 20,
-    paddingTop: 10,
-    marginRight: 15,
-    flex: 1,
-    borderColor: COLORS.secondary,
+    padding: 10,
+  },
+  textInputStyle: {
     fontFamily: 'DroidSans',
+    fontSize: 15,
+    color: COLORS.secondary,
   },
   commonStyle: {
     marginHorizontal: 15,

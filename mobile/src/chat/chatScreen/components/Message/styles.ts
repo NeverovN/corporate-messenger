@@ -7,6 +7,7 @@ export default StyleSheet.create({
   commonMessageStyle: {
     padding: 10,
     borderRadius: 10,
+    maxWidth: '80%',
   },
   incomingMessageStyle: {
     backgroundColor: COLORS.incomingMessage,

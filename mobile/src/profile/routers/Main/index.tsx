@@ -96,6 +96,17 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
       <Screens.Screen
         name={CREATE_POST_SCREEN_NAME}
         component={CreatePostScreen}
+        options={{
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          title: 'CREATE POST',
+          headerTitleStyle: {
+            fontSize: 25,
+            fontFamily: 'Mulish-Regular_Light',
+          },
+        }}
       />
     </Screens.Navigator>
   );
