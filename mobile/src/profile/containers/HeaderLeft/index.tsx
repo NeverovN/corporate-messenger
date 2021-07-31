@@ -3,6 +3,9 @@ import React, { FC, memo } from 'react';
 // styles
 import styles from './styles';
 
+// colors
+import COLORS from 'common/constants/colors';
+
 // common components
 import IconButton from '@/common/components/Button/IconButton';
 
@@ -19,6 +22,8 @@ const HeaderLeft: FC<IHeaderLeftContainerProps> = () => {
       icon="search"
       onPress={navigate}
       containerStyle={styles.headerLeftStyle}
+      iconStyle={styles.iconStyle}
+      iconColor={COLORS.secondary}
     />
   );
 };

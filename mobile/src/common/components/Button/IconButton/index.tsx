@@ -19,7 +19,12 @@ export interface IIconButtonProps {
 const IconButton: FC<IIconButtonProps> = (props) => {
   return (
     <TouchableOpacity style={props.containerStyle} onPress={props.onPress}>
-      <Icon type={props.iconType} name={props.icon} color={props.iconColor} />
+      <Icon
+        type={props.iconType}
+        customStyle={props.iconStyle}
+        name={props.icon}
+        color={props.iconColor}
+      />
     </TouchableOpacity>
   );
 };

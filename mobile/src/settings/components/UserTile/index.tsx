@@ -6,18 +6,25 @@ import styles from './styles';
 interface IUserTileViewProps {
   username: string;
   email: string;
-  avatar: string;
+  avatar: string | null;
 }
 
 const UserTileView: FC<IUserTileViewProps> = (props) => {
   return (
     <View style={styles.userTileStyle}>
-      <Image
-        style={styles.userImageImageStyle}
-        source={{
-          uri: props.avatar,
-        }}
-      />
+      {props.avatar ? (
+        <Image
+          style={styles.userImageImageStyle}
+          source={{
+            uri: props.avatar,
+          }}
+        />
+      ) : (
+        <Image
+          style={styles.userImageImageStyle}
+          source={require('common/assets/images/defaultAvatar.png')}
+        />
+      )}
       <View style={styles.userInfoStyle}>
         <Text style={styles.userNameStyle}>{props.username}</Text>
         <Text style={styles.userEmailStyle}>{props.email}</Text>

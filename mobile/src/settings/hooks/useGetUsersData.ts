@@ -12,9 +12,7 @@ export const useGetCurrentUser = (): IUser => {
     email: data?.getUser.email || '',
     firstName: data?.getUser.firstName || '',
     lastName: data?.getUser.lastName || '',
-    avatar:
-      data?.getUser.avatar ||
-      'https://png.pngtree.com/png-clipart/20190705/original/pngtree-fire-explosion-blast-flame-png-transparent-png-image_4199261.jpg',
-    friends: data?.getUser.friends || [],
+    avatar: data?.getUser.avatar || null,
+    friends: data?.getUser.friends.map((el) => el.id) || [],
   };
 };

@@ -20,13 +20,16 @@ export default StyleSheet.create({
     borderColor: COLORS.secondary,
     borderRadius: 20,
     borderWidth: 1,
-    marginLeft: 10,
+    marginLeft: 15,
 
     fontFamily: 'DroidSans',
     fontSize: 20,
     color: COLORS.secondary,
   },
   buttonStyle: {
+    marginHorizontal: 15,
+  },
+  iconStyle: {
     marginHorizontal: 10,
   },
 });

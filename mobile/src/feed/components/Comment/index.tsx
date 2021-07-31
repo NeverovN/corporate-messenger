@@ -10,6 +10,9 @@ import styles from './styles';
 // consts
 import COLORS from '@/common/constants/colors';
 
+// types
+import { IconName } from '@/common/types/iconNames';
+
 interface ICommentViewProps {
   content: string;
   authorName: string;
@@ -22,7 +25,7 @@ interface ICommentViewProps {
 
 const CommentView: FC<ICommentViewProps> = (props) => {
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
-  const iconColor = props.liked ? COLORS.red : COLORS.secondary;
+  const icon: IconName = props.liked ? 'liked' : 'unliked';
   return (
     <View style={styles.feedStyle}>
       {props.authorAvatar ? (
@@ -42,11 +45,11 @@ const CommentView: FC<ICommentViewProps> = (props) => {
         <View style={styles.infoStyle}>
           <Text style={styles.minorTextStyle}>{props.createdAt}</Text>
           <IconWithTextButton
-            icon="like"
+            icon={icon}
             label={likes}
             labelStyle={styles.iconStyle}
             onPress={props.toggleLike}
-            iconColor={iconColor}
+            iconColor={COLORS.secondary}
           />
         </View>
       </View>

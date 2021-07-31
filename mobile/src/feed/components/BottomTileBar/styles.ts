@@ -10,11 +10,12 @@ export default StyleSheet.create({
   },
   containerStyle: {
     alignItems: 'center',
+    marginRight: 5,
   },
   labelStyle: {
     marginLeft: 5,
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: 'DroidSans',
-    color: COLORS.white,
+    color: COLORS.secondary,
   },
 });

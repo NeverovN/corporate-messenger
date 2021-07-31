@@ -27,7 +27,12 @@ const IconButton: FC<IIconWithTextButtonProps> = (props) => {
     <TouchableOpacity
       style={[styles.container, props.containerStyle]}
       onPress={props.onPress}>
-      <Icon type={props.iconType} name={props.icon} color={props.iconColor} />
+      <Icon
+        type={props.iconType}
+        customStyle={props.iconStyle}
+        name={props.icon}
+        color={props.iconColor}
+      />
       <Text type={props.textType} style={props.labelStyle}>
         {props.label}
       </Text>

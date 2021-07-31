@@ -7,20 +7,20 @@ import Button from '@/common/components/Button/TextButton';
 // styles
 import styles from './styles';
 
-interface IEditButtonViewProps {
+interface IFriendListButtonViewProps {
   onPress(): void;
 }
 
-const EditButtonView: FC<IEditButtonViewProps> = (props) => {
+const FriendListButtonView: FC<IFriendListButtonViewProps> = (props) => {
   return (
     <View style={styles.wrapperStyle}>
       <Button
-        label="Friends"
-        containerStyle={styles.editButtonStyle}
+        label="FRIENDS"
+        containerStyle={styles.friendListButtonStyle}
         onPress={props.onPress}
       />
     </View>
   );
 };
 
-export default memo(EditButtonView);
+export default memo(FriendListButtonView);
