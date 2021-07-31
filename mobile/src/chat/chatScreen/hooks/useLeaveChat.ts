@@ -3,20 +3,16 @@ import { useNavigation, StackActions } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
 // consts
-import { BOTTOM_TAB_NAME } from 'app/constants/routes';
+import { BOTTOM_TAB_NAME, CHAT_LIST_STACK_NAME } from 'app/constants/routes';
 
 export const useLeaveChat = (chatId: string) => {
   const [leave] = useLeaveChatMutation({
     update: (cache) => {
-      cache.modify({
-        fields: {
-          GetChats() {
-            // does not work properly
-            cache.gc();
-            navigation.dispatch(StackActions.replace(BOTTOM_TAB_NAME));
-          },
-        },
-      });
+      cache.evict({ id: chatId });
+      cache.gc();
+      navigation.dispatch(
+        StackActions.replace(BOTTOM_TAB_NAME, { screen: CHAT_LIST_STACK_NAME }),
+      );
     },
   });
   const navigation = useNavigation();
