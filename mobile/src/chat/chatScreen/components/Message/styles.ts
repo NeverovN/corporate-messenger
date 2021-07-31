@@ -14,8 +14,6 @@ export default StyleSheet.create({
   outgoingMessageStyle: {
     backgroundColor: COLORS.outgoingMessage,
   },
-  incomingTextStyle: {},
-  outgoingTextStyle: { color: COLORS.white },
   nameStyle: {
     marginBottom: 3,
   },
@@ -28,5 +26,11 @@ export default StyleSheet.create({
   mediaStyle: {
     height: 200,
     width: 200,
+  },
+  textStyle: {
+    fontFamily: 'DroidSans',
+    fontSize: 16,
+    color: COLORS.secondary,
+    marginLeft: 5,
   },
 });

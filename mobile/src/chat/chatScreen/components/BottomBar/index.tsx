@@ -67,7 +67,8 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
         />
         <TextInput
           style={styles.textInputStyle}
-          placeholder=" MESSAGE"
+          placeholder="MESSAGE"
+          value={props.message || ''}
           placeholderTextColor={COLORS.secondaryInactive}
           onChangeText={props.onValueChange}
           multiline={true}
