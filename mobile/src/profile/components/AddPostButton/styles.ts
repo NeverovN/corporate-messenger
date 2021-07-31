@@ -16,4 +16,11 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.secondary,
   },
+  iconStyle: {
+    fontSize: 14,
+    marginRight: 5,
+  },
+  labelStyle: {
+    fontSize: 14,
+  },
 });

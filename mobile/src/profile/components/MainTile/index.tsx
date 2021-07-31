@@ -6,19 +6,21 @@ import styles from './styles';
 
 // containers
 import UserHeader from '@/profile/containers/UserHeader';
-import EditButton from 'profile/containers/EditButton';
+import FriendsListButton from '@/profile/containers/FriendListButton';
 import AddPostButton from 'profile/containers/AddPostButton';
 
-interface IMainTileViewProps {}
+interface IMainTileViewProps {
+  image: string | null;
+}
 
-const MainTileView: FC<IMainTileViewProps> = () => {
+const MainTileView: FC<IMainTileViewProps> = (props) => {
   return (
     <View style={styles.mainTileStyles}>
-      <UserHeader />
+      <UserHeader image={props.image} />
       <View style={styles.buttonsWrapperStyle}>
         <AddPostButton />
         <View style={styles.separator} />
-        <EditButton />
+        <FriendsListButton />
       </View>
     </View>
   );

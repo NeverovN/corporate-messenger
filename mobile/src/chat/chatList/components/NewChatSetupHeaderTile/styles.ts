@@ -31,8 +31,9 @@ export default StyleSheet.create({
     backgroundColor: COLORS.tint,
   },
   changePhotoLabelStyle: {
+    marginLeft: 5,
     fontFamily: 'Mulish',
-    fontSize: 14,
+    fontSize: 16,
     color: COLORS.secondary,
   },
   inputPartViewStyle: {
@@ -97,5 +98,8 @@ export default StyleSheet.create({
     fontFamily: 'Mulish',
     fontSize: 22,
     color: COLORS.secondary,
+  },
+  containerStyle: {
+    alignItems: 'center',
   },
 });

@@ -13,6 +13,6 @@ export default StyleSheet.create({
     marginLeft: 5,
     fontSize: 15,
     fontFamily: 'DroidSans',
-    color: COLORS.white,
+    color: COLORS.secondary,
   },
 });

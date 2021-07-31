@@ -6,8 +6,8 @@ import IconButton from '@/common/components/Button/IconButton';
 // styles
 import styles from './styles';
 
-// types
-import { IconType } from '@/common/types/styles';
+// colors
+import COLORS from 'common/constants/colors';
 
 // hooks
 import { useSettingsNavigation } from 'profile/hooks/useSettingsNavigation';
@@ -19,9 +19,10 @@ const HeaderRight: FC<IHeaderRightContainerProps> = () => {
 
   return (
     <IconButton
-      icon="settings"
+      icon="settings2"
       containerStyle={styles.headerRightStyle}
-      iconType={IconType.LARGE}
+      iconStyle={styles.iconStyle}
+      iconColor={COLORS.secondary}
       onPress={navigate}
     />
   );

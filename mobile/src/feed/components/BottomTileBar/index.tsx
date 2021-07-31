@@ -12,6 +12,7 @@ import { IconType } from '@/common/types/styles';
 
 // constants
 import COLORS from '@/common/constants/colors';
+import { IconName } from '@/common/types/iconNames';
 
 interface IBottomTileBarViewProps {
   liked: boolean;
@@ -26,7 +27,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
 
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
 
-  const likeColor = props.liked ? COLORS.red : COLORS.white;
+  const icon: IconName = props.liked ? 'liked' : 'unliked';
 
   return (
     <View style={styles.bottomTileBarStyle}>
@@ -34,8 +35,8 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
         onPress={props.onLikePressed}
         label={likes}
         iconType={IconType.LARGE}
-        icon="like"
-        iconColor={likeColor}
+        icon={icon}
+        iconColor={COLORS.secondary}
         containerStyle={styles.containerStyle}
         labelStyle={styles.labelStyle}
       />

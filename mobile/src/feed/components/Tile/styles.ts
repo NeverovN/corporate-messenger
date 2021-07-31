@@ -22,7 +22,7 @@ export default StyleSheet.create({
     height: 1,
     width: '100%',
     marginVertical: 10,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.secondary,
   },
   centringWrapper: {
     alignItems: 'center',

@@ -17,9 +17,11 @@ const AddPostButtonView: FC<IAddPostButtonViewProps> = (props) => {
     <View style={styles.wrapperStyle}>
       <IconWithTextButton
         icon="plus"
-        iconType={IconType.LARGE}
+        iconType={IconType.MEDIUM}
         containerStyle={styles.addPostButtonStyle}
-        label="New post"
+        label="NEW POST"
+        iconStyle={styles.iconStyle}
+        labelStyle={styles.labelStyle}
         onPress={props.onPress}
       />
     </View>

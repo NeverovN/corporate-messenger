@@ -3,6 +3,6 @@ export interface IUser {
   email: string;
   firstName: string;
   lastName: string;
-  avatar: string;
+  avatar: string | null;
   friends: Array<string>;
 }

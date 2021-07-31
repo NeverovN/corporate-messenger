@@ -27,7 +27,7 @@ const TopBarView: FC<ITopBarViewProps> = (props) => {
         <Icon
           name="search"
           type={IconType.LARGE}
-          customStyle={styles.buttonStyle}
+          customStyle={styles.iconStyle}
         />
         <TextInput
           onChangeText={props.setFilter}

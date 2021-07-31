@@ -16,6 +16,7 @@ import COLORS from 'common/constants/colors';
 
 import styles from './styles';
 import { Image as ImageType } from 'react-native-image-crop-picker';
+import { IconType } from '@/common/types/styles';
 
 interface IBottomBarViewProps {
   onEmojiPress(): void;
@@ -59,9 +60,10 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
       ) : null}
       <View style={styles.bottomBarStyle}>
         <IconButton
-          icon="plus"
+          icon="emoji"
           onPress={props.onEmojiPress}
           containerStyle={styles.commonStyle}
+          iconType={IconType.LARGE}
         />
         <TextInput
           style={styles.textInputStyle}
@@ -70,9 +72,14 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
           onChangeText={props.onValueChange}
           multiline={true}
         />
-        <IconButton icon="plus" onPress={props.onClipPress} />
+        <IconButton
+          icon="plus"
+          iconType={IconType.LARGE}
+          onPress={props.onClipPress}
+        />
         <IconButton
           icon="send"
+          iconType={IconType.LARGE}
           onPress={props.onSendPress}
           containerStyle={{ ...styles.commonStyle }}
         />

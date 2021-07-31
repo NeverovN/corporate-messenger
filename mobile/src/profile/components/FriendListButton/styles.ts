@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  editButtonStyle: {
+  friendListButtonStyle: {
     width: '80%',
     height: 35,
     alignItems: 'center',

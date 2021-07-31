@@ -35,6 +35,7 @@ export default StyleSheet.create({
     paddingTop: 20,
   },
   changePhotoLabelStyle: {
+    marginLeft: 5,
     fontFamily: 'Mulish',
     fontSize: 14,
     color: COLORS.secondary,
@@ -104,5 +105,11 @@ export default StyleSheet.create({
     fontFamily: 'Mulish',
     fontSize: 22,
     color: COLORS.secondary,
+  },
+  iconStyle: {
+    fontSize: 15,
+  },
+  containerStyle: {
+    alignItems: 'center',
   },
 });

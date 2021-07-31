@@ -43,6 +43,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   iconStyle: {
-    marginLeft: 3,
+    marginLeft: 5,
   },
 });
