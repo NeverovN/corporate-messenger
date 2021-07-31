@@ -53,6 +53,7 @@ const NewChatSetupScreenView: FC<INewChatSetupScreenViewProps> = (props) => {
             setCurrentTitle={props.setCurrentTitle}
           />
         }
+        keyExtractor={() => Math.random().toString()}
         data={props.members}
         renderItem={renderItem}
         style={styles.flatListStyle}

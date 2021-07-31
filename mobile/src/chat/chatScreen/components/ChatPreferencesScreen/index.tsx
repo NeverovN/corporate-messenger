@@ -13,10 +13,10 @@ interface IChatPrefScreenViewProps {
 
 const renderItem: ListRenderItem<{ name: string; avatar: string | null }> = ({
   item,
-  index,
+  // index,
 }) => {
   return (
-    <View key={index} style={styles.itemStyle}>
+    <View style={styles.itemStyle}>
       {item.avatar ? (
         <Image style={styles.imageStyle} source={{ uri: item.avatar }} />
       ) : (
@@ -34,6 +34,7 @@ const ChatPrefScreenView: FC<IChatPrefScreenViewProps> = (props) => {
   return (
     <View style={styles.screenStyle}>
       <FlatList
+        keyExtractor={() => Math.random().toString()}
         ListHeaderComponent={ChatPreferencesHeaderTile}
         data={props.members}
         renderItem={renderItem}

@@ -27,6 +27,7 @@ const UserListView: FC<IUserListViewProps> = ({ data }) => {
     return (
       <SafeAreaView style={styles.existingUsersStyle}>
         <FlatList
+          keyExtractor={() => Math.random().toString()}
           renderItem={renderChatItem}
           data={data}
           style={styles.flatListStyle}
