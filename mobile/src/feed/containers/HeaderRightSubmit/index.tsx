@@ -17,7 +17,7 @@ const HeaderRightSubmit: FC<IHeaderRightProps> = (props) => {
   if (props.isValid) {
     return (
       <IconButton
-        icon="check"
+        icon="next"
         containerStyle={styles.activeIconStyle}
         iconType={IconType.LARGE}
         onPress={props.submit}
@@ -27,7 +27,7 @@ const HeaderRightSubmit: FC<IHeaderRightProps> = (props) => {
 
   return (
     <Icon
-      name="check"
+      name="next"
       customStyle={styles.disabledIconStile}
       type={IconType.LARGE}
     />

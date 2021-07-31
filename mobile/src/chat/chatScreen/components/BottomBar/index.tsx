@@ -65,14 +65,16 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
           containerStyle={styles.commonStyle}
           iconType={IconType.LARGE}
         />
-        <TextInput
-          style={styles.textInputStyle}
-          placeholder="MESSAGE"
-          value={props.message || ''}
-          placeholderTextColor={COLORS.secondaryInactive}
-          onChangeText={props.onValueChange}
-          multiline={true}
-        />
+        <View style={styles.textInputWrapperStyle}>
+          <TextInput
+            style={styles.textInputStyle}
+            placeholder="MESSAGE"
+            value={props.message || ''}
+            placeholderTextColor={COLORS.secondaryInactive}
+            onChangeText={props.onValueChange}
+            multiline={true}
+          />
+        </View>
         <IconButton
           icon="plus"
           iconType={IconType.LARGE}
