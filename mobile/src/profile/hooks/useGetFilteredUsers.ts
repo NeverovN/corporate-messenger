@@ -35,7 +35,7 @@ export const useGetFilteredUsers = (filter: string) => {
       id: el.id,
       firstName: el.firstName,
       lastName: el.lastName,
-      avatar: el.avatar || '',
+      avatar: el.avatar || null,
     };
   });
 
