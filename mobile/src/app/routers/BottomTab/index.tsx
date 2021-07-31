@@ -25,7 +25,7 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 const AppRouter = () => {
   return (
     <BottomTab.Navigator
-      initialRouteName={FEED_STACK_NAME}
+      initialRouteName={CHAT_LIST_STACK_NAME}
       tabBarOptions={{
         tabStyle: {
           backgroundColor: COLORS.primary,

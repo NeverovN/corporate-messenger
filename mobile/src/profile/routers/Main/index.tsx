@@ -1,6 +1,8 @@
 // Auth router (authentication level router)
 
 import React, { memo, FC } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StackActions, useNavigation } from '@react-navigation/native';
 
 // common components
 import HeaderBackButtonWithoutText from '@/common/components/HeaderBackButtonWithoutText';
@@ -29,8 +31,6 @@ import HeaderLeft from '@/profile/containers/HeaderLeft';
 // types
 import { MainBottomTabNavigationProp } from 'app/types/routes';
 import { ProfileStackParamList } from 'profile/types/routes';
-import { createStackNavigator } from '@react-navigation/stack';
-import { StackActions, useNavigation } from '@react-navigation/native';
 
 const Screens = createStackNavigator<ProfileStackParamList>();
 
