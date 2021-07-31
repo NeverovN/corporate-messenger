@@ -5,6 +5,7 @@ import {
   USER_SEARCH_SCREEN_NAME,
   THIRD_PARTY_USER_SCREEN_NAME,
   CREATE_POST_SCREEN_NAME,
+  FRIENDS_LIST_SCREEN,
 } from 'profile/constants/routes';
 
 export type ProfileStackParamList = {
@@ -12,6 +13,7 @@ export type ProfileStackParamList = {
   [USER_SEARCH_SCREEN_NAME]: undefined;
   [CREATE_POST_SCREEN_NAME]: undefined;
   [THIRD_PARTY_USER_SCREEN_NAME]: { userId: string };
+  [FRIENDS_LIST_SCREEN]: undefined;
 };
 
 export type ProfileScreenNavigationProp = StackNavigationProp<
@@ -22,6 +24,11 @@ export type ProfileScreenNavigationProp = StackNavigationProp<
 export type SearchScreenNavigationProp = StackNavigationProp<
   ProfileStackParamList,
   typeof USER_SEARCH_SCREEN_NAME
+>;
+
+export type FriendsScreenNavigationProp = StackNavigationProp<
+  ProfileStackParamList,
+  typeof FRIENDS_LIST_SCREEN
 >;
 
 export type ThirdPartyUserScreenNavigationProp = StackNavigationProp<

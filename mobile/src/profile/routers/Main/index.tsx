@@ -2,12 +2,16 @@
 
 import React, { memo, FC } from 'react';
 
+// common components
+import HeaderBackButtonWithoutText from '@/common/components/HeaderBackButtonWithoutText';
+
 // constants
 import {
   PROFILE_SCREEN_NAME,
   USER_SEARCH_SCREEN_NAME,
   THIRD_PARTY_USER_SCREEN_NAME,
   CREATE_POST_SCREEN_NAME,
+  FRIENDS_LIST_SCREEN,
 } from '@/profile/constants/routes';
 import COLORS from 'common/constants/colors';
 
@@ -16,6 +20,7 @@ import Profile from 'profile/containers/Profile';
 import SearchUsersScreen from 'profile/containers/SearchUsersScreen';
 import ThirdPartyUser from 'profile/containers/ThirdPartyUser';
 import CreatePostScreen from '@/feed/containers/CreatePostScreen';
+import FriendsScreen from '@/profile/containers/FriendsScreen';
 
 // hocs
 import HeaderRight from '@/profile/containers/HeaderRight';
@@ -26,7 +31,6 @@ import { MainBottomTabNavigationProp } from 'app/types/routes';
 import { ProfileStackParamList } from 'profile/types/routes';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StackActions, useNavigation } from '@react-navigation/native';
-import HeaderBackButtonWithoutText from '@/common/components/HeaderBackButtonWithoutText';
 
 const Screens = createStackNavigator<ProfileStackParamList>();
 
@@ -102,6 +106,21 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
             backgroundColor: COLORS.primary,
           },
           title: 'CREATE POST',
+          headerTitleStyle: {
+            fontSize: 25,
+            fontFamily: 'Mulish-Regular_Light',
+          },
+        }}
+      />
+      <Screens.Screen
+        name={FRIENDS_LIST_SCREEN}
+        component={FriendsScreen}
+        options={{
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          title: 'FRIENDS',
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
