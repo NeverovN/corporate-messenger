@@ -14,7 +14,7 @@ interface IUserInfoContainerProps {
 const UserInfoContainer: FC<IUserInfoContainerProps> = ({ chatId }) => {
   useOnNewMessageUpdate(chatId);
   const data = useGetChatInfo(chatId);
-  return <ChatInfoView userName={data.chatTitle} lastMessage={data.lastMsg} />;
+  return <ChatInfoView chatTitle={data.chatTitle} lastMessage={data.lastMsg} />;
 };
 
 export default memo(UserInfoContainer);
