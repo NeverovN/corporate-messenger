@@ -58,7 +58,7 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
           },
           title: 'PROFILE',
           headerTitleStyle: {
-            fontSize: 30,
+            fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
           },
         }}
@@ -66,6 +66,17 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
       <Screens.Screen
         name={USER_SEARCH_SCREEN_NAME}
         component={SearchUsersScreen}
+        options={{
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          title: 'ALL USERS',
+          headerTitleStyle: {
+            fontSize: 25,
+            fontFamily: 'Mulish-Regular_Light',
+          },
+        }}
       />
       <Screens.Screen
         name={THIRD_PARTY_USER_SCREEN_NAME}

@@ -5,8 +5,8 @@ import COLORS from 'common/constants/colors';
 
 export default StyleSheet.create({
   userInfoViewStyle: {
-    justifyContent: 'space-between',
     height: 70,
+    justifyContent: 'center',
   },
   userNameStyle: {
     fontFamily: 'Mulish',

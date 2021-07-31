@@ -12,13 +12,7 @@ interface IUserInfoContainerProps {
 
 const UserInfoContainer: FC<IUserInfoContainerProps> = (props) => {
   const userName = useGetUser(props.userId);
-  return (
-    <UserInfoView
-      userName={userName}
-      userOnline="online"
-      userStatus="User status"
-    />
-  );
+  return <UserInfoView userName={userName} />;
 };
 
 export default memo(UserInfoContainer);

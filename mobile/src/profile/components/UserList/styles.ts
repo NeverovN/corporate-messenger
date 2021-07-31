@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   existingUsersStyle: {
-    marginHorizontal: 5,
+    marginHorizontal: 10,
   },
   absentUsersStyle: {
     flex: 1,
