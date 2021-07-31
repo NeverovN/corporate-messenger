@@ -13,7 +13,7 @@ import COLORS from '@/common/constants/colors';
 interface ICommentViewProps {
   content: string;
   authorName: string;
-  authorAvatar: string;
+  authorAvatar: string | null;
   createdAt: string;
   likeCount: number;
   liked: boolean;
@@ -25,10 +25,17 @@ const CommentView: FC<ICommentViewProps> = (props) => {
   const iconColor = props.liked ? COLORS.red : COLORS.secondary;
   return (
     <View style={styles.feedStyle}>
-      <Image
-        style={styles.userIconImageStyle}
-        source={{ uri: props.authorAvatar }}
-      />
+      {props.authorAvatar ? (
+        <Image
+          style={styles.userIconImageStyle}
+          source={{ uri: props.authorAvatar }}
+        />
+      ) : (
+        <Image
+          style={styles.userIconImageStyle}
+          source={require('common/assets/images/defaultAvatar.png')}
+        />
+      )}
       <View style={styles.textWrapperStyle}>
         <Text style={styles.secondaryTextStyle}>{props.authorName}</Text>
         <Text style={styles.primaryTextStyle}>{props.content}</Text>

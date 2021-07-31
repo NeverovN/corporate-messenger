@@ -12,7 +12,7 @@ import PostScreenBottomTileBarContainer from 'feed/containers/PostScreenBottomTi
 export interface IPostTileViewProps {
   id: string;
   createdAt: string;
-  avatar: string;
+  avatar: string | null;
   author: {
     id: string;
     name: string;

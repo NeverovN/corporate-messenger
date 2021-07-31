@@ -22,9 +22,7 @@ export const useGetPost = (id: string) => {
     textContent: data?.getPost?.textContent || null,
     mediaContent: mediaContent,
     id: data?.getPost?.id || '',
-    avatar:
-      data?.getPost?.author.avatar ||
-      'https://cdn3.vectorstock.com/i/1000x1000/26/97/continuous-one-line-drawing-circle-minimalism-art-vector-25552697.jpg',
+    avatar: data?.getPost?.author.avatar || null,
     likes: data?.getPost?.likes?.length || 0,
   };
 };

@@ -15,7 +15,7 @@ interface ITopTileBarViewProps {
   onUserPress(): void;
   onPostPressed(): void;
   id: string;
-  avatar: string;
+  avatar: string | null;
   author: string;
   createdAt: string;
 }

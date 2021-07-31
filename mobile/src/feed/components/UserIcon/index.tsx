@@ -4,16 +4,26 @@ import FastImage from 'react-native-fast-image';
 import styles from './styles';
 
 interface IUserIconViewProps {
-  avatar: string;
+  avatar: string | null;
 }
 
 const UserIconView: FC<IUserIconViewProps> = (props) => {
   return (
-    <FastImage
-      style={styles.userIconImageStyle}
-      source={{ uri: props.avatar }}
-      resizeMode={FastImage.resizeMode.contain}
-    />
+    <>
+      {props.avatar ? (
+        <FastImage
+          style={styles.userIconImageStyle}
+          source={{ uri: props.avatar }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : (
+        <FastImage
+          style={styles.userIconImageStyle}
+          source={require('common/assets/images/defaultAvatar.png')}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      )}
+    </>
   );
 };
 
