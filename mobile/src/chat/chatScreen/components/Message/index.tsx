@@ -47,9 +47,7 @@ const MessageView: FC<IMessageViewProps> = (props) => {
     [props.isRead],
   );
 
-  const [msgStyle, textStyle, viewStyle, actions] = useSetMsgStyle(
-    props.direction,
-  );
+  const [msgStyle, viewStyle, actions] = useSetMsgStyle(props.direction);
 
   return (
     <View style={viewStyle}>
@@ -63,10 +61,10 @@ const MessageView: FC<IMessageViewProps> = (props) => {
           style={{ ...msgStyle, ...styles.commonMessageStyle }}
           onPress={props.onPress}>
           {props.content.text ? (
-            <Text style={textStyle}>{props.content.text}</Text>
+            <Text style={styles.textStyle}>{props.content.text}</Text>
           ) : null}
           {images}
-          <Text style={textStyle}>{props.createdAt}</Text>
+          <Text style={styles.textStyle}>{props.createdAt}</Text>
         </TouchableOpacity>
       </ContextMenu>
       {isReadIndicator}

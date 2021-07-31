@@ -48,7 +48,7 @@ export const useSendPressHandler = (
         variables: {
           input: {
             content: {
-              text: '',
+              text: message || '',
               media: media,
             },
             chatId: params.chatId,
