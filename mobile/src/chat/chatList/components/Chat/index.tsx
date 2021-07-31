@@ -7,13 +7,16 @@ import styles from './styles';
 import TopBarContainer from 'chat/chatList/containers/TopBar';
 import ChatList from 'chat/chatList/containers/ChatList';
 
-interface IChatComponentProps {}
+interface IChatComponentProps {
+  filter: string;
+  setFilter(filter: string): void;
+}
 
-const ChatView: FC<IChatComponentProps> = () => {
+const ChatView: FC<IChatComponentProps> = (props) => {
   return (
     <View style={styles.chatStyle}>
-      <TopBarContainer />
-      <ChatList />
+      <TopBarContainer setFilter={props.setFilter} />
+      <ChatList filter={props.filter} />
     </View>
   );
 };

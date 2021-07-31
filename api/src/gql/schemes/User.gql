@@ -17,7 +17,7 @@ type User {
 type Query {
   getUser(id: ID): User!
   getUserById(id: ID!): User
-  getUsers: [User]
+  getUsers(ids: [ID!]): [User]
 }
 
 type Mutation {

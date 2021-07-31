@@ -12,13 +12,15 @@ export default StyleSheet.create({
     backgroundColor: COLORS.primary,
   },
   inputStyle: {
-    justifyContent: 'center',
-    paddingLeft: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+
     flex: 1,
     height: 35,
     borderColor: COLORS.secondary,
     borderRadius: 20,
     borderWidth: 1,
+    marginLeft: 10,
 
     fontFamily: 'DroidSans',
     fontSize: 20,

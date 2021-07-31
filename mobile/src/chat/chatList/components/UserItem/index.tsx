@@ -12,6 +12,7 @@ import styles from './styles';
 
 interface IUserViewProps {
   userId: string;
+  image: string | null;
   onUserPressed(): void;
 }
 
@@ -21,7 +22,7 @@ const UserView: FC<IUserViewProps> = (props) => {
     <TouchableOpacity
       style={{ ...styles.userStyle, ...style }}
       onPress={props.onUserPressed}>
-      <UserImage />
+      <UserImage image={props.image} size={60} />
       <UserInfo userId={props.userId} />
     </TouchableOpacity>
   );

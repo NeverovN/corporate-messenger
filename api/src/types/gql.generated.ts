@@ -55,6 +55,15 @@ export type Comment = {
   likes?: Maybe<Array<User>>;
 };
 
+export type CreateChatInput = {
+  participants: Array<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type CreateDialogInput = {
+  participant: Scalars['ID'];
+};
+
 export type CreateMessageInput = {
   content: MessageContentInput;
   chatId: Scalars['String'];
@@ -97,8 +106,10 @@ export type MessageContentInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addFriend?: Maybe<User>;
+  clearChatHistory: Chat;
   createChat: Chat;
   createComment: Comment;
+  createDialog: Chat;
   createMessage: Message;
   createPost: Post;
   createUser: AuthenticationResult;
@@ -106,12 +117,14 @@ export type Mutation = {
   deleteCommentById: Comment;
   deleteMessageById: Message;
   deletePostById: Post;
+  editChatTitle: Chat;
   editComment: Comment;
   editEmail: User;
   editMessage: Message;
   editPassword: User;
   editPost: Post;
   editUsername: User;
+  leaveChat: Chat;
   likeComment: Comment;
   login: AuthenticationResult;
   markRead: Message;
@@ -125,15 +138,24 @@ export type MutationAddFriendArgs = {
 };
 
 
+export type MutationClearChatHistoryArgs = {
+  chatId: Scalars['ID'];
+};
+
+
 export type MutationCreateChatArgs = {
-  participants: Array<Scalars['ID']>;
-  title: Scalars['String'];
+  input: CreateChatInput;
 };
 
 
 export type MutationCreateCommentArgs = {
   postId: Scalars['ID'];
   content: Scalars['String'];
+};
+
+
+export type MutationCreateDialogArgs = {
+  input: CreateDialogInput;
 };
 
 
@@ -173,6 +195,11 @@ export type MutationDeletePostByIdArgs = {
 };
 
 
+export type MutationEditChatTitleArgs = {
+  input: UpdateChatTitle;
+};
+
+
 export type MutationEditCommentArgs = {
   commentId: Scalars['ID'];
   textContent: Scalars['String'];
@@ -205,6 +232,11 @@ export type MutationEditPostArgs = {
 export type MutationEditUsernameArgs = {
   newFirstName: Scalars['String'];
   newLastName: Scalars['String'];
+};
+
+
+export type MutationLeaveChatArgs = {
+  chatId: Scalars['ID'];
 };
 
 
@@ -295,6 +327,11 @@ export type QueryGetUserByIdArgs = {
   id: Scalars['ID'];
 };
 
+
+export type QueryGetUsersArgs = {
+  ids?: Maybe<Array<Scalars['ID']>>;
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   chatDeleted: Chat;
@@ -312,6 +349,11 @@ export type SubscriptionMessageEditedArgs = {
 
 export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
+};
+
+export type UpdateChatTitle = {
+  chatId: Scalars['ID'];
+  newTitle: Scalars['String'];
 };
 
 export type UpdatePasswordInput = {
@@ -415,6 +457,8 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ChatSettings: ResolverTypeWrapper<ChatSettings>;
   Comment: ResolverTypeWrapper<CommentEntity>;
+  CreateChatInput: CreateChatInput;
+  CreateDialogInput: CreateDialogInput;
   CreateMessageInput: CreateMessageInput;
   CreateUserInput: CreateUserInput;
   LoginInput: LoginInput;
@@ -425,6 +469,7 @@ export type ResolversTypes = {
   Post: ResolverTypeWrapper<PostEntity>;
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
+  UpdateChatTitle: UpdateChatTitle;
   UpdatePasswordInput: UpdatePasswordInput;
   User: ResolverTypeWrapper<UserEntity>;
 };
@@ -438,6 +483,8 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   ChatSettings: ChatSettings;
   Comment: CommentEntity;
+  CreateChatInput: CreateChatInput;
+  CreateDialogInput: CreateDialogInput;
   CreateMessageInput: CreateMessageInput;
   CreateUserInput: CreateUserInput;
   LoginInput: LoginInput;
@@ -448,6 +495,7 @@ export type ResolversParentTypes = {
   Post: PostEntity;
   Query: {};
   Subscription: {};
+  UpdateChatTitle: UpdateChatTitle;
   UpdatePasswordInput: UpdatePasswordInput;
   User: UserEntity;
 };
@@ -505,8 +553,10 @@ export type MessageContentResolvers<ContextType = any, ParentType extends Resolv
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddFriendArgs, 'friendId'>>;
-  createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateChatArgs, 'participants' | 'title'>>;
+  clearChatHistory?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationClearChatHistoryArgs, 'chatId'>>;
+  createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateChatArgs, 'input'>>;
   createComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'postId' | 'content'>>;
+  createDialog?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateDialogArgs, 'input'>>;
   createMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationCreateMessageArgs, 'input'>>;
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, never>>;
   createUser?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
@@ -514,12 +564,14 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteCommentById?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationDeleteCommentByIdArgs, 'id'>>;
   deleteMessageById?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationDeleteMessageByIdArgs, 'messageId'>>;
   deletePostById?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationDeletePostByIdArgs, 'postId'>>;
+  editChatTitle?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationEditChatTitleArgs, 'input'>>;
   editComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationEditCommentArgs, 'commentId' | 'textContent'>>;
   editEmail?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditEmailArgs, 'newEmail'>>;
   editMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationEditMessageArgs, 'messageId' | 'newContent'>>;
   editPassword?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditPasswordArgs, 'input'>>;
   editPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationEditPostArgs, 'postId'>>;
   editUsername?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditUsernameArgs, 'newFirstName' | 'newLastName'>>;
+  leaveChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationLeaveChatArgs, 'chatId'>>;
   likeComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationLikeCommentArgs, 'commentId'>>;
   login?: Resolver<ResolversTypes['AuthenticationResult'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
   markRead?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationMarkReadArgs, 'messageId'>>;
@@ -550,7 +602,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostsArgs, never>>;
   getUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryGetUserArgs, never>>;
   getUserById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
-  getUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  getUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QueryGetUsersArgs, never>>;
   getUsersPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
 };
 

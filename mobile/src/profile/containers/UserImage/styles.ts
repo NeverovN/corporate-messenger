@@ -4,14 +4,12 @@ import { StyleSheet } from 'react-native';
 import COLORS from 'common/constants/colors';
 
 export default StyleSheet.create({
-  userImageImageStyle: {
-    width: 70,
-    height: 70,
-    borderRadius: 40,
-
-    marginRight: 20,
-
-    borderColor: COLORS.secondary,
+  imageStyle: {
+    height: 60, // default
+    width: 60,
+    borderRadius: 30,
     borderWidth: 1,
+    borderColor: COLORS.secondary,
+    marginRight: 15,
   },
 });

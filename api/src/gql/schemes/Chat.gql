@@ -35,10 +35,14 @@ type Query {
 }
 
 type Mutation {
-  createChat(participants: [ID!]!, title: String!): Chat!
+  clearChatHistory(chatId: ID!): Chat!
+  leaveChat(chatId: ID!): Chat!
+  createChat(input: CreateChatInput!): Chat!
+  createDialog(input: CreateDialogInput!): Chat!
   createMessage(input: CreateMessageInput!): Message!
   deleteChatById(chatId: ID!): Chat!
   deleteMessageById(messageId: ID!): Message!
+  editChatTitle(input: UpdateChatTitle!): Chat!
   editMessage(messageId: ID!, newContent: String!): Message!
   markRead(messageId: ID!): Message!
 }
@@ -58,4 +62,18 @@ input CreateMessageInput {
 input MessageContentInput {
   text: String!
   media: [String!]
+}
+
+input CreateChatInput {
+  participants: [ID!]!
+  title: String
+}
+
+input CreateDialogInput {
+  participant: ID!
+}
+
+input UpdateChatTitle {
+  chatId: ID!
+  newTitle: String!
 }

@@ -1,12 +1,19 @@
 import React, { FC, memo } from 'react';
-import { View, TouchableOpacity, TextInput } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, TextInput } from 'react-native';
 
 // styles
 import styles from './styles';
 
+// colors
+import COLORS from 'common/constants/colors';
+
+// common components
+import Icon from 'common/components/Icon';
+
+// types
+import { IconType } from '@/common/types/styles';
+
 interface ITopBarViewProps {
-  onPress(): void;
   filter: string;
   onChangeFilter(filter: string): void;
 }
@@ -14,14 +21,18 @@ interface ITopBarViewProps {
 const TopBarView: FC<ITopBarViewProps> = (props) => {
   return (
     <View style={styles.newChatTopBarStyle}>
+      <Icon
+        name="search"
+        type={IconType.LARGE}
+        customStyle={styles.iconStile}
+      />
       <TextInput
+        placeholder="SEARCH"
+        placeholderTextColor={COLORS.secondaryInactive}
         style={styles.inputStyle}
         value={props.filter}
         onChangeText={props.onChangeFilter}
       />
-      <TouchableOpacity onPress={props.onPress}>
-        <Icon name="search" size={25} style={styles.iconStile} />
-      </TouchableOpacity>
     </View>
   );
 };

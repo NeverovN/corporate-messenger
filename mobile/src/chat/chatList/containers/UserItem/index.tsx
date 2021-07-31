@@ -8,6 +8,7 @@ import { useHandleFriendSelection } from 'chat/chatList/hooks/useHandleFriendSel
 
 interface IUserItemContainerProps {
   userId: string;
+  image: string | null;
 }
 
 const UserItemContainer: FC<IUserItemContainerProps> = (props) => {
@@ -20,8 +21,8 @@ const UserItemContainer: FC<IUserItemContainerProps> = (props) => {
 
   return (
     <UserItemView
+      image={props.image}
       onUserPressed={handlePress}
-      isSelected={isSelected}
       userId={props.userId}
     />
   );

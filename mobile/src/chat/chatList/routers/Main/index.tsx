@@ -1,13 +1,16 @@
-// Auth router (authentication level router)
-
 import React, { memo, FC } from 'react';
-import Screens from '../index';
+import { createStackNavigator } from '@react-navigation/stack';
 
 // constants
 import { CHAT_LIST_SCREEN_NAME } from '../../constants/routes';
 
 // containers
 import ChatList from 'chat/chatList/containers/Chat';
+
+// types
+import { RootStackParamList } from '@/chat/chatList/types/routes';
+
+const Screens = createStackNavigator<RootStackParamList>();
 
 interface IAppScreenProps {}
 

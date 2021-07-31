@@ -20,7 +20,7 @@ export const useEditMessage = (
       await editMessage({
         variables: {
           messageId: msgId,
-          newContent: msgText,
+          newContent: msgText || '',
         },
       });
     } catch (error) {

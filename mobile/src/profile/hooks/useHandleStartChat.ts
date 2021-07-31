@@ -1,5 +1,5 @@
 import {
-  useCreateChatMutation,
+  useCreateDialogMutation,
   useGetChatsQuery,
   ChatFragmentFragmentDoc,
 } from '@/common/types/gql.generated';
@@ -11,13 +11,13 @@ import { SharedStackNavigationProp } from 'app/types/routes';
 // consts
 import { SHARED_STACK_NAME, CHAT_STACK_NAME } from 'app/constants/routes';
 
-export const useHandleStartChat = (userId: string, username: string) => {
+export const useHandleStartChat = (userId: string) => {
   const { data: chats } = useGetChatsQuery();
   const navigation = useNavigation<SharedStackNavigationProp>();
 
-  const [createChat] = useCreateChatMutation({
+  const [createDialog] = useCreateDialogMutation({
     update: (cache, { data }) => {
-      if (!data || !data?.createChat) {
+      if (!data || !data?.createDialog) {
         return;
       }
       cache.modify({
@@ -26,7 +26,7 @@ export const useHandleStartChat = (userId: string, username: string) => {
             try {
               const newChat = cache.writeFragment({
                 fragment: ChatFragmentFragmentDoc,
-                data: data.createChat,
+                data: data.createDialog,
               });
 
               return [...exChats, newChat];
@@ -39,7 +39,7 @@ export const useHandleStartChat = (userId: string, username: string) => {
 
       navigation.navigate(SHARED_STACK_NAME, {
         screen: CHAT_STACK_NAME,
-        params: { screen: 'Chat', params: { chatId: data.createChat.id } },
+        params: { screen: 'Chat', params: { chatId: data.createDialog.id } },
       });
     },
   });
@@ -56,10 +56,9 @@ export const useHandleStartChat = (userId: string, username: string) => {
 
   return () => {
     if (!chat) {
-      createChat({
+      createDialog({
         variables: {
-          participants: [userId],
-          title: username,
+          input: { participant: userId },
         },
       });
     } else {

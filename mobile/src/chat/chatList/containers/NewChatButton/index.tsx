@@ -1,24 +1,33 @@
 import React, { FC, memo } from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 // styles
 import styles from './styles';
 
-// hooks
-import { useHandleNewChat } from 'chat/chatList/hooks/useHandleNewChat';
+// common components
+import TextButton from '@/common/components/Button/TextButton';
+
+// types
+import { NewChatSetupStackNavigationProp } from '../../types/routes';
+
+// routes
+import { NEW_CHAT_SETUP_SCREEN } from 'chat/chatList/constants/routes';
 
 interface INewChatButtonContainerProps {}
 
 const NewChatButtonContainer: FC<INewChatButtonContainerProps> = () => {
-  const onPress = useHandleNewChat();
+  const navigation = useNavigation<NewChatSetupStackNavigationProp>();
+  const onPress = () => navigation.navigate(NEW_CHAT_SETUP_SCREEN);
 
   return (
-    <View style={styles.newChatButtonViewStyle}>
-      <TouchableOpacity
-        style={styles.newChatButtonTouchStyles}
-        onPress={onPress}>
-        <Text>New chat</Text>
-      </TouchableOpacity>
+    <View style={styles.wrapperStyle}>
+      <TextButton
+        containerStyle={styles.buttonStyle}
+        labelStyle={styles.textStyle}
+        label="NEW CHAT"
+        onPress={onPress}
+      />
     </View>
   );
 };

@@ -1,5 +1,4 @@
 import React, { memo, FC } from 'react';
-import {} from 'react-native';
 
 // components
 import TopBarView from 'chat/chatList/components/TopBar';
@@ -8,9 +7,11 @@ import TopBarView from 'chat/chatList/components/TopBar';
 import { useHandleSearch } from 'chat/chatList/hooks/useHandleSearch';
 import { useHandleNewPlusPressed } from 'chat/chatList/hooks/useHandlePlusPressed';
 
-interface ITopBarContainerProps {}
+interface ITopBarContainerProps {
+  setFilter(filter: string): void;
+}
 
-const TopBarContainer: FC<ITopBarContainerProps> = () => {
+const TopBarContainer: FC<ITopBarContainerProps> = (props) => {
   const handleSearch = useHandleSearch();
   const handlePlusButton = useHandleNewPlusPressed();
 
@@ -18,6 +19,7 @@ const TopBarContainer: FC<ITopBarContainerProps> = () => {
     <TopBarView
       onSearchPress={handleSearch}
       onNewChatPress={handlePlusButton}
+      setFilter={props.setFilter}
     />
   );
 };
