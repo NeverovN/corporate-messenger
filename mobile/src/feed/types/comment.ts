@@ -8,5 +8,5 @@ export interface ICommentItem {
 interface IAuthor {
   id: string;
   name: string;
-  avatar: string;
+  avatar: string | null;
 }

@@ -13,7 +13,7 @@ interface ITopTileBarContainerProps {
     name: string;
   };
   createdAt: string;
-  avatar: string;
+  avatar: string | null;
 }
 
 const TopTileBarContainer: FC<ITopTileBarContainerProps> = (props) => {

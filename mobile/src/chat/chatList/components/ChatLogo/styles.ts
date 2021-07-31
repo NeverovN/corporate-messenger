@@ -4,13 +4,10 @@ import { StyleSheet } from 'react-native';
 import COLORS from 'common/constants/colors';
 
 export default StyleSheet.create({
-  userImageViewStyle: {
-    overflow: 'hidden',
-    margin: 15,
-  },
-  userImageImageStyle: {
+  chatLogoStyle: {
     width: 50,
     height: 50,
+    marginHorizontal: 15,
     borderRadius: 25,
     borderWidth: 1,
     borderColor: COLORS.secondary,
