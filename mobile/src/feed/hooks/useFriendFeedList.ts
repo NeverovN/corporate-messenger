@@ -12,22 +12,24 @@ export const useFriendFeedList = (): IPostItem[] => {
     return [] as any;
   }
 
-  return data.getFriendPosts.map((el) => {
-    const username = getUsername(
-      el?.author.firstName || '',
-      el?.author.lastName || '',
-    );
+  return data.getFriendPosts
+    .map((el) => {
+      const username = getUsername(
+        el?.author.firstName || '',
+        el?.author.lastName || '',
+      );
 
-    return {
-      id: el?.id || '',
-      author: {
-        id: el?.author.id || '',
-        name: username,
-      },
-      avatar: el?.author.avatar || null,
-      createdAt: el?.createdAt || '',
-      textContent: null,
-      mediaContent: null,
-    };
-  });
+      return {
+        id: el?.id || '',
+        author: {
+          id: el?.author.id || '',
+          name: username,
+        },
+        avatar: el?.author.avatar || null,
+        createdAt: el?.createdAt || '',
+        textContent: el?.textContent || null,
+        mediaContent: el?.mediaContent || null,
+      };
+    })
+    .reverse();
 };

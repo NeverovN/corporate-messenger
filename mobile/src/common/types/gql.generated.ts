@@ -680,7 +680,7 @@ export type GetFriendFeedQuery = (
   { __typename?: 'Query' }
   & { getFriendPosts?: Maybe<Array<Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'createdAt'>
+    & Pick<Post, 'id' | 'createdAt' | 'textContent' | 'mediaContent'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
@@ -1780,6 +1780,8 @@ export const GetFriendFeedDocument = gql`
       avatar
     }
     createdAt
+    textContent
+    mediaContent
   }
 }
     `;

@@ -11,23 +11,25 @@ export const useFeedList = (): IPostItem[] => {
   if (!data || !data.getAllPosts) {
     return [];
   }
-  return data.getAllPosts.map((el) => {
-    const username = getUsername(
-      el?.author.firstName || '',
-      el?.author.lastName || '',
-    );
-    const media = getMedia(el?.mediaContent);
+  return data.getAllPosts
+    .map((el) => {
+      const username = getUsername(
+        el?.author.firstName || '',
+        el?.author.lastName || '',
+      );
+      const media = getMedia(el?.mediaContent);
 
-    return {
-      id: el?.id || '',
-      author: {
-        id: el?.author.id || '',
-        name: username,
-      },
-      avatar: el?.author.avatar || null,
-      createdAt: el?.createdAt || '',
-      textContent: el?.textContent || null,
-      mediaContent: media,
-    };
-  });
+      return {
+        id: el?.id || '',
+        author: {
+          id: el?.author.id || '',
+          name: username,
+        },
+        avatar: el?.author.avatar || null,
+        createdAt: el?.createdAt || '',
+        textContent: el?.textContent || null,
+        mediaContent: media,
+      };
+    })
+    .reverse();
 };
