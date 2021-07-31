@@ -14,10 +14,7 @@ export const useGetComment = (
     data?.getComment?.author.lastName || '',
   );
 
-  const liked = data?.getComment?.likes?.find((el) => {
-    console.log(el.__typename);
-    return el.id === data.getUser.id;
-  })
+  const liked = data?.getComment?.likes?.find((el) => el.id === data.getUser.id)
     ? true
     : false;
 
