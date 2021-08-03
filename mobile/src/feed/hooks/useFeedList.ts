@@ -4,14 +4,15 @@ import { getUsername } from '@/profile/utils/getUsername';
 
 // types
 import { IPostItem } from 'feed/types/feed';
+import { filterFeed } from '../utils/filterFeed';
 
-export const useFeedList = (): IPostItem[] => {
+export const useFeedList = (filter: string): IPostItem[] => {
   const { data } = useGetFeedQuery();
 
   if (!data || !data.getAllPosts) {
     return [];
   }
-  return data.getAllPosts
+  const posts = data.getAllPosts
     .map((el) => {
       const username = getUsername(
         el?.author.firstName || '',
@@ -32,4 +33,6 @@ export const useFeedList = (): IPostItem[] => {
       };
     })
     .reverse();
+
+  return filterFeed(posts, filter);
 };
