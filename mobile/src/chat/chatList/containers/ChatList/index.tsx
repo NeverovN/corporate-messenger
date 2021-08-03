@@ -4,7 +4,7 @@ import React, { FC, memo } from 'react';
 import ChatsView from 'chat/chatList/components/ChatList';
 
 // hooks
-import { useChatList } from 'chat/chatList/hooks/useChatList';
+import { useChatList } from '@/chat/chatList/hooks/useChatList';
 
 interface IChatsContainerProps {
   filter?: string;
