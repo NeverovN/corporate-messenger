@@ -15,6 +15,7 @@
 		1575A58D26B0657C00B45449 /* DroidSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1575A58A26B0657B00B45449 /* DroidSans.ttf */; };
 		1575A58E26B0657C00B45449 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1575A58B26B0657C00B45449 /* icomoon.ttf */; };
 		1575A58F26B0657C00B45449 /* DroidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1575A58C26B0657C00B45449 /* DroidSans-Bold.ttf */; };
+		1592BBAF26B9139200C88A7A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1592BBAE26B9139200C88A7A /* GoogleService-Info.plist */; };
 		15F5608726AA6FF700EC6937 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15F5608626AA6FF700EC6937 /* GoogleService-Info.plist */; };
 		43D64A3D961BEE3AEC6DF4C1 /* libPods-CorporateMessenger-CorporateMessengerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A61BAAA4C4B5F58269213E8E /* libPods-CorporateMessenger-CorporateMessengerTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -47,6 +48,7 @@
 		1575A58A26B0657B00B45449 /* DroidSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = DroidSans.ttf; path = ../src/common/assets/fonts/DroidSans.ttf; sourceTree = "<group>"; };
 		1575A58B26B0657C00B45449 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = icomoon.ttf; path = ../src/common/assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
 		1575A58C26B0657C00B45449 /* DroidSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DroidSans-Bold.ttf"; path = "../src/common/assets/fonts/DroidSans-Bold.ttf"; sourceTree = "<group>"; };
+		1592BBAE26B9139200C88A7A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		15F5608626AA6FF700EC6937 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1A26DE965DB49F330DF1DC20 /* Pods-CorporateMessenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CorporateMessenger.debug.xcconfig"; path = "Target Support Files/Pods-CorporateMessenger/Pods-CorporateMessenger.debug.xcconfig"; sourceTree = "<group>"; };
 		461A49B1C39EB739EC046D9F /* Pods-CorporateMessenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CorporateMessenger.release.xcconfig"; path = "Target Support Files/Pods-CorporateMessenger/Pods-CorporateMessenger.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		13B07FAE1A68108700A75B9A /* CorporateMessenger */ = {
 			isa = PBXGroup;
 			children = (
+				1592BBAE26B9139200C88A7A /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				15F5608626AA6FF700EC6937 /* GoogleService-Info.plist */,
@@ -271,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1575A58D26B0657C00B45449 /* DroidSans.ttf in Resources */,
+				1592BBAF26B9139200C88A7A /* GoogleService-Info.plist in Resources */,
 				1575A58E26B0657C00B45449 /* icomoon.ttf in Resources */,
 				1575A58F26B0657C00B45449 /* DroidSans-Bold.ttf in Resources */,
 				15F5608726AA6FF700EC6937 /* GoogleService-Info.plist in Resources */,
