@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useMemo } from 'react';
 import {
   View,
   TextInput,
@@ -15,7 +15,6 @@ import IconButton from 'common/components/Button/IconButton';
 import COLORS from 'common/constants/colors';
 
 import styles from './styles';
-import { Image as ImageType } from 'react-native-image-crop-picker';
 import { IconType } from '@/common/types/styles';
 
 interface IBottomBarViewProps {
@@ -23,7 +22,7 @@ interface IBottomBarViewProps {
   onClipPress(): void;
   onSendPress(): void;
   message: string | null;
-  media: ImageType[] | null;
+  media: string[] | null;
   onValueChange(message: string): void;
 }
 
@@ -37,15 +36,16 @@ const renderImage: ListRenderItem<{ style: ImageStyle; source: string }> = ({
 const keyExtractor = () => Math.random().toString();
 
 const BottomBarView: FC<IBottomBarViewProps> = (props) => {
-  const imagesToRender = props.media
-    ? props.media.map((img) => {
-        const base64Encoded = img.data;
-        return {
-          style: styles.imageStyle,
-          source: `data:image/png;base64,${base64Encoded}`,
-        };
-      })
-    : null;
+  const imagesToRender = useMemo(() => {
+    return props.media?.length
+      ? props.media.map((img) => {
+          return {
+            style: styles.imageStyle,
+            source: img,
+          };
+        })
+      : null;
+  }, [props.media]);
 
   return (
     <View>

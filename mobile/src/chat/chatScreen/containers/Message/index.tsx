@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 
 // components
 import MessageView from 'chat/chatScreen/components/Message';
@@ -11,7 +11,20 @@ import { useDirection } from 'chat/chatScreen/hooks/useDirection';
 import { parseDate } from '../../utils/parseDate';
 import { IMessageItem } from '../../types/message';
 
-interface IMessageContainerProps extends IMessageItem {
+interface IMessageContainerProps {
+  content: {
+    media: Promise<string[]> | null;
+    text: string;
+    mediaCount: number;
+  };
+  id: string;
+  author: {
+    id: string;
+    name: string;
+  };
+  createdAt: string;
+  lastEdit: string | null;
+  isRead: boolean;
   currentUserId: string;
   setMessageEdit(msg: IMessageItem | null): void;
 }
@@ -21,6 +34,20 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
   const onPress = useOnMessagePressed(props.id);
   const createdAt = parseDate(props.createdAt);
   const lastEdit = parseDate(props.lastEdit);
+  const [imgBase64, setImgBase64] = useState<string[]>(
+    Array(props.content.mediaCount).fill('default'),
+  );
+
+  const func = async (promisedMedia: Promise<string[]>) => {
+    const media = await promisedMedia;
+    setImgBase64(media);
+  };
+
+  useEffect(() => {
+    if (props.content.media) {
+      func(props.content.media);
+    }
+  }, [props.content.media]);
 
   if (!createdAt) {
     throw Error('msg loading error');
@@ -30,7 +57,7 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
     <MessageView
       onPress={onPress}
       setEditMessage={props.setMessageEdit}
-      content={props.content}
+      content={{ ...props.content, media: imgBase64 }}
       direction={direction}
       author={props.author}
       createdAt={createdAt}

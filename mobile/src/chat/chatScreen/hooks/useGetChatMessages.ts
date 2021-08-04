@@ -11,7 +11,7 @@ import { IMessageItem } from '../types/message';
 
 // utils
 import { getName } from '@/profile/utils/getName';
-import { getFBMedia } from '../utils/getFBMedia';
+import { MediaUploader } from '../utils/MediaUploader';
 
 export const useGetChatMessages = (
   setEditMsg: (msg: IMessageItem | null) => void,
@@ -70,7 +70,9 @@ export const useGetChatMessages = (
         : false;
 
     const name = getName(el?.author.firstName || '', el?.author.lastName || '');
-    const media = getFBMedia(el?.content.media || null);
+    const { media, mediaCount } = MediaUploader.getManyFromFirebase(
+      el?.content.media || null,
+    );
 
     return {
       currentUserId: data.getUser.id,
@@ -78,6 +80,7 @@ export const useGetChatMessages = (
       content: {
         text: el?.content.text || null,
         media: media,
+        mediaCount,
       },
       createdAt: el?.createdAt || '',
       author: { name, id: el?.author.id || '' },

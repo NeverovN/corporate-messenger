@@ -28,10 +28,13 @@ export default StyleSheet.create({
     width: 100,
     height: 100,
     margin: 10,
+    borderRadius: 10,
   },
   imageViewer: {
     height: 120,
     width: '100%',
+    marginBottom: 10,
     flexDirection: 'row',
+    backgroundColor: COLORS.incomingMessage,
   },
 });

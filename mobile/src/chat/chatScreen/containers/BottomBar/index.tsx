@@ -1,12 +1,11 @@
-import React, { FC, memo, useEffect, useRef, useState } from 'react';
-import { Image } from 'react-native-image-crop-picker';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // components
 import BottomBarView from 'chat/chatScreen/components/BottomBar';
 
 // hooks
-import { useClipPressHandler } from 'chat/chatScreen/hooks/useClipPressHandler';
+import { useClipPressHandler } from 'chat/chatScreen/hooks/useAttachMedia';
 import { useEmojiPressHandler } from 'chat/chatScreen/hooks/useEmojiPressHandler';
 import { useSendPressHandler } from 'chat/chatScreen/hooks/useSendPressHandler';
 import { useEditMessage } from 'chat/chatScreen/hooks/useEditMessage';
@@ -34,16 +33,16 @@ const BottomBarContainer: FC<IBottomBarContainerProps> = ({
 
   // current message
   const [message, setMessage] = useState<string | null>(null);
-  const [media, setMedia] = useState<Image[] | null>(null);
-  const { current: mediaIds } = useRef<string[]>([]);
-
+  const [media, setMedia] = useState<string[] | null>(null);
+  const [mediaIDS, setMediaIDS] = useState<string[] | null>([]);
   // onPress
-  const onClipPress = useClipPressHandler(setMedia, mediaIds);
+  const onClipPress = useClipPressHandler(setMedia, setMediaIDS);
   const onEmojiPress = useEmojiPressHandler();
   const onSendPress = useSendPressHandler(
     message,
     setMessage,
-    mediaIds,
+    mediaIDS,
+    setMediaIDS,
     setMedia,
   );
   const onEditPressed = useEditMessage(

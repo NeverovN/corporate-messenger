@@ -7,6 +7,8 @@ import { mapMessageDocumentToMessageEntity } from '../../models/Message/mappers'
 import MessageEntityController from './entity';
 import { CreateMessageInput } from '../../types/gql.generated';
 
+import { FireBaseController } from '../FireBase';
+
 class MessageModelController {
   private mapMessageWithFallback(
     message: MessageDocument | null,
@@ -55,7 +57,8 @@ class MessageModelController {
 
   async deleteMessage(msgId: ID): Promise<boolean> {
     try {
-      await MessageModel.findByIdAndDelete(msgId);
+      const msg = await MessageModel.findByIdAndDelete(msgId).exec();
+      FireBaseController.removeItems(msg?.media || []);
       return true;
     } catch (error) {
       throw Error(`${error}`);
