@@ -1,3 +1,4 @@
+import { MediaUploader } from '@/chat/chatScreen/utils/MediaUploader';
 import {
   ChatFragmentFragmentDoc,
   useGetChatsQuery,
@@ -50,12 +51,13 @@ export const useChatList = (filter: string): IChatItem[] => {
     }
 
     const lastMsgDate = getFirstItem(el.messages)?.createdAt;
-
+    const logo = MediaUploader.getChatLogoFromFirebase(el.logo || null);
     return {
       title: el.title,
       participants: el.participants,
       id: el.id,
       lastMsg: { date: lastMsgDate || el.createdAt },
+      logo,
       unreadCount:
         el.messages?.reduce((acc, msg) => {
           return msg?.readBy.find((user) => user.id === data.getUser.id)

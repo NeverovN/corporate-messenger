@@ -9,7 +9,12 @@ import firestore, {
 import { createRandomString } from './createRandomString';
 
 export class MediaUploader {
-  static maxSize = 1000000;
+  private static maxSize = 1000000;
+  private static collections = {
+    messages: 'imagesFromChat',
+    chatLogos: 'chatLogos',
+    users: 'userAvatars',
+  };
 
   static uploadManyToStorage(data: { path: string; name: string }[]) {
     data.forEach(async (el) => {
@@ -21,12 +26,33 @@ export class MediaUploader {
     });
   }
 
-  static uploadManyToFirestore(base64: (string | null)[]) {
-    const collection = firestore().collection('imagesFromChat');
+  static uploadManyMessageMedia(base64: (string | null)[]) {
+    return MediaUploader.uploadManyToFirestore(base64, 'imagesFromChat');
+  }
 
-    return base64.map((img) => {
+  static uploadChatLogo(base64: string | null) {
+    return MediaUploader.uploadOneToFirestore(
+      base64,
+      MediaUploader.collections.chatLogos,
+    );
+  }
+
+  static uploadUserAvatar(base64: string | null) {
+    return MediaUploader.uploadOneToFirestore(
+      base64,
+      MediaUploader.collections.users,
+    );
+  }
+
+  private static uploadManyToFirestore(
+    base64: (string | null)[],
+    collectionName: string,
+  ) {
+    const collection = firestore().collection(collectionName);
+
+    const firstIds = base64.map((img) => {
       if (!img) {
-        return;
+        return null;
       }
       const partCount = Math.floor(img.length / MediaUploader.maxSize + 1);
       const base64Parts = MediaUploader.fillBuffer(partCount, img);
@@ -39,6 +65,30 @@ export class MediaUploader {
 
       return firstPartId;
     });
+
+    return firstIds.filter((id) => id !== null) as string[];
+  }
+
+  private static uploadOneToFirestore(
+    base64: string | null,
+    collectionName: string,
+  ) {
+    if (!base64) {
+      return null;
+    }
+
+    const collection = firestore().collection(collectionName);
+
+    const partCount = Math.floor(base64.length / MediaUploader.maxSize + 1);
+    const base64Parts = MediaUploader.fillBuffer(partCount, base64);
+
+    const firstPartId = MediaUploader.upload(
+      base64Parts,
+      partCount,
+      collection,
+    );
+
+    return firstPartId;
   }
 
   static getManyFromFirebase(
@@ -69,6 +119,40 @@ export class MediaUploader {
     });
 
     return { media: Promise.all(result), mediaCount: result.length };
+  }
+
+  static getChatLogoFromFirebase(firstId: string | null) {
+    return this.getOneFromFirebase(
+      firstId,
+      MediaUploader.collections.chatLogos,
+    );
+  }
+
+  private static async getOneFromFirebase(
+    firstId: string | null,
+    collectionName: string,
+  ): Promise<string | null> {
+    if (!firstId) {
+      return null;
+    }
+
+    let FBDocument = (
+      await firestore().collection(collectionName).doc(firstId).get()
+    ).data();
+
+    let base64 = FBDocument?.data64 as string;
+    while (FBDocument?.last === false) {
+      FBDocument = (
+        await firestore()
+          .collection(collectionName)
+          .doc(FBDocument?.nextPartId)
+          .get()
+      ).data();
+
+      base64 += FBDocument?.data64 ? FBDocument?.data64 : '';
+    }
+
+    return `data:image/png;base64,${base64}`;
   }
 
   private static fillBuffer(size: number, data: string) {

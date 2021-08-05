@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import ContextMenu from 'react-native-context-menu-view';
 
 import ChatItemView from 'chat/chatList/components/ChatItem';
@@ -11,16 +11,24 @@ import { useMessageEditedSubscription } from '@/common/types/gql.generated';
 // consts
 import ACTIONS from 'chat/chatList/constants/actions';
 
+// utils
+import { resolveLogoPromise } from '../../utils/resolveLogoPromise';
+
 interface IChatItemContainerProps {
   chatId: string;
   unreadCount: number;
-  logo: string | null;
+  logo: Promise<string | null>;
 }
 
 const ChatItemContainer: FC<IChatItemContainerProps> = (props) => {
+  const [logo, setLogo] = useState<string | null>(null);
   const redirect = useOnChatPressed(props.chatId);
   useMessageEditedSubscription({ variables: { chatId: props.chatId } });
   const actionHandler = useHandleChatActions();
+
+  useEffect(() => {
+    resolveLogoPromise(props.logo, setLogo);
+  }, [props.logo]);
 
   return (
     <ContextMenu
@@ -31,7 +39,7 @@ const ChatItemContainer: FC<IChatItemContainerProps> = (props) => {
       ]}
       onPress={(e) => actionHandler(e.nativeEvent.name, props.chatId)}>
       <ChatItemView
-        logo={props.logo}
+        logo={logo}
         onPress={redirect}
         chatId={props.chatId}
         count={props.unreadCount}

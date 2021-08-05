@@ -242,6 +242,16 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
 
     return await ChatController.leaveChat(chatId, currentUserId);
   },
+  async updateChatLogo(_, { input }, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('Unauthorized');
+    }
+
+    return await ChatController.updateChatLogo(
+      input.chatId,
+      input.logoId || null,
+    );
+  },
   async deleteChatById(_, args) {
     try {
       const deletedChat = await ChatController.getChat(args.chatId);

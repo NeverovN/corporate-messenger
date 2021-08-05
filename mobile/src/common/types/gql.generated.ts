@@ -59,7 +59,7 @@ export type CreateDialogInput = {
 
 export type CreateMessageInput = {
   content: MessageContentInput;
-  chatId: Scalars['String'];
+  chatId: Scalars['ID'];
 };
 
 export type CreateUserInput = {
@@ -123,6 +123,7 @@ export type Mutation = {
   markRead: Message;
   removeFriend?: Maybe<User>;
   toggleLike: Post;
+  updateChatLogo: Chat;
 };
 
 
@@ -257,6 +258,11 @@ export type MutationToggleLikeArgs = {
   id: Scalars['ID'];
 };
 
+
+export type MutationUpdateChatLogoArgs = {
+  input: UpdateChatLogoInput;
+};
+
 export type Post = {
   __typename?: 'Post';
   id: Scalars['ID'];
@@ -342,6 +348,11 @@ export type SubscriptionMessageEditedArgs = {
 
 export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
+};
+
+export type UpdateChatLogoInput = {
+  chatId: Scalars['ID'];
+  logoId?: Maybe<Scalars['String']>;
 };
 
 export type UpdateChatTitle = {
@@ -616,6 +627,19 @@ export type EditTitleMutation = (
   & { editChatTitle: (
     { __typename?: 'Chat' }
     & Pick<Chat, 'id' | 'title'>
+  ) }
+);
+
+export type UpdateChatLogoMutationVariables = Exact<{
+  input: UpdateChatLogoInput;
+}>;
+
+
+export type UpdateChatLogoMutation = (
+  { __typename?: 'Mutation' }
+  & { updateChatLogo: (
+    { __typename?: 'Chat' }
+    & ChatFragmentFragment
   ) }
 );
 
@@ -1630,6 +1654,39 @@ export function useEditTitleMutation(baseOptions?: Apollo.MutationHookOptions<Ed
 export type EditTitleMutationHookResult = ReturnType<typeof useEditTitleMutation>;
 export type EditTitleMutationResult = Apollo.MutationResult<EditTitleMutation>;
 export type EditTitleMutationOptions = Apollo.BaseMutationOptions<EditTitleMutation, EditTitleMutationVariables>;
+export const UpdateChatLogoDocument = gql`
+    mutation UpdateChatLogo($input: UpdateChatLogoInput!) {
+  updateChatLogo(input: $input) {
+    ...ChatFragment
+  }
+}
+    ${ChatFragmentFragmentDoc}`;
+export type UpdateChatLogoMutationFn = Apollo.MutationFunction<UpdateChatLogoMutation, UpdateChatLogoMutationVariables>;
+
+/**
+ * __useUpdateChatLogoMutation__
+ *
+ * To run a mutation, you first call `useUpdateChatLogoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateChatLogoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateChatLogoMutation, { data, loading, error }] = useUpdateChatLogoMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateChatLogoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateChatLogoMutation, UpdateChatLogoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateChatLogoMutation, UpdateChatLogoMutationVariables>(UpdateChatLogoDocument, options);
+      }
+export type UpdateChatLogoMutationHookResult = ReturnType<typeof useUpdateChatLogoMutation>;
+export type UpdateChatLogoMutationResult = Apollo.MutationResult<UpdateChatLogoMutation>;
+export type UpdateChatLogoMutationOptions = Apollo.BaseMutationOptions<UpdateChatLogoMutation, UpdateChatLogoMutationVariables>;
 export const ClearHistoryDocument = gql`
     mutation ClearHistory($chatId: ID!) {
   clearChatHistory(chatId: $chatId) {

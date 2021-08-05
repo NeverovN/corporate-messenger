@@ -115,6 +115,27 @@ class ChatModelController {
     return mapChatDocumentToChatEntity(updatedChat);
   }
 
+  async updateChatLogo(chatId: ID, logoId: ID | null): Promise<ChatEntity> {
+    const chat = await ChatModel.findById(chatId).exec();
+    if (!chat) {
+      throw Error('Chat does not exist');
+    }
+
+    const newChat = ChatEntityController.updateChatLogo(
+      mapChatDocumentToChatEntity(chat),
+      logoId,
+    );
+
+    await ChatModel.findByIdAndUpdate(newChat._id, newChat).exec();
+    const updatedChat = await ChatModel.findById(newChat._id).exec();
+
+    if (!updatedChat) {
+      throw Error('Network error, chat was not updated');
+    }
+
+    return mapChatDocumentToChatEntity(updatedChat);
+  }
+
   async getParticipants(chat: ChatEntity): Promise<UserEntity[]> {
     return await UserController.getUsers(chat.participants);
   }

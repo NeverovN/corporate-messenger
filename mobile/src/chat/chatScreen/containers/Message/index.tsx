@@ -38,14 +38,14 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
     Array(props.content.mediaCount).fill('default'),
   );
 
-  const func = async (promisedMedia: Promise<string[]>) => {
+  const resolveMediaPromise = async (promisedMedia: Promise<string[]>) => {
     const media = await promisedMedia;
     setImgBase64(media);
   };
 
   useEffect(() => {
     if (props.content.media) {
-      func(props.content.media);
+      resolveMediaPromise(props.content.media);
     }
   }, [props.content.media]);
 

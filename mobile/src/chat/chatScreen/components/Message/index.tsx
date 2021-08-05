@@ -10,7 +10,6 @@ import styles from './styles';
 
 // hooks
 import { useHandleMessageActions } from '../../hooks/useHandleMessageActions';
-import { useGetMessage } from '../../hooks/useGetMessage';
 import { useSetMsgStyle } from '../../hooks/useSetMsgStyle';
 
 // types
@@ -24,7 +23,6 @@ interface IMessageViewProps extends IMessageItem {
 
 const MessageView: FC<IMessageViewProps> = (props) => {
   const actionHandler = useHandleMessageActions();
-  const message = useGetMessage(props.id);
 
   const lastEditText = useMemo(
     () => (props.lastEdit ? <Text>last edit: {props.lastEdit}</Text> : null),
@@ -44,7 +42,7 @@ const MessageView: FC<IMessageViewProps> = (props) => {
         title={'Message Actions'}
         actions={actions}
         onPress={(e) =>
-          actionHandler(e.nativeEvent.name, message, props.setEditMessage)
+          actionHandler(e.nativeEvent.name, props, props.setEditMessage)
         }>
         <TouchableOpacity
           style={{ ...msgStyle, ...styles.commonMessageStyle }}
