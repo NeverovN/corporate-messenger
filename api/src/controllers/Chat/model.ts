@@ -8,6 +8,7 @@ import ChatEntityController from './entity';
 import { UserEntity } from '../../models/User';
 import { UserController } from '../User';
 import { MessageController } from '../Message';
+import { FireBaseController } from '../FireBase';
 
 class ChatModelController {
   private mapChatWithFallback(chat: ChatDocument | null): ChatEntity | null {
@@ -120,6 +121,8 @@ class ChatModelController {
     if (!chat) {
       throw Error('Chat does not exist');
     }
+
+    FireBaseController.removeChatLogo(chat.logo);
 
     const newChat = ChatEntityController.updateChatLogo(
       mapChatDocumentToChatEntity(chat),

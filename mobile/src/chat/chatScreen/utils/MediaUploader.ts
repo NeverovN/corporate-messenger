@@ -128,6 +128,10 @@ export class MediaUploader {
     );
   }
 
+  static getUserAvatarFromFirebase(firstId: string | null) {
+    return this.getOneFromFirebase(firstId, MediaUploader.collections.users);
+  }
+
   private static async getOneFromFirebase(
     firstId: string | null,
     collectionName: string,
