@@ -7,24 +7,14 @@ import MessageView from 'chat/chatScreen/components/Message';
 import { useOnMessagePressed } from 'chat/chatScreen/hooks/useOnMessagePressed';
 import { useDirection } from 'chat/chatScreen/hooks/useDirection';
 
-// constants
+// utils
 import { parseDate } from '../../utils/parseDate';
+import { resolveMediaPromise } from '../../utils/resolveMediaPromise';
+
+// types
 import { IMessageItem } from '../../types/message';
 
-interface IMessageContainerProps {
-  content: {
-    media: Promise<string[]> | null;
-    text: string;
-    mediaCount: number;
-  };
-  id: string;
-  author: {
-    id: string;
-    name: string;
-  };
-  createdAt: string;
-  lastEdit: string | null;
-  isRead: boolean;
+interface IMessageContainerProps extends IMessageItem {
   currentUserId: string;
   setMessageEdit(msg: IMessageItem | null): void;
 }
@@ -38,14 +28,9 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
     Array(props.content.mediaCount).fill('default'),
   );
 
-  const resolveMediaPromise = async (promisedMedia: Promise<string[]>) => {
-    const media = await promisedMedia;
-    setImgBase64(media);
-  };
-
   useEffect(() => {
-    if (props.content.media) {
-      resolveMediaPromise(props.content.media);
+    if (props.content.media && props.content.media) {
+      resolveMediaPromise(props.content.media, setImgBase64);
     }
   }, [props.content.media]);
 

@@ -17,7 +17,7 @@ import { resolveLogoPromise } from '../../utils/resolveLogoPromise';
 interface IChatItemContainerProps {
   chatId: string;
   unreadCount: number;
-  logo: Promise<string | null>;
+  logo: string | Promise<string | null> | null;
 }
 
 const ChatItemContainer: FC<IChatItemContainerProps> = (props) => {

@@ -6,7 +6,7 @@ export interface IMessageItem {
   };
   content: {
     text: string | null;
-    media: string[];
+    media: Promise<string[]> | string[] | null;
     mediaCount: number;
   };
   createdAt: string;
