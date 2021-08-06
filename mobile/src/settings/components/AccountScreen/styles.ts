@@ -14,5 +14,6 @@ export default StyleSheet.create({
     marginBottom: 20,
     fontSize: 22,
     fontFamily: 'Mulish',
+    color: COLORS.secondary,
   },
 });

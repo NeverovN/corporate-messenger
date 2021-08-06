@@ -8,6 +8,7 @@ export default StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     marginBottom: 10,
+    marginTop: 10,
   },
   topBarStyle: {
     borderWidth: 1,
@@ -20,6 +21,7 @@ export default StyleSheet.create({
   },
   iconStile: {
     marginHorizontal: 10,
+    color: COLORS.secondary,
   },
   inputStyle: {
     marginLeft: 10,

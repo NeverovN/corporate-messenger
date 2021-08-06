@@ -30,7 +30,6 @@ const UserListView: FC<IUserListViewProps> = ({ data }) => {
           keyExtractor={() => Math.random().toString()}
           renderItem={renderChatItem}
           data={data}
-          style={styles.flatListStyle}
         />
         <NewChatButton />
       </SafeAreaView>

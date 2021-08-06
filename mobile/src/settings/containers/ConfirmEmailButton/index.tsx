@@ -1,39 +1,32 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { Alert } from 'react-native';
 
 // common components
 import TextButton from '@/common/components/Button/TextButton';
 
 // styles
 import styles from './styles';
+import { Alert } from 'react-native';
 
-interface IHeaderProps {
-  initialNames: [string, string];
-  newNames: [string, string];
+interface IButtonProps {
+  initialValue: string;
+  currentState: string;
   edit(): void;
 }
 
-const HeaderRightUsername: FC<IHeaderProps> = ({
-  initialNames,
-  newNames,
+const ConfirmEmailButton: FC<IButtonProps> = ({
+  initialValue,
+  currentState,
   edit,
 }) => {
-  const [initialFirstName, initialLastName] = initialNames;
-  const [newFirstName, newLastName] = newNames;
   const [isChanged, setIsChanged] = useState<boolean>(false);
 
   useEffect(() => {
-    if (
-      initialFirstName === newFirstName &&
-      initialLastName === newLastName &&
-      newFirstName !== '' &&
-      newLastName !== ''
-    ) {
+    if (initialValue === currentState || currentState === '') {
       setIsChanged(false);
     } else {
       setIsChanged(true);
     }
-  }, [initialFirstName, initialLastName, newFirstName, newLastName]);
+  }, [currentState, initialValue]);
 
   if (isChanged) {
     return (
@@ -51,9 +44,9 @@ const HeaderRightUsername: FC<IHeaderProps> = ({
       label="CONFIRM"
       labelStyle={styles.labelStyle}
       containerStyle={styles.inactiveContainerStyle}
-      onPress={() => Alert.alert('Error', 'Please enter correct username')}
+      onPress={() => Alert.alert('Error', 'Please enter email')}
     />
   );
 };
 
-export default memo(HeaderRightUsername);
+export default memo(ConfirmEmailButton);

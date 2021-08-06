@@ -1,25 +1,44 @@
-const lightTheme = {
+import { getColorScheme } from '../utils/getColorScheme';
+
+export const lightTheme = {
   primary: '#F2E8DC',
-
-  tint: '#D9C4B3',
-
   secondary: '#3F4556',
   secondaryInactive: '#3F455670',
+  tint: '#D9C4B3',
 
   incomingMessage: '#3F455630',
   outgoingMessage: '#D9C4B3',
+
+  submitButton: '#3F4556',
+  submitButtonInactive: '#3F455670',
+  submitButtonText: '#F2E8DC',
+
   white: '#fff',
-  whiteOpacity: '#ffffff70',
-
   black: '#000',
-  red: '#FF0000',
-
-  beige: '#FCF4F0',
-  lightGray: '#C4C7CD',
-  lightBlue: '#4bb3fd40',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const blackTheme = {};
+export const darkTheme = {
+  primary: '#3F4556',
+  secondary: '#F2E8DC',
+  secondaryInactive: '#F2E8DC70',
+  tint: '#626673',
 
-export default lightTheme;
+  incomingMessage: '#3F455630',
+  outgoingMessage: '#D9C4B3',
+
+  submitButton: '#F2E8DC70',
+  submitButtonInactive: '#626673',
+  submitButtonText: '#F2E8DC',
+
+  white: '#fff',
+  black: '#000',
+};
+
+const currentTheme = getColorScheme();
+let a = darkTheme;
+currentTheme.then((resp) => {
+  a = { ...resp };
+  console.log(a);
+});
+
+export default a;

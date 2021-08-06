@@ -16,6 +16,7 @@ const StartChatButtonView: FC<IStartChatButtonViewProps> = (props) => {
     <View style={styles.wrapperStyle}>
       <TextButton
         containerStyle={styles.chatButtonStyle}
+        labelStyle={styles.labelStyle}
         onPress={props.onPress}
         label="Chat"
       />

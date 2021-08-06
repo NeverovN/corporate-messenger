@@ -14,7 +14,7 @@ import styles from './styles';
 import COLORS from 'common/constants/colors';
 
 // containers
-import HeaderRightUsername from '@/settings/containers/HeaderRightUsername';
+import ConfirmUsernameButton from '@/settings/containers/ConfirmUsernameButton';
 
 interface IEditUsernameScreenViewProps {
   names: [string, string];
@@ -52,7 +52,7 @@ const EditUsernameScreenView: FC<IEditUsernameScreenViewProps> = (props) => {
           onChangeText={props.onChangeLastName}
         />
         <View style={styles.spacer} />
-        <HeaderRightUsername
+        <ConfirmUsernameButton
           initialNames={props.names}
           newNames={[props.currentFirstName, props.currentLastName]}
           edit={props.edit}

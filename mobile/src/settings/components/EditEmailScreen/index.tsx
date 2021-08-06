@@ -11,7 +11,7 @@ import {
 import styles from './styles';
 
 // containers
-import HeaderRightEmail from '@/settings/containers/HeaderRightEmail';
+import ConfirmEmailButton from '@/settings/containers/ConfirmEmailButton';
 
 // colors
 import COLORS from 'common/constants/colors';
@@ -42,7 +42,7 @@ const EditEmailScreenView: FC<IEditEmailScreenViewProps> = (props) => {
           onChangeText={props.onEmailChange}
         />
         <View style={styles.spacer} />
-        <HeaderRightEmail
+        <ConfirmEmailButton
           initialValue={props.email}
           currentState={props.currentEmail}
           edit={props.edit}

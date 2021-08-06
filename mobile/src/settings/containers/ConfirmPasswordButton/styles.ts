@@ -9,7 +9,7 @@ export default StyleSheet.create({
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.submitButton,
     borderRadius: 20,
   },
   inactiveContainerStyle: {
@@ -17,12 +17,12 @@ export default StyleSheet.create({
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.secondaryInactive,
+    backgroundColor: COLORS.submitButtonInactive,
     borderRadius: 20,
   },
   labelStyle: {
     fontFamily: 'Mulish',
     fontSize: 18,
-    color: COLORS.white,
+    color: COLORS.submitButtonText,
   },
 });

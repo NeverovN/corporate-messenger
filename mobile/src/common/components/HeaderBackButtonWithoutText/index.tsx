@@ -17,7 +17,7 @@ const HeaderBackButtonWithoutTextContainer: FC<IHeaderBackButtonWithoutTextConta
     <IconButton
       icon="back"
       onPress={back}
-      containerStyle={styles.buttonStyle}
+      iconStyle={styles.buttonStyle}
       iconType={IconType.LARGE}
     />
   );

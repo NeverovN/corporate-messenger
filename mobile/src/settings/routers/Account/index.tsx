@@ -38,6 +38,7 @@ const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
           title: 'USER SETTINGS',
           headerStyle: {
@@ -53,6 +54,7 @@ const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
           title: 'USER SETTINGS',
           headerStyle: {
@@ -68,6 +70,7 @@ const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
           title: 'USER SETTINGS',
           headerStyle: {
@@ -83,6 +86,7 @@ const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
           title: 'USER SETTINGS',
           headerStyle: {

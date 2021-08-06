@@ -45,6 +45,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
         label={comments}
         iconType={IconType.LARGE}
         icon="comment"
+        iconColor={COLORS.secondary}
         containerStyle={styles.containerStyle}
         labelStyle={styles.labelStyle}
       />

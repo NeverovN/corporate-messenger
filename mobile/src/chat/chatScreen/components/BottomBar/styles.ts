@@ -23,6 +23,7 @@ export default StyleSheet.create({
   },
   commonStyle: {
     marginHorizontal: 15,
+    color: COLORS.secondary,
   },
   imageStyle: {
     width: 100,
@@ -33,5 +34,8 @@ export default StyleSheet.create({
     height: 120,
     width: '100%',
     flexDirection: 'row',
+  },
+  iconStyle: {
+    color: COLORS.secondary,
   },
 });

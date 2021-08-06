@@ -50,6 +50,7 @@ const ChatNavigator: FC<IAppScreenProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
         }}
       />
@@ -64,6 +65,7 @@ const ChatNavigator: FC<IAppScreenProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
         }}
       />
@@ -79,6 +81,7 @@ const ChatNavigator: FC<IAppScreenProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
         }}
       />

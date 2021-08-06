@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 
+// colors
+import COLORS from 'common/constants/colors';
+
 export default StyleSheet.create({
   existingChatsStyle: {
     marginHorizontal: 10,
@@ -12,5 +15,6 @@ export default StyleSheet.create({
   },
   textStyle: {
     fontSize: 20,
+    color: COLORS.secondary,
   },
 });

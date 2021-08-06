@@ -19,8 +19,10 @@ export default StyleSheet.create({
   iconStyle: {
     fontSize: 14,
     marginRight: 5,
+    color: COLORS.secondary,
   },
   labelStyle: {
     fontSize: 14,
+    color: COLORS.secondary,
   },
 });

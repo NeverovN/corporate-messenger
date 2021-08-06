@@ -19,6 +19,7 @@ export default StyleSheet.create({
     padding: 5,
     fontFamily: 'DroidSans',
     marginBottom: 15,
+    color: COLORS.secondary,
   },
   textStyle: {
     fontSize: 15,

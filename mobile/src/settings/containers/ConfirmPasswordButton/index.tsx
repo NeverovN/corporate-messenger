@@ -7,14 +7,14 @@ import TextButton from '@/common/components/Button/TextButton';
 import styles from './styles';
 import { Alert } from 'react-native';
 
-interface IHeaderProps {
+interface IButtonProps {
   oldPassword: string;
   newPassword: string;
   newPasswordRep: string;
   edit(): void;
 }
 
-const HeaderRightPassword: FC<IHeaderProps> = ({
+const ConfirmPasswordButton: FC<IButtonProps> = ({
   oldPassword,
   newPassword,
   newPasswordRep,
@@ -53,4 +53,4 @@ const HeaderRightPassword: FC<IHeaderProps> = ({
   );
 };
 
-export default memo(HeaderRightPassword);
+export default memo(ConfirmPasswordButton);

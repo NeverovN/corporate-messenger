@@ -38,7 +38,7 @@ const TopBarView: FC<ITopBarViewProps> = (props) => {
       <IconButton
         icon="plus"
         iconType={IconType.LARGE}
-        containerStyle={styles.buttonStyle}
+        iconStyle={styles.buttonStyle}
         onPress={props.onNewChatPress}
       />
     </View>

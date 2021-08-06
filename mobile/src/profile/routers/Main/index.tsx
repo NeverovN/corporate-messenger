@@ -64,6 +64,7 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
         }}
       />
@@ -79,6 +80,7 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
         }}
       />
@@ -94,6 +96,7 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
         }}
       />
@@ -109,6 +112,7 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
         }}
       />
@@ -124,6 +128,7 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
           headerTitleStyle: {
             fontSize: 25,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
         }}
       />

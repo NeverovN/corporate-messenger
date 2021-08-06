@@ -12,9 +12,11 @@ export default StyleSheet.create({
     borderRadius: 25,
     borderWidth: 1,
     marginHorizontal: 15,
+    marginTop: 20,
   },
   iconStile: {
     marginHorizontal: 10,
+    color: COLORS.secondary,
   },
   inputStyle: {
     flex: 1,

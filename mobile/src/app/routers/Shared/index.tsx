@@ -47,6 +47,7 @@ const SharedRouter = () => {
           headerTitleStyle: {
             fontSize: 30,
             fontFamily: 'Mulish-Regular_Light',
+            color: COLORS.secondary,
           },
           title: 'POST',
         }}

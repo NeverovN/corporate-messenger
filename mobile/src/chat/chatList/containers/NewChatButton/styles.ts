@@ -11,6 +11,7 @@ export default StyleSheet.create({
     width: '60%',
     borderRadius: 20,
     borderWidth: 1,
+    borderColor: COLORS.secondary,
   },
   textStyle: {
     fontFamily: 'DroidSans',

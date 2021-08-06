@@ -62,7 +62,7 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
         <IconButton
           icon="emoji"
           onPress={props.onEmojiPress}
-          containerStyle={styles.commonStyle}
+          iconStyle={styles.commonStyle}
           iconType={IconType.LARGE}
         />
         <View style={styles.textInputWrapperStyle}>
@@ -78,13 +78,14 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
         <IconButton
           icon="plus"
           iconType={IconType.LARGE}
+          iconStyle={styles.iconStyle}
           onPress={props.onClipPress}
         />
         <IconButton
           icon="send"
           iconType={IconType.LARGE}
+          iconStyle={styles.commonStyle}
           onPress={props.onSendPress}
-          containerStyle={{ ...styles.commonStyle }}
         />
       </View>
     </View>

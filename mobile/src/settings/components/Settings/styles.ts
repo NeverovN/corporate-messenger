@@ -18,13 +18,13 @@ export default StyleSheet.create({
   logoutButtonContainerStyle: {
     width: '60%',
     height: 40,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.submitButton,
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
   logoutButtonLabelStyle: {
-    color: COLORS.white,
+    color: COLORS.submitButtonText,
     fontSize: 18,
     fontFamily: 'Mulish',
   },

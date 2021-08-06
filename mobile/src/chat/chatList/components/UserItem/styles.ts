@@ -11,5 +11,6 @@ export default StyleSheet.create({
     backgroundColor: COLORS.tint,
     borderRadius: 5,
     height: 85,
+    marginTop: 10,
   },
 });

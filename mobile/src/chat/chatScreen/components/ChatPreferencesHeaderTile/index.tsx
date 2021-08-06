@@ -67,6 +67,7 @@ const ChatPreferencesHeaderTile: FC<IChatPreferencesHeaderTileViewProps> = (
               ...styles.attachmentsButtonContainerStyle,
               ...styles.containerStyle,
             }}
+            iconStyle={styles.iconStyle}
           />
           <View style={styles.manageButtonsViewStyle}>
             <TextButton

@@ -14,7 +14,7 @@ import styles from './styles';
 import COLORS from 'common/constants/colors';
 
 // containers
-import HeaderRightPassword from '@/settings/containers/HeaderRightPassword';
+import ConfirmPasswordButton from '@/settings/containers/ConfirmPasswordButton';
 
 interface IEditPasswordScreenViewProps {
   oldPassword: string;
@@ -63,7 +63,7 @@ const EditUsernameScreenView: FC<IEditPasswordScreenViewProps> = (props) => {
           onChangeText={props.onChangeNewPasswordRep}
         />
         <View style={styles.spacer} />
-        <HeaderRightPassword
+        <ConfirmPasswordButton
           edit={props.edit}
           oldPassword={props.oldPassword}
           newPassword={props.newPassword}

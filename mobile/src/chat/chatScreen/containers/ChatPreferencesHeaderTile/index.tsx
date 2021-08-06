@@ -4,6 +4,9 @@ import React, { FC, memo, useEffect, useState } from 'react';
 // components
 import ChatPreferencesHeaderTileView from '../../components/ChatPreferencesHeaderTile';
 
+//styles
+import styles from './styles';
+
 // common components
 import IconButton from '@/common/components/Button/IconButton';
 
@@ -35,8 +38,7 @@ const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainer
         icon="back"
         onPress={goBack}
         iconType={IconType.LARGE}
-        // eslint-disable-next-line react-native/no-inline-styles
-        containerStyle={{ marginLeft: 10 }}
+        iconStyle={styles.iconStyle}
       />
     );
     navigation.setOptions({ headerLeft });

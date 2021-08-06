@@ -16,6 +16,7 @@ const FriendListButtonView: FC<IFriendListButtonViewProps> = (props) => {
     <View style={styles.wrapperStyle}>
       <Button
         label="FRIENDS"
+        labelStyle={styles.labelStyle}
         containerStyle={styles.friendListButtonStyle}
         onPress={props.onPress}
       />

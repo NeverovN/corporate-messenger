@@ -108,6 +108,7 @@ export default StyleSheet.create({
   },
   iconStyle: {
     fontSize: 15,
+    color: COLORS.secondary,
   },
   containerStyle: {
     alignItems: 'center',

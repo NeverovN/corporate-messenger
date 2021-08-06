@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   existingUsersStyle: {
     marginHorizontal: 5,
-    marginTop: 25,
+    marginTop: 10,
     flex: 1,
   },
   absentUsersStyle: {
@@ -14,5 +14,7 @@ export default StyleSheet.create({
   textStyle: {
     fontSize: 20,
   },
-  flatListStyle: {},
+  flatListStyle: {
+    marginTop: 10,
+  },
 });

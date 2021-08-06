@@ -18,4 +18,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.secondary,
   },
+  labelStyle: {
+    color: COLORS.secondary,
+  },
 });

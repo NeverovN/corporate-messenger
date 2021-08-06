@@ -34,6 +34,7 @@ const CommentInputView: FC<ICommentInputViewProps> = (props) => {
       <IconButton
         icon="send"
         iconType={IconType.LARGE}
+        iconColor={COLORS.secondary}
         onPress={props.onCommentSend}
       />
     </View>

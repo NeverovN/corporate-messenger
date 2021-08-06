@@ -28,8 +28,10 @@ export default StyleSheet.create({
   },
   buttonStyle: {
     marginHorizontal: 15,
+    color: COLORS.secondary,
   },
   iconStyle: {
     marginHorizontal: 10,
+    color: COLORS.secondary,
   },
 });
