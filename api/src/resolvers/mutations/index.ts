@@ -96,6 +96,16 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       args.newLastName,
     );
   },
+  async updateAvatar(_, args, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('Unauthorized');
+    }
+
+    return await UserController.updateAvatar(
+      currentUserId,
+      args.avatarId || null,
+    );
+  },
   async addFriend(_, args, { currentUserId }) {
     // TODO: handle unauthorized access
     if (!currentUserId) throw new Error('Unauthorized Access');

@@ -130,6 +130,7 @@ export type Mutation = {
   markRead: Message;
   removeFriend?: Maybe<User>;
   toggleLike: Post;
+  updateAvatar: User;
   updateChatLogo: Chat;
 };
 
@@ -263,6 +264,11 @@ export type MutationRemoveFriendArgs = {
 
 export type MutationToggleLikeArgs = {
   id: Scalars['ID'];
+};
+
+
+export type MutationUpdateAvatarArgs = {
+  avatarId?: Maybe<Scalars['String']>;
 };
 
 
@@ -590,6 +596,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   markRead?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationMarkReadArgs, 'messageId'>>;
   removeFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFriendArgs, 'friendId'>>;
   toggleLike?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationToggleLikeArgs, 'id'>>;
+  updateAvatar?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateAvatarArgs, never>>;
   updateChatLogo?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationUpdateChatLogoArgs, 'input'>>;
 };
 

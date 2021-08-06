@@ -21,6 +21,7 @@ type Query {
 }
 
 type Mutation {
+  updateAvatar(avatarId: String): User!
   login(input: LoginInput!): AuthenticationResult!
   createUser(input: CreateUserInput!): AuthenticationResult!
   addFriend(friendId: ID!): User

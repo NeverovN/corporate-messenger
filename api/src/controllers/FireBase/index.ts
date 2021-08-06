@@ -40,6 +40,16 @@ export class FireBaseController {
     FireBaseController.removeItem(id, FireBaseController.collections.chatLogos);
   }
 
+  static removeUserAvatar(id: string | null): void {
+    if (!id) {
+      return;
+    }
+    FireBaseController.removeItem(
+      id,
+      FireBaseController.collections.userAvatars,
+    );
+  }
+
   private static async removeItem(id: string, collectionName: string) {
     try {
       let imageDoc = await firebase
