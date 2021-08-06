@@ -6,27 +6,24 @@ import { BASE_HTTP } from '@/app/constants/network';
 // cache
 import { tokenVar } from '@/common/cache/cache';
 
-import { lightTheme, darkTheme } from 'common/constants/colors';
-
-export const getColorScheme = async () => {
+export const getColorScheme = async (): Promise<'light' | 'dark'> => {
   if (!tokenVar()) {
-    return lightTheme;
+    return 'light';
   }
   const path = `${BASE_HTTP}/user/${tokenVar()}/theme`;
   try {
     const resp = await fetch(path, {
       method: 'GET', // или 'PUT'
     });
-    console.log(resp);
 
-    const theme = await resp.json();
+    const theme = (await resp.json()) as 'light' | 'dark';
 
     if (typeof theme === 'string') {
-      return theme === 'light' ? lightTheme : darkTheme;
+      return theme;
     }
-    return lightTheme;
+    return 'light';
   } catch (error) {
     Alert.alert('ErrorHere', `${error}`);
-    return lightTheme;
+    return 'light';
   }
 };

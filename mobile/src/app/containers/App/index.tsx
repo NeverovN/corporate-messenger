@@ -14,6 +14,27 @@ import { store } from 'common/redux/store';
 
 interface IApp {}
 
+declare global {
+  namespace ReactNativePaper {
+    interface ThemeColors {
+      primary: string;
+      secondary: string;
+      secondaryInactive: string;
+      tint: string;
+
+      incomingMessage: string;
+      outgoingMessage: string;
+
+      submitButton: string;
+      submitButtonInactive: string;
+      submitButtonText: string;
+
+      white: string;
+      black: string;
+    }
+  }
+}
+
 const App: FC<IApp> = () => {
   return (
     <Provider store={store}>

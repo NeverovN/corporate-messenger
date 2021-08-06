@@ -1,5 +1,3 @@
-import { getColorScheme } from '../utils/getColorScheme';
-
 export const lightTheme = {
   primary: '#F2E8DC',
   secondary: '#3F4556',
@@ -34,11 +32,8 @@ export const darkTheme = {
   black: '#000',
 };
 
-const currentTheme = getColorScheme();
-let a = darkTheme;
-currentTheme.then((resp) => {
-  a = { ...resp };
-  console.log(a);
-});
+export let theme = 'light';
 
-export default a;
+const currentTheme = theme === 'light' ? lightTheme : darkTheme;
+
+export default currentTheme;
