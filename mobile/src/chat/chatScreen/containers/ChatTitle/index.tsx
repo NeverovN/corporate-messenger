@@ -10,7 +10,7 @@ import { ChatRouteProp } from 'chat/chatList/types/routes';
 
 // hooks
 import { useGetChatInfo } from '@/chat/chatScreen/hooks/useGetChatInfo';
-import { resolveLogoPromise } from '@/chat/chatList/utils/resolveLogoPromise';
+import { resolveImagePromise } from '@/common/utils/resolveLogoPromise';
 
 interface IChatTitleContainerProps {}
 
@@ -21,7 +21,7 @@ const ChatTitleContainer: FC<IChatTitleContainerProps> = () => {
   const [logo, setLogo] = useState<string | null>(null);
 
   useEffect(() => {
-    resolveLogoPromise(image, setLogo);
+    resolveImagePromise(image, setLogo);
   }, [image]);
 
   return (

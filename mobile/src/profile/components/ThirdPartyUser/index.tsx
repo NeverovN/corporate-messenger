@@ -8,12 +8,11 @@ import styles from './styles';
 import { IPostItem } from '@/feed/types/feed';
 
 // components
-import Tile from 'feed/components/Tile';
-import ThirdPartyTile from '../ThirdPartyTile';
+import Tile from 'feed/containers/Tile';
+import ThirdPartyTile from 'profile/containers/ThirdPartyTile';
 
 interface IThirdPartyUserViewProps {
   data: IPostItem[];
-  userImage: string | null;
 }
 
 const renderPostItem: ListRenderItem<IPostItem> = ({ item }) => {
@@ -33,7 +32,7 @@ const ThirdPartyUserView: FC<IThirdPartyUserViewProps> = (props) => {
   return (
     <View style={styles.thirdPartyUserStyle}>
       <FlatList
-        ListHeaderComponent={<ThirdPartyTile image={props.userImage} />}
+        ListHeaderComponent={ThirdPartyTile}
         data={props.data}
         renderItem={renderPostItem}
       />

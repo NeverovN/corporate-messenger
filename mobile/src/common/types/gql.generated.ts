@@ -123,6 +123,7 @@ export type Mutation = {
   markRead: Message;
   removeFriend?: Maybe<User>;
   toggleLike: Post;
+  updateAvatar: User;
   updateChatLogo: Chat;
 };
 
@@ -256,6 +257,11 @@ export type MutationRemoveFriendArgs = {
 
 export type MutationToggleLikeArgs = {
   id: Scalars['ID'];
+};
+
+
+export type MutationUpdateAvatarArgs = {
+  avatarId?: Maybe<Scalars['String']>;
 };
 
 
@@ -889,6 +895,19 @@ export type PostFragmentFragment = (
   & { author: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
+  ) }
+);
+
+export type UpdateAvatarMutationVariables = Exact<{
+  avatarId?: Maybe<Scalars['String']>;
+}>;
+
+
+export type UpdateAvatarMutation = (
+  { __typename?: 'Mutation' }
+  & { updateAvatar: (
+    { __typename?: 'User' }
+    & UserFragmentFragment
   ) }
 );
 
@@ -2233,6 +2252,39 @@ export function useDeletePostByIdMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeletePostByIdMutationHookResult = ReturnType<typeof useDeletePostByIdMutation>;
 export type DeletePostByIdMutationResult = Apollo.MutationResult<DeletePostByIdMutation>;
 export type DeletePostByIdMutationOptions = Apollo.BaseMutationOptions<DeletePostByIdMutation, DeletePostByIdMutationVariables>;
+export const UpdateAvatarDocument = gql`
+    mutation UpdateAvatar($avatarId: String) {
+  updateAvatar(avatarId: $avatarId) {
+    ...UserFragment
+  }
+}
+    ${UserFragmentFragmentDoc}`;
+export type UpdateAvatarMutationFn = Apollo.MutationFunction<UpdateAvatarMutation, UpdateAvatarMutationVariables>;
+
+/**
+ * __useUpdateAvatarMutation__
+ *
+ * To run a mutation, you first call `useUpdateAvatarMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAvatarMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAvatarMutation, { data, loading, error }] = useUpdateAvatarMutation({
+ *   variables: {
+ *      avatarId: // value for 'avatarId'
+ *   },
+ * });
+ */
+export function useUpdateAvatarMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAvatarMutation, UpdateAvatarMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateAvatarMutation, UpdateAvatarMutationVariables>(UpdateAvatarDocument, options);
+      }
+export type UpdateAvatarMutationHookResult = ReturnType<typeof useUpdateAvatarMutation>;
+export type UpdateAvatarMutationResult = Apollo.MutationResult<UpdateAvatarMutation>;
+export type UpdateAvatarMutationOptions = Apollo.BaseMutationOptions<UpdateAvatarMutation, UpdateAvatarMutationVariables>;
 export const CreatePostDocument = gql`
     mutation CreatePost($textContent: String, $mediaContent: [String!]) {
   createPost(textContent: $textContent, mediaContent: $mediaContent) {

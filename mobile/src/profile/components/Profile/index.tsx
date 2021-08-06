@@ -7,7 +7,7 @@ import styles from './styles';
 import MainTile from 'profile/containers/MainTile';
 
 // components
-import Tile from 'feed/components/Tile';
+import Tile from 'feed/containers/Tile';
 
 // types
 import { IPostItem } from 'feed/types/feed';

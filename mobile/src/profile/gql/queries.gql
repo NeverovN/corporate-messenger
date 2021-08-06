@@ -11,6 +11,12 @@ fragment PostFragment on Post {
   mediaContent
 }
 
+mutation UpdateAvatar($avatarId: String) {
+  updateAvatar(avatarId: $avatarId) {
+    ...UserFragment
+  }
+}
+
 mutation CreatePost($textContent: String, $mediaContent: [String!]) {
   createPost(textContent: $textContent, mediaContent: $mediaContent) {
     ...PostFragment

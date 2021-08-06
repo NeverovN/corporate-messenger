@@ -1,24 +1,27 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 
 // components
 import UserView from 'profile/components/User';
 
 // hooks
 import { useOnUserPressed } from 'profile/hooks/useOnUserPressed';
+import { resolveImagePromise } from '@/common/utils/resolveLogoPromise';
 
 interface IUserContainerProps {
   userId: string;
-  image: string | null;
+  image: Promise<string | null> | string | null;
 }
 
 const UserContainer: FC<IUserContainerProps> = (props) => {
   const onPress = useOnUserPressed(props.userId);
+  const [avatar, setAvatar] = useState<string | null>(null);
+
+  useEffect(() => {
+    resolveImagePromise(props.image, setAvatar);
+  }, [props.image]);
+
   return (
-    <UserView
-      image={props.image}
-      onUserPressed={onPress}
-      userId={props.userId}
-    />
+    <UserView image={avatar} onUserPressed={onPress} userId={props.userId} />
   );
 };
 

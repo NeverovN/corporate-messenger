@@ -15,7 +15,7 @@ import { useUpdateChatTitle } from '../../hooks/useUpdateChatTitle';
 import { useClearChatHistory } from '../../hooks/useClearChatHistory';
 import { useLeaveChat } from '../../hooks/useLeaveChat';
 import { useUpdateChatLogo } from '../../hooks/useUpdateChatLogo';
-import { resolveLogoPromise } from '@/chat/chatList/utils/resolveLogoPromise';
+import { resolveImagePromise } from '@/common/utils/resolveLogoPromise';
 
 interface IChatPreferencesHeaderTileContainerProps {}
 
@@ -46,7 +46,7 @@ const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainer
   }, [navigation, edit]);
 
   useEffect(() => {
-    resolveLogoPromise(image, setLogo);
+    resolveImagePromise(image, setLogo);
   }, [image]);
 
   const onLeave = useLeaveChat(params.chatId);

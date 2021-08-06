@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { FlatList, View, ListRenderItem } from 'react-native';
 
 // components
-import Tile from '../Tile';
+import Tile from 'feed/containers/Tile';
 
 // styles
 import styles from './styles';

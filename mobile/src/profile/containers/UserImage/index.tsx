@@ -1,13 +1,23 @@
 import React, { memo, FC } from 'react';
 import { Image, ImageStyle } from 'react-native';
+import SimplePopupMenu, { PopupMenuItem } from 'react-native-simple-popup-menu';
 
 // styles
 import styles from './styles';
+
+// consts
+import ACTIONS from 'profile/constants/actions';
+import { useHandleAvatarActions } from '@/profile/hooks/useHandleAvatarActions';
 
 interface IUserImageContainerProps {
   image: string | null;
   size?: number;
 }
+
+const items: PopupMenuItem[] = [
+  { id: ACTIONS.EDIT_AVATAR, label: 'Edit' },
+  { id: ACTIONS.DELETE_AVATAR, label: 'Delete' },
+];
 
 const UserImageContainer: FC<IUserImageContainerProps> = (props) => {
   const style: ImageStyle = {
@@ -15,8 +25,13 @@ const UserImageContainer: FC<IUserImageContainerProps> = (props) => {
     width: props.size,
     borderRadius: props.size,
   };
+
+  const actionsHandler = useHandleAvatarActions();
+
   return (
-    <>
+    <SimplePopupMenu
+      items={items}
+      onSelect={({ id }: PopupMenuItem) => actionsHandler(id)}>
       {props.image ? (
         <Image
           style={{ ...styles.imageStyle, ...style }}
@@ -28,7 +43,7 @@ const UserImageContainer: FC<IUserImageContainerProps> = (props) => {
           source={require('common/assets/images/defaultAvatar.png')}
         />
       )}
-    </>
+    </SimplePopupMenu>
   );
 };
 

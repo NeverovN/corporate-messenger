@@ -12,7 +12,7 @@ import { useMessageEditedSubscription } from '@/common/types/gql.generated';
 import ACTIONS from 'chat/chatList/constants/actions';
 
 // utils
-import { resolveLogoPromise } from '../../utils/resolveLogoPromise';
+import { resolveImagePromise } from '../../../../common/utils/resolveLogoPromise';
 
 interface IChatItemContainerProps {
   chatId: string;
@@ -27,7 +27,7 @@ const ChatItemContainer: FC<IChatItemContainerProps> = (props) => {
   const actionHandler = useHandleChatActions();
 
   useEffect(() => {
-    resolveLogoPromise(props.logo, setLogo);
+    resolveImagePromise(props.logo, setLogo);
   }, [props.logo]);
 
   return (

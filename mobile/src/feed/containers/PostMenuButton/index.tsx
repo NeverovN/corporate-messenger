@@ -1,6 +1,5 @@
 import React, { FC, memo } from 'react';
-import SimplePopupMenu from 'react-native-simple-popup-menu';
-import type { PopupMenuItem } from 'react-native-simple-popup-menu';
+import SimplePopupMenu, { PopupMenuItem } from 'react-native-simple-popup-menu';
 // components
 import PostMenuButtonView from '@/feed/components/PostMenuButton';
 
