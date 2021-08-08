@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // common components
 import TextButton from 'common/components/Button/TextButton';
@@ -12,6 +12,7 @@ interface IStartChatButtonViewProps {
 }
 
 const StartChatButtonView: FC<IStartChatButtonViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.wrapperStyle}>
       <TextButton

@@ -15,7 +15,7 @@ import {
   CREATE_POST_SCREEN_NAME,
   FRIENDS_LIST_SCREEN,
 } from '@/profile/constants/routes';
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // containers
 import Profile from 'profile/containers/Profile';
@@ -37,6 +37,7 @@ const Screens = createStackNavigator<ProfileStackParamList>();
 interface IProfileRouterProps {}
 
 const ProfileRouter: FC<IProfileRouterProps> = () => {
+  const styles = useStyles();
   const navigation = useNavigation<MainBottomTabNavigationProp>();
   navigation.addListener('tabPress', (e) => {
     e.preventDefault();
@@ -57,15 +58,9 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
         options={{
           headerRight: () => <HeaderRight />, // perhaps it should be moved in its own file
           headerLeft: () => <HeaderLeft />,
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
           title: 'PROFILE',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-            color: COLORS.secondary,
-          },
         }}
       />
       <Screens.Screen
@@ -73,15 +68,9 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
         component={SearchUsersScreen}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
           title: 'ALL USERS',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-            color: COLORS.secondary,
-          },
         }}
       />
       <Screens.Screen
@@ -89,15 +78,9 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
         component={ThirdPartyUser}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
           title: 'PROFILE',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-            color: COLORS.secondary,
-          },
         }}
       />
       <Screens.Screen
@@ -105,15 +88,9 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
         component={CreatePostScreen}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
           title: 'CREATE POST',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-            color: COLORS.secondary,
-          },
         }}
       />
       <Screens.Screen
@@ -121,15 +98,9 @@ const ProfileRouter: FC<IProfileRouterProps> = () => {
         component={FriendsScreen}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
           title: 'FRIENDS',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-            color: COLORS.secondary,
-          },
         }}
       />
     </Screens.Navigator>

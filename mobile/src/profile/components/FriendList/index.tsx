@@ -4,7 +4,7 @@ import { FlatList, View, Text, ListRenderItem } from 'react-native';
 import UserItem from 'profile/containers/User';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // types
 import { IUserItem } from 'profile/types/user';
@@ -18,6 +18,7 @@ const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
 };
 
 const FriendListView: FC<IFriendListViewProps> = ({ data }) => {
+  const styles = useStyles();
   const isSomeUsers = !!data;
 
   if (isSomeUsers) {

@@ -21,8 +21,8 @@ export const darkTheme = {
   secondaryInactive: '#F2E8DC70',
   tint: '#626673',
 
-  incomingMessage: '#3F455630',
-  outgoingMessage: '#D9C4B3',
+  incomingMessage: '#848594',
+  outgoingMessage: '#6b6c73',
 
   submitButton: '#F2E8DC70',
   submitButtonInactive: '#626673',
@@ -31,9 +31,3 @@ export const darkTheme = {
   white: '#fff',
   black: '#000',
 };
-
-export let theme = 'light';
-
-const currentTheme = theme === 'light' ? lightTheme : darkTheme;
-
-export default currentTheme;

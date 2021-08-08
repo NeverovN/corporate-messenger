@@ -7,21 +7,12 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-// // common components
-// import IconButton from '@/common/components/Button/IconButton';
-
-// // consts
-// import COLORS from '@/common/constants/colors';
-
-// // types
-// import { IconType } from '@/common/types/styles';
-
 // components
 import AuthInput from '../AuthInput';
 import SignButton from '../SignButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface ILoginViewProps {
   email: string;
@@ -41,6 +32,7 @@ interface ILoginViewProps {
 }
 
 const LoginView: FC<ILoginViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView
@@ -64,14 +56,6 @@ const LoginView: FC<ILoginViewProps> = (props) => {
               onChangeText={props.onChangePassword}
               secure={props.isHidden}
             />
-
-            {/* <IconButton
-                icon={props.iconName}
-                iconColor={COLORS.white}
-                iconType={IconType.LARGE}
-                onPress={props.onIconPress}
-                containerStyle={styles.iconStyle}
-              /> */}
           </View>
           <SignButton title="Submit" onPress={props.handleLogin} />
         </View>

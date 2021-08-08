@@ -1,11 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  buttonStyle: {
-    marginLeft: 10,
-    color: COLORS.secondary,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    buttonStyle: {
+      marginLeft: 10,
+      color: palette.secondary,
+    },
+  };
 });

@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IChatTitleViewProps {
   image: string | null;
@@ -13,6 +13,7 @@ interface IChatTitleViewProps {
 }
 
 const ChatTitleView: FC<IChatTitleViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <TouchableOpacity style={styles.headerStyle} onPress={props.onPress}>
       {props.image ? (

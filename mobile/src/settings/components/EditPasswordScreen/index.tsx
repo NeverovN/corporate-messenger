@@ -8,13 +8,11 @@ import {
 } from 'react-native';
 
 // styles
-import styles from './styles';
-
-// colors
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // containers
 import ConfirmPasswordButton from '@/settings/containers/ConfirmPasswordButton';
+import { useTheme } from 'react-native-stylex';
 
 interface IEditPasswordScreenViewProps {
   oldPassword: string;
@@ -30,6 +28,8 @@ interface IEditPasswordScreenViewProps {
 }
 
 const EditUsernameScreenView: FC<IEditPasswordScreenViewProps> = (props) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.editPasswordScreenStyle}>
@@ -39,7 +39,7 @@ const EditUsernameScreenView: FC<IEditPasswordScreenViewProps> = (props) => {
         <TextInput
           style={styles.inputStyle}
           placeholder="PREW PASSWORD"
-          placeholderTextColor={COLORS.secondaryInactive}
+          placeholderTextColor={palette.secondaryInactive}
           textAlign="center"
           onChangeText={props.onChangeOldPassword}
           secureTextEntry={true}
@@ -51,14 +51,14 @@ const EditUsernameScreenView: FC<IEditPasswordScreenViewProps> = (props) => {
         <TextInput
           style={styles.inputStyle}
           placeholder="NEW PASSWORD"
-          placeholderTextColor={COLORS.secondaryInactive}
+          placeholderTextColor={palette.secondaryInactive}
           textAlign="center"
           onChangeText={props.onChangeNewPassword}
         />
         <TextInput
           style={styles.inputStyle}
           placeholder="CONFIRM PASSWORD"
-          placeholderTextColor={COLORS.secondaryInactive}
+          placeholderTextColor={palette.secondaryInactive}
           textAlign="center"
           onChangeText={props.onChangeNewPasswordRep}
         />

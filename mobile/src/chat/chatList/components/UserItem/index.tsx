@@ -8,7 +8,7 @@ import UserInfo from '@/profile/containers/UserInfo';
 // hooks
 import { useUserStyle } from '@/chat/chatList/hooks/useUserStyle';
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IUserViewProps {
   userId: string;
@@ -17,6 +17,7 @@ interface IUserViewProps {
 }
 
 const UserView: FC<IUserViewProps> = (props) => {
+  const styles = useStyles();
   const style = useUserStyle(props.userId);
   return (
     <TouchableOpacity

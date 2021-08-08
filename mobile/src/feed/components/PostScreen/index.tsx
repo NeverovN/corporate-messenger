@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { FlatList, ListRenderItem, SafeAreaView } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // components
 import Comment from 'feed/containers/Comment';
@@ -31,6 +31,7 @@ const renderPostItem: ListRenderItem<ICommentItem> = ({ item }) => {
 };
 
 const PostScreenView: FC<IPostScreenViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <SafeAreaView style={styles.postScreenStyle}>
       <FlatList

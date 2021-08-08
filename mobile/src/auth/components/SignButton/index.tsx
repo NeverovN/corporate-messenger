@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import styles from './styles';
+import { useStyles } from './styles';
 
 // common components
 import TextButton from 'common/components/Button/TextButton';
@@ -13,6 +13,7 @@ interface ISignButtonProps {
 }
 
 const SignButton: React.FC<ISignButtonProps> = (props) => {
+  const styles = useStyles();
   return (
     <TextButton
       textType={TextType.TITLE}

@@ -1,9 +1,10 @@
-import { StyleSheet } from 'react-native';
-import COLORS from 'common/constants/colors';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  iconStyle: {
-    marginLeft: 10,
-    color: COLORS.secondary,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    iconStyle: {
+      marginLeft: 10,
+      color: palette.secondary,
+    },
+  };
 });

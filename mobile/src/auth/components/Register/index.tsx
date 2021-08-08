@@ -8,16 +8,7 @@ import {
 } from 'react-native';
 
 // styles
-import styles from './styles';
-
-// consts
-// import COLORS from '@/common/constants/colors';
-
-// // types
-// import { IconType } from '@/common/types/styles';
-
-// // common components
-// import IconButton from '@/common/components/Button/IconButton';
+import { useStyles } from './styles';
 
 // components
 import AuthInput from '../AuthInput';
@@ -42,6 +33,7 @@ interface IRegisterScreenProps {
 }
 
 const RegisterView: FC<IRegisterScreenProps> = (props) => {
+  const styles = useStyles();
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView
@@ -66,13 +58,6 @@ const RegisterView: FC<IRegisterScreenProps> = (props) => {
                 onChangeText={props.onChangePassword}
                 secure={props.isHidden}
               />
-              {/* <IconButton
-                icon={props.iconName}
-                iconColor={COLORS.white}
-                iconType={IconType.LARGE}
-                onPress={props.onIconPress}
-                containerStyle={styles.iconStyle}
-              /> */}
             </View>
 
             <View style={styles.passwordStyle}>
@@ -82,13 +67,6 @@ const RegisterView: FC<IRegisterScreenProps> = (props) => {
                 onChangeText={props.onChangePasswordRepeat}
                 secure={props.isHidden}
               />
-              {/* <IconButton
-                icon={props.iconName}
-                iconColor={COLORS.white}
-                iconType={IconType.LARGE}
-                onPress={props.onIconPress}
-                containerStyle={styles.iconStyle}
-              /> */}
             </View>
             <View style={styles.buttonWrapperStyle}>
               <SignButton title="Continue" onPress={props.handleRegistration} />

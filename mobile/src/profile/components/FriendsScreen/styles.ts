@@ -1,11 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  screenStyle: {
-    flex: 1,
-    backgroundColor: COLORS.primary,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    screenStyle: {
+      flex: 1,
+      backgroundColor: palette.primary,
+    },
+  };
 });

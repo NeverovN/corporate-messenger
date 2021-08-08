@@ -1,7 +1,7 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
 
 export interface CounterState {
-  theme: string;
+  theme: 'light' | 'dark';
 }
 
 const initialState: CounterState = {

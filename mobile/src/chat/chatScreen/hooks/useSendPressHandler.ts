@@ -38,9 +38,7 @@ export const useSendPressHandler = (
   });
 
   if (!message && !media) {
-    return () => {
-      console.log('nothing');
-    };
+    return () => {};
   }
   return async () => {
     try {

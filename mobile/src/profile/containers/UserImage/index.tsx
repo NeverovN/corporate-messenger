@@ -2,7 +2,7 @@ import React, { memo, FC } from 'react';
 import { Image, ImageStyle } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IUserImageContainerProps {
   image: string | null;
@@ -10,6 +10,7 @@ interface IUserImageContainerProps {
 }
 
 const UserImageContainer: FC<IUserImageContainerProps> = (props) => {
+  const styles = useStyles();
   const style: ImageStyle = {
     height: props.size,
     width: props.size,

@@ -4,7 +4,7 @@ import NewChatScreenView from 'chat/chatList/components/NewChatScreen';
 import { useNavigation } from '@react-navigation/native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // common components
 import IconButton from 'common/components/Button/IconButton';
@@ -14,6 +14,7 @@ import { IconType } from '@/common/types/styles';
 interface INewChatScreenContainerProps {}
 
 const NewChatScreenContainer: FC<INewChatScreenContainerProps> = () => {
+  const styles = useStyles();
   const navigation = useNavigation();
   const [filter, setFilter] = useState<string>('');
 
@@ -32,7 +33,7 @@ const NewChatScreenContainer: FC<INewChatScreenContainerProps> = () => {
       />
     );
     navigation.setOptions({ headerLeft });
-  }, [navigation]);
+  }, [navigation, styles.iconStyle]);
 
   return (
     <NewChatScreenView

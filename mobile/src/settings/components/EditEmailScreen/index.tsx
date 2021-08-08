@@ -8,13 +8,11 @@ import {
 } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // containers
 import ConfirmEmailButton from '@/settings/containers/ConfirmEmailButton';
-
-// colors
-import COLORS from 'common/constants/colors';
+import { useTheme } from 'react-native-stylex';
 
 interface IEditEmailScreenViewProps {
   email: string;
@@ -24,6 +22,8 @@ interface IEditEmailScreenViewProps {
 }
 
 const EditEmailScreenView: FC<IEditEmailScreenViewProps> = (props) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.editEmailScreenStyle}>
@@ -37,7 +37,7 @@ const EditEmailScreenView: FC<IEditEmailScreenViewProps> = (props) => {
         <TextInput
           style={styles.inputStyle}
           placeholder="EMAIL"
-          placeholderTextColor={COLORS.secondaryInactive}
+          placeholderTextColor={palette.secondaryInactive}
           textAlign="center"
           onChangeText={props.onEmailChange}
         />

@@ -1,24 +1,23 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  buttonStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 40,
-    width: '60%',
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: COLORS.secondary,
-  },
-  textStyle: {
-    fontFamily: 'DroidSans',
-    fontSize: 18,
-    color: COLORS.secondary,
-  },
-  wrapperStyle: {
-    alignItems: 'center',
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    buttonStyle: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 40,
+      width: '60%',
+      borderRadius: 20,
+      borderWidth: 1,
+      borderColor: palette.secondary,
+    },
+    textStyle: {
+      fontFamily: 'DroidSans',
+      fontSize: 18,
+      color: palette.secondary,
+    },
+    wrapperStyle: {
+      alignItems: 'center',
+    },
+  };
 });

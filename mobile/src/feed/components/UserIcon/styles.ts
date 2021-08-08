@@ -1,10 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  userIconImageStyle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 15,
-  },
+export const useStyles = makeUseStyles(() => {
+  return {
+    userIconImageStyle: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      marginRight: 15,
+    },
+  };
 });

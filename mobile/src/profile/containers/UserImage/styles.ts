@@ -1,15 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  imageStyle: {
-    height: 60, // default
-    width: 60,
-    borderRadius: 30,
-    borderWidth: 1,
-    borderColor: COLORS.secondary,
-    marginRight: 15,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    imageStyle: {
+      height: 60, // default
+      width: 60,
+      borderRadius: 30,
+      borderWidth: 1,
+      borderColor: palette.secondary,
+      marginRight: 15,
+    },
+  };
 });

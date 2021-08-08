@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { TouchableOpacity } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // components
 import UserDataView from '../UserData';
@@ -21,6 +21,7 @@ interface ITopTileBarViewProps {
 }
 
 const TopTileBarView: FC<ITopTileBarViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <TouchableOpacity style={styles.barStyle} onPress={props.onPostPressed}>
       <TouchableOpacity

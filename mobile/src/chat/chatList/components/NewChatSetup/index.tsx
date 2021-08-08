@@ -15,7 +15,8 @@ import NewChatSetupHeaderTile from '../../containers/NewChatSetupHeaderTile';
 import TextButton from '@/common/components/Button/TextButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
+import UserTile from '@/chat/chatScreen/components/UserTile';
 
 interface INewChatSetupScreenViewProps {
   members: { name: string; avatar: string | null }[];
@@ -26,24 +27,12 @@ interface INewChatSetupScreenViewProps {
 
 const renderItem: ListRenderItem<{ name: string; avatar: string | null }> = ({
   item,
-  index,
 }) => {
-  return (
-    <View key={index} style={styles.itemStyle}>
-      {item.avatar ? (
-        <Image style={styles.imageStyle} source={{ uri: item.avatar }} />
-      ) : (
-        <Image
-          style={styles.imageStyle}
-          source={require('common/assets/images/defaultAvatar.png')}
-        />
-      )}
-      <Text style={styles.nameStyle}>{item.name}</Text>
-    </View>
-  );
+  return <UserTile avatar={item.avatar} name={item.name} />;
 };
 
 const NewChatSetupScreenView: FC<INewChatSetupScreenViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <SafeAreaView style={styles.screenStyle}>
       <FlatList

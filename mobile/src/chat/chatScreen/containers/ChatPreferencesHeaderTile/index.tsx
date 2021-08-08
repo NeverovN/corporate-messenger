@@ -5,7 +5,7 @@ import React, { FC, memo, useEffect, useState } from 'react';
 import ChatPreferencesHeaderTileView from '../../components/ChatPreferencesHeaderTile';
 
 //styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // common components
 import IconButton from '@/common/components/Button/IconButton';
@@ -21,6 +21,7 @@ import { useLeaveChat } from '../../hooks/useLeaveChat';
 interface IChatPreferencesHeaderTileContainerProps {}
 
 const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainerProps> = () => {
+  const styles = useStyles();
   const navigation = useNavigation();
   const { params } = useRoute<ChatRouteProp>();
   const [title, memberCount, image, isDialog] = useGetChatInfo(params.chatId);

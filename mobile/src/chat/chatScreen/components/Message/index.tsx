@@ -7,7 +7,7 @@ import FbGrid from 'react-native-fb-image-grid';
 import Directions from '../../constants/direction';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // hooks
 import { useHandleMessageActions } from '../../hooks/useHandleMessageActions';
@@ -24,6 +24,7 @@ interface IMessageViewProps extends IMessageItem {
 }
 
 const MessageView: FC<IMessageViewProps> = (props) => {
+  const styles = useStyles();
   const actionHandler = useHandleMessageActions();
   const message = useGetMessage(props.id);
   const [imgBase64, setImgBase64] = useState<string[]>([]);

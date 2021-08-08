@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { SafeAreaView, KeyboardAvoidingView } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // containers
 import BottomBar from 'chat/chatScreen/containers/BottomBar';
@@ -15,6 +15,7 @@ interface IChatScreenViewProps {
 }
 
 const ChatScreenView: FC<IChatScreenViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <SafeAreaView style={styles.chatScreenStyle}>
       <KeyboardAvoidingView

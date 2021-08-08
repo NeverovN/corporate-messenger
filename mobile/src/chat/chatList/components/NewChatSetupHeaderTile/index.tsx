@@ -1,13 +1,11 @@
 import React, { FC, memo } from 'react';
 import { View, Text, Image, TextInput } from 'react-native';
 
-import styles from './styles';
-
-// colors
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // common components
 import IconWithTextButton from 'common/components/Button/IconWithTextButton';
+import { useTheme } from 'react-native-stylex';
 
 interface INewChatSetupHeaderTileViewProps {
   image: string | null;
@@ -21,6 +19,8 @@ interface INewChatSetupHeaderTileViewProps {
 const NewChatSetupHeaderTileView: FC<INewChatSetupHeaderTileViewProps> = (
   props,
 ) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   return (
     <View style={styles.componentStyle}>
       <View style={styles.tileStyle}>
@@ -38,7 +38,7 @@ const NewChatSetupHeaderTileView: FC<INewChatSetupHeaderTileViewProps> = (
           <View style={styles.inputWrapperStyle}>
             <TextInput
               placeholder="TITLE"
-              placeholderTextColor={COLORS.secondaryInactive}
+              placeholderTextColor={palette.secondaryInactive}
               style={styles.inputStyle}
               value={props.chatTitle}
               onChangeText={props.onChatTitleChange}
@@ -48,7 +48,7 @@ const NewChatSetupHeaderTileView: FC<INewChatSetupHeaderTileViewProps> = (
             onPress={props.onChangePhotoPress}
             icon="plus"
             label="CHANGE PHOTO"
-            iconColor={COLORS.secondary}
+            iconColor={palette.secondary}
             containerStyle={styles.containerStyle}
             labelStyle={styles.changePhotoLabelStyle}
           />

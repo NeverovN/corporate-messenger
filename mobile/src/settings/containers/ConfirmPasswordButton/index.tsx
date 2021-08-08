@@ -4,7 +4,7 @@ import React, { FC, memo, useEffect, useState } from 'react';
 import TextButton from '@/common/components/Button/TextButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 import { Alert } from 'react-native';
 
 interface IButtonProps {
@@ -20,6 +20,7 @@ const ConfirmPasswordButton: FC<IButtonProps> = ({
   newPasswordRep,
   edit,
 }) => {
+  const styles = useStyles();
   const [isChanged, setIsChanged] = useState<boolean>(false);
 
   useEffect(() => {

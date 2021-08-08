@@ -1,11 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  activeIconStyle: {
-    marginRight: 10,
-  },
-  disabledIconStile: {
-    marginRight: 10,
-    opacity: 0.3,
-  },
+export const useStyles = makeUseStyles(() => {
+  return {
+    activeIconStyle: {
+      marginRight: 10,
+    },
+    disabledIconStile: {
+      marginRight: 10,
+      opacity: 0.3,
+    },
+  };
 });

@@ -8,7 +8,7 @@ import Tile from '../Tile';
 import { IPostItem } from 'feed/types/feed';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IFeedListViewProps {
   data: IPostItem[];
@@ -28,6 +28,7 @@ const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
 };
 
 const FeedView: FC<IFeedListViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.feedStyle}>
       <FlatList renderItem={renderFeedItem} data={props.data} />

@@ -5,7 +5,7 @@ import { Alert } from 'react-native';
 import TextButton from '@/common/components/Button/TextButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IButtonProps {
   initialNames: [string, string];
@@ -18,6 +18,7 @@ const ConfirmUsernameButton: FC<IButtonProps> = ({
   newNames,
   edit,
 }) => {
+  const styles = useStyles();
   const [initialFirstName, initialLastName] = initialNames;
   const [newFirstName, newLastName] = newNames;
   const [isChanged, setIsChanged] = useState<boolean>(false);

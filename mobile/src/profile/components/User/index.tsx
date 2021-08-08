@@ -6,7 +6,7 @@ import UserImage from '@/profile/containers/UserImage';
 import UserInfo from '@/profile/containers/UserInfo';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IUserViewProps {
   userId: string;
@@ -15,6 +15,7 @@ interface IUserViewProps {
 }
 
 const UserView: FC<IUserViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <TouchableOpacity style={styles.userStyle} onPress={props.onUserPressed}>
       <UserImage size={60} image={props.image} />

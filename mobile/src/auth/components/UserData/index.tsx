@@ -12,7 +12,7 @@ import AuthInput from '../AuthInput';
 import SignButton from '../SignButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IUserDataViewProps {
   firstName: string;
@@ -25,6 +25,7 @@ interface IUserDataViewProps {
 }
 
 const UserDataView: FC<IUserDataViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView

@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { View, FlatList, ListRenderItem } from 'react-native';
 
-import styles from './styles';
+import { useStyles } from './styles';
 
 // containers
 import MainTile from 'profile/containers/MainTile';
@@ -30,6 +30,7 @@ const renderPostItem: ListRenderItem<IPostItem> = ({ item }) => {
 };
 
 const ProfileView: FC<IProfileViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.profileStyle}>
       <FlatList

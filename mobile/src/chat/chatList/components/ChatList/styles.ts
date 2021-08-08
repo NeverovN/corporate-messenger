@@ -1,20 +1,19 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  existingChatsStyle: {
-    marginHorizontal: 10,
-    height: '100%',
-  },
-  missingChatsStyle: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textStyle: {
-    fontSize: 20,
-    color: COLORS.secondary,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    existingChatsStyle: {
+      marginHorizontal: 10,
+      height: '100%',
+    },
+    missingChatsStyle: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    textStyle: {
+      fontSize: 20,
+      color: palette.secondary,
+    },
+  };
 });

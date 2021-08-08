@@ -7,8 +7,6 @@ import {
 // routers
 import RootRouter from './Root';
 
-import { ThemeProvider, DefaultTheme } from 'react-native-paper';
-
 // colors
 import { lightTheme, darkTheme } from 'common/constants/colors';
 import { useSelector } from 'react-redux';
@@ -21,22 +19,16 @@ const NavigationProvider = () => {
   const theme = selectedTheme === 'light' ? lightTheme : darkTheme;
 
   return (
-    <ThemeProvider
+    <NavigationContainer
       theme={{
-        ...DefaultTheme,
-        colors: { ...DefaultTheme.colors, ...theme },
+        ...NavigationDefaultTheme,
+        colors: {
+          ...NavigationDefaultTheme.colors,
+          background: theme.primary,
+        },
       }}>
-      <NavigationContainer
-        theme={{
-          ...DefaultTheme,
-          colors: {
-            ...NavigationDefaultTheme.colors,
-            background: theme.primary,
-          },
-        }}>
-        <RootRouter />
-      </NavigationContainer>
-    </ThemeProvider>
+      <RootRouter />
+    </NavigationContainer>
   );
 };
 

@@ -8,13 +8,11 @@ import {
 } from 'react-native';
 
 // styles
-import styles from './styles';
-
-// colors
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // containers
 import ConfirmUsernameButton from '@/settings/containers/ConfirmUsernameButton';
+import { useTheme } from 'react-native-stylex';
 
 interface IEditUsernameScreenViewProps {
   names: [string, string];
@@ -26,6 +24,8 @@ interface IEditUsernameScreenViewProps {
 }
 
 const EditUsernameScreenView: FC<IEditUsernameScreenViewProps> = (props) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   const [firstName, lastName] = props.names;
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -40,14 +40,14 @@ const EditUsernameScreenView: FC<IEditUsernameScreenViewProps> = (props) => {
         <TextInput
           style={styles.inputStyle}
           placeholder="NAME"
-          placeholderTextColor={COLORS.secondaryInactive}
+          placeholderTextColor={palette.secondaryInactive}
           textAlign="center"
           onChangeText={props.onChangeFirstName}
         />
         <TextInput
           style={styles.inputStyle}
           placeholder="SURNAME"
-          placeholderTextColor={COLORS.secondaryInactive}
+          placeholderTextColor={palette.secondaryInactive}
           textAlign="center"
           onChangeText={props.onChangeLastName}
         />

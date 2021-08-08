@@ -8,7 +8,7 @@ import {
   EDIT_PASSWORD_SCREEN_NAME,
   EDIT_USERNAME_SCREEN_NAME,
 } from '@/settings/constants/routes';
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // containers
 import AccountScreen from '@/settings/containers/AccountScreen';
@@ -28,6 +28,7 @@ interface ISettingsNavigatorProps {}
 const Screens = createStackNavigator<AccountSettingsParamList>();
 
 const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
+  const styles = useStyles();
   return (
     <Screens.Navigator initialRouteName={ACCOUNT_SCREEN_NAME}>
       <Screens.Screen
@@ -35,15 +36,9 @@ const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
         component={AccountScreen}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-            color: COLORS.secondary,
-          },
+          headerTitleStyle: styles.headerTitleStyle,
+          headerStyle: styles.headerStyle,
           title: 'USER SETTINGS',
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
         }}
       />
       <Screens.Screen
@@ -51,15 +46,9 @@ const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
         component={EditEmailScreen}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-            color: COLORS.secondary,
-          },
+          headerTitleStyle: styles.headerTitleStyle,
+          headerStyle: styles.headerStyle,
           title: 'USER SETTINGS',
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
         }}
       />
       <Screens.Screen
@@ -67,15 +56,9 @@ const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
         component={EditPasswordScreen}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-            color: COLORS.secondary,
-          },
+          headerTitleStyle: styles.headerTitleStyle,
+          headerStyle: styles.headerStyle,
           title: 'USER SETTINGS',
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
         }}
       />
       <Screens.Screen
@@ -83,15 +66,9 @@ const AccountSettingsNavigator: FC<ISettingsNavigatorProps> = () => {
         component={EditUsernameScreen}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-            color: COLORS.secondary,
-          },
+          headerTitleStyle: styles.headerTitleStyle,
+          headerStyle: styles.headerStyle,
           title: 'USER SETTINGS',
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
         }}
       />
     </Screens.Navigator>

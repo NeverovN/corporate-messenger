@@ -7,7 +7,7 @@ import { SharedStackParamList } from 'app/types/routes';
 // constants
 import { POST_SCREEN_NAME, SETTINGS_STACK_NAME } from 'app/constants/routes';
 import { CHAT_STACK_NAME } from 'app/constants/routes';
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // routers
 import SettingsRouter from '@/settings/routers/Main';
@@ -20,12 +20,11 @@ import HeaderBackButtonWithoutText from '@/common/components/HeaderBackButtonWit
 const SharedStack = createStackNavigator<SharedStackParamList>();
 
 const SharedRouter = () => {
+  const styles = useStyles();
   return (
     <SharedStack.Navigator
       screenOptions={{
-        headerStyle: {
-          backgroundColor: COLORS.primary,
-        },
+        headerStyle: styles.headerStyle,
       }}>
       <SharedStack.Screen
         name={SETTINGS_STACK_NAME}
@@ -44,11 +43,7 @@ const SharedRouter = () => {
         component={PostScreen}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerTitleStyle: {
-            fontSize: 30,
-            fontFamily: 'Mulish-Regular_Light',
-            color: COLORS.secondary,
-          },
+          headerTitleStyle: styles.headerTitleStyle,
           title: 'POST',
         }}
       />

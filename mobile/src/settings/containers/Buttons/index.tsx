@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import TextButton from '@/common/components/Button/TextButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // hooks
 import { useHandleAccountSettingsNavigation } from 'settings/hooks/useHandleAccountSettingsNavigation';
@@ -13,6 +13,7 @@ import { useGetUserQuery } from '@/common/types/gql.generated';
 interface IAccountSettingsButtonContainerProps {}
 
 const AccountSettingsButtonContainer: FC<IAccountSettingsButtonContainerProps> = () => {
+  const styles = useStyles();
   const navigate = useHandleAccountSettingsNavigation();
   const toggleTheme = useToggleTheme();
   const { data } = useGetUserQuery();

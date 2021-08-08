@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // containers
 import UserHeader from '@/profile/containers/UserHeader';
@@ -14,6 +14,7 @@ interface IMainTileViewProps {
 }
 
 const MainTileView: FC<IMainTileViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.mainTileStyles}>
       <UserHeader image={props.image} />

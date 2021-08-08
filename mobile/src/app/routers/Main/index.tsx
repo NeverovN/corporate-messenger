@@ -7,7 +7,7 @@ import { MainStackParamList } from 'app/types/routes';
 
 // constants
 import { BOTTOM_TAB_NAME, SHARED_STACK_NAME } from '@/app/constants/routes';
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // routers
 import SharedRouter from '../Shared';
@@ -16,13 +16,11 @@ import BottomTab from '../BottomTab';
 const MainStack = createStackNavigator<MainStackParamList>();
 
 const MainRouter = () => {
+  const styles = useStyles();
   return (
     <MainStack.Navigator
       screenOptions={{
-        headerStyle: {
-          height: getStatusBarHeight(),
-          backgroundColor: COLORS.primary,
-        },
+        headerStyle: styles.headerStyle,
         headerLeft: () => null,
         gestureEnabled: false,
       }}>

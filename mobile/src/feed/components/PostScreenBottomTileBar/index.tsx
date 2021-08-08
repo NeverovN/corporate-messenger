@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // common components
 import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
@@ -10,9 +10,8 @@ import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 // types
 import { IconType } from '@/common/types/styles';
 
-// consts
-import COLORS from '@/common/constants/colors';
 import { IconName } from '@/common/types/iconNames';
+import { useTheme } from 'react-native-stylex';
 
 interface IBottomTileBarViewProps {
   liked: boolean;
@@ -21,6 +20,8 @@ interface IBottomTileBarViewProps {
 }
 
 const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   const likes = props.likeCount ? props.likeCount.toString() : '';
   const icon: IconName = props.liked ? 'liked' : 'unliked';
 
@@ -29,7 +30,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
       <IconWithTextButton
         label={likes}
         icon={icon}
-        iconColor={COLORS.secondary}
+        iconColor={palette.secondary}
         iconType={IconType.LARGE}
         containerStyle={styles.containerStyle}
         labelStyle={styles.labelStyle}

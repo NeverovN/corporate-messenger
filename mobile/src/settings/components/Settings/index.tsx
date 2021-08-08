@@ -1,8 +1,7 @@
 import React, { FC, memo } from 'react';
 import { SafeAreaView, View } from 'react-native';
-import { useTheme } from 'react-native-paper';
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // common components
 import TextButton from '@/common/components/Button/TextButton';
@@ -16,8 +15,7 @@ interface ISettingsComponentProps {
 }
 
 const SettingsView: FC<ISettingsComponentProps> = (props) => {
-  const { colors } = useTheme();
-
+  const styles = useStyles();
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
       <View style={styles.settingsStyle}>

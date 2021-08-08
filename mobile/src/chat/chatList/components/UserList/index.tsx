@@ -4,7 +4,7 @@ import { FlatList, SafeAreaView, ListRenderItem, Text } from 'react-native';
 import UserItem from 'chat/chatList/containers/UserItem';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // types
 import { IUserItem } from 'profile/types/user';
@@ -21,6 +21,7 @@ const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
 };
 
 const UserListView: FC<IUserListViewProps> = ({ data }) => {
+  const styles = useStyles();
   const isSomeUsers = !!data;
 
   if (isSomeUsers) {

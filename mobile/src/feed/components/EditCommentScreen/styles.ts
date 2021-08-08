@@ -1,12 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  editCommentScreenStyle: {
-    flex: 1,
-  },
-  inputStyle: {
-    fontSize: 25,
-    height: '90%',
-    margin: 15,
-  },
+export const useStyles = makeUseStyles(() => {
+  return {
+    editCommentScreenStyle: {
+      flex: 1,
+    },
+    inputStyle: {
+      fontSize: 25,
+      height: '90%',
+      margin: 15,
+    },
+  };
 });

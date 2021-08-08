@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { ScrollView, TextInput } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IEditPostScreenViewProps {
   textValue: string | null;
@@ -13,6 +13,7 @@ interface IEditPostScreenViewProps {
 }
 
 const EditPostScreenView: FC<IEditPostScreenViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <ScrollView contentContainerStyle={styles.editPostScreenStyle}>
       <TextInput

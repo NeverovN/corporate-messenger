@@ -1,13 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  friendFeedStyle: {
-    flex: 1,
-    paddingHorizontal: 10,
-    height: '100%',
-    backgroundColor: COLORS.primary,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    friendFeedStyle: {
+      flex: 1,
+      paddingHorizontal: 10,
+      height: '100%',
+      backgroundColor: palette.primary,
+    },
+  };
 });

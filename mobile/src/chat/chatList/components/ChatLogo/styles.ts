@@ -1,15 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  chatLogoStyle: {
-    width: 50,
-    height: 50,
-    marginHorizontal: 15,
-    borderRadius: 25,
-    borderWidth: 1,
-    borderColor: COLORS.secondary,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    chatLogoStyle: {
+      width: 50,
+      height: 50,
+      marginHorizontal: 15,
+      borderRadius: 25,
+      borderWidth: 1,
+      borderColor: palette.secondary,
+    },
+  };
 });

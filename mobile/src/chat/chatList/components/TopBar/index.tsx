@@ -2,10 +2,7 @@ import React, { FC, memo } from 'react';
 import { View, TextInput } from 'react-native';
 
 // styles
-import styles from './styles';
-
-// colors
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // types
 import { IconType } from '@/common/types/styles';
@@ -13,6 +10,7 @@ import { IconType } from '@/common/types/styles';
 // common components
 import IconButton from '@/common/components/Button/IconButton';
 import Icon from 'common/components/Icon';
+import { useTheme } from 'react-native-stylex';
 
 interface ITopBarViewProps {
   onSearchPress(): void;
@@ -21,6 +19,8 @@ interface ITopBarViewProps {
 }
 
 const TopBarView: FC<ITopBarViewProps> = (props) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   return (
     <View style={styles.topBarStyle}>
       <View style={styles.inputStyle}>
@@ -30,9 +30,10 @@ const TopBarView: FC<ITopBarViewProps> = (props) => {
           customStyle={styles.iconStyle}
         />
         <TextInput
+          style={styles.textInputStyle}
           onChangeText={props.setFilter}
           placeholder="SEARCH"
-          placeholderTextColor={COLORS.secondaryInactive}
+          placeholderTextColor={palette.secondaryInactive}
         />
       </View>
       <IconButton

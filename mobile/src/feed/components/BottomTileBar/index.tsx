@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // common components
 import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
@@ -10,9 +10,8 @@ import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 // types
 import { IconType } from '@/common/types/styles';
 
-// constants
-import COLORS from '@/common/constants/colors';
 import { IconName } from '@/common/types/iconNames';
+import { useTheme } from 'react-native-stylex';
 
 interface IBottomTileBarViewProps {
   liked: boolean;
@@ -23,6 +22,8 @@ interface IBottomTileBarViewProps {
 }
 
 const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   const comments = props.commentCount > 0 ? props.commentCount.toString() : '';
 
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
@@ -36,7 +37,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
         label={likes}
         iconType={IconType.LARGE}
         icon={icon}
-        iconColor={COLORS.secondary}
+        iconColor={palette.secondary}
         containerStyle={styles.containerStyle}
         labelStyle={styles.labelStyle}
       />
@@ -45,7 +46,7 @@ const BottomTileBar: FC<IBottomTileBarViewProps> = (props) => {
         label={comments}
         iconType={IconType.LARGE}
         icon="comment"
-        iconColor={COLORS.secondary}
+        iconColor={palette.secondary}
         containerStyle={styles.containerStyle}
         labelStyle={styles.labelStyle}
       />
