@@ -56,11 +56,15 @@ export const useHandleStartChat = (userId: string) => {
 
   return () => {
     if (!chat) {
-      createDialog({
-        variables: {
-          input: { participant: userId },
-        },
-      });
+      try {
+        createDialog({
+          variables: {
+            input: { participant: userId },
+          },
+        });
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       navigation.navigate(SHARED_STACK_NAME, {
         screen: CHAT_STACK_NAME,
