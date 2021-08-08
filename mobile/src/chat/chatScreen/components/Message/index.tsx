@@ -38,14 +38,17 @@ const MessageView: FC<IMessageViewProps> = (props) => {
   ) : null;
 
   const lastEditText = useMemo(
-    () => (props.lastEdit ? <Text>last edit: {props.lastEdit}</Text> : null),
-    [props.lastEdit],
+    () =>
+      props.lastEdit ? (
+        <Text style={styles.textStyle}>last edit: {props.lastEdit}</Text>
+      ) : null,
+    [props.lastEdit, styles.textStyle],
   );
 
   // works incorrect
   const isReadIndicator = useMemo(
-    () => (!props.isRead ? <Text>unread</Text> : null),
-    [props.isRead],
+    () => (!props.isRead ? <Text style={styles.textStyle}>unread</Text> : null),
+    [props.isRead, styles.textStyle],
   );
 
   const [msgStyle, viewStyle, actions] = useSetMsgStyle(props.direction);
