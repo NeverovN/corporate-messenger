@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { View, TextInput } from 'react-native';
-import { useTheme } from 'react-native-elements';
+
+import { lightTheme } from 'common/constants/colors';
 
 // styles
 import { useStyles } from './styles';
@@ -15,7 +16,7 @@ interface IAuthInput {
 
 const AuthInput: React.FC<IAuthInput> = (props) => {
   const styles = useStyles();
-  const { palette } = useTheme();
+  // const { palette } = useTheme();
   return (
     <View style={styles.viewStyle}>
       <TextInput
@@ -26,7 +27,7 @@ const AuthInput: React.FC<IAuthInput> = (props) => {
         autoCapitalize="none"
         autoCorrect={false}
         placeholder={props.placeholder}
-        placeholderTextColor={palette.secondary}
+        placeholderTextColor={lightTheme.secondary}
         secureTextEntry={props.secure || false}
         textAlign="center"
       />

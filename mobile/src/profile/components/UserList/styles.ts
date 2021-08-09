@@ -4,6 +4,7 @@ export const useStyles = makeUseStyles(({ palette }) => {
   return {
     existingUsersStyle: {
       marginHorizontal: 10,
+      flex: 1,
     },
     absentUsersStyle: {
       flex: 1,

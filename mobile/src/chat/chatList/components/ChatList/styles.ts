@@ -4,7 +4,7 @@ export const useStyles = makeUseStyles(({ palette }) => {
   return {
     existingChatsStyle: {
       marginHorizontal: 10,
-      height: '100%',
+      flex: 1,
     },
     missingChatsStyle: {
       flex: 1,

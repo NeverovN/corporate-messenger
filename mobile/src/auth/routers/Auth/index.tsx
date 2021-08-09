@@ -17,7 +17,8 @@ import {
 
 // types
 import { AuthStackParamList } from 'auth/types/routes';
-import { useStyles } from '@/common/components/HeaderBackButtonWithoutText/styles';
+import { useStyles } from './styles';
+import HeaderBackButtonWithoutText from '@/common/components/HeaderBackButtonWithoutText';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
 
@@ -33,12 +34,22 @@ const AuthRouter = () => {
       <AuthStack.Screen
         name={REGISTER_SCREEN_NAME}
         component={RegisterScreen}
-        options={{ headerStyle: styles.buttonStyle }}
+        options={{
+          headerStyle: styles.headerStyle,
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          title: 'REGISTRATION',
+          headerTitleStyle: styles.headerTitleStyle,
+        }}
       />
       <AuthStack.Screen
         name={USER_DATA_SCREEN_NAME}
         component={UserData}
-        options={{ headerStyle: styles.buttonStyle }}
+        options={{
+          headerStyle: styles.headerStyle,
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          title: 'REGISTRATION',
+          headerTitleStyle: styles.headerTitleStyle,
+        }}
       />
     </AuthStack.Navigator>
   );

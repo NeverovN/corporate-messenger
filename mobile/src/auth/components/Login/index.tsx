@@ -44,27 +44,27 @@ const LoginView: FC<ILoginViewProps> = (props) => {
         </View>
         <View style={styles.loginStyle}>
           <AuthInput
-            placeholder="Email"
+            placeholder="EMAIL"
             value={props.email}
             onChangeText={props.onChangeEmail}
           />
 
           <View style={styles.passwordStyle}>
             <AuthInput
-              placeholder="Password"
+              placeholder="PASSWORD"
               value={props.password}
               onChangeText={props.onChangePassword}
               secure={props.isHidden}
             />
           </View>
-          <SignButton title="Submit" onPress={props.handleLogin} />
+          <SignButton title="SUBMIT" onPress={props.handleLogin} />
         </View>
         <View style={styles.separator} />
         <View style={styles.registerStyle}>
           <Text style={styles.textStyle}>
             Don't have an account? Create it!
           </Text>
-          <SignButton title="Sign up" onPress={props.handleSignUpRedirection} />
+          <SignButton title="SIGN UP" onPress={props.handleSignUpRedirection} />
         </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>

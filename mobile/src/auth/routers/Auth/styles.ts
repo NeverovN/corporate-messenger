@@ -5,5 +5,10 @@ export const useStyles = makeUseStyles(({ palette }) => {
     headerStyle: {
       backgroundColor: palette.primary,
     },
+    headerTitleStyle: {
+      fontSize: 25,
+      fontFamily: 'Mulish-Regular_Light',
+      color: palette.secondary,
+    },
   };
 });

@@ -38,18 +38,18 @@ const UserDataView: FC<IUserDataViewProps> = (props) => {
           </View>
           <View style={styles.loginStyle}>
             <AuthInput
-              placeholder="First name"
+              placeholder="NAME"
               value={props.firstName}
               onChangeText={props.onChangeFirstName}
             />
             <AuthInput
-              placeholder="Last Name"
+              placeholder="SURNAME"
               value={props.lastName}
               onChangeText={props.onChangeLastName}
             />
             <View style={styles.buttonWrapperStyle}>
               <SignButton
-                title="Get started"
+                title="GET STARTED"
                 onPress={props.finishRegistration}
               />
             </View>

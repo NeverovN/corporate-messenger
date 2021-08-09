@@ -46,14 +46,14 @@ const RegisterView: FC<IRegisterScreenProps> = (props) => {
           </View>
           <View style={styles.inputAreaStyle}>
             <AuthInput
-              placeholder="Email"
+              placeholder="EMAIL"
               value={props.email}
               onChangeText={props.onChangeEmail}
             />
 
             <View style={styles.passwordStyle}>
               <AuthInput
-                placeholder="Password"
+                placeholder="PASSWORD"
                 value={props.password}
                 onChangeText={props.onChangePassword}
                 secure={props.isHidden}
@@ -62,14 +62,14 @@ const RegisterView: FC<IRegisterScreenProps> = (props) => {
 
             <View style={styles.passwordStyle}>
               <AuthInput
-                placeholder="Confirm password"
+                placeholder="CONFIRM PASSWORD"
                 value={props.passwordRepeat}
                 onChangeText={props.onChangePasswordRepeat}
                 secure={props.isHidden}
               />
             </View>
             <View style={styles.buttonWrapperStyle}>
-              <SignButton title="Continue" onPress={props.handleRegistration} />
+              <SignButton title="CONTINUE" onPress={props.handleRegistration} />
             </View>
           </View>
         </View>

@@ -23,12 +23,8 @@ const FriendListView: FC<IFriendListViewProps> = ({ data }) => {
 
   if (isSomeUsers) {
     return (
-      <View>
-        <FlatList
-          style={styles.existingUsersStyle}
-          renderItem={renderChatItem}
-          data={data}
-        />
+      <View style={styles.existingUsersStyle}>
+        <FlatList renderItem={renderChatItem} data={data} />
       </View>
     );
   } else {
