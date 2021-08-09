@@ -1,4 +1,3 @@
-import storage from '@react-native-firebase/storage';
 import { utils } from '@react-native-firebase/app';
 
 import firestore, {
@@ -16,15 +15,15 @@ export class MediaUploader {
     users: 'userAvatars',
   };
 
-  static uploadManyToStorage(data: { path: string; name: string }[]) {
-    data.forEach(async (el) => {
-      const reference = storage().ref(el.path);
-      const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/${el.name}`;
-      console.log(pathToFile);
+  // static uploadManyToStorage(data: { path: string; name: string }[]) {
+  //   data.forEach(async (el) => {
+  //     const reference = storage().ref(el.path);
+  //     const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/${el.name}`;
+  //     console.log(pathToFile);
 
-      await reference.putFile(pathToFile);
-    });
-  }
+  //     await reference.putFile(pathToFile);
+  //   });
+  // }
 
   static uploadManyMessageMedia(base64: (string | null)[]) {
     return MediaUploader.uploadManyToFirestore(base64, 'imagesFromChat');
