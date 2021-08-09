@@ -1,14 +1,15 @@
-import { StyleSheet } from 'react-native';
-import COLORS from '@/common/constants/colors';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  chatItemStyle: {
-    height: 70,
-    backgroundColor: COLORS.tint,
-    borderRadius: 5,
-    marginTop: 10,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    chatItemStyle: {
+      height: 70,
+      backgroundColor: palette.tint,
+      borderRadius: 5,
+      marginTop: 10,
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+  };
 });

@@ -1,9 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  splashStyle: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+export const useStyles = makeUseStyles(() => {
+  return {
+    splashStyle: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  };
 });

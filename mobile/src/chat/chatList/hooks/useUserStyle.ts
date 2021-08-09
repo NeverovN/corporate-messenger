@@ -3,16 +3,16 @@ import { ViewStyle } from 'react-native';
 // cache
 import { selectedFriendsVar } from '@/common/cache/cache';
 
-// colors
-import COLORS from '@/common/constants/colors';
+import { useTheme } from 'react-native-stylex';
 
 export const useUserStyle = (userId: string): ViewStyle => {
+  const { palette } = useTheme();
   const isSelected = selectedFriendsVar().includes(userId);
   return isSelected
     ? {
-        borderColor: COLORS.secondary,
+        borderColor: palette.secondary,
         borderWidth: 1,
-        shadowColor: COLORS.black,
+        shadowColor: palette.black,
         shadowOffset: {
           width: 0,
           height: 2,

@@ -1,16 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  postScreenStyle: {
-    alignItems: 'stretch',
-    width: '100%',
-    height: '100%',
-    backgroundColor: COLORS.primary,
-  },
-  listStyle: {
-    paddingHorizontal: 10,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    postScreenStyle: {
+      alignItems: 'stretch',
+      width: '100%',
+      height: '100%',
+      backgroundColor: palette.primary,
+    },
+    listStyle: {
+      paddingHorizontal: 10,
+    },
+  };
 });

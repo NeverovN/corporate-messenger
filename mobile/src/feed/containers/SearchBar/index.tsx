@@ -2,19 +2,20 @@ import React, { FC, memo } from 'react';
 import { View, TextInput } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // common components
 import Icon from 'common/components/Icon';
 
-// colors
-import COLORS from 'common/constants/colors';
+import { useTheme } from 'react-native-stylex';
 
 interface ISearchBarContainerProps {
   setFilter(filter: string): void;
 }
 
 const SearchBarContainer: FC<ISearchBarContainerProps> = (props) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   return (
     <View style={styles.wrapper}>
       <View style={styles.barStyle}>
@@ -22,7 +23,7 @@ const SearchBarContainer: FC<ISearchBarContainerProps> = (props) => {
         <TextInput
           style={styles.inputStyle}
           placeholder="SEARCH"
-          placeholderTextColor={COLORS.secondaryInactive}
+          placeholderTextColor={palette.secondaryInactive}
           onChangeText={props.setFilter}
         />
       </View>

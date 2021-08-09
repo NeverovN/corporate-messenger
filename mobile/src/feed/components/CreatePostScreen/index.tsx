@@ -1,11 +1,9 @@
 import React, { FC, memo } from 'react';
 import { ScrollView, TextInput, View } from 'react-native';
+import { useTheme } from 'react-native-stylex';
 
 // styles
-import styles from './styles';
-
-// colors
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 interface ICreatePostScreenViewProps {
   textValue: string;
@@ -13,12 +11,14 @@ interface ICreatePostScreenViewProps {
 }
 
 const CreatePostScreenView: FC<ICreatePostScreenViewProps> = (props) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   return (
     <View style={styles.backGround}>
       <ScrollView contentContainerStyle={styles.createPostScreenStyle}>
         <TextInput
           placeholder="WHATS UP?"
-          placeholderTextColor={COLORS.secondaryInactive}
+          placeholderTextColor={palette.secondaryInactive}
           style={styles.inputStyle}
           multiline={true}
           scrollEnabled={true}

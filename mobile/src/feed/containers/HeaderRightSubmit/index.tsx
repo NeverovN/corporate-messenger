@@ -5,7 +5,7 @@ import IconButton from '@/common/components/Button/IconButton';
 import Icon from '@/common/components/Icon';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 import { IconType } from '@/common/types/styles';
 
 interface IHeaderRightProps {
@@ -14,6 +14,7 @@ interface IHeaderRightProps {
 }
 
 const HeaderRightSubmit: FC<IHeaderRightProps> = (props) => {
+  const styles = useStyles();
   if (props.isValid) {
     return (
       <IconButton

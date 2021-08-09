@@ -1,23 +1,24 @@
-import { StyleSheet } from 'react-native';
-import COLORS from '@/common/constants/colors';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  textStyle: {
-    fontFamily: 'DroidSans',
-    color: COLORS.secondary,
-    fontSize: 15,
-    margin: 12,
-  },
-  viewStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    textStyle: {
+      fontFamily: 'DroidSans',
+      color: palette.secondary,
+      fontSize: 15,
+      margin: 12,
+    },
+    viewStyle: {
+      justifyContent: 'center',
+      alignItems: 'center',
 
-    width: '100%',
+      width: '100%',
 
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: COLORS.secondary,
+      borderRadius: 50,
+      borderWidth: 1,
+      borderColor: palette.secondary,
 
-    marginTop: 10,
-  },
+      marginTop: 10,
+    },
+  };
 });

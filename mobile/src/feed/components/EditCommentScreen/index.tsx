@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { ScrollView, TextInput } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IEditCommentScreenViewProps {
   textValue: string | null;
@@ -10,6 +10,7 @@ interface IEditCommentScreenViewProps {
 }
 
 const EditCommentScreenView: FC<IEditCommentScreenViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <ScrollView contentContainerStyle={styles.editCommentScreenStyle}>
       <TextInput

@@ -7,7 +7,7 @@ import FbGrid from 'react-native-fb-image-grid';
 import Directions from '../../constants/direction';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // hooks
 import { useHandleMessageActions } from '../../hooks/useHandleMessageActions';
@@ -24,6 +24,7 @@ interface IMessageViewProps extends IMessageItem {
 }
 
 const MessageView: FC<IMessageViewProps> = (props) => {
+  const styles = useStyles();
   const actionHandler = useHandleMessageActions();
   const message = useGetMessage(props.id);
   const [imgBase64, setImgBase64] = useState<string[]>([]);
@@ -37,14 +38,17 @@ const MessageView: FC<IMessageViewProps> = (props) => {
   ) : null;
 
   const lastEditText = useMemo(
-    () => (props.lastEdit ? <Text>last edit: {props.lastEdit}</Text> : null),
-    [props.lastEdit],
+    () =>
+      props.lastEdit ? (
+        <Text style={styles.textStyle}>last edit: {props.lastEdit}</Text>
+      ) : null,
+    [props.lastEdit, styles.textStyle],
   );
 
   // works incorrect
   const isReadIndicator = useMemo(
-    () => (!props.isRead ? <Text>unread</Text> : null),
-    [props.isRead],
+    () => (!props.isRead ? <Text style={styles.textStyle}>unread</Text> : null),
+    [props.isRead, styles.textStyle],
   );
 
   const [msgStyle, viewStyle, actions] = useSetMsgStyle(props.direction);

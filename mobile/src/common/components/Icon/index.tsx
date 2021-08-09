@@ -8,11 +8,9 @@ const CustomIcon = createIconSetFromIcoMoon(icoMoonConfig);
 import { IconType } from '@/common/types/styles';
 import { IconName } from '../../types/iconNames';
 
-// consts
-import COLORS from '@/common/constants/colors';
-
 // styles
 import iconStyles from './styles';
+import { useTheme } from 'react-native-stylex';
 
 interface IIconProps {
   name: IconName;
@@ -22,8 +20,9 @@ interface IIconProps {
 }
 
 const Icon: FC<IIconProps> = (props) => {
+  const { palette } = useTheme();
   const iconType = props.type || IconType.MEDIUM;
-  const iconColor = props.color || COLORS.black;
+  const iconColor = props.color || palette.secondary;
   const customStyle = props.customStyle || {};
 
   const style: TextStyle = {

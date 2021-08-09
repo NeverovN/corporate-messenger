@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
-import styles from './styles';
+import { useStyles } from './styles';
 
 // components
 import TopBarContainer from 'chat/chatList/containers/TopBar';
@@ -13,6 +13,7 @@ interface IChatComponentProps {
 }
 
 const ChatView: FC<IChatComponentProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.chatStyle}>
       <TopBarContainer setFilter={props.setFilter} />

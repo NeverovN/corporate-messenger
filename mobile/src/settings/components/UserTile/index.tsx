@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { View, Image, Text } from 'react-native';
 
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IUserTileViewProps {
   username: string;
@@ -10,6 +10,7 @@ interface IUserTileViewProps {
 }
 
 const UserTileView: FC<IUserTileViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.userTileStyle}>
       {props.avatar ? (

@@ -4,7 +4,7 @@ import React, { FC, memo } from 'react';
 import TextButton from '@/common/components/Button/TextButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // hooks
 import { useHandleEditNavigation } from 'settings/hooks/useHandleEditNavigation';
@@ -19,7 +19,7 @@ interface IEditButtonContainerProps {
 
 const EditButtonContainer: FC<IEditButtonContainerProps> = (props) => {
   const navigate = useHandleEditNavigation(props.screen);
-
+  const styles = useStyles();
   return (
     <TextButton
       containerStyle={styles.editButtonViewStyle}

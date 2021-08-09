@@ -14,14 +14,16 @@ import {
   REGISTER_SCREEN_NAME,
   USER_DATA_SCREEN_NAME,
 } from 'auth/constants/routes';
-import COLORS from 'common/constants/colors';
 
 // types
 import { AuthStackParamList } from 'auth/types/routes';
+import { useStyles } from './styles';
+import HeaderBackButtonWithoutText from '@/common/components/HeaderBackButtonWithoutText';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
 
 const AuthRouter = () => {
+  const styles = useStyles();
   return (
     <AuthStack.Navigator initialRouteName={LOGIN_SCREEN_NAME}>
       <AuthStack.Screen
@@ -32,13 +34,22 @@ const AuthRouter = () => {
       <AuthStack.Screen
         name={REGISTER_SCREEN_NAME}
         component={RegisterScreen}
-        // options={{ headerShown: false }}
-        options={{ headerStyle: { backgroundColor: COLORS.primary } }}
+        options={{
+          headerStyle: styles.headerStyle,
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          title: 'REGISTRATION',
+          headerTitleStyle: styles.headerTitleStyle,
+        }}
       />
       <AuthStack.Screen
         name={USER_DATA_SCREEN_NAME}
         component={UserData}
-        options={{ headerStyle: { backgroundColor: COLORS.primary } }}
+        options={{
+          headerStyle: styles.headerStyle,
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          title: 'REGISTRATION',
+          headerTitleStyle: styles.headerTitleStyle,
+        }}
       />
     </AuthStack.Navigator>
   );

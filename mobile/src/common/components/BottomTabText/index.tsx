@@ -2,17 +2,18 @@ import React, { FC, memo } from 'react';
 import { Text } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface ITabTextProps {
   text: string;
   focused: boolean;
 }
 const TabText: FC<ITabTextProps> = (props) => {
-  const style = props.focused
+  const styles = useStyles();
+  const textStyle = props.focused
     ? styles.focusedTextStyle
     : styles.unfocusedTextStyle;
-  return <Text style={style}>{props.text}</Text>;
+  return <Text style={textStyle}>{props.text}</Text>;
 };
 
 export default memo(TabText);

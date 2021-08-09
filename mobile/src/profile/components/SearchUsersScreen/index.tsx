@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // components
 import TopBar from 'profile/components/TopBar';
@@ -16,6 +16,7 @@ interface ISearchUsersScreenViewProp {
 }
 
 const SearchUsersScreenView: FC<ISearchUsersScreenViewProp> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.searchScreenStyle}>
       <TopBar filter={props.filter} onChangeFilter={props.onChangeFilter} />

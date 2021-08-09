@@ -1,12 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  newChatScreenStyle: {
-    flex: 1,
-    alignItems: 'stretch',
-    backgroundColor: COLORS.primary,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    newChatScreenStyle: {
+      flex: 1,
+      alignItems: 'stretch',
+      backgroundColor: palette.primary,
+    },
+  };
 });

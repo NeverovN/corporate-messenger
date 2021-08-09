@@ -1,15 +1,19 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  existingUsersStyle: {
-    marginHorizontal: 10,
-  },
-  absentUsersStyle: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textStyle: {
-    fontSize: 20,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    existingUsersStyle: {
+      marginHorizontal: 10,
+      flex: 1,
+    },
+    absentUsersStyle: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    textStyle: {
+      fontSize: 20,
+      color: palette.secondary,
+    },
+  };
 });

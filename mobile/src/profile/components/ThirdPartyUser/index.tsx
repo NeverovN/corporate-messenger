@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { View, FlatList, ListRenderItem } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // containers
 import { IPostItem } from '@/feed/types/feed';
@@ -30,6 +30,7 @@ const renderPostItem: ListRenderItem<IPostItem> = ({ item }) => {
 };
 
 const ThirdPartyUserView: FC<IThirdPartyUserViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.thirdPartyUserStyle}>
       <FlatList

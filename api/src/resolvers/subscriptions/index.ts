@@ -42,7 +42,6 @@ const subscriptionResolvers: SubscriptionResolvers = {
       () => pubsub.asyncIterator([MESSAGE_CREATED]),
       // currentUserId is null always (can't fix it)
       (message: MessageEntity, _, { currentUser }) => {
-        console.log(currentUser);
         return message.author !== currentUser;
       },
     ),

@@ -1,13 +1,14 @@
 import React, { FC, memo } from 'react';
 import { View, Text } from 'react-native';
 
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IUnreadCountViewProps {
   count: number;
 }
 
 const UnreadCountView: FC<IUnreadCountViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.wrapperStyle}>
       <View style={styles.unreadStyle}>

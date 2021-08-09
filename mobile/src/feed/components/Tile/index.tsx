@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // components
 import TopTileBarContainer from 'feed/containers/TopBar';
@@ -15,6 +15,7 @@ import { IPostItem } from '@/feed/types/feed';
 export interface ITileViewProps extends IPostItem {}
 
 const TileView: FC<ITileViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.tileStyle}>
       <TopTileBarContainer

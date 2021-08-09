@@ -1,23 +1,22 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  userDataStyle: {
-    flexDirection: 'column',
-  },
-  primaryText: {
-    fontSize: 15,
-    fontFamily: 'Mulish-Regular_Bold',
-    color: COLORS.secondary,
-  },
-  secondaryText: {
-    fontSize: 12,
-    fontFamily: 'Mulish',
-    color: COLORS.secondary,
-  },
-  spacer: {
-    height: 5,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    userDataStyle: {
+      flexDirection: 'column',
+    },
+    primaryText: {
+      fontSize: 15,
+      fontFamily: 'Mulish-Regular_Bold',
+      color: palette.secondary,
+    },
+    secondaryText: {
+      fontSize: 12,
+      fontFamily: 'Mulish',
+      color: palette.secondary,
+    },
+    spacer: {
+      height: 5,
+    },
+  };
 });

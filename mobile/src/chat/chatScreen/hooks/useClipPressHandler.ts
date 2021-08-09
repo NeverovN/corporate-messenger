@@ -38,8 +38,6 @@ export const useClipPressHandler = (
         return imageDocument;
       });
 
-      console.log(firstIds);
-
       imagesForFirebase.forEach(async ({ data, partCount }, index) => {
         try {
           data
