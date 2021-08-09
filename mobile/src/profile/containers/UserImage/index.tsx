@@ -3,7 +3,7 @@ import { Image, ImageStyle } from 'react-native';
 import SimplePopupMenu, { PopupMenuItem } from 'react-native-simple-popup-menu';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // consts
 import ACTIONS from 'profile/constants/actions';
@@ -20,6 +20,7 @@ const items: PopupMenuItem[] = [
 ];
 
 const UserImageContainer: FC<IUserImageContainerProps> = (props) => {
+  const styles = useStyles();
   const style: ImageStyle = {
     height: props.size,
     width: props.size,

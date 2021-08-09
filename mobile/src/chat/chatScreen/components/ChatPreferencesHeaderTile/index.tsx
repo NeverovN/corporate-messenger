@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { View, Text, Image, TextInput } from 'react-native';
 
-import styles from './styles';
+import { useStyles } from './styles';
 
 // common components
 import IconWithTextButton from 'common/components/Button/IconWithTextButton';
@@ -22,6 +22,7 @@ interface IChatPreferencesHeaderTileViewProps {
 const ChatPreferencesHeaderTile: FC<IChatPreferencesHeaderTileViewProps> = (
   props,
 ) => {
+  const styles = useStyles();
   return (
     <View style={styles.componentStyle}>
       <View style={styles.tileStyle}>
@@ -67,6 +68,7 @@ const ChatPreferencesHeaderTile: FC<IChatPreferencesHeaderTileViewProps> = (
               ...styles.attachmentsButtonContainerStyle,
               ...styles.containerStyle,
             }}
+            iconStyle={styles.iconStyle}
           />
           <View style={styles.manageButtonsViewStyle}>
             <TextButton

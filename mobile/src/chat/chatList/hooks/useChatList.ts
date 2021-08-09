@@ -1,6 +1,5 @@
 import { MediaUploader } from '@/chat/chatScreen/utils/MediaUploader';
 import {
-  ChatFragmentFragmentDoc,
   useGetChatsQuery,
   useNewChatSubscription,
 } from 'common/types/gql.generated';
@@ -14,7 +13,8 @@ import { getFirstItem } from '../utils/getFirstItem';
 import { sortChatsByDate } from '../utils/sortChatsByDate';
 
 export const useChatList = (filter: string): IChatItem[] => {
-  const { data } = useGetChatsQuery();
+  const { data: chatsQuery } = useGetChatsQuery();
+
   useNewChatSubscription({
     onSubscriptionData: (subscriptionData) => {
       if (!subscriptionData.subscriptionData.data) {
@@ -23,35 +23,25 @@ export const useChatList = (filter: string): IChatItem[] => {
 
       subscriptionData.client.cache.modify({
         fields: {
-          getChats(exChats = []) {
-            try {
-              const newChat = subscriptionData.client.cache.writeFragment({
-                fragment: ChatFragmentFragmentDoc,
-                data: subscriptionData.subscriptionData.data?.newChat,
-                id: subscriptionData.subscriptionData.data?.newChat.id,
-              });
-
-              return [...exChats, newChat];
-            } catch (err) {
-              throw Error(`cache update error -> ${err}`);
-            }
-          },
+          getChats() {},
         },
       });
     },
   });
 
-  if (!data || !data.getChats) {
+  if (!chatsQuery || !chatsQuery.getChats) {
     return [] as any;
   }
 
-  const chats = data.getChats.map((el) => {
+  const chats: IChatItem[] = chatsQuery.getChats.map((el) => {
     if (!el) {
       return {} as any;
     }
 
     const lastMsgDate = getFirstItem(el.messages)?.createdAt;
+
     const logo = MediaUploader.getChatLogoFromFirebase(el.logo || null);
+
     return {
       title: el.title,
       participants: el.participants,
@@ -60,7 +50,7 @@ export const useChatList = (filter: string): IChatItem[] => {
       logo,
       unreadCount:
         el.messages?.reduce((acc, msg) => {
-          return msg?.readBy.find((user) => user.id === data.getUser.id)
+          return msg?.readBy.find((user) => user.id === chatsQuery.getUser.id)
             ? acc
             : acc + 1;
         }, 0) || 0,

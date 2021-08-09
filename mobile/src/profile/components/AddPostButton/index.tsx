@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 import { IconType } from '@/common/types/styles';
 
 interface IAddPostButtonViewProps {
@@ -13,6 +13,7 @@ interface IAddPostButtonViewProps {
 }
 
 const AddPostButtonView: FC<IAddPostButtonViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.wrapperStyle}>
       <IconWithTextButton

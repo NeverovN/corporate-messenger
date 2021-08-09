@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // types
 import { IMessageItem } from '@/chat/chatScreen/types/message';
@@ -41,8 +41,8 @@ const renderMessage: ListRenderItem<MessageWithProps> = ({ item }) => {
 };
 
 const MessageAreaView: FC<IMessageAreaViewProps> = (props) => {
+  const styles = useStyles();
   const view = useRef(props.onViewed);
-
   return (
     <View style={styles.messageAreaStyle}>
       <FlatList

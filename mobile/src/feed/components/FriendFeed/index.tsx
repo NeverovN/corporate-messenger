@@ -5,7 +5,7 @@ import { FlatList, View, ListRenderItem } from 'react-native';
 import Tile from 'feed/containers/Tile';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // types
 import { IPostItem } from 'feed/types/feed';
@@ -28,6 +28,7 @@ const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
 };
 
 const FriendFeedView: FC<IFriendFeedListViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.friendFeedStyle}>
       <FlatList renderItem={renderFeedItem} data={props.data} />

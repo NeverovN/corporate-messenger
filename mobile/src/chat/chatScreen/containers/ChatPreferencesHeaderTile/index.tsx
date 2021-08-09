@@ -4,6 +4,9 @@ import React, { FC, memo, useEffect, useState } from 'react';
 // components
 import ChatPreferencesHeaderTileView from '../../components/ChatPreferencesHeaderTile';
 
+//styles
+import { useStyles } from './styles';
+
 // common components
 import IconButton from '@/common/components/Button/IconButton';
 
@@ -20,6 +23,7 @@ import { resolveImagePromise } from '@/common/utils/resolveLogoPromise';
 interface IChatPreferencesHeaderTileContainerProps {}
 
 const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainerProps> = () => {
+  const styles = useStyles();
   const navigation = useNavigation();
   const { params } = useRoute<ChatRouteProp>();
   const [title, memberCount, image, isDialog] = useGetChatInfo(params.chatId);
@@ -38,8 +42,7 @@ const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainer
         icon="back"
         onPress={goBack}
         iconType={IconType.LARGE}
-        // eslint-disable-next-line react-native/no-inline-styles
-        containerStyle={{ marginLeft: 10 }}
+        iconStyle={styles.iconStyle}
       />
     );
     navigation.setOptions({ headerLeft });

@@ -1,13 +1,14 @@
 import React, { FC, memo } from 'react';
 import { Image } from 'react-native';
 
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IChatLogoViewProps {
   logo: string | null;
 }
 
 const ChatLogoView: FC<IChatLogoViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <>
       {props.logo ? (

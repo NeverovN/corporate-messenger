@@ -1,40 +1,42 @@
-import { StyleSheet } from 'react-native';
-import COLORS from '@/common/constants/colors';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  bottomBarStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  textInputWrapperStyle: {
-    marginRight: 15,
-    flex: 1,
-    borderColor: COLORS.secondary,
-    borderRadius: 20,
-    borderWidth: 1,
-    minHeight: 40,
-    maxHeight: 140,
-    padding: 10,
-  },
-  textInputStyle: {
-    fontFamily: 'DroidSans',
-    fontSize: 15,
-    color: COLORS.secondary,
-  },
-  commonStyle: {
-    marginHorizontal: 15,
-  },
-  imageStyle: {
-    width: 100,
-    height: 100,
-    margin: 10,
-    borderRadius: 10,
-  },
-  imageViewer: {
-    height: 120,
-    width: '100%',
-    marginBottom: 10,
-    flexDirection: 'row',
-    backgroundColor: COLORS.incomingMessage,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    bottomBarStyle: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    textInputWrapperStyle: {
+      marginRight: 15,
+      flex: 1,
+      borderColor: palette.secondary,
+      borderRadius: 20,
+      borderWidth: 1,
+      minHeight: 40,
+      maxHeight: 140,
+      padding: 10,
+    },
+    textInputStyle: {
+      fontFamily: 'DroidSans',
+      fontSize: 15,
+      color: palette.secondary,
+    },
+    commonStyle: {
+      marginHorizontal: 15,
+      color: palette.secondary,
+    },
+    imageStyle: {
+      width: 100,
+      height: 100,
+      margin: 10,
+    },
+    imageViewer: {
+      height: 120,
+      width: '100%',
+      flexDirection: 'row',
+    },
+    iconStyle: {
+      color: palette.secondary,
+    },
+  };
 });

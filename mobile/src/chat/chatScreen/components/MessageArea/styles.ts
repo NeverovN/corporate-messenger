@@ -1,10 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  messageAreaStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    width: '98%',
-    height: '100%',
-  },
+export const useStyles = makeUseStyles(() => {
+  return {
+    messageAreaStyle: {
+      flex: 1,
+      justifyContent: 'center',
+      width: '98%',
+      height: '100%',
+    },
+  };
 });

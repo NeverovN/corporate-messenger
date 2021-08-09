@@ -8,7 +8,7 @@ import {
   NEW_CHAT_SCREEN,
   NEW_CHAT_SETUP_SCREEN,
 } from '../../constants/routes';
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // containers
 import ChatScreen from 'chat/chatScreen/containers/ChatScreen';
@@ -26,6 +26,7 @@ interface IAppScreenProps {}
 const Screens = createStackNavigator<ChatListStackParamList>();
 
 const ChatNavigator: FC<IAppScreenProps> = () => {
+  const styles = useStyles();
   return (
     <Screens.Navigator initialRouteName={CHAT_SCREEN_NAME}>
       <Screens.Screen
@@ -33,9 +34,7 @@ const ChatNavigator: FC<IAppScreenProps> = () => {
         component={ChatScreen}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
+          headerStyle: styles.headerStyle,
         }}
       />
       <Screens.Screen
@@ -43,28 +42,18 @@ const ChatNavigator: FC<IAppScreenProps> = () => {
         component={ChatPreferencesScreen}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
           title: 'CHAT PREFERENCES',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-          },
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
         }}
       />
       <Screens.Screen
         name={NEW_CHAT_SCREEN}
         component={NewChatScreen}
         options={{
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
+          headerStyle: styles.headerStyle,
           title: 'NEW CHAT',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-          },
+          headerTitleStyle: styles.headerTitleStyle,
         }}
       />
       <Screens.Screen
@@ -72,14 +61,9 @@ const ChatNavigator: FC<IAppScreenProps> = () => {
         component={NewChatSetup}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
+          headerStyle: styles.headerStyle,
           title: 'CHAT SETUP',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontFamily: 'Mulish-Regular_Light',
-          },
+          headerTitleStyle: styles.headerTitleStyle,
         }}
       />
     </Screens.Navigator>

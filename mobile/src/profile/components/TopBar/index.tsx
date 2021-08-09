@@ -2,14 +2,12 @@ import React, { FC, memo } from 'react';
 import { View, TextInput } from 'react-native';
 
 // styles
-import styles from './styles';
-
-// colors
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // common components
 import Icon from 'common/components/Icon';
 import { IconType } from '@/common/types/styles';
+import { useTheme } from 'react-native-stylex';
 
 interface ITopBarViewProps {
   filter: string;
@@ -17,6 +15,8 @@ interface ITopBarViewProps {
 }
 
 const TopBarView: FC<ITopBarViewProps> = (props) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   return (
     <View style={styles.wrapper}>
       <View style={styles.topBarStyle}>
@@ -30,7 +30,7 @@ const TopBarView: FC<ITopBarViewProps> = (props) => {
           value={props.filter}
           onChangeText={props.onChangeFilter}
           placeholder="SEARCH"
-          placeholderTextColor={COLORS.secondaryInactive}
+          placeholderTextColor={palette.secondaryInactive}
         />
       </View>
     </View>

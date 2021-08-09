@@ -1,10 +1,7 @@
 import React, { FC, memo } from 'react';
 
 // styles
-import styles from './styles';
-
-// colors
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // common components
 import IconButton from '@/common/components/Button/IconButton';
@@ -16,15 +13,10 @@ interface IHeaderLeftContainerProps {}
 
 const HeaderLeft: FC<IHeaderLeftContainerProps> = () => {
   const navigate = useSearchNavigation();
+  const styles = useStyles();
 
   return (
-    <IconButton
-      icon="search"
-      onPress={navigate}
-      containerStyle={styles.headerLeftStyle}
-      iconStyle={styles.iconStyle}
-      iconColor={COLORS.secondary}
-    />
+    <IconButton icon="search" onPress={navigate} iconStyle={styles.iconStyle} />
   );
 };
 

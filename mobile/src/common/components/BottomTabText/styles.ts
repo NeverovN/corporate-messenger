@@ -1,17 +1,16 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  focusedTextStyle: {
-    fontSize: 12,
-    fontFamily: 'DroidSans-Bold',
-    color: COLORS.secondary,
-  },
-  unfocusedTextStyle: {
-    fontSize: 12,
-    fontFamily: 'DroidSans',
-    color: COLORS.secondaryInactive,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    focusedTextStyle: {
+      fontSize: 12,
+      fontFamily: 'DroidSans-Bold',
+      color: palette.secondary,
+    },
+    unfocusedTextStyle: {
+      fontSize: 12,
+      fontFamily: 'DroidSans',
+      color: palette.secondaryInactive,
+    },
+  };
 });

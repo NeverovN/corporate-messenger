@@ -10,7 +10,7 @@ import {
   EDIT_COMMENT_SCREEN_NAME,
   POST_SCREEN_NAME,
 } from '@/feed/constants/routes';
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // types
 import { PostStackParamList } from 'feed/types/routes';
@@ -21,11 +21,12 @@ interface IPostRouterProps {}
 const Screens = createStackNavigator<PostStackParamList>();
 
 const FeedRouter: FC<IPostRouterProps> = () => {
+  const styles = useStyles();
   return (
     <Screens.Navigator
       initialRouteName={POST_SCREEN_NAME}
       screenOptions={{
-        headerStyle: { backgroundColor: COLORS.primary },
+        headerStyle: styles.headerStyle,
         headerLeft: () => <HeaderBackButtonWithoutText />,
       }}>
       <Screens.Screen

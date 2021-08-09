@@ -6,7 +6,7 @@ import {
   SETTINGS_STACK_NAME,
   ACCOUNT_STACK_NAME,
 } from '@/settings/constants/routes';
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // containers
 import Settings from '@/settings/containers/Settings';
@@ -25,6 +25,7 @@ interface ISettingsNavigatorProps {}
 const SettingsStack = createStackNavigator<SettingsStackParamList>();
 
 const SettingsMainNavigator: FC<ISettingsNavigatorProps> = () => {
+  const styles = useStyles();
   return (
     <SettingsStack.Navigator initialRouteName={SETTINGS_STACK_NAME}>
       <SettingsStack.Screen
@@ -32,14 +33,9 @@ const SettingsMainNavigator: FC<ISettingsNavigatorProps> = () => {
         component={Settings}
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
-          headerTitleStyle: {
-            fontSize: 30,
-            fontFamily: 'Mulish-Regular_Light',
-          },
+          headerTitleStyle: styles.headerTitleStyle,
           title: 'POST',
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
+          headerStyle: styles.headerStyle,
         }}
       />
       <SettingsStack.Screen

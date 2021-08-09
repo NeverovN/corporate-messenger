@@ -1,10 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-export default StyleSheet.create({
-  headerLeftStyle: {
-    marginLeft: 15,
-  },
-  iconStyle: {
-    fontSize: 25,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    iconStyle: {
+      marginLeft: 15,
+      fontSize: 25,
+      color: palette.secondary,
+    },
+  };
 });

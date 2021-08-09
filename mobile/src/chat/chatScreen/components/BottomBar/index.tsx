@@ -1,4 +1,4 @@
-import React, { FC, memo, useMemo } from 'react';
+import React, { FC, memo } from 'react';
 import {
   View,
   TextInput,
@@ -11,11 +11,9 @@ import {
 // common components
 import IconButton from 'common/components/Button/IconButton';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-import styles from './styles';
+import { useStyles } from './styles';
 import { IconType } from '@/common/types/styles';
+import { useTheme } from 'react-native-stylex';
 
 interface IBottomBarViewProps {
   onEmojiPress(): void;
@@ -36,16 +34,16 @@ const renderImage: ListRenderItem<{ style: ImageStyle; source: string }> = ({
 const keyExtractor = () => Math.random().toString();
 
 const BottomBarView: FC<IBottomBarViewProps> = (props) => {
-  const imagesToRender = useMemo(() => {
-    return props.media?.length
-      ? props.media.map((img) => {
-          return {
-            style: styles.imageStyle,
-            source: img,
-          };
-        })
-      : null;
-  }, [props.media]);
+  const styles = useStyles();
+  const { palette } = useTheme();
+  const imagesToRender = props.media
+    ? props.media.map((img) => {
+        return {
+          style: styles.imageStyle,
+          source: img,
+        };
+      })
+    : null;
 
   return (
     <View>
@@ -62,7 +60,7 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
         <IconButton
           icon="emoji"
           onPress={props.onEmojiPress}
-          containerStyle={styles.commonStyle}
+          iconStyle={styles.commonStyle}
           iconType={IconType.LARGE}
         />
         <View style={styles.textInputWrapperStyle}>
@@ -70,7 +68,7 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
             style={styles.textInputStyle}
             placeholder="MESSAGE"
             value={props.message || ''}
-            placeholderTextColor={COLORS.secondaryInactive}
+            placeholderTextColor={palette.secondaryInactive}
             onChangeText={props.onValueChange}
             multiline={true}
           />
@@ -78,13 +76,14 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
         <IconButton
           icon="plus"
           iconType={IconType.LARGE}
+          iconStyle={styles.iconStyle}
           onPress={props.onClipPress}
         />
         <IconButton
           icon="send"
           iconType={IconType.LARGE}
+          iconStyle={styles.commonStyle}
           onPress={props.onSendPress}
-          containerStyle={{ ...styles.commonStyle }}
         />
       </View>
     </View>

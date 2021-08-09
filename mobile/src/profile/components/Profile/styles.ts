@@ -1,15 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  profileStyle: {
-    backgroundColor: COLORS.primary,
-    paddingHorizontal: 10,
-    flex: 1,
-  },
-  flatListStyle: {
-    flexDirection: 'column-reverse',
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    profileStyle: {
+      backgroundColor: palette.primary,
+      paddingHorizontal: 10,
+      flex: 1,
+    },
+    flatListStyle: {
+      flexDirection: 'column-reverse',
+    },
+  };
 });

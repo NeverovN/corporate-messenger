@@ -5,19 +5,20 @@ import React, { FC, memo } from 'react';
 import IconButton from '@/common/components/Button/IconButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 import { IconType } from '@/common/types/styles';
 
 interface IHeaderBackButtonWithoutTextContainerProps {}
 
 const HeaderBackButtonWithoutTextContainer: FC<IHeaderBackButtonWithoutTextContainerProps> = () => {
+  const styles = useStyles();
   const navigation = useNavigation();
   const back = () => navigation.goBack();
   return (
     <IconButton
       icon="back"
       onPress={back}
-      containerStyle={styles.buttonStyle}
+      iconStyle={styles.buttonStyle}
       iconType={IconType.LARGE}
     />
   );

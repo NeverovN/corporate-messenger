@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { TouchableOpacity } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // components
 import ChatLogo from '@/chat/chatList/components/ChatLogo';
@@ -18,6 +18,7 @@ export interface IChatItemViewProps {
 }
 
 const ChatItemView: FC<IChatItemViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <TouchableOpacity
       style={styles.chatItemStyle}

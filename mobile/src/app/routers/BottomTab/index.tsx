@@ -10,7 +10,7 @@ import {
   CHAT_LIST_STACK_NAME,
   PROFILE_STACK_NAME,
 } from '@/app/constants/routes';
-import COLORS from 'common/constants/colors';
+import { useStyles } from './styles';
 
 // routers
 import FeedRouter from 'feed/routers/Main';
@@ -19,20 +19,20 @@ import ProfileRouter from 'profile/routers/Main';
 
 // label
 import TabText from 'common/components/BottomTabText';
+import { useTheme } from 'react-native-stylex';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const AppRouter = () => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   return (
     <BottomTab.Navigator
       initialRouteName={CHAT_LIST_STACK_NAME}
       tabBarOptions={{
-        tabStyle: {
-          backgroundColor: COLORS.primary,
-          marginBottom: -useSafeAreaInsets().bottom,
-        },
-        activeTintColor: COLORS.secondary,
-        inactiveTintColor: COLORS.secondaryInactive,
+        tabStyle: styles.tabStyle,
+        activeTintColor: palette.secondary,
+        inactiveTintColor: palette.secondaryInactive,
         showLabel: false,
       }}>
       <BottomTab.Screen

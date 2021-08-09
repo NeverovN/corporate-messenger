@@ -1,5 +1,3 @@
-import { utils } from '@react-native-firebase/app';
-
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';

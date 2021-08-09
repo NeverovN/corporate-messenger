@@ -38,3 +38,4 @@ export const selectedFriendsVar = makeVar<string[]>([]);
 export const newPost = makeVar<Post>({} as Post);
 export const editPost = makeVar<IPostItem>({} as IPostItem);
 export const editComment = makeVar<ICommentItem>({} as ICommentItem);
+export const theme = makeVar<string>('light');

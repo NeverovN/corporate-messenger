@@ -4,7 +4,7 @@ import { FlatList, View, ListRenderItem, Text } from 'react-native';
 import ChatItem from 'chat/chatList/containers/ChatItem';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // types
 import { IChatItem } from 'chat/chatList/types/chat';
@@ -16,14 +16,15 @@ interface IChatListViewProps {
 const renderChatItem: ListRenderItem<IChatItem> = ({ item }) => {
   return (
     <ChatItem
-      chatId={item.id}
       logo={item.logo}
+      chatId={item.id}
       unreadCount={item.unreadCount}
     />
   );
 };
 
 const ChatListView: FC<IChatListViewProps> = ({ data }) => {
+  const styles = useStyles();
   const isAnyChats = !!data.length;
 
   if (isAnyChats) {

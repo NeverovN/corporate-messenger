@@ -22,7 +22,11 @@ export const useOnFriendButtonHandler = (
 
   const [removeFriend] = useRemoveFriendMutation({
     update: (cache) => {
-      cache.gc();
+      cache.modify({
+        fields: {
+          getUser() {},
+        },
+      });
     },
   });
 

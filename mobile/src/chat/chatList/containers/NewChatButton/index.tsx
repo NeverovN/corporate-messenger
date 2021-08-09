@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // common components
 import TextButton from '@/common/components/Button/TextButton';
@@ -17,6 +17,7 @@ import { NEW_CHAT_SETUP_SCREEN } from 'chat/chatList/constants/routes';
 interface INewChatButtonContainerProps {}
 
 const NewChatButtonContainer: FC<INewChatButtonContainerProps> = () => {
+  const styles = useStyles();
   const navigation = useNavigation<NewChatSetupStackNavigationProp>();
   const onPress = () => navigation.navigate(NEW_CHAT_SETUP_SCREEN);
 

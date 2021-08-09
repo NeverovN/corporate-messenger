@@ -5,13 +5,11 @@ import { View, Text, Image } from 'react-native';
 import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
 
 // styles
-import styles from './styles';
-
-// consts
-import COLORS from '@/common/constants/colors';
+import { useStyles } from './styles';
 
 // types
 import { IconName } from '@/common/types/iconNames';
+import { useTheme } from 'react-native-stylex';
 
 interface ICommentViewProps {
   content: string;
@@ -24,6 +22,8 @@ interface ICommentViewProps {
 }
 
 const CommentView: FC<ICommentViewProps> = (props) => {
+  const styles = useStyles();
+  const { palette } = useTheme();
   const likes = props.likeCount > 0 ? props.likeCount.toString() : '';
   const icon: IconName = props.liked ? 'liked' : 'unliked';
   return (
@@ -49,7 +49,7 @@ const CommentView: FC<ICommentViewProps> = (props) => {
             label={likes}
             labelStyle={styles.iconStyle}
             onPress={props.toggleLike}
-            iconColor={COLORS.secondary}
+            iconColor={palette.secondary}
           />
         </View>
       </View>

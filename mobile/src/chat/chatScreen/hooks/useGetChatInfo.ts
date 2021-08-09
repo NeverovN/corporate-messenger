@@ -1,6 +1,9 @@
 import { useGetChatByIdQuery } from '@/common/types/gql.generated';
 import { MediaUploader } from '../utils/MediaUploader';
 
+// utils
+import { getChatTitle } from '@/chat/chatList/utils/getChatTitle';
+
 export const useGetChatInfo = (
   chatId: string,
 ): [
@@ -9,9 +12,11 @@ export const useGetChatInfo = (
   image: Promise<string | null> | null,
   isDialog: boolean,
 ] => {
-  const { data } = useGetChatByIdQuery({
+  const chat = useGetChatByIdQuery({
     variables: { chatId: chatId },
   });
+
+  const { data } = chat;
 
   if (!data || !data.getChatById) {
     return ['', 0, null, true];
@@ -22,7 +27,7 @@ export const useGetChatInfo = (
   );
 
   return [
-    data.getChatById.title,
+    getChatTitle(chat),
     data.getChatById.participants.length,
     logo,
     data.getChatById.isDialog,

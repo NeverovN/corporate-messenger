@@ -28,7 +28,9 @@ const BottomBarContainer: FC<IBottomBarContainerProps> = ({
 }) => {
   // save current message when edit
   const dispatch = useDispatch();
-  const savedMessage = useSelector((state: RootState) => state.messageText);
+  const savedMessage = useSelector(
+    (state: RootState) => state.savedMessage.messageText,
+  );
   const [messageToEdit, setMessageToEdit] = useState<string | null>(null);
 
   // current message

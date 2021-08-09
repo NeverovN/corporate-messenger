@@ -1,16 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  userStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 90,
-    borderRadius: 10,
-    backgroundColor: COLORS.tint,
-    marginTop: 10,
-    paddingLeft: 20,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    userStyle: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      height: 90,
+      borderRadius: 10,
+      backgroundColor: palette.tint,
+      marginTop: 10,
+      paddingLeft: 20,
+    },
+  };
 });

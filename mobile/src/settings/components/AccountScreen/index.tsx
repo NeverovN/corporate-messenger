@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { View, Text } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // containers
 import EditButton from 'settings/containers/EditButton';
@@ -13,6 +13,7 @@ import Operations from '@/settings/constants/operations';
 interface IAccountScreenViewProps {}
 
 const AccountScreenView: FC<IAccountScreenViewProps> = () => {
+  const styles = useStyles();
   return (
     <View style={styles.accountScreenStyle}>
       <Text style={styles.textStyle}>

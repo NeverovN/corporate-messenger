@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
-import styles from './styles';
+import { useStyles } from './styles';
 
 // containers
 import UserImage from 'profile/containers/UserImage';
@@ -12,6 +12,7 @@ interface IUserHeaderViewProps {
 }
 
 const UserHeaderView: FC<IUserHeaderViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.userMainInfoStyle}>
       <UserImage size={70} image={props.image} />

@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // components
 import NewChatTopBar from 'chat/chatList/components/NewChatTopBar';
@@ -17,6 +17,7 @@ interface INewChatScreenViewProp {
 }
 
 const NewChatScreenView: FC<INewChatScreenViewProp> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.newChatScreenStyle}>
       <NewChatTopBar

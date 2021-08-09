@@ -5,17 +5,19 @@ import { View } from 'react-native';
 import Button from '@/common/components/Button/TextButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 interface IFriendListButtonViewProps {
   onPress(): void;
 }
 
 const FriendListButtonView: FC<IFriendListButtonViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.wrapperStyle}>
       <Button
         label="FRIENDS"
+        labelStyle={styles.labelStyle}
         containerStyle={styles.friendListButtonStyle}
         onPress={props.onPress}
       />

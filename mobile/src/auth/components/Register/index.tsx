@@ -8,16 +8,7 @@ import {
 } from 'react-native';
 
 // styles
-import styles from './styles';
-
-// consts
-// import COLORS from '@/common/constants/colors';
-
-// // types
-// import { IconType } from '@/common/types/styles';
-
-// // common components
-// import IconButton from '@/common/components/Button/IconButton';
+import { useStyles } from './styles';
 
 // components
 import AuthInput from '../AuthInput';
@@ -42,6 +33,7 @@ interface IRegisterScreenProps {
 }
 
 const RegisterView: FC<IRegisterScreenProps> = (props) => {
+  const styles = useStyles();
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView
@@ -54,44 +46,30 @@ const RegisterView: FC<IRegisterScreenProps> = (props) => {
           </View>
           <View style={styles.inputAreaStyle}>
             <AuthInput
-              placeholder="Email"
+              placeholder="EMAIL"
               value={props.email}
               onChangeText={props.onChangeEmail}
             />
 
             <View style={styles.passwordStyle}>
               <AuthInput
-                placeholder="Password"
+                placeholder="PASSWORD"
                 value={props.password}
                 onChangeText={props.onChangePassword}
                 secure={props.isHidden}
               />
-              {/* <IconButton
-                icon={props.iconName}
-                iconColor={COLORS.white}
-                iconType={IconType.LARGE}
-                onPress={props.onIconPress}
-                containerStyle={styles.iconStyle}
-              /> */}
             </View>
 
             <View style={styles.passwordStyle}>
               <AuthInput
-                placeholder="Confirm password"
+                placeholder="CONFIRM PASSWORD"
                 value={props.passwordRepeat}
                 onChangeText={props.onChangePasswordRepeat}
                 secure={props.isHidden}
               />
-              {/* <IconButton
-                icon={props.iconName}
-                iconColor={COLORS.white}
-                iconType={IconType.LARGE}
-                onPress={props.onIconPress}
-                containerStyle={styles.iconStyle}
-              /> */}
             </View>
             <View style={styles.buttonWrapperStyle}>
-              <SignButton title="Continue" onPress={props.handleRegistration} />
+              <SignButton title="CONTINUE" onPress={props.handleRegistration} />
             </View>
           </View>
         </View>

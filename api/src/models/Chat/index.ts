@@ -22,7 +22,7 @@ export class ChatEntity {
   @prop({ required: true })
   isDialog: boolean;
 
-  @prop({ required: true })
+  @prop()
   title: string | null;
 
   @prop({ required: true })

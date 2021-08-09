@@ -1,15 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { makeUseStyles } from 'react-native-stylex';
 
-// colors
-import COLORS from 'common/constants/colors';
-
-export default StyleSheet.create({
-  contentStyle: {
-    marginHorizontal: 20,
-  },
-  textStyle: {
-    fontSize: 15,
-    fontFamily: 'DroidSans',
-    color: COLORS.secondary,
-  },
+export const useStyles = makeUseStyles(({ palette }) => {
+  return {
+    contentStyle: {
+      marginHorizontal: 20,
+    },
+    textStyle: {
+      fontSize: 15,
+      fontFamily: 'DroidSans',
+      color: palette.secondary,
+    },
+  };
 });

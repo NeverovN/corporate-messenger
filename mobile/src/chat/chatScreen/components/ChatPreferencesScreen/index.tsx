@@ -2,10 +2,11 @@ import React, { FC, memo } from 'react';
 import { View, FlatList, ListRenderItem, Image, Text } from 'react-native';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 
 // components
 import ChatPreferencesHeaderTile from 'chat/chatScreen/containers/ChatPreferencesHeaderTile';
+import UserTile from '../UserTile';
 
 interface IChatPrefScreenViewProps {
   members: { name: string; avatar: string | null }[];
@@ -13,24 +14,12 @@ interface IChatPrefScreenViewProps {
 
 const renderItem: ListRenderItem<{ name: string; avatar: string | null }> = ({
   item,
-  // index,
 }) => {
-  return (
-    <View style={styles.itemStyle}>
-      {item.avatar ? (
-        <Image style={styles.imageStyle} source={{ uri: item.avatar }} />
-      ) : (
-        <Image
-          style={styles.imageStyle}
-          source={require('common/assets/images/defaultAvatar.png')}
-        />
-      )}
-      <Text style={styles.nameStyle}>{item.name}</Text>
-    </View>
-  );
+  return <UserTile avatar={item.avatar} name={item.name} />;
 };
 
 const ChatPrefScreenView: FC<IChatPrefScreenViewProps> = (props) => {
+  const styles = useStyles();
   return (
     <View style={styles.screenStyle}>
       <FlatList

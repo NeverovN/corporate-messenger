@@ -4,22 +4,23 @@ import React, { FC, memo, useEffect, useState } from 'react';
 import TextButton from '@/common/components/Button/TextButton';
 
 // styles
-import styles from './styles';
+import { useStyles } from './styles';
 import { Alert } from 'react-native';
 
-interface IHeaderProps {
+interface IButtonProps {
   oldPassword: string;
   newPassword: string;
   newPasswordRep: string;
   edit(): void;
 }
 
-const HeaderRightPassword: FC<IHeaderProps> = ({
+const ConfirmPasswordButton: FC<IButtonProps> = ({
   oldPassword,
   newPassword,
   newPasswordRep,
   edit,
 }) => {
+  const styles = useStyles();
   const [isChanged, setIsChanged] = useState<boolean>(false);
 
   useEffect(() => {
@@ -53,4 +54,4 @@ const HeaderRightPassword: FC<IHeaderProps> = ({
   );
 };
 
-export default memo(HeaderRightPassword);
+export default memo(ConfirmPasswordButton);
