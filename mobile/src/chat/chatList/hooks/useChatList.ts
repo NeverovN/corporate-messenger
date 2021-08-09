@@ -39,7 +39,6 @@ export const useChatList = (filter: string): IChatItem[] => {
     }
 
     const lastMsgDate = getFirstItem(el.messages)?.createdAt;
-
     const logo = MediaUploader.getChatLogoFromFirebase(el.logo || null);
 
     return {
