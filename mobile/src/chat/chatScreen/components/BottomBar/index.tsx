@@ -12,7 +12,6 @@ import {
 import IconButton from 'common/components/Button/IconButton';
 
 import { useStyles } from './styles';
-import { Image as ImageType } from 'react-native-image-crop-picker';
 import { IconType } from '@/common/types/styles';
 import { useTheme } from 'react-native-stylex';
 
@@ -21,7 +20,7 @@ interface IBottomBarViewProps {
   onClipPress(): void;
   onSendPress(): void;
   message: string | null;
-  media: ImageType[] | null;
+  media: string[] | null;
   onValueChange(message: string): void;
 }
 
@@ -39,10 +38,9 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
   const { palette } = useTheme();
   const imagesToRender = props.media
     ? props.media.map((img) => {
-        const base64Encoded = img.data;
         return {
           style: styles.imageStyle,
-          source: `data:image/png;base64,${base64Encoded}`,
+          source: img,
         };
       })
     : null;

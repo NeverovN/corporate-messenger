@@ -8,6 +8,7 @@ import ChatEntityController from './entity';
 import { UserEntity } from '../../models/User';
 import { UserController } from '../User';
 import { MessageController } from '../Message';
+import { FireBaseController } from '../FireBase';
 
 class ChatModelController {
   private mapChatWithFallback(chat: ChatDocument | null): ChatEntity | null {
@@ -104,6 +105,29 @@ class ChatModelController {
       await ChatModel.findByIdAndRemove(chat._id).exec();
       return newChat;
     }
+
+    await ChatModel.findByIdAndUpdate(newChat._id, newChat).exec();
+    const updatedChat = await ChatModel.findById(newChat._id).exec();
+
+    if (!updatedChat) {
+      throw Error('Network error, chat was not updated');
+    }
+
+    return mapChatDocumentToChatEntity(updatedChat);
+  }
+
+  async updateChatLogo(chatId: ID, logoId: ID | null): Promise<ChatEntity> {
+    const chat = await ChatModel.findById(chatId).exec();
+    if (!chat) {
+      throw Error('Chat does not exist');
+    }
+
+    FireBaseController.removeChatLogo(chat.logo);
+
+    const newChat = ChatEntityController.updateChatLogo(
+      mapChatDocumentToChatEntity(chat),
+      logoId,
+    );
 
     await ChatModel.findByIdAndUpdate(newChat._id, newChat).exec();
     const updatedChat = await ChatModel.findById(newChat._id).exec();

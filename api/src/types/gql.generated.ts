@@ -66,7 +66,7 @@ export type CreateDialogInput = {
 
 export type CreateMessageInput = {
   content: MessageContentInput;
-  chatId: Scalars['String'];
+  chatId: Scalars['ID'];
 };
 
 export type CreateUserInput = {
@@ -130,6 +130,8 @@ export type Mutation = {
   markRead: Message;
   removeFriend?: Maybe<User>;
   toggleLike: Post;
+  updateAvatar: User;
+  updateChatLogo: Chat;
 };
 
 
@@ -264,6 +266,16 @@ export type MutationToggleLikeArgs = {
   id: Scalars['ID'];
 };
 
+
+export type MutationUpdateAvatarArgs = {
+  avatarId?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationUpdateChatLogoArgs = {
+  input: UpdateChatLogoInput;
+};
+
 export type Post = {
   __typename?: 'Post';
   id: Scalars['ID'];
@@ -349,6 +361,11 @@ export type SubscriptionMessageEditedArgs = {
 
 export type SubscriptionNewMessageArgs = {
   chatId: Scalars['ID'];
+};
+
+export type UpdateChatLogoInput = {
+  chatId: Scalars['ID'];
+  logoId?: Maybe<Scalars['String']>;
 };
 
 export type UpdateChatTitle = {
@@ -469,6 +486,7 @@ export type ResolversTypes = {
   Post: ResolverTypeWrapper<PostEntity>;
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
+  UpdateChatLogoInput: UpdateChatLogoInput;
   UpdateChatTitle: UpdateChatTitle;
   UpdatePasswordInput: UpdatePasswordInput;
   User: ResolverTypeWrapper<UserEntity>;
@@ -495,6 +513,7 @@ export type ResolversParentTypes = {
   Post: PostEntity;
   Query: {};
   Subscription: {};
+  UpdateChatLogoInput: UpdateChatLogoInput;
   UpdateChatTitle: UpdateChatTitle;
   UpdatePasswordInput: UpdatePasswordInput;
   User: UserEntity;
@@ -577,6 +596,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   markRead?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationMarkReadArgs, 'messageId'>>;
   removeFriend?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFriendArgs, 'friendId'>>;
   toggleLike?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationToggleLikeArgs, 'id'>>;
+  updateAvatar?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateAvatarArgs, never>>;
+  updateChatLogo?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationUpdateChatLogoArgs, 'input'>>;
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {

@@ -15,7 +15,7 @@ const UserIconView: FC<IUserIconViewProps> = (props) => {
         <FastImage
           style={styles.userIconImageStyle}
           source={{ uri: props.avatar }}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={FastImage.resizeMode.stretch}
         />
       ) : (
         <FastImage

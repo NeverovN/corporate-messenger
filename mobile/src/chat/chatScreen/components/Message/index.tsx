@@ -1,8 +1,7 @@
-import React, { FC, memo, useMemo, useState } from 'react';
+import React, { FC, memo, useMemo } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import ContextMenu from 'react-native-context-menu-view';
 import FbGrid from 'react-native-fb-image-grid';
-
 // consts
 import Directions from '../../constants/direction';
 
@@ -11,7 +10,6 @@ import { useStyles } from './styles';
 
 // hooks
 import { useHandleMessageActions } from '../../hooks/useHandleMessageActions';
-import { useGetMessage } from '../../hooks/useGetMessage';
 import { useSetMsgStyle } from '../../hooks/useSetMsgStyle';
 
 // types
@@ -26,16 +24,6 @@ interface IMessageViewProps extends IMessageItem {
 const MessageView: FC<IMessageViewProps> = (props) => {
   const styles = useStyles();
   const actionHandler = useHandleMessageActions();
-  const message = useGetMessage(props.id);
-  const [imgBase64, setImgBase64] = useState<string[]>([]);
-
-  props.content.media?.then((res) => {
-    setImgBase64(res);
-  });
-
-  const images = props.content.media ? (
-    <FbGrid images={imgBase64} style={styles.mediaStyle} />
-  ) : null;
 
   const lastEditText = useMemo(
     () =>
@@ -45,7 +33,6 @@ const MessageView: FC<IMessageViewProps> = (props) => {
     [props.lastEdit, styles.textStyle],
   );
 
-  // works incorrect
   const isReadIndicator = useMemo(
     () => (!props.isRead ? <Text style={styles.textStyle}>unread</Text> : null),
     [props.isRead, styles.textStyle],
@@ -59,7 +46,7 @@ const MessageView: FC<IMessageViewProps> = (props) => {
         title={'Message Actions'}
         actions={actions}
         onPress={(e) =>
-          actionHandler(e.nativeEvent.name, message, props.setEditMessage)
+          actionHandler(e.nativeEvent.name, props, props.setEditMessage)
         }>
         <TouchableOpacity
           style={{ ...msgStyle, ...styles.commonMessageStyle }}
@@ -67,7 +54,11 @@ const MessageView: FC<IMessageViewProps> = (props) => {
           {props.content.text ? (
             <Text style={styles.textStyle}>{props.content.text}</Text>
           ) : null}
-          {images}
+          <FbGrid
+            images={props.content.media}
+            onPress={() => null}
+            style={styles.mediaStyle}
+          />
           <Text style={styles.textStyle}>{props.createdAt}</Text>
         </TouchableOpacity>
       </ContextMenu>

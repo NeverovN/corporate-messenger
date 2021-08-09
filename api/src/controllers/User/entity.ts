@@ -81,6 +81,10 @@ class UserEntityController {
   toggleTheme(user: UserEntity): UserEntity {
     return { ...user, isLightTheme: !user.isLightTheme };
   }
+
+  updateAvatar(user: UserEntity, avatarId: ID | null): UserEntity {
+    return { ...user, avatar: avatarId };
+  }
 }
 
 const userEntityController = new UserEntityController();

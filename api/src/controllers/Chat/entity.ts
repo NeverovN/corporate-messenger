@@ -21,6 +21,10 @@ class ChatEntityController {
 
     return { ...chat, participants: newParticipants };
   }
+
+  updateChatLogo(chat: ChatEntity, logoId: ID | null) {
+    return { ...chat, logo: logoId };
+  }
 }
 
 const chatEntityController = new ChatEntityController();

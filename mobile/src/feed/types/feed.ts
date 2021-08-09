@@ -4,7 +4,7 @@ export interface IPostItem {
     id: string;
     name: string;
   };
-  avatar: string | null;
+  avatar: Promise<string | null> | string | null;
   createdAt: string;
   textContent: string | null;
   mediaContent: string[] | null;

@@ -6,13 +6,13 @@ import { useRoute } from '@react-navigation/native';
 
 // types
 import { ChatRouteProp } from '@/chat/chatList/types/routes';
-import { Image } from 'react-native-image-crop-picker';
 
 export const useSendPressHandler = (
   message: string | null,
   resetMessage: (msg: string | null) => void,
-  media: string[],
-  resetMedia: (media: Image[] | null) => void,
+  media: string[] | null,
+  resetMediaIds: (mediaIds: string[] | null) => void,
+  resetMedia: (media: string[] | null) => void,
 ) => {
   const { params } = useRoute<ChatRouteProp>();
   const [createMsg] = useCreateMessageMutation({
@@ -41,6 +41,9 @@ export const useSendPressHandler = (
     return () => {};
   }
   return async () => {
+    resetMessage(null);
+    resetMedia(null);
+
     try {
       await createMsg({
         variables: {
@@ -53,12 +56,10 @@ export const useSendPressHandler = (
           },
         },
       });
-
-      resetMessage(null);
-      media = [];
-      resetMedia(null);
     } catch (err) {
       console.log(err);
     }
+
+    resetMediaIds(null);
   };
 };

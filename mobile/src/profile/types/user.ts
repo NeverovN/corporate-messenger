@@ -2,5 +2,5 @@ export interface IUserItem {
   id: string;
   firstName: string;
   lastName: string;
-  avatar: string | null;
+  avatar: Promise<string | null> | string | null;
 }

@@ -35,6 +35,7 @@ type Query {
 }
 
 type Mutation {
+  updateChatLogo(input: UpdateChatLogoInput!): Chat!
   clearChatHistory(chatId: ID!): Chat!
   leaveChat(chatId: ID!): Chat!
   createChat(input: CreateChatInput!): Chat!
@@ -54,9 +55,14 @@ type Subscription {
   messageEdited(chatId: ID!): Message!
 }
 
+input UpdateChatLogoInput {
+  chatId: ID!
+  logoId: String
+}
+
 input CreateMessageInput {
   content: MessageContentInput!
-  chatId: String!
+  chatId: ID!
 }
 
 input MessageContentInput {

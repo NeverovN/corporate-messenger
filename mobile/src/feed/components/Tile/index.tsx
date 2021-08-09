@@ -12,7 +12,9 @@ import ContentView from '../Content';
 import BottomTileBarContainer from 'feed/containers/BottomTileBar';
 import { IPostItem } from '@/feed/types/feed';
 
-export interface ITileViewProps extends IPostItem {}
+export interface ITileViewProps extends IPostItem {
+  avatar: string | null;
+}
 
 const TileView: FC<ITileViewProps> = (props) => {
   const styles = useStyles();

@@ -1,4 +1,5 @@
 import { useGetChatByIdQuery } from '@/common/types/gql.generated';
+import { MediaUploader } from '../utils/MediaUploader';
 
 // utils
 import { getChatTitle } from '@/chat/chatList/utils/getChatTitle';
@@ -8,7 +9,7 @@ export const useGetChatInfo = (
 ): [
   title: string,
   memberCount: number,
-  image: string | null,
+  image: Promise<string | null> | null,
   isDialog: boolean,
 ] => {
   const chat = useGetChatByIdQuery({
@@ -18,13 +19,17 @@ export const useGetChatInfo = (
   const { data } = chat;
 
   if (!data || !data.getChatById) {
-    return ['', 0, '', true];
+    return ['', 0, null, true];
   }
+
+  const logo = MediaUploader.getChatLogoFromFirebase(
+    data.getChatById.logo || null,
+  );
 
   return [
     getChatTitle(chat),
     data.getChatById.participants.length,
-    data.getChatById.logo || null,
+    logo,
     data.getChatById.isDialog,
   ];
 };

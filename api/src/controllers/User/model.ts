@@ -7,6 +7,7 @@ import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 import UserEntityController from './entity';
 import verifyPasswordHash from '../../utils/verifyPasswordHash';
 import { getNewPassword } from '../../utils/getNewPassword';
+import { FireBaseController } from '../FireBase';
 
 class UserModelController {
   private mapUserWithFallback(user: UserDocument | null): UserEntity | null {
@@ -222,6 +223,29 @@ class UserModelController {
     }
 
     return newUser.isLightTheme;
+  }
+
+  async updateAvatar(userId: ID, avatarId: ID | null): Promise<UserEntity> {
+    const user = await UserModel.findById(userId).exec();
+    if (!user) {
+      throw Error('User not found');
+    }
+
+    FireBaseController.removeUserAvatar(user.avatar);
+
+    const newUser = UserEntityController.updateAvatar(
+      mapUserDocumentToUserEntity(user),
+      avatarId,
+    );
+
+    await UserModel.findByIdAndUpdate(newUser._id, newUser);
+    const updatedUser = await UserModel.findById(newUser._id).exec();
+
+    if (!updatedUser) {
+      throw Error('Network error, avatar not updated');
+    }
+
+    return mapUserDocumentToUserEntity(updatedUser);
   }
 }
 

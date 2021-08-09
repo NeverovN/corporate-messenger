@@ -57,6 +57,12 @@ mutation EditTitle($input: UpdateChatTitle!) {
   }
 }
 
+mutation UpdateChatLogo($input: UpdateChatLogoInput!) {
+  updateChatLogo(input: $input) {
+    ...ChatFragment
+  }
+}
+
 mutation ClearHistory($chatId: ID!) {
   clearChatHistory(chatId: $chatId) {
     id

@@ -1,6 +1,6 @@
+import { MediaUploader } from '@/chat/chatScreen/utils/MediaUploader';
 import {
   useGetChatsQuery,
-  useGetUserQuery,
   useNewChatSubscription,
 } from 'common/types/gql.generated';
 
@@ -9,13 +9,11 @@ import { IChatItem } from '../types/chat';
 
 // utils
 import { filterChats } from '../utils/filterChats';
-import { getChatLogo } from '../utils/getChatLogo';
 import { getFirstItem } from '../utils/getFirstItem';
 import { sortChatsByDate } from '../utils/sortChatsByDate';
 
 export const useChatList = (filter: string): IChatItem[] => {
   const { data: chatsQuery } = useGetChatsQuery();
-  const { data: userQuery } = useGetUserQuery();
 
   useNewChatSubscription({
     onSubscriptionData: (subscriptionData) => {
@@ -41,13 +39,14 @@ export const useChatList = (filter: string): IChatItem[] => {
     }
 
     const lastMsgDate = getFirstItem(el.messages)?.createdAt;
-    const logo = getChatLogo(el, userQuery?.getUser || null);
+    const logo = MediaUploader.getChatLogoFromFirebase(el.logo || null);
+
     return {
       title: el.title,
       participants: el.participants,
       id: el.id,
-      logo,
       lastMsg: { date: lastMsgDate || el.createdAt },
+      logo,
       unreadCount:
         el.messages?.reduce((acc, msg) => {
           return msg?.readBy.find((user) => user.id === chatsQuery.getUser.id)
