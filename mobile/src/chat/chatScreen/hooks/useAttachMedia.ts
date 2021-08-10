@@ -17,6 +17,7 @@ export const useClipPressHandler = (
       const resultingIds = MediaUploader.uploadManyMessageMedia(
         normalizedImages,
       );
+      MediaUploader.uploadManyToStorage(normalizedImages);
       setFirstIDS(resultingIds);
       setResponse(makeBase64URI(normalizedImages));
     } catch (err) {

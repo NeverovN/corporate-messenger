@@ -2,6 +2,8 @@ import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 
+import storage from '@react-native-firebase/storage';
+
 // utils
 import { createRandomString } from './createRandomString';
 
@@ -13,15 +15,17 @@ export class MediaUploader {
     users: 'userAvatars',
   };
 
-  // static uploadManyToStorage(data: { path: string; name: string }[]) {
-  //   data.forEach(async (el) => {
-  //     const reference = storage().ref(el.path);
-  //     const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/${el.name}`;
-  //     console.log(pathToFile);
+  static async uploadManyToStorage(data: string[]) {
+    const urlPromises = data.map(async (el) => {
+      const reference = storage().ref(Math.random().toString());
 
-  //     await reference.putFile(pathToFile);
-  //   });
-  // }
+      await reference.putString(el, 'base64');
+      return await reference.getDownloadURL();
+    });
+
+    const res = await Promise.all(urlPromises);
+    console.log(res);
+  }
 
   static uploadManyMessageMedia(base64: (string | null)[]) {
     return MediaUploader.uploadManyToFirestore(base64, 'imagesFromChat');
