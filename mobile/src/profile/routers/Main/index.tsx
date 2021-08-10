@@ -38,17 +38,6 @@ interface IProfileRouterProps {}
 
 const ProfileRouter: FC<IProfileRouterProps> = () => {
   const styles = useStyles();
-  const navigation = useNavigation<MainBottomTabNavigationProp>();
-  navigation.addListener('tabPress', (e) => {
-    e.preventDefault();
-
-    navigation.dispatch(
-      StackActions.replace('BottomTab', {
-        screen: 'ProfileStack',
-        params: { screen: 'Profile' },
-      }),
-    );
-  });
 
   return (
     <Screens.Navigator initialRouteName={PROFILE_SCREEN_NAME}>
