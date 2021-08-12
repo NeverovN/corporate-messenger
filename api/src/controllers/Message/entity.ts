@@ -1,10 +1,22 @@
 import { ID } from '../../types/common';
 import { CreateMessageInput } from '../../types/gql.generated';
 import { MessageEntity } from '../../models/Message';
+import { FireBaseController } from '../FireBase';
 
 class MessageEntityController {
-  createMessageEntity(author: ID, content: CreateMessageInput): MessageEntity {
-    const newMessage = new MessageEntity(author, content);
+  async createMessageEntity(
+    author: ID,
+    content: CreateMessageInput,
+  ): Promise<MessageEntity> {
+    const media = await FireBaseController.addItems(
+      content.content.media || null,
+    );
+    const newMessage = new MessageEntity(
+      author,
+      content.chatId,
+      content.content.text,
+      media,
+    );
 
     return newMessage;
   }

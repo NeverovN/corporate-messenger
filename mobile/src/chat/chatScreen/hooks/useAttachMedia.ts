@@ -13,12 +13,14 @@ export const useClipPressHandler = (
         multiple: true,
         includeBase64: true,
       });
-      const normalizedImages = images.map((image) => image.data || null);
-      const resultingIds = MediaUploader.uploadManyMessageMedia(
-        normalizedImages,
-      );
-      MediaUploader.uploadManyToStorage(normalizedImages);
-      setFirstIDS(resultingIds);
+      const normalizedImages = images.map((image) => {
+        return image.data || null;
+      });
+      // const resultingIds = MediaUploader.uploadManyMessageMedia(
+      //   normalizedImages,
+      // );
+      const test = await MediaUploader.uploadManyToStorage(normalizedImages);
+      setFirstIDS(test);
       setResponse(makeBase64URI(normalizedImages));
     } catch (err) {
       console.log(err);

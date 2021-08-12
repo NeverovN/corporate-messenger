@@ -8,6 +8,22 @@ export class FireBaseController {
     userAvatars: 'userAvatars',
   };
 
+  static addItems(base64Strings: string[] | null): null | Promise<any[]> {
+    if (!base64Strings) {
+      return null;
+    }
+    if (!base64Strings.length) {
+      return null;
+    }
+    const storage = firebase.storage().ref();
+    const urls = base64Strings.map(async (base64, index) => {
+      await storage.child(index.toString()).putString(base64, 'base64');
+      return await storage.child(index.toString()).getDownloadURL();
+    });
+
+    return Promise.all(urls);
+  }
+
   static removeItems(ids: string[]): void {
     ids.forEach(async (imageId) => {
       try {

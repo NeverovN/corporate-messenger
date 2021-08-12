@@ -18,13 +18,15 @@ export class MediaUploader {
   static async uploadManyToStorage(data: string[]) {
     const urlPromises = data.map(async (el) => {
       const reference = storage().ref(Math.random().toString());
-
-      await reference.putString(el, 'base64');
+      try {
+        await reference.putString(el, 'base64');
+      } catch (error) {
+        console.error(error);
+      }
       return await reference.getDownloadURL();
     });
 
-    const res = await Promise.all(urlPromises);
-    console.log(res);
+    return await Promise.all(urlPromises);
   }
 
   static uploadManyMessageMedia(base64: (string | null)[]) {
