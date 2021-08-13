@@ -4,8 +4,6 @@ import {
 } from '@/common/types/gql.generated';
 import { useRoute } from '@react-navigation/native';
 
-// import '@react-native-firebase/storage';
-
 // types
 import { ChatRouteProp } from '@/chat/chatList/types/routes';
 
@@ -45,9 +43,6 @@ export const useSendPressHandler = (
   return async () => {
     resetMessage(null);
     resetMedia(null);
-
-    console.log(message);
-    console.log(media);
 
     try {
       await createMsg({
