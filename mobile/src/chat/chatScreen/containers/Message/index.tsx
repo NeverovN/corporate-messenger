@@ -32,7 +32,10 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
     <MessageView
       onPress={onPress}
       setEditMessage={props.setMessageEdit}
-      content={{ ...props.content, media: props.content.media }}
+      content={{
+        ...props.content,
+        media: props.content.media,
+      }}
       direction={direction}
       author={props.author}
       createdAt={createdAt}
