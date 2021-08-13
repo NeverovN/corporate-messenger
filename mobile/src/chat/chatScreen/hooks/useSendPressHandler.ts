@@ -4,7 +4,7 @@ import {
 } from '@/common/types/gql.generated';
 import { useRoute } from '@react-navigation/native';
 
-import '@react-native-firebase/storage';
+// import '@react-native-firebase/storage';
 
 // types
 import { ChatRouteProp } from '@/chat/chatList/types/routes';

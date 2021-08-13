@@ -11,24 +11,16 @@ import { useMessageEditedSubscription } from '@/common/types/gql.generated';
 // consts
 import ACTIONS from 'chat/chatList/constants/actions';
 
-// utils
-import { resolveImagePromise } from '../../../../common/utils/resolveLogoPromise';
-
 interface IChatItemContainerProps {
   chatId: string;
   unreadCount: number;
-  logo: string | Promise<string | null> | null;
+  logo: string | null;
 }
 
 const ChatItemContainer: FC<IChatItemContainerProps> = (props) => {
-  const [logo, setLogo] = useState<string | null>(null);
   const redirect = useOnChatPressed(props.chatId);
   useMessageEditedSubscription({ variables: { chatId: props.chatId } });
   const actionHandler = useHandleChatActions();
-
-  useEffect(() => {
-    resolveImagePromise(props.logo, setLogo);
-  }, [props.logo]);
 
   return (
     <ContextMenu
@@ -39,7 +31,7 @@ const ChatItemContainer: FC<IChatItemContainerProps> = (props) => {
       ]}
       onPress={(e) => actionHandler(e.nativeEvent.name, props.chatId)}>
       <ChatItemView
-        logo={logo}
+        logo={props.logo}
         onPress={redirect}
         chatId={props.chatId}
         count={props.unreadCount}

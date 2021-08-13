@@ -1,4 +1,3 @@
-import { MediaUploader } from '@/chat/chatScreen/utils/MediaUploader';
 import { useGetFeedQuery } from '@/common/types/gql.generated';
 import { getMedia } from '@/profile/utils/getMedia';
 import { getUsername } from '@/profile/utils/getUsername';
@@ -20,9 +19,6 @@ export const useFeedList = (filter: string): IPostItem[] => {
         el?.author.lastName || '',
       );
       const media = getMedia(el?.mediaContent);
-      const avatar = MediaUploader.getUserAvatarFromFirebase(
-        el?.author.avatar || null,
-      );
 
       return {
         id: el?.id || '',
@@ -30,7 +26,7 @@ export const useFeedList = (filter: string): IPostItem[] => {
           id: el?.author.id || '',
           name: username,
         },
-        avatar,
+        avatar: el?.author.avatar || null,
         createdAt: el?.createdAt || '',
         textContent: el?.textContent || null,
         mediaContent: media,

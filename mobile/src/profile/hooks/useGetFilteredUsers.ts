@@ -1,4 +1,3 @@
-import { MediaUploader } from '@/chat/chatScreen/utils/MediaUploader';
 import {
   useGetUserQuery,
   useGetUsersQuery,
@@ -33,13 +32,11 @@ export const useGetFilteredUsers = (filter: string) => {
       return;
     }
 
-    const avatar = MediaUploader.getUserAvatarFromFirebase(el.avatar || null);
-
     return {
       id: el.id,
       firstName: el.firstName,
       lastName: el.lastName,
-      avatar,
+      avatar: el.avatar || null,
     };
   });
 

@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo } from 'react';
 
 // components
 import MessageView from 'chat/chatScreen/components/Message';
@@ -9,7 +9,6 @@ import { useDirection } from 'chat/chatScreen/hooks/useDirection';
 
 // utils
 import { parseDate } from '../../utils/parseDate';
-import { resolveMediaPromise } from '../../utils/resolveMediaPromise';
 
 // types
 import { IMessageItem } from '../../types/message';
@@ -24,15 +23,6 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
   const onPress = useOnMessagePressed(props.id);
   const createdAt = parseDate(props.createdAt);
   const lastEdit = parseDate(props.lastEdit);
-  const [imgBase64, setImgBase64] = useState<string[]>(
-    Array(props.content.mediaCount).fill('default'),
-  );
-
-  useEffect(() => {
-    if (props.content.media && props.content.media) {
-      resolveMediaPromise(props.content.media, setImgBase64);
-    }
-  }, [props.content.media]);
 
   if (!createdAt) {
     throw Error('msg loading error');
@@ -42,7 +32,7 @@ const MessageContainer: FC<IMessageContainerProps> = (props) => {
     <MessageView
       onPress={onPress}
       setEditMessage={props.setMessageEdit}
-      content={{ ...props.content, media: imgBase64 }}
+      content={{ ...props.content, media: props.content.media }}
       direction={direction}
       author={props.author}
       createdAt={createdAt}

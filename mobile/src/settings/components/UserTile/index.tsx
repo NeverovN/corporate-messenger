@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Text } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import { useStyles } from './styles';
 
@@ -14,14 +15,14 @@ const UserTileView: FC<IUserTileViewProps> = (props) => {
   return (
     <View style={styles.userTileStyle}>
       {props.avatar ? (
-        <Image
+        <FastImage
           style={styles.userImageImageStyle}
           source={{
             uri: props.avatar,
           }}
         />
       ) : (
-        <Image
+        <FastImage
           style={styles.userImageImageStyle}
           source={require('common/assets/images/defaultAvatar.png')}
         />

@@ -1,12 +1,6 @@
 import React, { FC, memo } from 'react';
-import {
-  View,
-  TextInput,
-  Image,
-  FlatList,
-  ListRenderItem,
-  ImageStyle,
-} from 'react-native';
+import { View, TextInput, FlatList, ListRenderItem } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 // common components
 import IconButton from 'common/components/Button/IconButton';
@@ -24,11 +18,13 @@ interface IBottomBarViewProps {
   onValueChange(message: string): void;
 }
 
-const renderImage: ListRenderItem<{ style: ImageStyle; source: string }> = ({
-  item,
-  index,
-}) => {
-  return <Image key={index} style={item.style} source={{ uri: item.source }} />;
+const renderImage: ListRenderItem<{
+  style: any;
+  source: string;
+}> = ({ item, index }) => {
+  return (
+    <FastImage key={index} style={item.style} source={{ uri: item.source }} />
+  );
 };
 
 const keyExtractor = () => Math.random().toString();
