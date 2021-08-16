@@ -24,6 +24,7 @@ import MainRouter from '../Main';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
 import { darkTheme, lightTheme } from '@/common/constants/colors';
+import { getTheme } from '@/app/utils/getTheme';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -36,7 +37,7 @@ const RootStackRouter = () => {
     themeName === 'light'
       ? setBarStyle('dark-content')
       : setBarStyle('light-content');
-    return themeName === 'light' ? lightTheme : darkTheme;
+    return getTheme(themeName);
   }, [themeName]);
   const theme: DefaultTheme = { palette };
   return (
