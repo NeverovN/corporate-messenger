@@ -1,14 +1,22 @@
-import { RootState } from '@/common/redux/store';
 import React, { FC, memo, useState } from 'react';
-import { Switch } from 'react-native';
+import { Switch, View, Text } from 'react-native';
 import { useTheme } from 'react-native-stylex';
 import { useDispatch, useSelector } from 'react-redux';
+
+// redux
 import { set } from 'common/redux/reducers/currentTheme';
+import { RootState } from '@/common/redux/store';
+
+// hooks
 import { useSetTheme } from '@/settings/hooks/useSetTheme';
+
+// styles
+import { useStyles } from './styles';
 
 interface ISwitchThemeContainerProps {}
 
 const SwitchThemeContainer: FC<ISwitchThemeContainerProps> = () => {
+  const styles = useStyles();
   const { palette } = useTheme();
   const setTheme = useSetTheme();
   const dispatch = useDispatch();
@@ -27,15 +35,19 @@ const SwitchThemeContainer: FC<ISwitchThemeContainerProps> = () => {
     setIsEnabled((prev) => !prev);
   };
   return (
-    <Switch
-      trackColor={{ false: palette.black, true: palette.secondaryInactive }}
-      thumbColor={
-        isEnabled ? palette.secondaryInactive : palette.secondaryInactive
-      }
-      onValueChange={toggleSwitcher}
-      value={isEnabled}
-      ios_backgroundColor={palette.tint}
-    />
+    <View style={styles.wrapperStyle}>
+      <Text style={styles.textStyle}>CUSTOM</Text>
+      <Switch
+        trackColor={{ false: palette.black, true: palette.secondaryInactive }}
+        thumbColor={
+          isEnabled ? palette.secondaryInactive : palette.secondaryInactive
+        }
+        onValueChange={toggleSwitcher}
+        value={isEnabled}
+        ios_backgroundColor={palette.tint}
+      />
+      <Text style={styles.textStyle}>NATIVE</Text>
+    </View>
   );
 };
 
