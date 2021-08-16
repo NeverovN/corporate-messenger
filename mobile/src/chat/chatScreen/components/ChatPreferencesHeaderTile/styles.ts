@@ -79,6 +79,7 @@ export const useStyles = makeUseStyles(({ palette }) => {
     },
     manageButtonsViewStyle: {
       flexDirection: 'row',
+      marginTop: 40,
       height: 40,
     },
     textButtonContainerStyle: {

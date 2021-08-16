@@ -60,7 +60,7 @@ const ChatPreferencesHeaderTile: FC<IChatPreferencesHeaderTileViewProps> = (
               </View>
             </>
           )}
-          <IconWithTextButton
+          {/* <IconWithTextButton
             icon="clip"
             label="ATTACHMENTS"
             labelStyle={styles.changePhotoLabelStyle}
@@ -69,7 +69,7 @@ const ChatPreferencesHeaderTile: FC<IChatPreferencesHeaderTileViewProps> = (
               ...styles.containerStyle,
             }}
             iconStyle={styles.iconStyle}
-          />
+          /> */}
           <View style={styles.manageButtonsViewStyle}>
             <TextButton
               label="LEAVE"

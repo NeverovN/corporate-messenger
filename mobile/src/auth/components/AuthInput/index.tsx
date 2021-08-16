@@ -1,10 +1,12 @@
 import React, { memo } from 'react';
 import { View, TextInput } from 'react-native';
 
-import { lightTheme } from 'common/constants/colors';
+import { lightTheme, darkTheme } from 'common/constants/colors';
 
 // styles
 import { useStyles } from './styles';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/common/redux/store';
 
 interface IAuthInput {
   placeholder: string;
@@ -16,7 +18,9 @@ interface IAuthInput {
 
 const AuthInput: React.FC<IAuthInput> = (props) => {
   const styles = useStyles();
-  // const { palette } = useTheme();
+  const themeName = useSelector((state: RootState) => state.currentTheme.theme);
+  const theme = themeName === 'light' ? lightTheme : darkTheme;
+
   return (
     <View style={styles.viewStyle}>
       <TextInput
@@ -27,7 +31,7 @@ const AuthInput: React.FC<IAuthInput> = (props) => {
         autoCapitalize="none"
         autoCorrect={false}
         placeholder={props.placeholder}
-        placeholderTextColor={lightTheme.secondary}
+        placeholderTextColor={theme.secondary}
         secureTextEntry={props.secure || false}
         textAlign="center"
       />

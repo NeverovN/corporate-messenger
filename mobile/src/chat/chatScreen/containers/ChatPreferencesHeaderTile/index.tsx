@@ -46,7 +46,7 @@ const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainer
       />
     );
     navigation.setOptions({ headerLeft });
-  }, [navigation, edit]);
+  }, [navigation, edit, styles.iconStyle]);
 
   useEffect(() => {
     resolveImagePromise(image, setLogo);

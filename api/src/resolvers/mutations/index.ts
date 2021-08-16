@@ -152,6 +152,7 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
     }
 
     return PostController.editPost(
+      currentUserId,
       args.postId,
       args.textContent,
       args.mediaContent,
@@ -296,9 +297,13 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
       throw Error(`${error}`);
     }
   },
-  async editMessage(_, args) {
+  async editMessage(_, args, { currentUserId }) {
+    if (!currentUserId) {
+      throw Error('Unauthorized');
+    }
     try {
       const editedMessage = await MessageController.editMessage(
+        currentUserId,
         args.messageId,
         args.newContent,
       );

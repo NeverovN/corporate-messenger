@@ -25,12 +25,12 @@ const AccountSettingsButtonContainer: FC<IAccountSettingsButtonContainerProps> =
         label="USER SETTINGS"
         labelStyle={styles.textStyle}
       />
-      <TextButton
+      {/* <TextButton
         containerStyle={styles.accountSettingsButtonStyles}
         onPress={toggleTheme}
         label="BANLIST"
         labelStyle={styles.textStyle}
-      />
+      /> */}
       <TextButton
         containerStyle={styles.accountSettingsButtonStyles}
         onPress={toggleTheme}
