@@ -37,12 +37,17 @@ export class MessageEntity {
   @prop()
   media: string[] | null;
 
-  constructor(author: ID, content: CreateMessageInput) {
+  constructor(
+    author: ID,
+    chatId: string,
+    text: string | null,
+    media: string[] | null,
+  ) {
     this.author = author;
     this.readBy = [];
-    this.chatId = content.chatId;
-    this.text = content.content.text || null;
-    this.media = content.content.media || null;
+    this.chatId = chatId;
+    this.text = text;
+    this.media = media;
     this.createdAt = new Date().toString();
   }
 }

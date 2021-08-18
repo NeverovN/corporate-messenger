@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import BottomBarView from 'chat/chatScreen/components/BottomBar';
 
 // hooks
-import { useClipPressHandler } from 'chat/chatScreen/hooks/useAttachMedia';
+import { useAttachMedia } from 'chat/chatScreen/hooks/useAttachMedia';
 import { useEmojiPressHandler } from 'chat/chatScreen/hooks/useEmojiPressHandler';
 import { useSendPressHandler } from 'chat/chatScreen/hooks/useSendPressHandler';
 import { useEditMessage } from 'chat/chatScreen/hooks/useEditMessage';
@@ -38,7 +38,7 @@ const BottomBarContainer: FC<IBottomBarContainerProps> = ({
   const [media, setMedia] = useState<string[] | null>(null);
   const [mediaIDS, setMediaIDS] = useState<string[] | null>([]);
   // onPress
-  const onClipPress = useClipPressHandler(setMedia, setMediaIDS);
+  const onClipPress = useAttachMedia(setMedia, setMediaIDS);
   const onEmojiPress = useEmojiPressHandler();
   const onSendPress = useSendPressHandler(
     message,

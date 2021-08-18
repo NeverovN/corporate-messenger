@@ -3,8 +3,16 @@ import { CreateMessageInput } from '../../types/gql.generated';
 import { MessageEntity } from '../../models/Message';
 
 class MessageEntityController {
-  createMessageEntity(author: ID, content: CreateMessageInput): MessageEntity {
-    const newMessage = new MessageEntity(author, content);
+  async createMessageEntity(
+    author: ID,
+    content: CreateMessageInput,
+  ): Promise<MessageEntity> {
+    const newMessage = new MessageEntity(
+      author,
+      content.chatId,
+      content.content.text,
+      content.content.media || null,
+    );
 
     return newMessage;
   }

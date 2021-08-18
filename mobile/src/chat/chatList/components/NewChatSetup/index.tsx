@@ -1,12 +1,5 @@
 import React, { FC, memo } from 'react';
-import {
-  View,
-  SafeAreaView,
-  FlatList,
-  ListRenderItem,
-  Image,
-  Text,
-} from 'react-native';
+import { SafeAreaView, FlatList, ListRenderItem } from 'react-native';
 
 // containers
 import NewChatSetupHeaderTile from '../../containers/NewChatSetupHeaderTile';
