@@ -16,7 +16,10 @@ const ThemeSwitcherButtonContainer: FC<IThemeSwitcherButtonContainerProps> = () 
   const themeName = useSelector((state: RootState) => state.currentTheme.theme);
   const onThemeButtonPress =
     themeName !== 'native'
-      ? () => {
+      ? (theme: string) => {
+          if (theme === themeName) {
+            return;
+          }
           if (themeName === 'light') {
             setTheme('dark');
           }

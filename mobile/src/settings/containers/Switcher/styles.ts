@@ -5,6 +5,7 @@ export const useStyles = makeUseStyles(({ palette }) => {
     wrapperStyle: {
       flexDirection: 'row',
       alignItems: 'center',
+      marginTop: 10,
     },
     textStyle: {
       marginHorizontal: 10,
