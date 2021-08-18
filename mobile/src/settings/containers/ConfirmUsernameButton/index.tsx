@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useRef, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 
 // common components
 import TextButton from '@/common/components/Button/TextButton';
@@ -78,6 +78,8 @@ const ConfirmUsernameButton: FC<IButtonProps> = ({
     edit,
     initialFirstName,
     initialLastName,
+    newFirstName,
+    newLastName,
     normalizedFName,
     normalizedLName,
   ]);

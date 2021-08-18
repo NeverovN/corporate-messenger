@@ -21,39 +21,42 @@ const ConfirmPasswordButton: FC<IButtonProps> = ({
   edit,
 }) => {
   const styles = useStyles();
-  const [isChanged, setIsChanged] = useState<boolean>(false);
+  const [onPress, setOnPress] = useState<() => void>(() => {});
+  const normalizedPassword = newPassword.replace(/\s+/g, ' ').trim();
 
   useEffect(() => {
-    if (oldPassword === '' || newPassword === '' || newPasswordRep === '') {
-      setIsChanged(false);
+    if (normalizedPassword !== newPassword) {
+      setOnPress(() => () =>
+        Toast.show({
+          type: 'error',
+          text1: 'Invalid password',
+          text2: "Please, don't use anu spaces in your password",
+          topOffset: 50,
+        }),
+      );
+    } else if (
+      oldPassword === '' ||
+      newPassword === '' ||
+      newPasswordRep === ''
+    ) {
+      setOnPress(() => () =>
+        Toast.show({
+          type: 'error',
+          text1: 'Please, fill all fields',
+          topOffset: 50,
+        }),
+      );
     } else {
-      setIsChanged(true);
+      setOnPress(() => edit);
     }
-  }, [oldPassword, newPassword, newPasswordRep]);
-
-  if (isChanged) {
-    return (
-      <TextButton
-        label="CONFIRM"
-        containerStyle={styles.activeContainerStyle}
-        onPress={edit}
-        labelStyle={styles.labelStyle}
-      />
-    );
-  }
+  }, [oldPassword, newPassword, newPasswordRep, normalizedPassword, edit]);
 
   return (
     <TextButton
       label="CONFIRM"
       containerStyle={styles.inactiveContainerStyle}
       labelStyle={styles.labelStyle}
-      onPress={() =>
-        Toast.show({
-          type: 'error',
-          text1: 'Please, fill all fields',
-          topOffset: 50,
-        })
-      }
+      onPress={onPress}
     />
   );
 };
