@@ -6,6 +6,7 @@ import { ApolloContextType } from '../types/apollo';
 import express from 'express';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
+import bodyParser from 'body-parser';
 
 import { userRouter } from '../rest/router';
 
@@ -35,6 +36,9 @@ export function initServer(port: number): void {
   const app = express();
 
   app.use(express.json());
+
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   app.use('/user', userRouter);
 

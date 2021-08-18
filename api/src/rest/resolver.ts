@@ -3,7 +3,7 @@ import getUserIdByToken from '../utils/getUserIdByToken';
 
 export const userResolver = {
   getUserTheme: async (req: any, res: any): Promise<void> => {
-    const id = getUserIdByToken(req.params.token);
+    const id = getUserIdByToken(req.headers.authorization);
     if (!id) {
       throw new Error('Unauthorized');
     }
@@ -13,20 +13,22 @@ export const userResolver = {
     res.status(200).json(theme);
   },
 
-  toggleTheme: async (req: any, res: any): Promise<void> => {
-    const id = getUserIdByToken(req.params.token);
+  setTheme: async (req: any, res: any): Promise<void> => {
+    const id = getUserIdByToken(req.headers.authorization);
+    console.log(req.body);
+
     if (!id) {
       throw new Error('Unauthorized');
     }
     const themeName =
-      req.params.name === 'light' ||
-      req.params.name === 'dark' ||
-      req.params.name === 'native'
-        ? req.params.name
+      req.body.name === 'light' ||
+      req.body.name === 'dark' ||
+      req.body.name === 'native'
+        ? req.body.name
         : 'native';
     try {
       const theme = await UserController.setTheme(id, themeName);
-      res.status(200).json({ theme: theme ? 'light' : 'dark' });
+      res.status(200).json({ theme });
     } catch (error) {
       res.status(404).json({ message: 'theme not updated' });
     }

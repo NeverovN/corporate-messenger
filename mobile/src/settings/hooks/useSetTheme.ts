@@ -13,20 +13,26 @@ export const useSetTheme = () => {
   );
   const dispatch = useDispatch();
 
-  const path = `${BASE_HTTP}/user/${tokenVar()}/theme`;
+  const path = `${BASE_HTTP}/user/theme`;
 
   return async (themeName: 'light' | 'dark' | 'native') => {
     if (currentTheme === themeName) {
       return;
     }
 
+    const body = JSON.stringify({ name: themeName });
+
     try {
-      const resp = await fetch(`${path}/${themeName}`, {
+      const resp = await fetch(path, {
         method: 'PATCH',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: tokenVar(),
+        },
       });
 
       dispatch(set(themeName));
-
       const newTheme = await resp.json();
       theme(newTheme.theme);
 
@@ -36,7 +42,9 @@ export const useSetTheme = () => {
         },
       });
     } catch (error) {
-      Alert.alert('Error', `${error}`);
+      console.error(error);
+
+      Alert.alert('ErrorHere', `${error}`);
     }
   };
 };

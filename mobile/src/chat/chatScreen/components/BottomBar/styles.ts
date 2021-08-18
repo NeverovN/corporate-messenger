@@ -7,7 +7,7 @@ export const useStyles = makeUseStyles(({ palette }) => {
       alignItems: 'center',
     },
     textInputWrapperStyle: {
-      marginRight: 15,
+      marginHorizontal: 15,
       flex: 1,
       borderColor: palette.secondary,
       borderRadius: 20,

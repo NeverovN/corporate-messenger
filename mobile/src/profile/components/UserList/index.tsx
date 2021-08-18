@@ -27,8 +27,6 @@ const UserListView: FC<IUserListViewProps> = ({
   const styles = useStyles();
   const isSomeUsers = !!data;
 
-  console.log(refreshing);
-
   if (isSomeUsers) {
     return (
       <View style={styles.existingUsersStyle}>
