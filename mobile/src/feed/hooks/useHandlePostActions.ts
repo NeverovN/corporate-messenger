@@ -50,6 +50,14 @@ export const useHandlePostActions = () => {
           text: post.textContent,
           media: post.mediaContent,
         });
+        break;
+      }
+      case ACTIONS.COMPLAIN_POST: {
+        Alert.alert(
+          'Done',
+          "Post successfully complained for whatever reason\nNo, it's not complained, sorry, we don't have such logic yet",
+        );
+        break;
       }
     }
   };

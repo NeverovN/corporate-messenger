@@ -71,11 +71,18 @@ class MessageModelController {
     }
   }
 
-  async editMessage(messageId: ID, newContent: string): Promise<MessageEntity> {
+  async editMessage(
+    currentUserId: ID,
+    messageId: ID,
+    newContent: string,
+  ): Promise<MessageEntity> {
     const message = await MessageModel.findById(messageId).exec();
 
     if (!message) {
       throw Error('message not found');
+    }
+    if (message.author !== currentUserId) {
+      throw Error('Permission denied');
     }
 
     const msg = MessageEntityController.editMessage(
