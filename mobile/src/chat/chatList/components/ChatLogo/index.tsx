@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { Image } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import { useStyles } from './styles';
 
@@ -12,9 +12,9 @@ const ChatLogoView: FC<IChatLogoViewProps> = (props) => {
   return (
     <>
       {props.logo ? (
-        <Image style={styles.chatLogoStyle} source={{ uri: props.logo }} />
+        <FastImage style={styles.chatLogoStyle} source={{ uri: props.logo }} />
       ) : (
-        <Image
+        <FastImage
           style={styles.chatLogoStyle}
           source={require('common/assets/images/defaultAvatar.png')}
         />

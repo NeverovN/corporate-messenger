@@ -1,4 +1,3 @@
-import { MediaUploader } from '@/chat/chatScreen/utils/MediaUploader';
 import { useGetUserQuery } from '@/common/types/gql.generated';
 
 export const useGetAvatar = (id?: string) => {
@@ -7,7 +6,6 @@ export const useGetAvatar = (id?: string) => {
     return null;
   }
 
-  const avatarId = data.getUser.avatar;
-  const avatar = MediaUploader.getUserAvatarFromFirebase(avatarId || null);
-  return avatar;
+  const avatar = data.getUser.avatar;
+  return avatar ? avatar : null;
 };

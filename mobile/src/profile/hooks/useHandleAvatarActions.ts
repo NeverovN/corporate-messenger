@@ -17,9 +17,9 @@ export const useHandleAvatarActions = () => {
         });
 
         const imageBase64 = image.data || null;
-        const avatarId = MediaUploader.uploadUserAvatar(imageBase64);
+        const avatarURL = await MediaUploader.uploadOneToStorage(imageBase64);
         try {
-          updateAvatar({ variables: { avatarId: avatarId } });
+          updateAvatar({ variables: { avatarId: avatarURL } });
         } catch (error) {
           Alert.alert('Error', `${error}`);
         }

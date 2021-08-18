@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 // styles
 import { useStyles } from './styles';
@@ -17,9 +18,9 @@ const ChatTitleView: FC<IChatTitleViewProps> = (props) => {
   return (
     <TouchableOpacity style={styles.headerStyle} onPress={props.onPress}>
       {props.image ? (
-        <Image style={styles.imageStyle} source={{ uri: props.image }} />
+        <FastImage style={styles.imageStyle} source={{ uri: props.image }} />
       ) : (
-        <Image
+        <FastImage
           style={styles.imageStyle}
           source={require('common/assets/images/defaultAvatar.png')}
         />

@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import firebase from 'firebase';
+import 'firebase/storage';
 const firebaseConfig = {
   apiKey: 'AIzaSyBg-n1s_j4quwsdNQx87kHlHMDVKC0y-Ig',
   authDomain: 'corporate-messenger-d38d6.firebaseapp.com',

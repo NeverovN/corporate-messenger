@@ -1,4 +1,3 @@
-import { MediaUploader } from '@/chat/chatScreen/utils/MediaUploader';
 import { useGetUserQuery } from '@/common/types/gql.generated';
 
 // utils
@@ -16,13 +15,11 @@ export const useGetFilteredFriends = (filter: string) => {
       return;
     }
 
-    const avatar = MediaUploader.getUserAvatarFromFirebase(el.avatar || null);
-
     return {
       id: el.id,
       firstName: el.firstName,
       lastName: el.lastName,
-      avatar,
+      avatar: el.avatar || null,
     };
   });
 
