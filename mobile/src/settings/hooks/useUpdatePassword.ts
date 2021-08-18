@@ -16,6 +16,17 @@ export const useUpdatePassword = (
 ) => {
   const [editPassword] = useEditPasswordMutation();
 
+  if (newPassword.replace(/\s+/g, '').trim() !== newPassword) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid password',
+        text2: "Please, don't use any spaces in password",
+        topOffset: 50,
+      });
+    };
+  }
+
   if (!validatePassword(newPassword)) {
     return () => {
       Toast.show({

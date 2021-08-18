@@ -25,6 +25,8 @@ export const useFinishRegistration = (fName: string, lName: string) => {
   const navigation = useNavigation<MainScreenNavigationProp>();
   const { params } = useRoute<UserDataRouteProp>();
   const [addUser] = useCreateUserMutation();
+  const normalizedFName = fName.replace(/\s+/g, ' ').trim();
+  const normalizedLName = lName.replace(/\s+/g, ' ').trim();
 
   if (!fName && !lName) {
     return () => {
@@ -56,6 +58,28 @@ export const useFinishRegistration = (fName: string, lName: string) => {
     };
   }
 
+  if (!normalizedFName) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid name',
+        text2: "Please, don't use spaces as your name",
+        topOffset: 50,
+      });
+    };
+  }
+
+  if (!normalizedLName) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid name',
+        text2: "Please, don't use spaces as your surname",
+        topOffset: 50,
+      });
+    };
+  }
+
   const handleFinish = async () => {
     try {
       const { data } = await addUser({
@@ -63,8 +87,8 @@ export const useFinishRegistration = (fName: string, lName: string) => {
           input: {
             email: params.email,
             password: params.password,
-            firstName: fName,
-            lastName: lName,
+            firstName: normalizedFName,
+            lastName: normalizedLName,
           },
         },
       });

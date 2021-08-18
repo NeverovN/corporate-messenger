@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useRef, useState } from 'react';
 
 // common components
 import TextButton from '@/common/components/Button/TextButton';
@@ -21,78 +21,72 @@ const ConfirmUsernameButton: FC<IButtonProps> = ({
   const styles = useStyles();
   const [initialFirstName, initialLastName] = initialNames;
   const [newFirstName, newLastName] = newNames;
-  const [isChangedFirstName, setIsChangedFirstName] = useState<boolean>(false);
-  const [isChangedLastName, setIsChangedLastName] = useState<boolean>(false);
+  const normalizedFName = newFirstName.replace(/\s+/g, ' ').trim();
+  const normalizedLName = newLastName.replace(/\s+/g, ' ').trim();
+
+  const [onPress, setOnPress] = useState<() => void>(() => {});
 
   useEffect(() => {
-    if (initialFirstName === newFirstName || !newFirstName) {
-      setIsChangedFirstName(false);
+    if (
+      (initialFirstName === normalizedFName &&
+        initialLastName === normalizedLName) ||
+      (!normalizedLName && !normalizedLName)
+    ) {
+      setOnPress(() => () => {
+        Toast.show({
+          type: 'error',
+          text1: 'Please, enter your new name and surname',
+          topOffset: 50,
+        });
+      });
+    } else if (initialFirstName === normalizedFName || !newFirstName) {
+      setOnPress(() => () => {
+        Toast.show({
+          type: 'error',
+          text1: 'Please, enter your new name',
+          topOffset: 50,
+        });
+      });
+    } else if (initialLastName === normalizedLName || !newLastName) {
+      setOnPress(() => () => {
+        Toast.show({
+          type: 'error',
+          text1: 'Please, enter your new surname',
+          topOffset: 50,
+        });
+      });
+    } else if (!normalizedFName) {
+      setOnPress(() => () => {
+        Toast.show({
+          type: 'error',
+          text1: "Please, don't use only spaces in name",
+          topOffset: 50,
+        });
+      });
+    } else if (!normalizedLName) {
+      setOnPress(() => () => {
+        Toast.show({
+          type: 'error',
+          text1: "Please, don't use only spaces in surname",
+          topOffset: 50,
+        });
+      });
     } else {
-      setIsChangedFirstName(true);
+      setOnPress(() => edit);
     }
-    if (initialLastName === newLastName || !newLastName) {
-      setIsChangedLastName(false);
-    } else {
-      setIsChangedLastName(true);
-    }
-  }, [initialFirstName, initialLastName, newFirstName, newLastName]);
-
-  if (!isChangedFirstName && !isChangedLastName) {
-    return (
-      <TextButton
-        label="CONFIRM"
-        labelStyle={styles.labelStyle}
-        containerStyle={styles.inactiveContainerStyle}
-        onPress={() =>
-          Toast.show({
-            type: 'error',
-            text1: 'Please, enter your new name and surname',
-            topOffset: 50,
-          })
-        }
-      />
-    );
-  }
-
-  if (!isChangedFirstName) {
-    return (
-      <TextButton
-        label="CONFIRM"
-        labelStyle={styles.labelStyle}
-        containerStyle={styles.inactiveContainerStyle}
-        onPress={() =>
-          Toast.show({
-            type: 'error',
-            text1: 'Please, enter your name',
-            topOffset: 50,
-          })
-        }
-      />
-    );
-  }
-
-  if (!isChangedLastName) {
-    return (
-      <TextButton
-        label="CONFIRM"
-        labelStyle={styles.labelStyle}
-        containerStyle={styles.inactiveContainerStyle}
-        onPress={() =>
-          Toast.show({
-            type: 'error',
-            text1: 'Please, enter your surname',
-            topOffset: 50,
-          })
-        }
-      />
-    );
-  }
+  }, [
+    edit,
+    initialFirstName,
+    initialLastName,
+    normalizedFName,
+    normalizedLName,
+  ]);
 
   return (
     <TextButton
       containerStyle={styles.activeContainerStyle}
       labelStyle={styles.labelStyle}
-      onPress={edit}
+      onPress={onPress}
       label="CONFIRM"
     />
   );

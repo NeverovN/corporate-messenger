@@ -31,6 +31,17 @@ export function useHandleRegistration(
     };
   }
 
+  if (params.password.replace(/\s+/g, '').trim() !== params.password) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid password',
+        text2: "Please, don't use any spaces in password",
+        topOffset: 50,
+      });
+    };
+  }
+
   if (!validatePassword(params.password)) {
     return () => {
       Toast.show({
