@@ -25,10 +25,10 @@ const ConfirmUsernameButton: FC<IButtonProps> = ({
 
   useEffect(() => {
     if (
-      initialFirstName === newFirstName &&
-      initialLastName === newLastName &&
-      newFirstName &&
-      newLastName
+      initialFirstName === newFirstName ||
+      initialLastName === newLastName ||
+      !newFirstName ||
+      !newLastName
     ) {
       setIsChanged(false);
     } else {

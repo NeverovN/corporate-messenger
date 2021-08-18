@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 // styles
@@ -28,37 +29,46 @@ const EditUsernameScreenView: FC<IEditUsernameScreenViewProps> = (props) => {
   const { palette } = useTheme();
   const [firstName, lastName] = props.names;
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.editUsernameScreenStyle}>
-        <View style={styles.currentNameStyle}>
-          <Text style={styles.textStyle}>{`${firstName} ${lastName}`}</Text>
+    <KeyboardAvoidingView
+      style={styles.keyboardAvoidingView}
+      behavior="padding"
+      enabled>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.editUsernameScreenStyle}>
+          <View style={styles.currentNameStyle}>
+            <Text style={styles.textStyle}>{`${firstName} ${lastName}`}</Text>
+          </View>
+          <View style={styles.spacer} />
+          <View style={styles.textWrapper}>
+            <Text style={styles.textStyle}>
+              ENTER YOUR NEW NAME AND SURNAME
+            </Text>
+          </View>
+          <TextInput
+            style={styles.inputStyle}
+            value={props.currentFirstName}
+            placeholder="NAME"
+            placeholderTextColor={palette.secondaryInactive}
+            textAlign="center"
+            onChangeText={props.onChangeFirstName}
+          />
+          <TextInput
+            style={styles.inputStyle}
+            value={props.currentLastName}
+            placeholder="SURNAME"
+            placeholderTextColor={palette.secondaryInactive}
+            textAlign="center"
+            onChangeText={props.onChangeLastName}
+          />
+          <View style={styles.spacer} />
+          <ConfirmUsernameButton
+            initialNames={props.names}
+            newNames={[props.currentFirstName, props.currentLastName]}
+            edit={props.edit}
+          />
         </View>
-        <View style={styles.spacer} />
-        <View style={styles.textWrapper}>
-          <Text style={styles.textStyle}>ENTER YOUR NEW NAME AND SURNAME</Text>
-        </View>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="NAME"
-          placeholderTextColor={palette.secondaryInactive}
-          textAlign="center"
-          onChangeText={props.onChangeFirstName}
-        />
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="SURNAME"
-          placeholderTextColor={palette.secondaryInactive}
-          textAlign="center"
-          onChangeText={props.onChangeLastName}
-        />
-        <View style={styles.spacer} />
-        <ConfirmUsernameButton
-          initialNames={props.names}
-          newNames={[props.currentFirstName, props.currentLastName]}
-          edit={props.edit}
-        />
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

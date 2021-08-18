@@ -65,7 +65,7 @@ export const useGetChatMessages = (
       id: el?.id || '',
       content: {
         text: el?.content.text || null,
-        media: el?.content.media || null,
+        media: el?.content.media || [],
         mediaCount: el?.content.media?.length || 0,
       },
       createdAt: el?.createdAt || '',

@@ -8,6 +8,9 @@ export const useUpdatePassword = (
   oldPassword: string,
   newPassword: string,
   newPasswordRep: string,
+  resetOld: (val: string) => void,
+  resetNew: (val: string) => void,
+  resetRep: (val: string) => void,
 ) => {
   const [editPassword] = useEditPasswordMutation();
 
@@ -36,5 +39,8 @@ export const useUpdatePassword = (
         },
       },
     });
+    resetOld('');
+    resetNew('');
+    resetRep('');
   };
 };

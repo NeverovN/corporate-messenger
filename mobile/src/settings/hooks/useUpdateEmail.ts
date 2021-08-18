@@ -4,7 +4,10 @@ import { useEditEmailMutation } from '@/common/types/gql.generated';
 // utils
 import validateEmail from '@/auth/utils/validateEmail';
 
-export const useUpdateEmail = (newEmail: string) => {
+export const useUpdateEmail = (
+  newEmail: string,
+  resetField: (val: string) => void,
+) => {
   const [editEmail] = useEditEmailMutation();
 
   if (!validateEmail(newEmail)) {
@@ -15,5 +18,6 @@ export const useUpdateEmail = (newEmail: string) => {
 
   return () => {
     editEmail({ variables: { newEmail: newEmail } });
+    resetField('');
   };
 };
