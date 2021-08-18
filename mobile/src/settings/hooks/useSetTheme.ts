@@ -13,7 +13,7 @@ export const useSetTheme = () => {
   );
   const dispatch = useDispatch();
 
-  const path = `${BASE_HTTP}/user/${tokenVar()}/theme`;
+  const path = `${BASE_HTTP}/user/theme`;
 
   return async (themeName: 'light' | 'dark' | 'native') => {
     if (currentTheme === themeName) {
