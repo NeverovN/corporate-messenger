@@ -1,7 +1,7 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
 
 export interface CounterState {
-  theme: 'light' | 'dark';
+  theme: 'light' | 'dark' | 'native';
 }
 
 const initialState: CounterState = {
@@ -9,7 +9,7 @@ const initialState: CounterState = {
 };
 
 export const toggle = createAction('TOGGLE_THEME');
-export const set = createAction<'light' | 'dark'>('SET_THEME');
+export const set = createAction<'light' | 'dark' | 'native'>('SET_THEME');
 
 const message = createReducer(initialState, (builder) => {
   builder
