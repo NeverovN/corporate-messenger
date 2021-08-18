@@ -14,7 +14,6 @@ const userResolvers: UserResolvers = {
 
     return friends;
   },
-  theme: (user: UserEntity) => (user.isLightTheme ? 'light' : 'dark'),
 };
 
 export default userResolvers;

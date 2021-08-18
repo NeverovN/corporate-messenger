@@ -11,7 +11,7 @@ export function mapUserDocumentToUserEntity(
     firstName: document.firstName,
     lastName: document.lastName,
     friends: document.friends,
-    isLightTheme: document.isLightTheme,
+    theme: document.theme,
     avatar: document.avatar,
     settings: document.settings,
   };

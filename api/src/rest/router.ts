@@ -4,7 +4,7 @@ import { userResolver } from './resolver';
 const user = express.Router();
 user.use(express.json());
 
-user.get('/:token/theme', userResolver.getUserTheme);
-user.patch('/:token/theme/:name', userResolver.toggleTheme);
+user.get('/theme', userResolver.getUserTheme);
+user.patch('/theme', userResolver.setTheme);
 
 export { user as userRouter };
