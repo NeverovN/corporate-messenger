@@ -7,7 +7,6 @@ import { mapUserDocumentToUserEntity } from '../../models/User/mappers';
 import UserEntityController from './entity';
 import verifyPasswordHash from '../../utils/verifyPasswordHash';
 import { getNewPassword } from '../../utils/getNewPassword';
-import { FireBaseController } from '../FireBase';
 
 class UserModelController {
   private mapUserWithFallback(user: UserDocument | null): UserEntity | null {
@@ -232,8 +231,6 @@ class UserModelController {
     if (!user) {
       throw Error('User not found');
     }
-
-    FireBaseController.removeUserAvatar(user.avatar);
 
     const newUser = UserEntityController.updateAvatar(
       mapUserDocumentToUserEntity(user),

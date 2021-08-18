@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
-import { View, Text, Image, TextInput } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import { useStyles } from './styles';
 
@@ -28,9 +29,12 @@ const ChatPreferencesHeaderTile: FC<IChatPreferencesHeaderTileViewProps> = (
       <View style={styles.tileStyle}>
         <View style={styles.imagePartViewStyle}>
           {props.image ? (
-            <Image style={styles.imageStyle} source={{ uri: props.image }} />
+            <FastImage
+              style={styles.imageStyle}
+              source={{ uri: props.image }}
+            />
           ) : (
-            <Image
+            <FastImage
               style={styles.imageStyle}
               source={require('common/assets/images/defaultAvatar.png')}
             />
@@ -60,7 +64,7 @@ const ChatPreferencesHeaderTile: FC<IChatPreferencesHeaderTileViewProps> = (
               </View>
             </>
           )}
-          <IconWithTextButton
+          {/* <IconWithTextButton
             icon="clip"
             label="ATTACHMENTS"
             labelStyle={styles.changePhotoLabelStyle}
@@ -69,7 +73,7 @@ const ChatPreferencesHeaderTile: FC<IChatPreferencesHeaderTileViewProps> = (
               ...styles.containerStyle,
             }}
             iconStyle={styles.iconStyle}
-          />
+          /> */}
           <View style={styles.manageButtonsViewStyle}>
             <TextButton
               label="LEAVE"

@@ -7,6 +7,7 @@ export const useStyles = makeUseStyles(({ palette }) => {
       padding: 12,
       fontSize: 15,
       fontFamily: 'DroidSans',
+      color: palette.secondary,
     },
 
     viewStyle: {

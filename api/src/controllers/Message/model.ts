@@ -7,8 +7,6 @@ import { mapMessageDocumentToMessageEntity } from '../../models/Message/mappers'
 import MessageEntityController from './entity';
 import { CreateMessageInput } from '../../types/gql.generated';
 
-import { FireBaseController } from '../FireBase';
-
 class MessageModelController {
   private mapMessageWithFallback(
     message: MessageDocument | null,
@@ -57,8 +55,7 @@ class MessageModelController {
 
   async deleteMessage(msgId: ID): Promise<boolean> {
     try {
-      const msg = await MessageModel.findByIdAndDelete(msgId).exec();
-      FireBaseController.removeItems(msg?.media || []);
+      await MessageModel.findByIdAndDelete(msgId).exec();
       return true;
     } catch (error) {
       throw Error(`${error}`);
@@ -74,11 +71,18 @@ class MessageModelController {
     }
   }
 
-  async editMessage(messageId: ID, newContent: string): Promise<MessageEntity> {
+  async editMessage(
+    currentUserId: ID,
+    messageId: ID,
+    newContent: string,
+  ): Promise<MessageEntity> {
     const message = await MessageModel.findById(messageId).exec();
 
     if (!message) {
       throw Error('message not found');
+    }
+    if (message.author !== currentUserId) {
+      throw Error('Permission denied');
     }
 
     const msg = MessageEntityController.editMessage(

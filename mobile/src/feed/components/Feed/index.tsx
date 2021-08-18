@@ -11,7 +11,6 @@ import { IPostItem } from 'feed/types/feed';
 import { useStyles } from './styles';
 import SearchBar from '@/feed/containers/SearchBar';
 
-
 interface IFeedListViewProps {
   data: IPostItem[];
   setFilter(filter: string): void;

@@ -1,6 +1,6 @@
 import React, { memo, FC } from 'react';
-import { Image, ImageStyle } from 'react-native';
 import SimplePopupMenu, { PopupMenuItem } from 'react-native-simple-popup-menu';
+import FastImage from 'react-native-fast-image';
 
 // styles
 import { useStyles } from './styles';
@@ -21,7 +21,7 @@ const items: PopupMenuItem[] = [
 
 const UserImageContainer: FC<IUserImageContainerProps> = (props) => {
   const styles = useStyles();
-  const style: ImageStyle = {
+  const style = {
     height: props.size,
     width: props.size,
     borderRadius: props.size,
@@ -34,12 +34,12 @@ const UserImageContainer: FC<IUserImageContainerProps> = (props) => {
       items={items}
       onSelect={({ id }: PopupMenuItem) => actionsHandler(id)}>
       {props.image ? (
-        <Image
+        <FastImage
           style={{ ...styles.imageStyle, ...style }}
           source={{ uri: props.image }}
         />
       ) : (
-        <Image
+        <FastImage
           style={{ ...styles.imageStyle, ...style }}
           source={require('common/assets/images/defaultAvatar.png')}
         />

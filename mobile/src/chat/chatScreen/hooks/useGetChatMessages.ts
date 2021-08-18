@@ -1,7 +1,6 @@
 import {
   useNewMessageSubscription,
   useGetChatByIdQuery,
-  MessageFragmentFragmentDoc,
 } from '@/common/types/gql.generated';
 import { useRoute } from '@react-navigation/native';
 
@@ -11,7 +10,6 @@ import { IMessageItem } from '../types/message';
 
 // utils
 import { getName } from '@/profile/utils/getName';
-import { MediaUploader } from '../utils/MediaUploader';
 
 export const useGetChatMessages = (
   setEditMsg: (msg: IMessageItem | null) => void,
@@ -37,16 +35,7 @@ export const useGetChatMessages = (
 
       client.cache.modify({
         fields: {
-          getChatById() {
-            try {
-              client.cache.writeFragment({
-                fragment: MessageFragmentFragmentDoc,
-                data: message,
-              });
-            } catch (err) {
-              throw Error(`cache update error -> ${err}`);
-            }
-          },
+          getChatById() {},
         },
       });
     },
@@ -70,17 +59,14 @@ export const useGetChatMessages = (
         : false;
 
     const name = getName(el?.author.firstName || '', el?.author.lastName || '');
-    const { media, mediaCount } = MediaUploader.getManyFromFirebase(
-      el?.content.media || null,
-    );
 
     return {
       currentUserId: data.getUser.id,
       id: el?.id || '',
       content: {
         text: el?.content.text || null,
-        media: media,
-        mediaCount,
+        media: el?.content.media || null,
+        mediaCount: el?.content.media?.length || 0,
       },
       createdAt: el?.createdAt || '',
       author: { name, id: el?.author.id || '' },

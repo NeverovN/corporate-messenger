@@ -18,7 +18,6 @@ import { useUpdateChatTitle } from '../../hooks/useUpdateChatTitle';
 import { useClearChatHistory } from '../../hooks/useClearChatHistory';
 import { useLeaveChat } from '../../hooks/useLeaveChat';
 import { useUpdateChatLogo } from '../../hooks/useUpdateChatLogo';
-import { resolveImagePromise } from '@/common/utils/resolveLogoPromise';
 
 interface IChatPreferencesHeaderTileContainerProps {}
 
@@ -27,7 +26,6 @@ const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainer
   const navigation = useNavigation();
   const { params } = useRoute<ChatRouteProp>();
   const [title, memberCount, image, isDialog] = useGetChatInfo(params.chatId);
-  const [logo, setLogo] = useState<string | null>(null);
   const [currentTitle, setCurrentTitle] = useState<string>(title);
   const edit = useUpdateChatTitle(params.chatId, currentTitle, title);
 
@@ -46,11 +44,7 @@ const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainer
       />
     );
     navigation.setOptions({ headerLeft });
-  }, [navigation, edit]);
-
-  useEffect(() => {
-    resolveImagePromise(image, setLogo);
-  }, [image]);
+  }, [navigation, edit, styles.iconStyle]);
 
   const onLeave = useLeaveChat(params.chatId);
   const onClear = useClearChatHistory(params.chatId);
@@ -60,7 +54,7 @@ const ChatPreferencesHeaderTileContainer: FC<IChatPreferencesHeaderTileContainer
     <ChatPreferencesHeaderTileView
       chatTitle={currentTitle}
       memberCount={memberCount}
-      image={logo}
+      image={image}
       isDialog={isDialog}
       onChatTitleChange={setCurrentTitle}
       onClearHistoryPress={onClear}

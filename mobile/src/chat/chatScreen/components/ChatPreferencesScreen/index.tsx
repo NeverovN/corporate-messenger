@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { View, FlatList, ListRenderItem, Image, Text } from 'react-native';
+import { View, FlatList, ListRenderItem } from 'react-native';
 
 // styles
 import { useStyles } from './styles';

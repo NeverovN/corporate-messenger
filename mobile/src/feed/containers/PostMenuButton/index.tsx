@@ -9,19 +9,29 @@ import ACTIONS from '@/feed/constants/actions';
 // hooks
 import { useHandlePostActions } from '@/feed/hooks/useHandlePostActions';
 import { useGetPost } from '@/feed/hooks/useGetPost';
-
+import { useGetPostItems } from 'feed/hooks/useGetPostItems';
 interface IPostMenuButtonContainerProps {
   postId: string;
 }
 
-const items: PopupMenuItem[] = [
+const currentUserPostItems: PopupMenuItem[] = [
   { id: ACTIONS.EDIT_POST, label: 'Edit' },
   { id: ACTIONS.DELETE_POST, label: 'Delete' },
+];
+
+const otherUserPostItems: PopupMenuItem[] = [
+  { id: ACTIONS.COMPLAIN_POST, label: 'Complain' },
 ];
 
 const PostMenuButtonContainer: FC<IPostMenuButtonContainerProps> = (props) => {
   const actionsHandler = useHandlePostActions();
   const post = useGetPost(props.postId);
+
+  const items = useGetPostItems(
+    post.author.id,
+    currentUserPostItems,
+    otherUserPostItems,
+  );
 
   return (
     <SimplePopupMenu
