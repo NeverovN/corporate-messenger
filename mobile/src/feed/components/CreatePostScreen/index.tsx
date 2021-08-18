@@ -17,6 +17,7 @@ const CreatePostScreenView: FC<ICreatePostScreenViewProps> = (props) => {
     <View style={styles.backGround}>
       <ScrollView contentContainerStyle={styles.createPostScreenStyle}>
         <TextInput
+          autoFocus={true}
           placeholder="WHATS UP?"
           placeholderTextColor={palette.secondaryInactive}
           style={styles.inputStyle}
