@@ -8,8 +8,8 @@ import { useStyles } from './styles';
 import TextButton from 'common/components/Button/TextButton';
 
 interface IThemeSwitcherButtonViewProps {
-  currentTheme: 'dark' | 'light' | 'native';
-  toggleTheme(toTheme: 'dark' | 'light' | 'native'): void;
+  currentTheme: 'dark' | 'light';
+  toggleTheme(toTheme: 'dark' | 'light'): void;
 }
 
 const ThemeSwitcherButtonView: FC<IThemeSwitcherButtonViewProps> = ({

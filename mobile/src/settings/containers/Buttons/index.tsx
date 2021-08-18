@@ -1,6 +1,5 @@
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
-
 // common components
 import TextButton from '@/common/components/Button/TextButton';
 
@@ -10,12 +9,8 @@ import ThemeSwitcherButton from '../ThemeSwitcherButton';
 // styles
 import { useStyles } from './styles';
 
-// containers
-import Switcher from '../Switcher';
-
 // hooks
 import { useHandleAccountSettingsNavigation } from 'settings/hooks/useHandleAccountSettingsNavigation';
-
 interface IAccountSettingsButtonContainerProps {}
 
 const AccountSettingsButtonContainer: FC<IAccountSettingsButtonContainerProps> = () => {
@@ -31,7 +26,6 @@ const AccountSettingsButtonContainer: FC<IAccountSettingsButtonContainerProps> =
         labelStyle={styles.textStyle}
       />
       <ThemeSwitcherButton />
-      <Switcher />
     </View>
   );
 };

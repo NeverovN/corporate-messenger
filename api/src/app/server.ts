@@ -15,7 +15,7 @@ export function initServer(port: number): void {
 
   const server = new ApolloServer({
     schema,
-    context: ({ req }): ApolloContextType => {
+    context: ({ req }): Omit<ApolloContextType, 'dataSources'> => {
       const token = req?.headers.authorization || '';
 
       if (!token) return { currentUserId: null };

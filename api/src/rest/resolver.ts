@@ -8,7 +8,7 @@ export const userResolver = {
       throw new Error('Unauthorized');
     }
     const user = await UserController.getUser(id);
-    const theme = !user ? null : user.theme;
+    const theme = !user ? null : user.isLightTheme ? 'light' : 'dark';
 
     res.status(200).json(theme);
   },
@@ -20,15 +20,9 @@ export const userResolver = {
     if (!id) {
       throw new Error('Unauthorized');
     }
-    const themeName =
-      req.body.name === 'light' ||
-      req.body.name === 'dark' ||
-      req.body.name === 'native'
-        ? req.body.name
-        : 'native';
     try {
-      const theme = await UserController.setTheme(id, themeName);
-      res.status(200).json({ theme });
+      const theme = await UserController.toggleTheme(id);
+      res.status(200).json({ theme: theme ? 'light' : 'dark' });
     } catch (error) {
       res.status(404).json({ message: 'theme not updated' });
     }

@@ -36,7 +36,7 @@ export class UserEntity {
   avatar: Nullable<URL>;
 
   @prop()
-  theme: string;
+  isLightTheme: boolean;
 
   @prop({ ref: () => UserEntity })
   friends: Array<ID>;
@@ -59,7 +59,7 @@ export class UserEntity {
     this.avatar = avatar;
 
     // default data
-    this.theme = 'native';
+    this.isLightTheme = true;
     this.friends = [];
     this.settings = defaultUserSettings;
   }

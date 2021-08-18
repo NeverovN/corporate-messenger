@@ -207,23 +207,21 @@ class UserModelController {
     return mapUserDocumentToUserEntity(newUser);
   }
 
-  async setTheme(userId: ID, theme: string): Promise<string> {
+  async toggleTheme(userId: ID): Promise<boolean> {
     const user = await UserModel.findById(userId).exec();
     if (!user) {
       throw new Error('User not found');
     }
 
-    const newUser = UserEntityController.setTheme(
+    const newUser = UserEntityController.toggleTheme(
       mapUserDocumentToUserEntity(user),
-      theme,
     );
-
     const updatedUser = await UserModel.findByIdAndUpdate(userId, newUser);
     if (!updatedUser) {
       throw new Error('Network error');
     }
 
-    return newUser.theme;
+    return newUser.isLightTheme;
   }
 
   async updateAvatar(userId: ID, avatarId: ID | null): Promise<UserEntity> {
