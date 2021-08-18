@@ -5,7 +5,7 @@ import TextButton from '@/common/components/Button/TextButton';
 
 // styles
 import { useStyles } from './styles';
-import { Alert } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 interface IButtonProps {
   oldPassword: string;
@@ -48,7 +48,11 @@ const ConfirmPasswordButton: FC<IButtonProps> = ({
       containerStyle={styles.inactiveContainerStyle}
       labelStyle={styles.labelStyle}
       onPress={() =>
-        Alert.alert('Error', 'Please provide each fields with data')
+        Toast.show({
+          type: 'error',
+          text1: 'Please, fill all fields',
+          topOffset: 50,
+        })
       }
     />
   );

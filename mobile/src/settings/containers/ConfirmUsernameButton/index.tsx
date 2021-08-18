@@ -6,6 +6,7 @@ import TextButton from '@/common/components/Button/TextButton';
 
 // styles
 import { useStyles } from './styles';
+import Toast from 'react-native-toast-message';
 
 interface IButtonProps {
   initialNames: [string, string];
@@ -21,38 +22,79 @@ const ConfirmUsernameButton: FC<IButtonProps> = ({
   const styles = useStyles();
   const [initialFirstName, initialLastName] = initialNames;
   const [newFirstName, newLastName] = newNames;
-  const [isChanged, setIsChanged] = useState<boolean>(false);
+  const [isChangedFirstName, setIsChangedFirstName] = useState<boolean>(false);
+  const [isChangedLastName, setIsChangedLastName] = useState<boolean>(false);
 
   useEffect(() => {
-    if (
-      initialFirstName === newFirstName ||
-      initialLastName === newLastName ||
-      !newFirstName ||
-      !newLastName
-    ) {
-      setIsChanged(false);
+    if (initialFirstName === newFirstName || !newFirstName) {
+      setIsChangedFirstName(false);
     } else {
-      setIsChanged(true);
+      setIsChangedFirstName(true);
+    }
+    if (initialLastName === newLastName || !newLastName) {
+      setIsChangedLastName(false);
+    } else {
+      setIsChangedLastName(true);
     }
   }, [initialFirstName, initialLastName, newFirstName, newLastName]);
 
-  if (isChanged) {
+  if (!isChangedFirstName && !isChangedLastName) {
     return (
       <TextButton
-        containerStyle={styles.activeContainerStyle}
-        labelStyle={styles.labelStyle}
-        onPress={edit}
         label="CONFIRM"
+        labelStyle={styles.labelStyle}
+        containerStyle={styles.inactiveContainerStyle}
+        onPress={() =>
+          Toast.show({
+            type: 'error',
+            text1: 'Please, enter your new name and surname',
+            topOffset: 50,
+          })
+        }
+      />
+    );
+  }
+
+  if (!isChangedFirstName) {
+    return (
+      <TextButton
+        label="CONFIRM"
+        labelStyle={styles.labelStyle}
+        containerStyle={styles.inactiveContainerStyle}
+        onPress={() =>
+          Toast.show({
+            type: 'error',
+            text1: 'Please, enter your name',
+            topOffset: 50,
+          })
+        }
+      />
+    );
+  }
+
+  if (!isChangedLastName) {
+    return (
+      <TextButton
+        label="CONFIRM"
+        labelStyle={styles.labelStyle}
+        containerStyle={styles.inactiveContainerStyle}
+        onPress={() =>
+          Toast.show({
+            type: 'error',
+            text1: 'Please, enter your surname',
+            topOffset: 50,
+          })
+        }
       />
     );
   }
 
   return (
     <TextButton
-      label="CONFIRM"
+      containerStyle={styles.activeContainerStyle}
       labelStyle={styles.labelStyle}
-      containerStyle={styles.inactiveContainerStyle}
-      onPress={() => Alert.alert('Error', 'Please enter correct username')}
+      onPress={edit}
+      label="CONFIRM"
     />
   );
 };

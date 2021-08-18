@@ -1,4 +1,5 @@
 import React, { FC, memo } from 'react';
+import Toast from 'react-native-toast-message';
 
 // components
 import ThemeSwitcherButtonView from '@/settings/components/ThemeSwitcherButton';
@@ -7,7 +8,6 @@ import ThemeSwitcherButtonView from '@/settings/components/ThemeSwitcherButton';
 import { useSetTheme } from '@/settings/hooks/useSetTheme';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
-import { Alert } from 'react-native';
 
 interface IThemeSwitcherButtonContainerProps {}
 
@@ -28,10 +28,11 @@ const ThemeSwitcherButtonContainer: FC<IThemeSwitcherButtonContainerProps> = () 
           }
         }
       : () => {
-          Alert.alert(
-            'Warning',
-            'Native theme is chosen. Please, change settings before toggling theme',
-          );
+          Toast.show({
+            type: 'error',
+            text1: 'Please, disable native theme first',
+            topOffset: 50,
+          });
         };
 
   return (

@@ -42,6 +42,7 @@ const EditEmailScreenView: FC<IEditEmailScreenViewProps> = (props) => {
           </View>
           <TextInput
             style={styles.inputStyle}
+            autoCapitalize="none"
             value={props.currentEmail}
             placeholder="EMAIL"
             placeholderTextColor={palette.secondaryInactive}

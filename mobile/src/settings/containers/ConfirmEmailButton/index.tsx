@@ -5,7 +5,7 @@ import TextButton from '@/common/components/Button/TextButton';
 
 // styles
 import { useStyles } from './styles';
-import { Alert } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 interface IButtonProps {
   initialValue: string;
@@ -45,7 +45,13 @@ const ConfirmEmailButton: FC<IButtonProps> = ({
       label="CONFIRM"
       labelStyle={styles.labelStyle}
       containerStyle={styles.inactiveContainerStyle}
-      onPress={() => Alert.alert('Error', 'Please enter email')}
+      onPress={() =>
+        Toast.show({
+          type: 'error',
+          text1: 'Please, enter your new email',
+          topOffset: 50,
+        })
+      }
     />
   );
 };

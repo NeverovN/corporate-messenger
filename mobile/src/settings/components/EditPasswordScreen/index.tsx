@@ -43,6 +43,7 @@ const EditUsernameScreenView: FC<IEditPasswordScreenViewProps> = (props) => {
           </View>
           <TextInput
             style={styles.inputStyle}
+            autoCapitalize={'none'}
             value={props.oldPassword}
             placeholder="PREVIOUS PASSWORD"
             placeholderTextColor={palette.secondaryInactive}
@@ -56,19 +57,23 @@ const EditUsernameScreenView: FC<IEditPasswordScreenViewProps> = (props) => {
           </View>
           <TextInput
             style={styles.inputStyle}
+            autoCapitalize={'none'}
             value={props.newPassword}
             placeholder="NEW PASSWORD"
             placeholderTextColor={palette.secondaryInactive}
             textAlign="center"
             onChangeText={props.onChangeNewPassword}
+            secureTextEntry={true}
           />
           <TextInput
             style={styles.inputStyle}
+            autoCapitalize={'none'}
             value={props.newPasswordRep}
             placeholder="CONFIRM PASSWORD"
             placeholderTextColor={palette.secondaryInactive}
             textAlign="center"
             onChangeText={props.onChangeNewPasswordRep}
+            secureTextEntry={true}
           />
           <View style={styles.spacer} />
           <ConfirmPasswordButton
