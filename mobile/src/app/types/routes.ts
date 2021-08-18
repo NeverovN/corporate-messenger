@@ -50,7 +50,7 @@ export type AuthScreenNavigationProp = StackNavigationProp<
 export type SharedStackParamList = {
   [CHAT_STACK_NAME]: NavigatorScreenParams<ChatListStackParamList>;
   [SETTINGS_STACK_NAME]: undefined;
-  [POST_SCREEN_NAME]: { postId: string };
+  [POST_SCREEN_NAME]: { postId: string; isToComment: boolean };
 };
 
 export type SharedStackNavigationProp = StackNavigationProp<

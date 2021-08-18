@@ -10,6 +10,7 @@ import { IconType } from '@/common/types/styles';
 import { useTheme } from 'react-native-stylex';
 
 interface ICommentInputViewProps {
+  isFocused: boolean;
   comment: string;
   onCommentChange(comment: string): void;
 
@@ -23,6 +24,7 @@ const CommentInputView: FC<ICommentInputViewProps> = (props) => {
     <View style={styles.wrapperStyle}>
       <View style={styles.inputWrapper}>
         <TextInput
+          autoFocus={props.isFocused}
           style={styles.textInputStyle}
           value={props.comment}
           placeholder="Comment"

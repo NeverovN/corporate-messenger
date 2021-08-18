@@ -10,7 +10,7 @@ import { usePostRedirection } from '@/feed/hooks/usePostRedirection';
 interface ITileContainerProps extends IPostItem {}
 
 const TileContainer: FC<ITileContainerProps> = (props) => {
-  const postRedirection = usePostRedirection(props.id);
+  const postRedirection = usePostRedirection(props.id, false);
 
   return (
     <TileView

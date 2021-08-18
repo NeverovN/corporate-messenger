@@ -1,5 +1,10 @@
 import React, { FC, memo } from 'react';
-import { FlatList, ListRenderItem, SafeAreaView } from 'react-native';
+import {
+  FlatList,
+  KeyboardAvoidingView,
+  ListRenderItem,
+  SafeAreaView,
+} from 'react-native';
 
 // styles
 import { useStyles } from './styles';
@@ -33,15 +38,21 @@ const renderPostItem: ListRenderItem<ICommentItem> = ({ item }) => {
 const PostScreenView: FC<IPostScreenViewProps> = (props) => {
   const styles = useStyles();
   return (
-    <SafeAreaView style={styles.postScreenStyle}>
-      <FlatList
-        ListHeaderComponent={<PostScreenTile postId={props.postId} />}
-        data={props.data}
-        renderItem={renderPostItem}
-        style={styles.listStyle}
-      />
-      <CommentInput />
-    </SafeAreaView>
+    <KeyboardAvoidingView
+      style={styles.keyboardAvoidingView}
+      behavior="padding"
+      keyboardVerticalOffset={100}
+      enabled>
+      <SafeAreaView style={styles.postScreenStyle}>
+        <FlatList
+          ListHeaderComponent={<PostScreenTile postId={props.postId} />}
+          data={props.data}
+          renderItem={renderPostItem}
+          style={styles.listStyle}
+        />
+        <CommentInput />
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
