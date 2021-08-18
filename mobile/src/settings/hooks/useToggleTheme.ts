@@ -11,18 +11,22 @@ export const useToggleTheme = () => {
   const themeName = useSelector((state: RootState) => state.currentTheme.theme);
   const dispatch = useDispatch();
 
-  const path = `${BASE_HTTP}/user/theme`;
+  const path = `${BASE_HTTP}/user/${tokenVar()}/theme`;
 
   return async (toTheme: 'light' | 'dark') => {
     if (themeName === toTheme) {
       return;
     }
+
     try {
-      const resp = await fetch(path, {
-        method: 'PATCH', // или 'PUT'
+      const resp = await fetch(`${path}/${themeName}`, {
+        method: 'PATCH',
       });
 
-      dispatch(toggle());
+      dispatch(set(themeName));
+
+      const newTheme = await resp.json();
+      theme(newTheme.theme);
 
       cache.modify({
         fields: {
@@ -33,9 +37,7 @@ export const useToggleTheme = () => {
       const newTheme = await resp.json();
       theme(newTheme.theme);
     } catch (error) {
-      console.error(error);
-
-      Alert.alert('ErrorHere', `${error}`);
+      Alert.alert('Error', `${error}`);
     }
   };
 };
