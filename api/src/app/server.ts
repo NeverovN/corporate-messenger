@@ -6,7 +6,6 @@ import { ApolloContextType } from '../types/apollo';
 import express from 'express';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
-import bodyParser from 'body-parser';
 
 import { userRouter } from '../rest/router';
 
@@ -15,7 +14,7 @@ export function initServer(port: number): void {
 
   const server = new ApolloServer({
     schema,
-    context: ({ req }): Omit<ApolloContextType, 'dataSources'> => {
+    context: ({ req }): ApolloContextType => {
       const token = req?.headers.authorization || '';
 
       if (!token) return { currentUserId: null };
@@ -36,9 +35,6 @@ export function initServer(port: number): void {
   const app = express();
 
   app.use(express.json());
-
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
 
   app.use('/user', userRouter);
 
