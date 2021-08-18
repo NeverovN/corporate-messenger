@@ -1,5 +1,4 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { Alert } from 'react-native';
 
 // common components
 import TextButton from '@/common/components/Button/TextButton';

@@ -1,4 +1,5 @@
 import { useEditUserNameMutation } from '@/common/types/gql.generated';
+import { Alert } from 'react-native';
 import Toast from 'react-native-toast-message';
 
 export const useUpdateUsername = (
@@ -25,12 +26,7 @@ export const useUpdateUsername = (
         topOffset: 50,
       });
     } catch (error) {
-      Toast.show({
-        type: 'error',
-        text1: 'Server error occurred',
-        text2: `${error}`,
-        topOffset: 50,
-      });
+      Alert.alert('Error', `${error}`);
     }
   };
 };

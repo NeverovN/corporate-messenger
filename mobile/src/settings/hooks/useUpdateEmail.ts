@@ -1,8 +1,10 @@
+import Toast from 'react-native-toast-message';
+import { Alert } from 'react-native';
+
 import { useEditEmailMutation } from '@/common/types/gql.generated';
 
 // utils
 import validateEmail from '@/auth/utils/validateEmail';
-import Toast from 'react-native-toast-message';
 
 export const useUpdateEmail = (
   newEmail: string,
@@ -31,12 +33,7 @@ export const useUpdateEmail = (
         topOffset: 50,
       });
     } catch (error) {
-      Toast.show({
-        type: 'error',
-        text1: 'Server error occurred',
-        text2: `${error}`,
-        topOffset: 50,
-      });
+      Alert.alert('Error', `${error}`);
     }
   };
 };

@@ -43,13 +43,12 @@ export function useHandleLogin(
         },
       });
       if (!data || !data.login) {
-        throw Error('bad server response or invalid request');
+        throw Error('Bad server response or invalid request');
       }
 
       setToken(data.login.token || '');
 
       navigation.navigate(MAIN_STACK_NAME, {
-        // so dumb omg
         screen: BOTTOM_TAB_NAME,
         params: {
           screen: FEED_STACK_NAME,

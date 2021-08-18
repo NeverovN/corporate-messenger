@@ -19,15 +19,40 @@ import {
   ALL_FEED_SCREEN_NAME,
   FEED_SCREEN_NAME,
 } from '@/feed/constants/routes';
+import Toast from 'react-native-toast-message';
 
 export const useFinishRegistration = (fName: string, lName: string) => {
   const navigation = useNavigation<MainScreenNavigationProp>();
   const { params } = useRoute<UserDataRouteProp>();
   const [addUser] = useCreateUserMutation();
 
-  if (!fName || !lName) {
+  if (!fName && !lName) {
     return () => {
-      Alert.alert('Error', 'Please, enter correct name');
+      Toast.show({
+        type: 'error',
+        text1: 'Please, enter your new name and surname',
+        topOffset: 50,
+      });
+    };
+  }
+
+  if (!fName) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Please, enter your name',
+        topOffset: 50,
+      });
+    };
+  }
+
+  if (!lName) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Please, enter your surname',
+        topOffset: 50,
+      });
     };
   }
 

@@ -1,8 +1,10 @@
+import { Alert } from 'react-native';
+import Toast from 'react-native-toast-message';
+
 import { useEditPasswordMutation } from '@/common/types/gql.generated';
 
 // utils
 import validatePassword from '@/auth/utils/validatePassword';
-import Toast from 'react-native-toast-message';
 
 export const useUpdatePassword = (
   oldPassword: string,
@@ -56,12 +58,7 @@ export const useUpdatePassword = (
         topOffset: 50,
       });
     } catch (error) {
-      Toast.show({
-        type: 'error',
-        text1: 'Server error occurred',
-        text2: `${error}`,
-        topOffset: 50,
-      });
+      Alert.alert('Error', `${error}`);
     }
   };
 };
