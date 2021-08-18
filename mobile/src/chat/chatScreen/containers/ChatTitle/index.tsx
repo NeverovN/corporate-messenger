@@ -10,7 +10,6 @@ import { ChatRouteProp } from 'chat/chatList/types/routes';
 
 // hooks
 import { useGetChatInfo } from '@/chat/chatScreen/hooks/useGetChatInfo';
-import { resolveImagePromise } from '@/common/utils/resolveLogoPromise';
 
 interface IChatTitleContainerProps {}
 
@@ -18,18 +17,13 @@ const ChatTitleContainer: FC<IChatTitleContainerProps> = () => {
   const redirection = useChatPreferencesRedirection();
   const { params } = useRoute<ChatRouteProp>();
   const [title, memberCount, image, isDialog] = useGetChatInfo(params.chatId);
-  const [logo, setLogo] = useState<string | null>(null);
-
-  useEffect(() => {
-    resolveImagePromise(image, setLogo);
-  }, [image]);
 
   return (
     <ChatTitleView
       onPress={redirection}
       chatTitle={title}
       memberCount={memberCount}
-      image={logo}
+      image={image}
       isDialog={isDialog}
     />
   );

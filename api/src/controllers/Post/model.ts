@@ -105,6 +105,7 @@ class PostModelController {
   }
 
   async editPost(
+    currentUserId: ID,
     postId: ID,
     textContent: string | null | undefined,
     mediaContent: string[] | null | undefined,
@@ -115,7 +116,10 @@ class PostModelController {
     const post = await PostModel.findById(postId).exec();
 
     if (!post) {
-      throw new Error('Post does not exist');
+      throw Error('Post does not exist');
+    }
+    if (post.author !== currentUserId) {
+      throw Error('Permission denied');
     }
 
     const newPost = PostEntityController.editPost(

@@ -11,20 +11,33 @@ import { IUserItem } from 'profile/types/user';
 
 interface IUserListViewProps {
   data: IUserItem[] | null;
+  onRefresh(): void;
+  refreshing: boolean;
 }
 
 const renderChatItem: ListRenderItem<IUserItem> = ({ item }) => {
   return <UserItem image={item.avatar} userId={item.id} />;
 };
 
-const UserListView: FC<IUserListViewProps> = ({ data }) => {
+const UserListView: FC<IUserListViewProps> = ({
+  data,
+  onRefresh,
+  refreshing,
+}) => {
   const styles = useStyles();
   const isSomeUsers = !!data;
+
+  console.log(refreshing);
 
   if (isSomeUsers) {
     return (
       <View style={styles.existingUsersStyle}>
-        <FlatList renderItem={renderChatItem} data={data} />
+        <FlatList
+          renderItem={renderChatItem}
+          data={data}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
+        />
       </View>
     );
   } else {

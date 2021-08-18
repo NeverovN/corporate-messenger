@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
-import { View, Text, Image, TextInput } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import { useStyles } from './styles';
 
@@ -25,9 +26,9 @@ const NewChatSetupHeaderTileView: FC<INewChatSetupHeaderTileViewProps> = (
     <View style={styles.componentStyle}>
       <View style={styles.tileStyle}>
         {props.image ? (
-          <Image style={styles.imageStyle} source={{ uri: props.image }} />
+          <FastImage style={styles.imageStyle} source={{ uri: props.image }} />
         ) : (
-          <Image
+          <FastImage
             style={styles.imageStyle}
             source={require('common/assets/images/defaultAvatar.png')}
           />

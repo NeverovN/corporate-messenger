@@ -14,13 +14,13 @@ export const useUpdateChatLogo = () => {
       includeBase64: true,
     });
     const logoBase64 = logo.data || null;
-    const logoId = MediaUploader.uploadChatLogo(logoBase64);
+    const logoURL = await MediaUploader.uploadOneToStorage(logoBase64);
     try {
       updateLogo({
         variables: {
           input: {
             chatId: params.chatId,
-            logoId,
+            logoId: logoURL,
           },
         },
       });

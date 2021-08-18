@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 // common components
 import IconWithTextButton from '@/common/components/Button/IconWithTextButton';
@@ -29,12 +30,12 @@ const CommentView: FC<ICommentViewProps> = (props) => {
   return (
     <View style={styles.feedStyle}>
       {props.authorAvatar ? (
-        <Image
+        <FastImage
           style={styles.userIconImageStyle}
           source={{ uri: props.authorAvatar }}
         />
       ) : (
-        <Image
+        <FastImage
           style={styles.userIconImageStyle}
           source={require('common/assets/images/defaultAvatar.png')}
         />
