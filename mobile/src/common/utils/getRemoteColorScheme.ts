@@ -10,10 +10,13 @@ export const getColorScheme = async (): Promise<'light' | 'dark'> => {
   if (!tokenVar()) {
     return 'light';
   }
-  const path = `${BASE_HTTP}/user/${tokenVar()}/theme`;
+  const path = `${BASE_HTTP}/user/theme`;
   try {
     const resp = await fetch(path, {
       method: 'GET', // или 'PUT'
+      headers: {
+        authorization: tokenVar(),
+      },
     });
 
     const theme = (await resp.json()) as 'light' | 'dark';

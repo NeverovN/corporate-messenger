@@ -3,7 +3,7 @@ import getUserIdByToken from '../utils/getUserIdByToken';
 
 export const userResolver = {
   getUserTheme: async (req: any, res: any): Promise<void> => {
-    const id = getUserIdByToken(req.params.token);
+    const id = getUserIdByToken(req.headers.authorization);
     if (!id) {
       throw new Error('Unauthorized');
     }
@@ -14,7 +14,7 @@ export const userResolver = {
   },
 
   setTheme: async (req: any, res: any): Promise<void> => {
-    const id = getUserIdByToken(req.params.token);
+    const id = getUserIdByToken(req.headers.authorization);
     if (!id) {
       throw new Error('Unauthorized');
     }
