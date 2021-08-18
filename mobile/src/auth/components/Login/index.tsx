@@ -48,7 +48,6 @@ const LoginView: FC<ILoginViewProps> = (props) => {
             value={props.email}
             onChangeText={props.onChangeEmail}
           />
-
           <View style={styles.passwordStyle}>
             <AuthInput
               placeholder="PASSWORD"
