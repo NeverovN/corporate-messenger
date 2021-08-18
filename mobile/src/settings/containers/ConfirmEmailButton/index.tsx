@@ -19,39 +19,28 @@ const ConfirmEmailButton: FC<IButtonProps> = ({
   edit,
 }) => {
   const styles = useStyles();
-  const [isChanged, setIsChanged] = useState<boolean>(false);
+  const [onPress, setOnPress] = useState<() => void>(() => {});
 
   useEffect(() => {
     if (initialValue === currentState || currentState === '') {
-      setIsChanged(false);
+      setOnPress(() => () =>
+        Toast.show({
+          type: 'error',
+          text1: 'Please, enter your new email',
+          topOffset: 50,
+        }),
+      );
     } else {
-      setIsChanged(true);
+      setOnPress(() => edit);
     }
-  }, [currentState, initialValue]);
-
-  if (isChanged) {
-    return (
-      <TextButton
-        containerStyle={styles.activeContainerStyle}
-        labelStyle={styles.labelStyle}
-        onPress={edit}
-        label="CONFIRM"
-      />
-    );
-  }
+  }, [currentState, edit, initialValue]);
 
   return (
     <TextButton
       label="CONFIRM"
       labelStyle={styles.labelStyle}
       containerStyle={styles.inactiveContainerStyle}
-      onPress={() =>
-        Toast.show({
-          type: 'error',
-          text1: 'Please, enter your new email',
-          topOffset: 50,
-        })
-      }
+      onPress={onPress}
     />
   );
 };
