@@ -11,6 +11,25 @@ export const useStyles = makeUseStyles(({ palette }) => {
       paddingTop: 30,
       backgroundColor: palette.primary,
     },
+    inputWrapperStyle: {
+      width: '80%',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      borderRadius: 20,
+      backgroundColor: palette.tint,
+      marginBottom: 15,
+    },
+    passwordInputStyle: {
+      height: 40,
+      minWidth: '100%',
+      fontFamily: 'DroidSans',
+      color: palette.secondary,
+    },
+    iconStyle: {
+      position: 'absolute',
+      right: '5%',
+      top: '25%',
+    },
     inputStyle: {
       width: '80%',
       height: 40,
