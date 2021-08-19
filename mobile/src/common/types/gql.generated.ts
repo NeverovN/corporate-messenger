@@ -926,7 +926,13 @@ export type PostFragmentFragment = (
   & { author: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
-  ) }
+  ), likes?: Maybe<Array<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  )>>, comments?: Maybe<Array<(
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'id'>
+  )>> }
 );
 
 export type UpdateAvatarMutationVariables = Exact<{
@@ -1199,6 +1205,12 @@ export const PostFragmentFragmentDoc = gql`
   }
   textContent
   mediaContent
+  likes {
+    id
+  }
+  comments {
+    id
+  }
 }
     `;
 export const LoginDocument = gql`

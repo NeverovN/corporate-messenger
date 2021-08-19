@@ -53,12 +53,6 @@ const BottomBarView: FC<IBottomBarViewProps> = (props) => {
         />
       ) : null}
       <View style={styles.bottomBarStyle}>
-        <IconButton
-          icon="emoji"
-          onPress={props.onEmojiPress}
-          iconStyle={styles.commonStyle}
-          iconType={IconType.LARGE}
-        />
         <View style={styles.textInputWrapperStyle}>
           <TextInput
             style={styles.textInputStyle}

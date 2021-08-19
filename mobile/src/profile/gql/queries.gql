@@ -9,6 +9,12 @@ fragment PostFragment on Post {
   }
   textContent
   mediaContent
+  likes {
+    id
+  }
+  comments {
+    id
+  }
 }
 
 mutation UpdateAvatar($avatarId: String) {
