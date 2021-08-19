@@ -1,3 +1,4 @@
+import { NetworkStatus } from '@apollo/client';
 import {
   useGetChatsQuery,
   useNewChatSubscription,
@@ -11,8 +12,14 @@ import { filterChats } from '../utils/filterChats';
 import { getFirstItem } from '../utils/getFirstItem';
 import { sortChatsByDate } from '../utils/sortChatsByDate';
 
-export const useChatList = (filter: string): IChatItem[] => {
-  const { data: chatsQuery } = useGetChatsQuery();
+export const useChatList = (
+  filter: string,
+): { data: IChatItem[]; refresh(): void; loading: boolean } => {
+  const { data: chatsQuery, refetch, networkStatus } = useGetChatsQuery({
+    notifyOnNetworkStatusChange: true,
+  });
+
+  const loading = NetworkStatus.ready === networkStatus ? false : true;
 
   useNewChatSubscription({
     onSubscriptionData: (subscriptionData) => {
@@ -29,7 +36,7 @@ export const useChatList = (filter: string): IChatItem[] => {
   });
 
   if (!chatsQuery || !chatsQuery.getChats) {
-    return [] as any;
+    return { data: [], refresh: () => {}, loading: false };
   }
 
   const chats: IChatItem[] = chatsQuery.getChats.map((el) => {
@@ -56,5 +63,5 @@ export const useChatList = (filter: string): IChatItem[] => {
 
   const filteredChats = filterChats(chats, filter);
 
-  return sortChatsByDate(filteredChats);
+  return { data: sortChatsByDate(filteredChats), refresh: refetch, loading };
 };

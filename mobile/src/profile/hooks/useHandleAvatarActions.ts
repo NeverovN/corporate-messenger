@@ -16,6 +16,9 @@ export const useHandleAvatarActions = () => {
           includeBase64: true,
         });
 
+        // console.log(image.path);
+        console.log(image.sourceURL);
+
         const imageBase64 = image.data || null;
         const avatarURL = await MediaUploader.uploadOneToStorage(imageBase64);
         try {

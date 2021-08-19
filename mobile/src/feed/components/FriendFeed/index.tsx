@@ -12,6 +12,8 @@ import { IPostItem } from 'feed/types/feed';
 
 interface IFriendFeedListViewProps {
   data: IPostItem[];
+  refresh(): void;
+  loading: boolean;
 }
 
 const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
@@ -31,7 +33,12 @@ const FriendFeedView: FC<IFriendFeedListViewProps> = (props) => {
   const styles = useStyles();
   return (
     <View style={styles.friendFeedStyle}>
-      <FlatList renderItem={renderFeedItem} data={props.data} />
+      <FlatList
+        renderItem={renderFeedItem}
+        data={props.data}
+        onRefresh={props.refresh}
+        refreshing={props.loading}
+      />
     </View>
   );
 };

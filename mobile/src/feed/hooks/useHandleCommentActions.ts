@@ -20,7 +20,7 @@ export const useHandleCommentActions = () => {
       }
       cache.modify({
         fields: {
-          getComments() {
+          getPost() {
             try {
               cache.gc();
             } catch (err) {

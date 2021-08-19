@@ -11,9 +11,13 @@ interface IFriendListContainerProps {
 }
 
 const FriendListContainer: FC<IFriendListContainerProps> = (props) => {
-  const usersData = useGetFilteredFriends(props.filter);
+  const { filteredUsers, refresh, loading } = useGetFilteredFriends(
+    props.filter,
+  );
 
-  return <FriendListView data={usersData} />;
+  return (
+    <FriendListView data={filteredUsers} loading={loading} refresh={refresh} />
+  );
 };
 
 export default memo(FriendListContainer);

@@ -21,13 +21,7 @@ export const useHandlePostActions = () => {
       }
       cache.modify({
         fields: {
-          getAllPosts() {
-            try {
-              cache.gc();
-            } catch (err) {
-              throw Error(`cache update error -> ${err}`);
-            }
-          },
+          getPosts() {},
         },
       });
     },

@@ -22,6 +22,8 @@ import { ICommentItem } from '@/feed/types/comment';
 interface IPostScreenViewProps {
   data: ICommentItem[];
   postId: string;
+  refresh(): void;
+  loading: boolean;
 }
 
 const renderPostItem: ListRenderItem<ICommentItem> = ({ item }) => {
@@ -49,6 +51,8 @@ const PostScreenView: FC<IPostScreenViewProps> = (props) => {
           data={props.data}
           renderItem={renderPostItem}
           style={styles.listStyle}
+          onRefresh={props.refresh}
+          refreshing={props.loading}
         />
         <CommentInput />
       </SafeAreaView>

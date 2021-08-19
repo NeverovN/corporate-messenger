@@ -1,16 +1,27 @@
 import { useGetFeedQuery } from '@/common/types/gql.generated';
 import { getMedia } from '@/profile/utils/getMedia';
 import { getUsername } from '@/profile/utils/getUsername';
+import { NetworkStatus } from '@apollo/client';
 
 // types
 import { IPostItem } from 'feed/types/feed';
 import { filterFeed } from '../utils/filterFeed';
 
-export const useFeedList = (filter: string): IPostItem[] => {
-  const { data } = useGetFeedQuery();
+export const useFeedList = (
+  filter: string,
+): {
+  data: IPostItem[];
+  refresh(): void;
+  loading: boolean;
+} => {
+  const { data, refetch, networkStatus } = useGetFeedQuery({
+    notifyOnNetworkStatusChange: true,
+  });
+
+  const loading = NetworkStatus.ready === networkStatus ? false : true;
 
   if (!data || !data.getAllPosts) {
-    return [];
+    return { data: [], refresh: refetch, loading };
   }
   const posts = data.getAllPosts
     .map((el) => {
@@ -34,5 +45,5 @@ export const useFeedList = (filter: string): IPostItem[] => {
     })
     .reverse();
 
-  return filterFeed(posts, filter);
+  return { data: filterFeed(posts, filter), refresh: refetch, loading };
 };

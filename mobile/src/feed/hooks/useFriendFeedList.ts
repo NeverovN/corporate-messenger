@@ -1,18 +1,27 @@
 // component
 import { useGetFriendFeedQuery } from '@/common/types/gql.generated';
 import { getUsername } from '@/profile/utils/getUsername';
+import { NetworkStatus } from '@apollo/client';
 
 // types
 import { IPostItem } from 'feed/types/feed';
 
-export const useFriendFeedList = (): IPostItem[] => {
-  const { data } = useGetFriendFeedQuery();
+export const useFriendFeedList = (): {
+  data: IPostItem[];
+  refresh(): void;
+  loading: boolean;
+} => {
+  const { data, refetch, networkStatus } = useGetFriendFeedQuery({
+    notifyOnNetworkStatusChange: true,
+  });
+
+  const loading = NetworkStatus.ready === networkStatus ? false : true;
 
   if (!data || !data.getFriendPosts) {
-    return [] as any;
+    return { data: [], refresh: refetch, loading };
   }
 
-  return data.getFriendPosts
+  const posts = data.getFriendPosts
     .map((el) => {
       const username = getUsername(
         el?.author.firstName || '',
@@ -32,4 +41,6 @@ export const useFriendFeedList = (): IPostItem[] => {
       };
     })
     .reverse();
+
+  return { data: posts, refresh: refetch, loading };
 };

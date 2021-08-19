@@ -10,8 +10,15 @@ interface IFeedContainerProps {}
 
 const Feed: FC<IFeedContainerProps> = () => {
   const [filter, setFilter] = useState<string>('');
-  const feedList = useFeedList(filter);
-  return <FeedView data={feedList} setFilter={setFilter} />;
+  const { data, refresh, loading } = useFeedList(filter);
+  return (
+    <FeedView
+      data={data}
+      setFilter={setFilter}
+      refresh={refresh}
+      loading={loading}
+    />
+  );
 };
 
 export default memo(Feed);
