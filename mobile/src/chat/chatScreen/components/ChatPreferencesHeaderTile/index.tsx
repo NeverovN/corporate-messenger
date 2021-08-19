@@ -75,15 +75,9 @@ const ChatPreferencesHeaderTile: FC<IChatPreferencesHeaderTileViewProps> = (
             iconStyle={styles.iconStyle}
           /> */}
           <View style={styles.manageButtonsViewStyle}>
-            <TextButton
-              label="LEAVE"
-              labelStyle={styles.changePhotoLabelStyle}
-              onPress={props.onLeavePress}
-              containerStyle={styles.textButtonContainerStyle}
-            />
             <View style={styles.separator} />
             <TextButton
-              label="CLEAR"
+              label="CLEAR HISTORY"
               labelStyle={styles.changePhotoLabelStyle}
               onPress={props.onClearHistoryPress}
               containerStyle={styles.textButtonContainerStyle}
