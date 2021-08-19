@@ -21,7 +21,9 @@ const ThemeSwitcherButtonView: FC<IThemeSwitcherButtonViewProps> = ({
   const [lightIndicatorStyle, darkIndicatorStyle] =
     currentTheme === 'light'
       ? [styles.activeIndicatorStyle, styles.inactiveIndicatorStyle]
-      : [styles.inactiveIndicatorStyle, styles.activeIndicatorStyle];
+      : currentTheme === 'dark'
+      ? [styles.inactiveIndicatorStyle, styles.activeIndicatorStyle]
+      : [styles.inactiveIndicatorStyle, styles.inactiveIndicatorStyle];
 
   return (
     <View style={styles.buttonStyle}>

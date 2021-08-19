@@ -1,5 +1,5 @@
 import React, { memo, useMemo, useState } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, Appearance } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // types
@@ -33,12 +33,17 @@ const RootStackRouter = () => {
     'dark-content',
   );
   const themeName = useSelector((state: RootState) => state.currentTheme.theme);
+  const nativeBarColor =
+    Appearance.getColorScheme() === 'light' ? 'dark-content' : 'light-content';
+
   const palette = useMemo(() => {
     themeName === 'light'
       ? setBarStyle('dark-content')
-      : setBarStyle('light-content');
+      : themeName === 'dark'
+      ? setBarStyle('light-content')
+      : setBarStyle(nativeBarColor);
     return getTheme(themeName);
-  }, [themeName]);
+  }, [themeName, nativeBarColor]);
   const theme: DefaultTheme = { palette };
   return (
     <ThemeProvider value={theme}>
