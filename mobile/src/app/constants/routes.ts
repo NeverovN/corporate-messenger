@@ -12,3 +12,4 @@ export const PROFILE_STACK_NAME = 'ProfileStack';
 export const CHAT_STACK_NAME = 'ChatStack';
 export const SETTINGS_STACK_NAME = 'SettingsStack';
 export const POST_SCREEN_NAME = 'PostScreen';
+export const EDIT_COMMENT_SCREEN = 'EditCommentScreen';

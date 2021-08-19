@@ -23,7 +23,6 @@ import AuthRouter from '@/auth/routers/Auth';
 import MainRouter from '../Main';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
-import { darkTheme, lightTheme } from '@/common/constants/colors';
 import { getTheme } from '@/app/utils/getTheme';
 
 const RootStack = createStackNavigator<RootStackParamList>();
