@@ -12,13 +12,10 @@ import { setToken } from '../utils/setToken';
 // consts
 import {
   BOTTOM_TAB_NAME,
-  FEED_STACK_NAME,
+  PROFILE_STACK_NAME,
   MAIN_STACK_NAME,
 } from '@/app/constants/routes';
-import {
-  ALL_FEED_SCREEN_NAME,
-  FEED_SCREEN_NAME,
-} from '@/feed/constants/routes';
+import { PROFILE_SCREEN_NAME } from '@/profile/constants/routes';
 import Toast from 'react-native-toast-message';
 
 export const useFinishRegistration = (fName: string, lName: string) => {
@@ -98,10 +95,9 @@ export const useFinishRegistration = (fName: string, lName: string) => {
       navigation.navigate(MAIN_STACK_NAME, {
         screen: BOTTOM_TAB_NAME,
         params: {
-          screen: FEED_STACK_NAME,
+          screen: PROFILE_STACK_NAME,
           params: {
-            screen: FEED_SCREEN_NAME,
-            params: { screen: ALL_FEED_SCREEN_NAME },
+            screen: PROFILE_SCREEN_NAME,
           },
         },
       });

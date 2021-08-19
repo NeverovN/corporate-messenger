@@ -54,7 +54,7 @@ const ConfirmPasswordButton: FC<IButtonProps> = ({
   return (
     <TextButton
       label="CONFIRM"
-      containerStyle={styles.inactiveContainerStyle}
+      containerStyle={styles.activeContainerStyle}
       labelStyle={styles.labelStyle}
       onPress={onPress}
     />

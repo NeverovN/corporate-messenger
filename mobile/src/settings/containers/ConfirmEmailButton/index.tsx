@@ -39,7 +39,7 @@ const ConfirmEmailButton: FC<IButtonProps> = ({
     <TextButton
       label="CONFIRM"
       labelStyle={styles.labelStyle}
-      containerStyle={styles.inactiveContainerStyle}
+      containerStyle={styles.activeContainerStyle}
       onPress={onPress}
     />
   );
