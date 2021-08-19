@@ -34,7 +34,7 @@ const SettingsMainNavigator: FC<ISettingsNavigatorProps> = () => {
         options={{
           headerLeft: () => <HeaderBackButtonWithoutText />,
           headerTitleStyle: styles.headerTitleStyle,
-          title: 'POST',
+          title: 'USER SETTINGS',
           headerStyle: styles.headerStyle,
         }}
       />

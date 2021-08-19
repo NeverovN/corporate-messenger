@@ -347,10 +347,16 @@ export type QueryGetUsersArgs = {
 export type Subscription = {
   __typename?: 'Subscription';
   chatDeleted: Chat;
+  messageDeleted: Message;
   messageEdited: Message;
   newChat: Chat;
   newMessage: Message;
   newPost: Post;
+};
+
+
+export type SubscriptionMessageDeletedArgs = {
+  chatId: Scalars['ID'];
 };
 
 
@@ -629,6 +635,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
   chatDeleted?: SubscriptionResolver<ResolversTypes['Chat'], "chatDeleted", ParentType, ContextType>;
+  messageDeleted?: SubscriptionResolver<ResolversTypes['Message'], "messageDeleted", ParentType, ContextType, RequireFields<SubscriptionMessageDeletedArgs, 'chatId'>>;
   messageEdited?: SubscriptionResolver<ResolversTypes['Message'], "messageEdited", ParentType, ContextType, RequireFields<SubscriptionMessageEditedArgs, 'chatId'>>;
   newChat?: SubscriptionResolver<ResolversTypes['Chat'], "newChat", ParentType, ContextType>;
   newMessage?: SubscriptionResolver<ResolversTypes['Message'], "newMessage", ParentType, ContextType, RequireFields<SubscriptionNewMessageArgs, 'chatId'>>;
