@@ -17,6 +17,7 @@ const EditPostScreenView: FC<IEditPostScreenViewProps> = (props) => {
   return (
     <ScrollView contentContainerStyle={styles.editPostScreenStyle}>
       <TextInput
+        autoFocus={true}
         style={styles.inputStyle}
         multiline={true}
         scrollEnabled={true}

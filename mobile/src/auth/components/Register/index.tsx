@@ -14,6 +14,9 @@ import { useStyles } from './styles';
 import AuthInput from '../AuthInput';
 import SignButton from '../SignButton';
 
+// common components
+import IconButton from '@/common/components/Button/IconButton';
+
 interface IRegisterScreenProps {
   email: string;
   onChangeEmail(email: string): void;
@@ -25,9 +28,10 @@ interface IRegisterScreenProps {
   onChangePasswordRepeat(password: string): void;
 
   isHidden: boolean;
+  isHiddenRep: boolean;
 
-  iconName: string;
-  onIconPress(): void;
+  onIconPress(callback: (val: boolean) => boolean): void;
+  onIconRepPress(callback: (val: boolean) => boolean): void;
 
   handleRegistration(): void;
 }
@@ -58,6 +62,11 @@ const RegisterView: FC<IRegisterScreenProps> = (props) => {
                 onChangeText={props.onChangePassword}
                 secure={props.isHidden}
               />
+              <IconButton
+                icon={props.isHidden ? 'eye-off' : 'eye'}
+                onPress={() => props.onIconPress((prev) => !prev)}
+                containerStyle={styles.togglePasswordIconStyle}
+              />
             </View>
 
             <View style={styles.passwordStyle}>
@@ -65,7 +74,12 @@ const RegisterView: FC<IRegisterScreenProps> = (props) => {
                 placeholder="CONFIRM PASSWORD"
                 value={props.passwordRepeat}
                 onChangeText={props.onChangePasswordRepeat}
-                secure={props.isHidden}
+                secure={props.isHiddenRep}
+              />
+              <IconButton
+                icon={props.isHiddenRep ? 'eye-off' : 'eye'}
+                onPress={() => props.onIconRepPress((prev) => !prev)}
+                containerStyle={styles.togglePasswordIconStyle}
               />
             </View>
             <View style={styles.buttonWrapperStyle}>

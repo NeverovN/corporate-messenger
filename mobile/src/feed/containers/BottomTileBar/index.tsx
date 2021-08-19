@@ -14,7 +14,7 @@ interface IBottomTileBarContainerProps {
 const BottomTileBarContainer: FC<IBottomTileBarContainerProps> = (props) => {
   const onLikePressed = useOnLikePressed(props.postId);
   const { likeCount, liked } = useGetLikes(props.postId);
-  const onCommentPressed = usePostRedirection(props.postId);
+  const onCommentPressed = usePostRedirection(props.postId, true);
   const commentCount = useGetCommentsCount(props.postId);
   return (
     <BottomTileBarView

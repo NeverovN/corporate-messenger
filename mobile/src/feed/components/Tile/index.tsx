@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 // styles
 import { useStyles } from './styles';
@@ -13,13 +13,14 @@ import BottomTileBarContainer from 'feed/containers/BottomTileBar';
 import { IPostItem } from '@/feed/types/feed';
 
 export interface ITileViewProps extends IPostItem {
+  onPress(): void;
   avatar: string | null;
 }
 
 const TileView: FC<ITileViewProps> = (props) => {
   const styles = useStyles();
   return (
-    <View style={styles.tileStyle}>
+    <TouchableOpacity style={styles.tileStyle} onPress={props.onPress}>
       <TopTileBarContainer
         id={props.id}
         author={props.author}
@@ -34,7 +35,7 @@ const TileView: FC<ITileViewProps> = (props) => {
         <View style={styles.spacer} />
       </View>
       <BottomTileBarContainer postId={props.id} />
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -49,5 +49,10 @@ export const useStyles = makeUseStyles(({ palette }) => {
     iconStyle: {
       marginRight: 10,
     },
+    togglePasswordIconStyle: {
+      position: 'absolute',
+      right: '5%',
+      top: '25%',
+    },
   };
 });

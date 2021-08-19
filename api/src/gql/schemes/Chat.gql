@@ -53,6 +53,7 @@ type Subscription {
   chatDeleted: Chat!
   newMessage(chatId: ID!): Message!
   messageEdited(chatId: ID!): Message!
+  messageDeleted(chatId: ID!): Message!
 }
 
 input UpdateChatLogoInput {

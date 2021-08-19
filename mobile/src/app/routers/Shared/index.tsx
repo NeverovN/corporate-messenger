@@ -5,7 +5,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SharedStackParamList } from 'app/types/routes';
 
 // constants
-import { POST_SCREEN_NAME, SETTINGS_STACK_NAME } from 'app/constants/routes';
+import {
+  EDIT_COMMENT_SCREEN,
+  POST_SCREEN_NAME,
+  SETTINGS_STACK_NAME,
+} from 'app/constants/routes';
 import { CHAT_STACK_NAME } from 'app/constants/routes';
 import { useStyles } from './styles';
 
@@ -16,6 +20,7 @@ import PostScreen from 'feed/containers/PostScreen';
 
 // back button
 import HeaderBackButtonWithoutText from '@/common/components/HeaderBackButtonWithoutText';
+import EditCommentScreen from '@/feed/containers/EditCommentScreen';
 
 const SharedStack = createStackNavigator<SharedStackParamList>();
 
@@ -45,6 +50,15 @@ const SharedRouter = () => {
           headerLeft: () => <HeaderBackButtonWithoutText />,
           headerTitleStyle: styles.headerTitleStyle,
           title: 'POST',
+        }}
+      />
+      <SharedStack.Screen
+        name={EDIT_COMMENT_SCREEN}
+        component={EditCommentScreen}
+        options={{
+          headerLeft: () => <HeaderBackButtonWithoutText />,
+          headerTitleStyle: styles.headerTitleStyle,
+          title: 'EDIT COMMENT',
         }}
       />
     </SharedStack.Navigator>

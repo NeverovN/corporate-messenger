@@ -6,13 +6,13 @@ import { useDeleteCommentByIdMutation } from '@/common/types/gql.generated';
 import ACTIONS from 'feed/constants/actions';
 
 // types
-import { PostScreenNavigationProp } from 'feed/types/routes';
-import { EDIT_COMMENT_SCREEN_NAME } from '../constants/routes';
+import { SharedStackNavigationProp } from 'app/types/routes';
+import { SHARED_STACK_NAME, EDIT_COMMENT_SCREEN } from 'app/constants/routes';
 import { editComment } from '@/common/cache/cache';
 import { ICommentItem } from '../types/comment';
 
 export const useHandleCommentActions = () => {
-  const navigation = useNavigation<PostScreenNavigationProp>();
+  const navigation = useNavigation<SharedStackNavigationProp>();
   const [deleteComment] = useDeleteCommentByIdMutation({
     update: (cache, { data }) => {
       if (!data) {
@@ -44,7 +44,7 @@ export const useHandleCommentActions = () => {
       }
       case ACTIONS.EDIT_COMMENT: {
         editComment(comment);
-        navigation.navigate(EDIT_COMMENT_SCREEN_NAME);
+        navigation.navigate(SHARED_STACK_NAME, { screen: EDIT_COMMENT_SCREEN });
       }
     }
   };

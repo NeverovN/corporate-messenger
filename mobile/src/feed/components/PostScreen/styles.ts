@@ -11,5 +11,8 @@ export const useStyles = makeUseStyles(({ palette }) => {
     listStyle: {
       paddingHorizontal: 10,
     },
+    keyboardAvoidingView: {
+      flex: 1,
+    },
   };
 });

@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo } from 'react';
 import ContextMenu from 'react-native-context-menu-view';
 
 import ChatItemView from 'chat/chatList/components/ChatItem';
@@ -6,7 +6,10 @@ import ChatItemView from 'chat/chatList/components/ChatItem';
 // hooks
 import { useOnChatPressed } from '../../hooks/useOnChatPressed';
 import { useHandleChatActions } from '../../hooks/useHandleChatActions';
-import { useMessageEditedSubscription } from '@/common/types/gql.generated';
+import {
+  useMessageEditedSubscription,
+  useMessageDeletedSubscription,
+} from '@/common/types/gql.generated';
 
 // consts
 import ACTIONS from 'chat/chatList/constants/actions';
@@ -20,6 +23,16 @@ interface IChatItemContainerProps {
 const ChatItemContainer: FC<IChatItemContainerProps> = (props) => {
   const redirect = useOnChatPressed(props.chatId);
   useMessageEditedSubscription({ variables: { chatId: props.chatId } });
+  useMessageDeletedSubscription({
+    variables: { chatId: props.chatId },
+    onSubscriptionData: (subscriptionData) => {
+      console.log('got');
+
+      subscriptionData.client.cache.modify({
+        fields: { getChatById() {} },
+      });
+    },
+  });
   const actionHandler = useHandleChatActions();
 
   return (

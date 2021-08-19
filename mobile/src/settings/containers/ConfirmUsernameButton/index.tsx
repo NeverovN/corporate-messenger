@@ -1,11 +1,11 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { Alert } from 'react-native';
 
 // common components
 import TextButton from '@/common/components/Button/TextButton';
 
 // styles
 import { useStyles } from './styles';
+import Toast from 'react-native-toast-message';
 
 interface IButtonProps {
   initialNames: [string, string];
@@ -21,38 +21,75 @@ const ConfirmUsernameButton: FC<IButtonProps> = ({
   const styles = useStyles();
   const [initialFirstName, initialLastName] = initialNames;
   const [newFirstName, newLastName] = newNames;
-  const [isChanged, setIsChanged] = useState<boolean>(false);
+  const normalizedFName = newFirstName.replace(/\s+/g, ' ').trim();
+  const normalizedLName = newLastName.replace(/\s+/g, ' ').trim();
+
+  const [onPress, setOnPress] = useState<() => void>(() => {});
 
   useEffect(() => {
     if (
-      initialFirstName === newFirstName &&
-      initialLastName === newLastName &&
-      newFirstName &&
-      newLastName
+      (initialFirstName === normalizedFName &&
+        initialLastName === normalizedLName) ||
+      (!normalizedLName && !normalizedLName)
     ) {
-      setIsChanged(false);
+      setOnPress(() => () => {
+        Toast.show({
+          type: 'error',
+          text1: 'Please, enter your new name and surname',
+          topOffset: 50,
+        });
+      });
+    } else if (initialFirstName === normalizedFName || !newFirstName) {
+      setOnPress(() => () => {
+        Toast.show({
+          type: 'error',
+          text1: 'Please, enter your new name',
+          topOffset: 50,
+        });
+      });
+    } else if (initialLastName === normalizedLName || !newLastName) {
+      setOnPress(() => () => {
+        Toast.show({
+          type: 'error',
+          text1: 'Please, enter your new surname',
+          topOffset: 50,
+        });
+      });
+    } else if (!normalizedFName) {
+      setOnPress(() => () => {
+        Toast.show({
+          type: 'error',
+          text1: "Please, don't use only spaces in name",
+          topOffset: 50,
+        });
+      });
+    } else if (!normalizedLName) {
+      setOnPress(() => () => {
+        Toast.show({
+          type: 'error',
+          text1: "Please, don't use only spaces in surname",
+          topOffset: 50,
+        });
+      });
     } else {
-      setIsChanged(true);
+      setOnPress(() => edit);
     }
-  }, [initialFirstName, initialLastName, newFirstName, newLastName]);
-
-  if (isChanged) {
-    return (
-      <TextButton
-        containerStyle={styles.activeContainerStyle}
-        labelStyle={styles.labelStyle}
-        onPress={edit}
-        label="CONFIRM"
-      />
-    );
-  }
+  }, [
+    edit,
+    initialFirstName,
+    initialLastName,
+    newFirstName,
+    newLastName,
+    normalizedFName,
+    normalizedLName,
+  ]);
 
   return (
     <TextButton
-      label="CONFIRM"
+      containerStyle={styles.activeContainerStyle}
       labelStyle={styles.labelStyle}
-      containerStyle={styles.inactiveContainerStyle}
-      onPress={() => Alert.alert('Error', 'Please enter correct username')}
+      onPress={onPress}
+      label="CONFIRM"
     />
   );
 };

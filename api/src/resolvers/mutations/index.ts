@@ -19,6 +19,7 @@ import {
   MESSAGE_CREATED,
   POST_CREATED,
   MESSAGE_EDITED,
+  MESSAGE_DELETED,
 } from '../../consts/events';
 
 // services
@@ -291,6 +292,7 @@ const mutationResolvers: MutationResolvers<ApolloContextType> = {
     try {
       const deletedMessage = await MessageController.getMessage(args.messageId);
       await MessageController.deleteMessage(args.messageId);
+      pubsub.publish(MESSAGE_DELETED, deletedMessage);
 
       return deletedMessage;
     } catch (error) {

@@ -5,7 +5,7 @@ import TextButton from '@/common/components/Button/TextButton';
 
 // styles
 import { useStyles } from './styles';
-import { Alert } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 interface IButtonProps {
   oldPassword: string;
@@ -21,35 +21,42 @@ const ConfirmPasswordButton: FC<IButtonProps> = ({
   edit,
 }) => {
   const styles = useStyles();
-  const [isChanged, setIsChanged] = useState<boolean>(false);
+  const [onPress, setOnPress] = useState<() => void>(() => {});
+  const normalizedPassword = newPassword.replace(/\s+/g, ' ').trim();
 
   useEffect(() => {
-    if (oldPassword === '' || newPassword === '' || newPasswordRep === '') {
-      setIsChanged(false);
+    if (normalizedPassword !== newPassword) {
+      setOnPress(() => () =>
+        Toast.show({
+          type: 'error',
+          text1: 'Invalid password',
+          text2: "Please, don't use anu spaces in your password",
+          topOffset: 50,
+        }),
+      );
+    } else if (
+      oldPassword === '' ||
+      newPassword === '' ||
+      newPasswordRep === ''
+    ) {
+      setOnPress(() => () =>
+        Toast.show({
+          type: 'error',
+          text1: 'Please, fill all fields',
+          topOffset: 50,
+        }),
+      );
     } else {
-      setIsChanged(true);
+      setOnPress(() => edit);
     }
-  }, [oldPassword, newPassword, newPasswordRep]);
-
-  if (isChanged) {
-    return (
-      <TextButton
-        label="CONFIRM"
-        containerStyle={styles.activeContainerStyle}
-        onPress={edit}
-        labelStyle={styles.labelStyle}
-      />
-    );
-  }
+  }, [oldPassword, newPassword, newPasswordRep, normalizedPassword, edit]);
 
   return (
     <TextButton
       label="CONFIRM"
-      containerStyle={styles.inactiveContainerStyle}
+      containerStyle={styles.activeContainerStyle}
       labelStyle={styles.labelStyle}
-      onPress={() =>
-        Alert.alert('Error', 'Please provide each fields with data')
-      }
+      onPress={onPress}
     />
   );
 };

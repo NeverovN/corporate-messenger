@@ -12,7 +12,7 @@ interface IEditEmailScreenContainerProps {}
 const EditEmailScreenContainer: FC<IEditEmailScreenContainerProps> = () => {
   const [email, setEmail] = useState<string>('');
   const initialEmail = useInitialEmail();
-  const edit = useUpdateEmail(email);
+  const edit = useUpdateEmail(email, setEmail);
 
   return (
     <EditEmailScreenView

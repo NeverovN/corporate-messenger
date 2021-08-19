@@ -14,7 +14,12 @@ const EditUsernameScreenContainer: FC<IEditUsernameScreenContainerProps> = () =>
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
 
-  const edit = useUpdateUsername(firstName, lastName);
+  const edit = useUpdateUsername(
+    firstName,
+    lastName,
+    setFirstName,
+    setLastName,
+  );
 
   return (
     <EditUsernameScreenView

@@ -45,14 +45,6 @@ const NewChatSetupHeaderTileView: FC<INewChatSetupHeaderTileViewProps> = (
               onChangeText={props.onChatTitleChange}
             />
           </View>
-          <IconWithTextButton
-            onPress={props.onChangePhotoPress}
-            icon="plus"
-            label="CHANGE PHOTO"
-            iconColor={palette.secondary}
-            containerStyle={styles.containerStyle}
-            labelStyle={styles.changePhotoLabelStyle}
-          />
         </View>
       </View>
       <Text style={styles.membersTextStyle}>{props.memberCount} MEMBERS</Text>

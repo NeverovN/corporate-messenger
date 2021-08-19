@@ -2,6 +2,9 @@ import { makeUseStyles } from 'react-native-stylex';
 
 export const useStyles = makeUseStyles(({ palette }) => {
   return {
+    keyboardAvoidingView: {
+      flex: 1,
+    },
     editUsernameScreenStyle: {
       alignItems: 'center',
       paddingTop: 30,

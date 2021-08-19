@@ -38,10 +38,6 @@ const SwitchThemeContainer: FC<ISwitchThemeContainerProps> = () => {
     <View style={styles.wrapperStyle}>
       <Text style={styles.textStyle}>CUSTOM</Text>
       <Switch
-        trackColor={{ false: palette.black, true: palette.secondaryInactive }}
-        thumbColor={
-          isEnabled ? palette.secondaryInactive : palette.secondaryInactive
-        }
         onValueChange={toggleSwitcher}
         value={isEnabled}
         ios_backgroundColor={palette.tint}

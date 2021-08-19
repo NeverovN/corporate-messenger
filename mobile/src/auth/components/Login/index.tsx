@@ -7,6 +7,9 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
+// common components
+import IconButton from '@/common/components/Button/IconButton';
+
 // components
 import AuthInput from '../AuthInput';
 import SignButton from '../SignButton';
@@ -23,8 +26,7 @@ interface ILoginViewProps {
 
   isHidden: boolean;
 
-  iconName: string;
-  onIconPress(): void;
+  onIconPress(callback: (val: boolean) => boolean): void;
 
   handleLogin(): void;
 
@@ -48,13 +50,17 @@ const LoginView: FC<ILoginViewProps> = (props) => {
             value={props.email}
             onChangeText={props.onChangeEmail}
           />
-
           <View style={styles.passwordStyle}>
             <AuthInput
               placeholder="PASSWORD"
               value={props.password}
               onChangeText={props.onChangePassword}
               secure={props.isHidden}
+            />
+            <IconButton
+              icon={props.isHidden ? 'eye-off' : 'eye'}
+              onPress={() => props.onIconPress((prev) => !prev)}
+              containerStyle={styles.togglePasswordIconStyle}
             />
           </View>
           <SignButton title="SUBMIT" onPress={props.handleLogin} />

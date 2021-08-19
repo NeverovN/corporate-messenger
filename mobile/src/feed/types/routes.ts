@@ -24,7 +24,7 @@ export type RootStackParamList = {
 };
 
 export type PostStackParamList = {
-  [POST_SCREEN_NAME]: { postId: string };
+  [POST_SCREEN_NAME]: { postId: string; isToComment: boolean };
   [EDIT_COMMENT_SCREEN_NAME]: undefined;
 };
 

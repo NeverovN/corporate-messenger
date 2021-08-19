@@ -22,7 +22,7 @@ const ChatScreenView: FC<IChatScreenViewProps> = (props) => {
         style={styles.chatScreenStyle}
         behavior="padding"
         enabled
-        keyboardVerticalOffset={65}>
+        keyboardVerticalOffset={100}>
         <MessageArea setEditMessage={props.setEditMessage} />
         <BottomBar
           editMessageId={props.editMessage}

@@ -17,7 +17,14 @@ const EditPasswordScreenContainer: FC<IEditPasswordScreenContainerProps> = () =>
   const [oldPassword, setOldPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [newPasswordRep, setNewPasswordRep] = useState<string>('');
-  const edit = useUpdatePassword(oldPassword, newPassword, newPasswordRep);
+  const edit = useUpdatePassword(
+    oldPassword,
+    newPassword,
+    newPasswordRep,
+    setOldPassword,
+    setNewPassword,
+    setNewPasswordRep,
+  );
 
   useEffect(() => {
     navigation.setParams({ new: newPassword });

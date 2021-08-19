@@ -12,22 +12,68 @@ import { setToken } from '../utils/setToken';
 // consts
 import {
   BOTTOM_TAB_NAME,
-  FEED_STACK_NAME,
+  PROFILE_STACK_NAME,
   MAIN_STACK_NAME,
 } from '@/app/constants/routes';
-import {
-  ALL_FEED_SCREEN_NAME,
-  FEED_SCREEN_NAME,
-} from '@/feed/constants/routes';
+import { PROFILE_SCREEN_NAME } from '@/profile/constants/routes';
+import Toast from 'react-native-toast-message';
 
 export const useFinishRegistration = (fName: string, lName: string) => {
   const navigation = useNavigation<MainScreenNavigationProp>();
   const { params } = useRoute<UserDataRouteProp>();
   const [addUser] = useCreateUserMutation();
+  const normalizedFName = fName.replace(/\s+/g, ' ').trim();
+  const normalizedLName = lName.replace(/\s+/g, ' ').trim();
 
-  if (!fName || !lName) {
+  if (!fName && !lName) {
     return () => {
-      Alert.alert('Error', 'Please, enter correct name');
+      Toast.show({
+        type: 'error',
+        text1: 'Please, enter your new name and surname',
+        topOffset: 50,
+      });
+    };
+  }
+
+  if (!fName) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Please, enter your name',
+        topOffset: 50,
+      });
+    };
+  }
+
+  if (!lName) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Please, enter your surname',
+        topOffset: 50,
+      });
+    };
+  }
+
+  if (!normalizedFName) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid name',
+        text2: "Please, don't use spaces as your name",
+        topOffset: 50,
+      });
+    };
+  }
+
+  if (!normalizedLName) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid name',
+        text2: "Please, don't use spaces as your surname",
+        topOffset: 50,
+      });
     };
   }
 
@@ -38,8 +84,8 @@ export const useFinishRegistration = (fName: string, lName: string) => {
           input: {
             email: params.email,
             password: params.password,
-            firstName: fName,
-            lastName: lName,
+            firstName: normalizedFName,
+            lastName: normalizedLName,
           },
         },
       });
@@ -49,10 +95,9 @@ export const useFinishRegistration = (fName: string, lName: string) => {
       navigation.navigate(MAIN_STACK_NAME, {
         screen: BOTTOM_TAB_NAME,
         params: {
-          screen: FEED_STACK_NAME,
+          screen: PROFILE_STACK_NAME,
           params: {
-            screen: FEED_SCREEN_NAME,
-            params: { screen: ALL_FEED_SCREEN_NAME },
+            screen: PROFILE_SCREEN_NAME,
           },
         },
       });

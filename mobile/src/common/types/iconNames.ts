@@ -15,4 +15,6 @@ export type IconName =
   | 'forward'
   | 'forward-slim'
   | 'search'
+  | 'eye'
+  | 'eye-off'
   | 'calendar';

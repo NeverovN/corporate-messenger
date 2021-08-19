@@ -60,5 +60,11 @@ export const useStyles = makeUseStyles(({ palette }) => {
       width: '100%',
       height: 1,
     },
+
+    togglePasswordIconStyle: {
+      position: 'absolute',
+      right: '5%',
+      top: '25%',
+    },
   };
 });

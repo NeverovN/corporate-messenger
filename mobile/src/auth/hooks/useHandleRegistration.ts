@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { Alert } from 'react-native';
 
 // routers
 import { AuthScreenNavigationProp } from 'auth/types/routes';
@@ -7,6 +6,7 @@ import { AuthScreenNavigationProp } from 'auth/types/routes';
 // utils
 import validateEmail from '../utils/validateEmail';
 import validatePassword from '../utils/validatePassword';
+import Toast from 'react-native-toast-message';
 
 type UseHandleRegistrationResult = () => void;
 type UseHandleRegistrationOptions = {
@@ -22,23 +22,46 @@ export function useHandleRegistration(
 
   if (!validateEmail(params.email)) {
     return () => {
-      Alert.alert('Error', 'Invalid email'); // TODO: add custom errors (e.g. dropdown alerts or toasts - https://www.npmjs.com/package/react-native-toast-message)
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid email',
+        text2: 'Please, enter correct email',
+        topOffset: 50,
+      });
+    };
+  }
+
+  if (params.password.replace(/\s+/g, '').trim() !== params.password) {
+    return () => {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid password',
+        text2: "Please, don't use any spaces in password",
+        topOffset: 50,
+      });
     };
   }
 
   if (!validatePassword(params.password)) {
     return () => {
-      Alert.alert(
-        'Error',
-        `Weak password
-      Password must be at least 8 characters long and contain one numeric symbol`,
-      );
+      Toast.show({
+        type: 'error',
+        text1: 'Weak password',
+        text2:
+          'Password must be at least 8 characters long and contain one numeric symbol',
+        topOffset: 50,
+      });
     };
   }
 
   if (params.password !== params.passwordRepeat) {
     return () => {
-      Alert.alert('Error', 'Passwords not match');
+      Toast.show({
+        type: 'error',
+        text1: 'Passwords not match',
+        text2: 'Please, check provided data',
+        topOffset: 50,
+      });
     };
   }
 

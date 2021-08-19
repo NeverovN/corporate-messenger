@@ -14,6 +14,7 @@ import {
   MESSAGE_CREATED,
   POST_CREATED,
   MESSAGE_EDITED,
+  MESSAGE_DELETED,
 } from '../../consts/events';
 
 // services
@@ -51,6 +52,15 @@ const subscriptionResolvers: SubscriptionResolvers = {
   messageEdited: {
     subscribe: withFilter(
       () => pubsub.asyncIterator([MESSAGE_EDITED]),
+      (message: MessageEntity, variables: SubscriptionMessageEditedArgs) =>
+        message.chatId === variables.chatId,
+    ),
+
+    resolve: (message: MessageEntity) => message,
+  },
+  messageDeleted: {
+    subscribe: withFilter(
+      () => pubsub.asyncIterator([MESSAGE_DELETED]),
       (message: MessageEntity, variables: SubscriptionMessageEditedArgs) =>
         message.chatId === variables.chatId,
     ),
