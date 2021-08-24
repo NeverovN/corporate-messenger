@@ -1,5 +1,12 @@
 import React, { FC, memo } from 'react';
-import { FlatList, View, ListRenderItem, Text } from 'react-native';
+import {
+  FlatList,
+  View,
+  ListRenderItem,
+  Text,
+  ScrollView,
+  RefreshControl,
+} from 'react-native';
 
 import ChatItem from 'chat/chatList/containers/ChatItem';
 
@@ -11,6 +18,8 @@ import { IChatItem } from 'chat/chatList/types/chat';
 
 interface IChatListViewProps {
   data: IChatItem[];
+  refresh(): void;
+  loading: boolean;
 }
 
 const renderChatItem: ListRenderItem<IChatItem> = ({ item }) => {
@@ -23,21 +32,30 @@ const renderChatItem: ListRenderItem<IChatItem> = ({ item }) => {
   );
 };
 
-const ChatListView: FC<IChatListViewProps> = ({ data }) => {
+const ChatListView: FC<IChatListViewProps> = ({ data, refresh, loading }) => {
   const styles = useStyles();
   const isAnyChats = !!data.length;
 
   if (isAnyChats) {
     return (
       <View style={styles.existingChatsStyle}>
-        <FlatList renderItem={renderChatItem} data={data} />
+        <FlatList
+          renderItem={renderChatItem}
+          data={data}
+          onRefresh={refresh}
+          refreshing={loading}
+        />
       </View>
     );
   } else {
     return (
-      <View style={styles.missingChatsStyle}>
-        <Text style={styles.textStyle}>No chats found :(</Text>
-      </View>
+      <ScrollView
+        contentContainerStyle={styles.missingChatsStyle}
+        refreshControl={
+          <RefreshControl onRefresh={refresh} refreshing={loading} />
+        }>
+        <Text style={styles.textStyle}>No chats or data is refreshing</Text>
+      </ScrollView>
     );
   }
 };

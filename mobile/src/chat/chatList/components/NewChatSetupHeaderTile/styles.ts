@@ -59,6 +59,7 @@ export const useStyles = makeUseStyles(({ palette }) => {
       marginVertical: 10,
     },
     inputStyle: {
+      flex: 1,
       fontFamily: 'Mulish',
       fontSize: 16,
       color: palette.secondary,

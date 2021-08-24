@@ -320,6 +320,11 @@ export type SubscriptionMessageDeletedArgs = {
   chatId: Scalars['ID'];
 };
 
+export type SubscriptionMessageDeletedArgs = {
+  chatId: Scalars['ID'];
+};
+
+
 export type SubscriptionMessageEditedArgs = {
   chatId: Scalars['ID'];
 };
@@ -600,6 +605,70 @@ export type GetFeedQuery = { __typename?: 'Query' } & {
   >;
 };
 
+
+export type NewMessageSubscription = (
+  { __typename?: 'Subscription' }
+  & { newMessage: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
+
+export type MessageDeletedSubscriptionVariables = Exact<{
+  chatId: Scalars['ID'];
+}>;
+
+
+export type MessageDeletedSubscription = (
+  { __typename?: 'Subscription' }
+  & { messageDeleted: (
+    { __typename?: 'Message' }
+    & MessageFragmentFragment
+  ) }
+);
+
+export type GetFeedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFeedQuery = (
+  { __typename?: 'Query' }
+  & { getAllPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'createdAt' | 'textContent' | 'mediaContent'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
+    ), likes?: Maybe<Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )>>, comments?: Maybe<Array<(
+      { __typename?: 'Comment' }
+      & Pick<Comment, 'id'>
+    )>> }
+  )>>> }
+);
+
+export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFriendFeedQuery = (
+  { __typename?: 'Query' }
+  & { getFriendPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'createdAt' | 'textContent' | 'mediaContent'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
+    ), likes?: Maybe<Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )>>, comments?: Maybe<Array<(
+      { __typename?: 'Comment' }
+      & Pick<Comment, 'id'>
+    )>> }
+  )>>> }
+);
+
 export type GetFriendFeedQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetFriendFeedQuery = { __typename?: 'Query' } & {
@@ -619,6 +688,7 @@ export type GetFriendFeedQuery = { __typename?: 'Query' } & {
     >
   >;
 };
+
 
 export type CreateCommentMutationVariables = Exact<{
   postId: Scalars['ID'];
@@ -753,15 +823,6 @@ export type DeletePostByIdMutation = { __typename?: 'Mutation' } & {
   deletePostById: { __typename?: 'Post' } & Pick<Post, 'id'>;
 };
 
-export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
-  Post,
-  'id' | 'createdAt' | 'textContent' | 'mediaContent'
-> & {
-    author: { __typename?: 'User' } & Pick<
-      User,
-      'id' | 'firstName' | 'lastName' | 'avatar'
-    >;
-  };
 
 export type UpdateAvatarMutationVariables = Exact<{
   avatarId?: Maybe<Scalars['String']>;
@@ -982,7 +1043,7 @@ export const PostFragmentFragmentDoc = gql`
     textContent
     mediaContent
   }
-`;
+
 export const LoginDocument = gql`
   mutation Login($input: LoginInput!) {
     login(input: $input) {
@@ -1922,13 +1983,7 @@ export type NewMessageSubscriptionHookResult = ReturnType<
 >;
 export type NewMessageSubscriptionResult = Apollo.SubscriptionResult<NewMessageSubscription>;
 export const MessageDeletedDocument = gql`
-  subscription MessageDeleted($chatId: ID!) {
-    messageDeleted(chatId: $chatId) {
-      ...MessageFragment
-    }
-  }
-  ${MessageFragmentFragmentDoc}
-`;
+
 
 /**
  * __useMessageDeletedSubscription__
@@ -1946,21 +2001,7 @@ export const MessageDeletedDocument = gql`
  *   },
  * });
  */
-export function useMessageDeletedSubscription(
-  baseOptions: Apollo.SubscriptionHookOptions<
-    MessageDeletedSubscription,
-    MessageDeletedSubscriptionVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSubscription<
-    MessageDeletedSubscription,
-    MessageDeletedSubscriptionVariables
-  >(MessageDeletedDocument, options);
-}
-export type MessageDeletedSubscriptionHookResult = ReturnType<
-  typeof useMessageDeletedSubscription
->;
+
 export type MessageDeletedSubscriptionResult = Apollo.SubscriptionResult<MessageDeletedSubscription>;
 export const GetFeedDocument = gql`
   query GetFeed {
@@ -1976,6 +2017,7 @@ export const GetFeedDocument = gql`
       textContent
       mediaContent
     }
+
   }
 `;
 
@@ -2035,6 +2077,7 @@ export const GetFriendFeedDocument = gql`
       textContent
       mediaContent
     }
+
   }
 `;
 

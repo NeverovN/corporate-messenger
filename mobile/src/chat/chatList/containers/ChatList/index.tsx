@@ -11,9 +11,9 @@ interface IChatsContainerProps {
 }
 
 const ChatsContainer: FC<IChatsContainerProps> = (props) => {
-  const chatsData = useChatList(props.filter || '');
+  const { data, refresh, loading } = useChatList(props.filter || '');
 
-  return <ChatsView data={chatsData} />;
+  return <ChatsView data={data} refresh={refresh} loading={loading} />;
 };
 
 export default memo(ChatsContainer);

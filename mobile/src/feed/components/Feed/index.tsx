@@ -14,6 +14,8 @@ import SearchBar from '@/feed/containers/SearchBar';
 interface IFeedListViewProps {
   data: IPostItem[];
   setFilter(filter: string): void;
+  refresh(): void;
+  loading: boolean;
 }
 
 const renderFeedItem: ListRenderItem<IPostItem> = ({ item }) => {
@@ -37,6 +39,8 @@ const FeedView: FC<IFeedListViewProps> = (props) => {
         ListHeaderComponent={<SearchBar setFilter={props.setFilter} />}
         renderItem={renderFeedItem}
         data={props.data}
+        onRefresh={props.refresh}
+        refreshing={props.loading}
       />
     </View>
   );

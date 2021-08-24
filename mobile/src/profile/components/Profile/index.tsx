@@ -14,6 +14,8 @@ import { IPostItem } from 'feed/types/feed';
 
 interface IProfileViewProps {
   data: Array<IPostItem>;
+  refresh(): void;
+  loading: boolean;
 }
 
 const renderPostItem: ListRenderItem<IPostItem> = ({ item }) => {
@@ -38,6 +40,8 @@ const ProfileView: FC<IProfileViewProps> = (props) => {
         data={props.data}
         renderItem={renderPostItem}
         contentContainerStyle={styles.flatListStyle}
+        onRefresh={props.refresh}
+        refreshing={props.loading}
       />
     </View>
   );

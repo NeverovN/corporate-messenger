@@ -13,6 +13,8 @@ import ThirdPartyTile from 'profile/containers/ThirdPartyTile';
 
 interface IThirdPartyUserViewProps {
   data: IPostItem[];
+  refresh(): void;
+  loading: boolean;
 }
 
 const renderPostItem: ListRenderItem<IPostItem> = ({ item }) => {
@@ -36,6 +38,8 @@ const ThirdPartyUserView: FC<IThirdPartyUserViewProps> = (props) => {
         ListHeaderComponent={ThirdPartyTile}
         data={props.data}
         renderItem={renderPostItem}
+        refreshing={props.loading}
+        onRefresh={props.refresh}
       />
     </View>
   );

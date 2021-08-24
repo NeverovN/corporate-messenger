@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo } from 'react';
 
 // components
 import MainTileView from 'profile/components/MainTile';

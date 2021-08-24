@@ -35,6 +35,7 @@ export const useStyles = makeUseStyles(({ palette }) => {
       color: palette.secondary,
     },
     textInputStyle: {
+      flex: 1,
       fontFamily: 'DroidSans',
       fontSize: 15,
       color: palette.secondary,
