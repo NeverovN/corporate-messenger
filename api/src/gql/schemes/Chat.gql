@@ -1,0 +1,86 @@
+type Message {
+  id: ID!
+  content: MessageContent!
+  author: User!
+  chatId: ID!
+  createdAt: String!
+  readBy: [User!]!
+  lastEdit: String
+}
+
+type Chat {
+  id: ID!
+  isDialog: Boolean!
+  title: String!
+  participants: [User]!
+  createdAt: String!
+  logo: String
+  messages: [Message] # pagination will live here (it will become a sub-query)
+  settings: ChatSettings
+}
+
+type MessageContent {
+  text: String
+  media: [String!]
+}
+
+type ChatSettings {
+  testField: String
+}
+
+type Query {
+  getChats: [Chat]
+  getChatById(chatId: ID!): Chat
+  getMessageById(messageId: ID!): Message
+}
+
+type Mutation {
+  updateChatLogo(input: UpdateChatLogoInput!): Chat!
+  clearChatHistory(chatId: ID!): Chat!
+  leaveChat(chatId: ID!): Chat!
+  createChat(input: CreateChatInput!): Chat!
+  createDialog(input: CreateDialogInput!): Chat!
+  createMessage(input: CreateMessageInput!): Message!
+  deleteChatById(chatId: ID!): Chat!
+  deleteMessageById(messageId: ID!): Message!
+  editChatTitle(input: UpdateChatTitle!): Chat!
+  editMessage(messageId: ID!, newContent: String!): Message!
+  markRead(messageId: ID!): Message!
+}
+
+type Subscription {
+  newChat: Chat!
+  chatDeleted: Chat!
+  newMessage(chatId: ID!): Message!
+  messageEdited(chatId: ID!): Message!
+  messageDeleted(chatId: ID!): Message!
+}
+
+input UpdateChatLogoInput {
+  chatId: ID!
+  logoId: String
+}
+
+input CreateMessageInput {
+  content: MessageContentInput!
+  chatId: ID!
+}
+
+input MessageContentInput {
+  text: String!
+  media: [String!]
+}
+
+input CreateChatInput {
+  participants: [ID!]!
+  title: String
+}
+
+input CreateDialogInput {
+  participant: ID!
+}
+
+input UpdateChatTitle {
+  chatId: ID!
+  newTitle: String!
+}

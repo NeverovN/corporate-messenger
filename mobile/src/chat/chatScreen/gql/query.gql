@@ -1,0 +1,88 @@
+fragment MessageFragment on Message {
+  id
+  content {
+    text
+    media
+  }
+  author {
+    id
+    firstName
+    lastName
+  }
+  createdAt
+  lastEdit
+  chatId
+  readBy {
+    id
+  }
+}
+
+query getChatById($chatId: ID!) {
+  getChatById(chatId: $chatId) {
+    ...ChatFragment
+  }
+  getUser {
+    id
+  }
+}
+
+query GetMessageById($messageId: ID!) {
+  getMessageById(messageId: $messageId) {
+    ...MessageFragment
+  }
+}
+
+mutation CreateMessage($input: CreateMessageInput!) {
+  createMessage(input: $input) {
+    ...MessageFragment
+  }
+}
+
+mutation DeleteMessage($messageId: ID!) {
+  deleteMessageById(messageId: $messageId) {
+    ...MessageFragment
+  }
+}
+
+mutation EditMessage($messageId: ID!, $newContent: String!) {
+  editMessage(messageId: $messageId, newContent: $newContent) {
+    ...MessageFragment
+  }
+}
+
+mutation EditTitle($input: UpdateChatTitle!) {
+  editChatTitle(input: $input) {
+    id
+    title
+  }
+}
+
+mutation UpdateChatLogo($input: UpdateChatLogoInput!) {
+  updateChatLogo(input: $input) {
+    ...ChatFragment
+  }
+}
+
+mutation ClearHistory($chatId: ID!) {
+  clearChatHistory(chatId: $chatId) {
+    id
+  }
+}
+
+mutation LeaveChat($chatId: ID!) {
+  leaveChat(chatId: $chatId) {
+    id
+  }
+}
+
+subscription NewMessage($chatId: ID!) {
+  newMessage(chatId: $chatId) {
+    ...MessageFragment
+  }
+}
+
+subscription MessageDeleted($chatId: ID!) {
+  messageDeleted(chatId: $chatId) {
+    ...MessageFragment
+  }
+}

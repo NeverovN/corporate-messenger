@@ -1,0 +1,83 @@
+fragment PostFragment on Post {
+  id
+  createdAt
+  author {
+    id
+    firstName
+    lastName
+    avatar
+  }
+  textContent
+  mediaContent
+  likes {
+    id
+  }
+  comments {
+    id
+  }
+}
+
+mutation UpdateAvatar($avatarId: String) {
+  updateAvatar(avatarId: $avatarId) {
+    ...UserFragment
+  }
+}
+
+mutation CreatePost($textContent: String, $mediaContent: [String!]) {
+  createPost(textContent: $textContent, mediaContent: $mediaContent) {
+    ...PostFragment
+  }
+}
+
+mutation CreateDialog($input: CreateDialogInput!) {
+  createDialog(input: $input) {
+    ...ChatFragment
+  }
+}
+
+subscription NewPost {
+  newPost {
+    ...PostFragment
+  }
+}
+
+query GetPosts($author: ID) {
+  getPosts(author: $author) {
+    ...PostFragment
+  }
+}
+
+query GetUser($id: ID) {
+  getUser(id: $id) {
+    ...UserFragment
+  }
+}
+
+query GetUserByID($id: ID!) {
+  getUserById(id: $id) {
+    firstName
+    lastName
+    id
+  }
+}
+
+query GetUsers($ids: [ID!]) {
+  getUsers(ids: $ids) {
+    id
+    firstName
+    lastName
+    avatar
+  }
+}
+
+mutation AddFriend($friendId: ID!) {
+  addFriend(friendId: $friendId) {
+    ...UserFragment
+  }
+}
+
+mutation RemoveFriend($friendId: ID!) {
+  removeFriend(friendId: $friendId) {
+    ...UserFragment
+  }
+}

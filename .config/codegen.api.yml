@@ -1,0 +1,17 @@
+overwrite: true
+schema: "api/src/**/*.gql"
+generates:
+  api/src/types/gql.generated.ts:
+    config:
+      configType: ./apollo#ApolloContextType
+      mappers:
+        User: ../models/User/index#UserEntity
+        Post: ../models/Post/index#PostEntity
+        Chat: ../models/Chat/index#ChatEntity
+        Message: ../models/Message/index#MessageEntity
+        Comment: ../models/Comment/index#CommentEntity
+        Theme: ../models/Theme/#index#ThemeEntity
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+      - "typescript-document-nodes"

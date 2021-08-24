@@ -1,0 +1,76 @@
+query GetChats {
+  getChats {
+    ...ChatFragment
+  }
+  getUser {
+    id
+  }
+}
+
+mutation CreateChat($input: CreateChatInput!) {
+  createChat(input: $input) {
+    ...ChatFragment
+  }
+}
+
+mutation DeleteChatById($chatId: ID!) {
+  deleteChatById(chatId: $chatId) {
+    ...ChatFragment
+  }
+}
+
+mutation markRead($messageId: ID!) {
+  markRead(messageId: $messageId) {
+    ...MessageFragment
+  }
+}
+
+subscription NewChat {
+  newChat {
+    ...ChatFragment
+  }
+}
+
+subscription MessageEdited($chatId: ID!) {
+  messageEdited(chatId: $chatId) {
+    ...MessageFragment
+  }
+}
+
+subscription ChatDeleted {
+  chatDeleted {
+    ...ChatFragment
+  }
+}
+
+fragment ChatFragment on Chat {
+  id
+  participants {
+    id
+    firstName
+    lastName
+    avatar
+  }
+  createdAt
+  isDialog
+  title
+  logo
+  messages {
+    id
+    content {
+      text
+      media
+    }
+    author {
+      id
+      firstName
+      lastName
+    }
+    createdAt
+    chatId
+    lastEdit
+    readBy {
+      id
+    }
+  }
+}

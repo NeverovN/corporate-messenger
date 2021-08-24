@@ -1,0 +1,48 @@
+type Query {
+  getPosts(author: ID): [Post]
+  getPost(id: ID!): Post
+  getAllPosts: [Post]
+  getFriendPosts: [Post]
+  getComment(id: ID!): Comment
+  getUsersPosts: [Post]
+}
+
+type Subscription {
+  newPost: Post!
+}
+
+type Subscription {
+  newPost: Post!
+}
+
+type Mutation {
+  createPost(textContent: String, mediaContent: [String!]): Post!
+  editPost(postId: ID!, textContent: String, mediaContent: [String!]): Post!
+  deletePostById(postId: ID!): Post!
+  toggleLike(id: ID!): Post!
+  createComment(postId: ID!, content: String!): Comment!
+  likeComment(commentId: ID!): Comment!
+  editComment(commentId: ID!, textContent: String!): Comment!
+  deleteCommentById(id: ID!): Comment!
+}
+
+type Post {
+  id: ID!
+  author: User!
+  createdAt: String!
+  lastEdit: String
+  textContent: String
+  mediaContent: [String!]
+  likes: [User!]
+  comments: [Comment!]
+}
+
+type Comment {
+  id: ID!
+  postId: ID!
+  author: User!
+  content: String!
+  createdAt: String!
+  lastEdit: String
+  likes: [User!]
+}

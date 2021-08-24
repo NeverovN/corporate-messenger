@@ -1,0 +1,36 @@
+fragment UserFragment on User {
+  id
+  firstName
+  lastName
+  email
+  avatar
+  theme
+  friends {
+    id
+    firstName
+    lastName
+    email
+    avatar
+    friends {
+      id
+    }
+  }
+}
+
+mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    token
+    user {
+      ...UserFragment
+    }
+  }
+}
+
+mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+    token
+    user {
+      ...UserFragment
+    }
+  }
+}

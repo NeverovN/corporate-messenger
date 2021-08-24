@@ -1,0 +1,33 @@
+import React, { FC, memo } from 'react';
+
+// common components
+import TextButton from '@/common/components/Button/TextButton';
+
+// styles
+import { useStyles } from './styles';
+
+// hooks
+import { useHandleEditNavigation } from 'settings/hooks/useHandleEditNavigation';
+
+// constants
+import Operations from '@/settings/constants/operations';
+
+interface IEditButtonContainerProps {
+  screen: Operations;
+  title: string;
+}
+
+const EditButtonContainer: FC<IEditButtonContainerProps> = (props) => {
+  const navigate = useHandleEditNavigation(props.screen);
+  const styles = useStyles();
+  return (
+    <TextButton
+      containerStyle={styles.editButtonViewStyle}
+      onPress={navigate}
+      label={props.title}
+      labelStyle={styles.labelStyle}
+    />
+  );
+};
+
+export default memo(EditButtonContainer);
