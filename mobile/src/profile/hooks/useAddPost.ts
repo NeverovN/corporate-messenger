@@ -5,7 +5,13 @@ import {
   PostFragmentFragmentDoc,
 } from 'common/types/gql.generated';
 
+import 'firebase';
+
+import { logEvent, getAnalytics } from 'firebase/analytics'
+
 export const useAddPost = () => {
+  const an = getAnalytics();
+  logEvent(an, 'add_post');
   const navigation = useNavigation();
   const [createPost] = useCreatePostMutation({
     update: (cache, { data }) => {
