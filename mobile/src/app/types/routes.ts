@@ -15,6 +15,7 @@ import {
   PROFILE_STACK_NAME,
   POST_SCREEN_NAME,
   EDIT_COMMENT_SCREEN,
+  STORYBOOK_SCREEN_NAME,
 } from 'app/constants/routes';
 
 import { RootStackParamList as FeedStackParamList } from 'feed/types/routes';
@@ -69,6 +70,7 @@ export type BottomTabParamList = {
   [FEED_STACK_NAME]: NavigatorScreenParams<FeedStackParamList>;
   [CHAT_LIST_STACK_NAME]: undefined;
   [PROFILE_STACK_NAME]: NavigatorScreenParams<ProfileStackParamList>;
+  [STORYBOOK_SCREEN_NAME]: undefined;
 };
 
 export type ProfileStackNavigationProp = StackNavigationProp<

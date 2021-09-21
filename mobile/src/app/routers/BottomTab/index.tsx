@@ -9,6 +9,7 @@ import {
   FEED_STACK_NAME,
   CHAT_LIST_STACK_NAME,
   PROFILE_STACK_NAME,
+  STORYBOOK_SCREEN_NAME,
 } from '@/app/constants/routes';
 import { useStyles } from './styles';
 
@@ -16,6 +17,9 @@ import { useStyles } from './styles';
 import FeedRouter from 'feed/routers/Main';
 import ChatRouter from 'chat/chatList/routers/Main';
 import ProfileRouter from 'profile/routers/Main';
+
+// storybook
+import Storybook from '../../../../storybook/index';
 
 // label
 import TabText from 'common/components/BottomTabText';
@@ -41,6 +45,15 @@ const AppRouter = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabText text={'FEED'} focused={focused} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name={STORYBOOK_SCREEN_NAME}
+        component={Storybook}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabText text={'STORYBOOK'} focused={focused} />
           ),
         }}
       />
