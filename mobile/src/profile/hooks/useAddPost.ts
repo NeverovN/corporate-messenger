@@ -5,13 +5,11 @@ import {
   PostFragmentFragmentDoc,
 } from 'common/types/gql.generated';
 
-import 'firebase';
+import analytics from '@react-native-firebase/analytics';
 
-import { logEvent, getAnalytics } from 'firebase/analytics'
+analytics().setAnalyticsCollectionEnabled(true);
 
 export const useAddPost = () => {
-  const an = getAnalytics();
-  logEvent(an, 'add_post');
   const navigation = useNavigation();
   const [createPost] = useCreatePostMutation({
     update: (cache, { data }) => {
@@ -44,6 +42,14 @@ export const useAddPost = () => {
           mediaContent: post.mediaContent,
         },
       });
+      console.log('before');
+
+      await analytics().logEvent('add_post', {
+        text: post.textContent,
+      });
+
+      console.log('after');
+
       navigation.goBack();
     } catch (err) {
       console.log(err);
