@@ -1,11 +1,13 @@
 import { useToggleLikeMutation } from '@/common/types/gql.generated';
 
-import analytics from '@react-native-firebase/analytics';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 export const useOnLikePressed = (postId: string) => {
   const [toggleLike] = useToggleLikeMutation();
   return () => {
     toggleLike({ variables: { id: postId } });
-    analytics().logEvent('like_pressed');
+    crashlytics()
+      .setCrashlyticsCollectionEnabled(true)
+      .then(() => crashlytics().crash());
   };
 };

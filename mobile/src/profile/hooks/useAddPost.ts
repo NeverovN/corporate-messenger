@@ -5,10 +5,6 @@ import {
   PostFragmentFragmentDoc,
 } from 'common/types/gql.generated';
 
-import analytics from '@react-native-firebase/analytics';
-
-analytics().setAnalyticsCollectionEnabled(true);
-
 export const useAddPost = () => {
   const navigation = useNavigation();
   const [createPost] = useCreatePostMutation({
@@ -43,10 +39,6 @@ export const useAddPost = () => {
         },
       });
       console.log('before');
-
-      await analytics().logEvent('add_post', {
-        text: post.textContent,
-      });
 
       console.log('after');
 
